@@ -32,6 +32,14 @@ public:
     // Stop sound
     void StopAllSounds();
 
+    // Exposed map for sound effects
+    UPROPERTY(EditAnywhere, Category = "Audio")
+    TMap<FString, USoundBase*> SoundEffectsMap;
+
+    // Exposed map for music
+    UPROPERTY(EditAnywhere, Category = "Audio")
+    TMap<FString, USoundBase*> MusicMap;
+
 private:
     // Singleton
     static UMyAudioManager* Instance;
