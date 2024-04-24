@@ -46,9 +46,21 @@ protected:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 	bool AreaOfEffect;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+	float AOEDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+	float AOERadius;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
 	bool DamageOverTime;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+	float DOTDamage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Damage")
+	float DOTDuration;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Capacity")
 	int MaxAmmoCapacity;

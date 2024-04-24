@@ -21,7 +21,11 @@ USlingshotAmmoBaseClass::USlingshotAmmoBaseClass()
 
 	Damage = 0;
 	AreaOfEffect = false;
+	AOEDamage = 0;
+	AOERadius = 0;
 	DamageOverTime = false;
+	DOTDamage = 0;
+	DOTDuration = 0;
 	MaxAmmoCapacity = false;
 	DropRate = 0;
 	FireRate = 0;
