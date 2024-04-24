@@ -1,9 +1,28 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+
+Copyright: SteveSloth
+
+Name: Aidan
+
+Script: MyEnemy.cpp
+
+Date: April 23. 2024
+
+Description:
+
+TODO:
+
+Known Bugs:
+
+TODO:
+
+Known Bugs:
+****************************************************************************************/
 
 
 #include "MyEnemy.h"
 
-MyEnemy::MyEnemy(float MaxHealth, float CurrentHealth, int Damage, enum MovementState, enum AttackType, enum Level, float MoveSpeed, bool IsDead)
+MyEnemy::MyEnemy()
 {
 	MaxHealth = 0;
 	CurrentHealth = 0;
