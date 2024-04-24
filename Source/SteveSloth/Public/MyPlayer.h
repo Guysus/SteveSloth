@@ -31,22 +31,30 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override; 
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Health")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Health")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float CurrentHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Inventory")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentSlingshotAmmo;
 
-	// empty aray to store abilities unlocked
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Progress")
-	array<String>AbilitiesUnlocked;
+	enum class AmmoTypes 
+	{
+	    Pebble,
+		FireCracker,
+		WaterBalloon,
+		PoisonSac,
+		ChristmasBeetle,
+		BigRock
+	};
 
-	// empty array to store unlocked ammo types
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category "Progress")
-	array<String>UnlockedAmmoTypes;
+	enum class Abilities 
+	{
+	   
+	};
+	
 
 	// Count Levels completed
 	int LevelsCompleted;

@@ -20,7 +20,7 @@ AMyPlayer::AMyPlayer()
 	MaxHealth = 0;
 	CurrentHealth = 0;
 	GrubsCollected = 0;
-	CurentSlingshotAmmo = 0;
+	CurrentSlingshotAmmo = 0;
 	LevelsCompleted = 0;
 	BossesKilled = 0;
 	LeavesFound = 0;
