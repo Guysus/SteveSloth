@@ -14,6 +14,22 @@
 #include "GameFramework/Character.h"
 #include "MyPlayer.generated.h"
 
+
+enum class AmmoTypes
+{
+	Pebble,
+	FireCracker,
+	WaterBalloon,
+	PoisonSac,
+	ChristmasBeetle,
+	BigRock
+};
+
+enum class Abilities
+{
+
+};
+
 UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
@@ -40,21 +56,6 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentSlingshotAmmo;
 
-	enum class AmmoTypes 
-	{
-	    Pebble,
-		FireCracker,
-		WaterBalloon,
-		PoisonSac,
-		ChristmasBeetle,
-		BigRock
-	};
-
-	enum class Abilities 
-	{
-	   
-	};
-	
 
 	// Count Levels completed
 	int LevelsCompleted;
