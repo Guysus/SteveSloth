@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+ * Copyright:
+ * Name: Guy Lapensee
+ * Script: ItemBaseClass
+ * Date: April 23, 2024
+ * Description:Base Class for Items
+ * TODO: 
+ * Known Bugs: 
+ ****************************************************************************************/
 
 #pragma once
 

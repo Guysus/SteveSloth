@@ -3,12 +3,9 @@
  * Name: Guy Lapensee
  * Script: ItemBaseClass
  * Date: April 23, 2024
- * Description: 
- * 
-				Explain what is in this script and what it is used for
- *              yes you can use multiple lines for more information.
- * TODO: write comments here
- * Known Bugs: anything needs to be fixed
+ * Description: Base Class for Items
+ * TODO: 
+ * Known Bugs: 
  ****************************************************************************************/
 
 
