@@ -1,27 +1,26 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+/****************************************************************************************
+* Copyright: SteveSloth
+ * Name: Jeff Moreau
+ * Script: MyLevelManager.cpp
+ * Date: April 24. 2024
+ * Description: This is where we can manage all levels and get information for levels
+ * TODO: 
+ * Known Bugs: 
+ ****************************************************************************************/
 
 #include "MyLevelManager.h"
 
-// Sets default values
 AMyLevelManager::AMyLevelManager()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
 }
 
-// Called when the game starts or when spawned
 void AMyLevelManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
-// Called every frame
 void AMyLevelManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
-

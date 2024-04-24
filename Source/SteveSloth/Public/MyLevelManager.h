@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+* Copyright: SteveSloth
+ * Name: Jeff Moreau
+ * Script: MyLevelManager.h
+ * Date: April 24. 2024
+ * Description: This is where we can manage all levels and get information for levels
+ * TODO: 
+ * Known Bugs: 
+ ****************************************************************************************/
 
 #pragma once
 
@@ -12,15 +20,11 @@ class STEVESLOTH_API AMyLevelManager : public AActor
 	GENERATED_BODY()
 	
 public:	
-	// Sets default values for this actor's properties
 	AMyLevelManager();
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
 };
