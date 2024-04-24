@@ -15,16 +15,16 @@ class STEVESLOTH_API UMyAudioManager : public UGameInstance
 public:
     UMyAudioManager();
 
-    // Singleton pattern
+    // Singleton
     static UMyAudioManager* GetInstance();
 
-    // Play a sound
+    // Play sound
     void PlaySound(USoundBase* Sound, FVector Location = FVector::ZeroVector, float VolumeMultiplier = 1.f, float PitchMultiplier = 1.f);
 
-    // Stop all sounds
+    // Stop sound
     void StopAllSounds();
 
 private:
-    // Singleton instance
+    // Singleton
     static UMyAudioManager* Instance;
 };
