@@ -14,25 +14,6 @@
 #include "GameFramework/Actor.h"
 #include "ItemBaseClass.generated.h"
 
-//All of the different ammo types in an enum
-enum AmmoType
-{
-	Pebble,
-	Firecracker,
-	WaterBalloon,
-	PoisonSac,
-	ChristmasBeetle,
-	BigRock
-};
-
-//Different types of health the player can pick up
-enum HealthType
-{
-	RedFlower,
-	BlueFlower,
-	GreenFlower
-};
-
 UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
 {
@@ -50,21 +31,18 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	//Amount of ammo picked up
-	int AmmoAmount;
-	//Chance of what kind of ammo is going to drop
-	float ChanceOfAmmo;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	//Store all the item names
+	FString ItemName;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Currency")
-	//Amount of grubs picked up
-	int Grubs;
-	//Amount of eucalyptus picked up
-	int Eucalyptus;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	int StackAmount;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Health Type")
-	//Counts amount of health to add
-	int FlowerBud;
-	//Chance in percentage of what kind of health drop
-	float ChanceOfHealth;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	bool isItemUnlocked;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	float DropChance;
+
+	
 };
