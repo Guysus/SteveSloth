@@ -41,7 +41,7 @@ public: // SINGLETON STUFF
 	
 public: // DETAILS PANEL VARIABLES
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<ALevelScriptActor*> GameLevels;
+	TArray<FString> GameLevels;
 
 private: // PRIVATE VARIABLES
 	int TotalLevels;

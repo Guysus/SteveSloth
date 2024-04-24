@@ -32,16 +32,16 @@ AMyLevelManager* AMyLevelManager::GetInstance()
 AMyLevelManager::AMyLevelManager()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	InitializeVariables();
+	//InitializeVariables();
 }
 
 void AMyLevelManager::InitializeVariables()
 {
-	//TotalLevels = GameLevels.Num();
+	TotalLevels = GameLevels.Num();
 
-	/*FString levelName = GetWorld()->GetMapName();
+	FString levelName = GetWorld()->GetMapName();
 	levelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
-	CurrentLevelName = levelName;*/
+	CurrentLevelName = levelName;
 }
 
 void AMyLevelManager::BeginPlay()
@@ -56,13 +56,10 @@ void AMyLevelManager::Tick(float DeltaTime)
 
 void AMyLevelManager::ChangeLevel(ELevels level)
 {
-	/*if (level == Hub)
+	for (int i = 0; i < GameLevels.Num(); i++)
 	{
-		CurrentLevelName = "Hub";
+		if (level == i)
+		UGameplayStatics::OpenLevel(GetWorld(), FName(GameLevels[i]));
+		break;
 	}
-	else if (level == LevelOne)
-	{
-		CurrentLevelName = "LevelOne";
-	}
-	UGameplayStatics::OpenLevel(GetWorld(), FName(CurrentLevelName));*/
 }
