@@ -6,8 +6,6 @@ Date: April 23. 2024
 Description: This is the base class for all Enemies.
 TODO:
 Known Bugs:
-TODO:
-Known Bugs:
 ****************************************************************************************/
 
 #pragma once
@@ -31,9 +29,11 @@ public:
 	float CurrentHealth;
 	int Damage;
 
+protected:
 	float MoveSpeed;
 	bool IsDead;
 
+public:
 	MyEnemy();
 	~MyEnemy();
 
