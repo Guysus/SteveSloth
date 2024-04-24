@@ -28,11 +28,14 @@ public:
 	UFUNCTION(BlueprintCallable)
 	static UMyGameManager* GetInstance();
 // SINGLETON END
-
+	
+private:
+	//ELevels CurrentLevel;
+	
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<ALevelInstance*> GameLevels;
-	
+
 public:
 	UMyGameManager();
 

@@ -36,5 +36,5 @@ UMyGameManager::UMyGameManager()
 
 void UMyGameManager::InitializeVariables()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Gas Pedal Was Pushed"));
+	
 }
