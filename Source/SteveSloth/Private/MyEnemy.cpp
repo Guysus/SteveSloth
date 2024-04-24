@@ -8,7 +8,7 @@ Script: MyEnemy.cpp
 
 Date: April 23. 2024
 
-Description:
+Description: This is the base class for all Enemies.
 
 TODO:
 
