@@ -11,15 +11,47 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
 #include "MyLevelManager.generated.h"
+
+class ALevelInstance;
+
+enum ELevels
+{
+	Hub,
+	LevelOne,
+	LevelTwo,
+	LevelThree,
+	LevelFour,
+	LevelFive
+};
 
 UCLASS()
 class STEVESLOTH_API AMyLevelManager : public AActor
 {
 	GENERATED_BODY()
+
+public: // SINGLETON STUFF
+	static AMyLevelManager* pInstance;
+	AMyLevelManager* Instance();
+
+	UFUNCTION(BlueprintCallable)
+	static AMyLevelManager* GetInstance();
 	
-public:	
+public: // DETAILS PANEL VARIABLES
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TArray<ALevelScriptActor*> GameLevels;
+
+private: // PRIVATE VARIABLES
+	int TotalLevels;
+	FString CurrentLevelName;
+	
+public: // GETTERS/ACCESSORS
+	int GetTotalLevels() const { return TotalLevels; }
+	FString GetCurrentLevelName() { return CurrentLevelName; }
+	
+public: // CONSTRUCTORS / DESTRUCTOR
 	AMyLevelManager();
 
 protected:
@@ -27,4 +59,8 @@ protected:
 
 public:	
 	virtual void Tick(float DeltaTime) override;
+	void ChangeLevel(ELevels level);
+	
+private: // INTERNAL FUNCTIONS
+	void InitializeVariables();
 };
