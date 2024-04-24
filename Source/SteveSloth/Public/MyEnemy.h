@@ -24,12 +24,12 @@ enum Level {One, Two, Three, Four, Five};
 
 class STEVESLOTH_API MyEnemy
 {
-public:
+protected:
 	float MaxHealth;
 	float CurrentHealth;
 	int Damage;
 
-protected:
+
 	float MoveSpeed;
 	bool IsDead;
 
