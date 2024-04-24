@@ -1,5 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+/****************************************************************************************
+* Copyright: SteveSloth
+ * Name: Ken Ferris
+ * Script: MyAudioManager.cpp
+ * Date: April 24. 2024
+ * Description: This is the Audio Manager class
+ * TODO:
+ * Known Bugs:
+ ****************************************************************************************/
 
 #include "MyAudioManager.h"
 #include "Kismet/GameplayStatics.h"

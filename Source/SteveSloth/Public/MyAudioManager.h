@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+* Copyright: SteveSloth
+ * Name: Ken Ferris
+ * Script: MyAudioManager.h
+ * Date: April 24. 2024
+ * Description: This is the Audio Manager class
+ * TODO:
+ * Known Bugs:
+ ****************************************************************************************/
 
 #pragma once
 
