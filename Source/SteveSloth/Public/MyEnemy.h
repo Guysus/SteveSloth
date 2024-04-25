@@ -1,3 +1,4 @@
+/*
 /****************************************************************************************
 Copyright: SteveSloth
 Name: Aidan
@@ -6,7 +7,7 @@ Date: April 23. 2024
 Description: This is the base class for all Enemies.
 TODO:
 Known Bugs:
-****************************************************************************************/
+***************************************************************************************#1#
 
 #pragma once
 
@@ -16,7 +17,7 @@ Known Bugs:
 
 /**
  * 
- */
+ #1#
 
 enum MovementState {Idle, Patrolling, Chasing, Fleeing, Walking};
 enum AttackType {Melee, Ranged};
@@ -39,3 +40,4 @@ public:
 
 
 };
+*/
