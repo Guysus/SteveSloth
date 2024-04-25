@@ -39,5 +39,20 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (APlayerController* playerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer()))
+		{
+			subsystem->ClearAllMappings();
+			subsystem->AddMappingContext(InputMapping, 0);
+		}
+	}
+
+	if (UEnhancedInputComponent* inputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		inputComponent->BindAction(pGasPedal, ETriggerEvent::Triggered, this, &AMyPlayerCarPawn::GasPedal);
+		inputComponent->BindAction(pGasPedal, ETriggerEvent::Completed, this, &AMyPlayerCarPawn::GasPedal);
+	}
+       
 }
 

@@ -11,6 +11,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
 #include "MyPlayer.generated.h"
 
@@ -47,7 +48,20 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentSlingshotAmmo;
 
+protected:
+	UPROPERTY(EditAnywhere, Category = "Input|IMC")
+	UInputMappingContext* InputMapping;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* ForwardBack;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* Turn;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* Jumping;
 	
+private:
 	int LevelsCompleted;
 	int BossesKilled;
 	int LeavesFound;
