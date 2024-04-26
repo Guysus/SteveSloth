@@ -18,8 +18,6 @@ AMyPlayer::AMyPlayer()
 	CurrentHealth = 0;
 	GrubsCollected = 0;
 	CurrentSlingshotAmmo = 0;
-	LevelsCompleted = 0;
-	BossesKilled = 0;
 	LeavesFound = 0;
 }
 
@@ -39,20 +37,37 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	if (APlayerController* playerController = Cast<APlayerController>(GetController()))
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
 	{
-		if (UEnhancedInputLocalPlayerSubsystem* subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(playerController->GetLocalPlayer()))
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
-			subsystem->ClearAllMappings();
-			subsystem->AddMappingContext(InputMapping, 0);
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(InputMapping, 0);
 		}
 	}
 
 	if (UEnhancedInputComponent* inputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		inputComponent->BindAction(pGasPedal, ETriggerEvent::Triggered, this, &AMyPlayerCarPawn::GasPedal);
-		inputComponent->BindAction(pGasPedal, ETriggerEvent::Completed, this, &AMyPlayerCarPawn::GasPedal);
+		inputComponent->BindAction(ForwardBack, ETriggerEvent::Triggered, this, &AMyPlayer::MoveForwardBack);
+		inputComponent->BindAction(ForwardBack, ETriggerEvent::Completed, this, &AMyPlayer::MoveForwardBack);
+
+		inputComponent->BindAction(Turn, ETriggerEvent::Triggered, this, &AMyPlayer::TurnLeftRight);
+		inputComponent->BindAction(Turn, ETriggerEvent::Completed, this, &AMyPlayer::TurnLeftRight);
 	}
-       
 }
 
+void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
+{
+	float const Direction = Value.Get<float>();
+	FVector const Forward = GetActorForwardVector();
+	AddMovementInput(Forward, Direction);
+}
+
+void AMyPlayer::TurnLeftRight(const FInputActionValue& Value)
+{
+	float const TurnDirection = Value.Get<float>();
+	FRotator const Rotation = Controller->GetControlRotation();
+	FRotator const RotationAxis(0, Rotation.Yaw, 0);
+	FVector const Turning = FRotationMatrix(RotationAxis).GetUnitAxis(EAxis::Y);
+	AddMovementInput(Turning, TurnDirection);
+}
