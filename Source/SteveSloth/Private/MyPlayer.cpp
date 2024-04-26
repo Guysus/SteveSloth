@@ -65,7 +65,7 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
-	// Will Move left and right but also tuen to fave that direction as well
+	// Will Move left and right but also turn to face that direction as well
 	float const TurnDirection = Value.Get<float>();
 	FRotator const Rotation = Controller->GetControlRotation();
 	FRotator const RotationAxis(0, Rotation.Yaw, 0);
