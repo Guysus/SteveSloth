@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy Boisvert
+ * Name: Tammy Boisvert edited by Jeff
  * Script: MyPlayer.h
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -11,11 +11,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "EnhancedInputComponent.h"
+#include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
 #include "MyPlayer.generated.h"
 
-
-enum class AmmoTypes
+enum class EAmmoTypes
 {
 	Pebble,
 	FireCracker,
@@ -25,28 +26,12 @@ enum class AmmoTypes
 	BigRock
 };
 
-enum class Abilities
-{
-
-};
-
 UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
-
+	
 public:
-	// Sets default values for this character's properties
-	AMyPlayer();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override; 
-
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
 
@@ -56,18 +41,33 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int CurrentSlingshotAmmo;
 
+	UPROPERTY(EditAnywhere, Category = "Input|IMC")
+	UInputMappingContext* PInputMapping;
 
-	// Count Levels completed
-	int LevelsCompleted;
-	//Count Bosses Killed
-	int BossesKilled;
-	//Count Leaves Found
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PForwardBack;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PTurn;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PJumping;
+	
+private:
 	int LeavesFound;
-	//Count Grubs Collected
     int GrubsCollected;
+	
+public:
+	AMyPlayer();
 
-
-	// Called to bind functionality to input
+protected:
+	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:	
+	virtual void Tick(float DeltaTime) override; 
+
+private:
+	void MoveForwardBack(const FInputActionValue& Value);
+	void MoveLeftRight(const FInputActionValue& Value);
 };
