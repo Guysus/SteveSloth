@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy Boisvert
+ * Name: Tammy Boisvert edited by Jeff
  * Script: MyPlayer.cpp
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -10,41 +10,65 @@
 
 #include "MyPlayer.h"
 
-// Sets default values
 AMyPlayer::AMyPlayer()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	//Setting Default Values:
+	
 	MaxHealth = 0;
 	CurrentHealth = 0;
 	GrubsCollected = 0;
 	CurrentSlingshotAmmo = 0;
-	LevelsCompleted = 0;
-	BossesKilled = 0;
 	LeavesFound = 0;
-
 }
 
-// Called when the game starts or when spawned
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
 }
 
-// Called to bind functionality to input
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+	if (APlayerController* PlayerController = Cast<APlayerController>(GetController()))
+	{
+		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
+		{
+			Subsystem->ClearAllMappings();
+			Subsystem->AddMappingContext(PInputMapping, 0);
+		}
+	}
+
+	if (UEnhancedInputComponent* inputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
+	{
+		inputComponent->BindAction(PForwardBack, ETriggerEvent::Triggered, this, &AMyPlayer::MoveForwardBack);
+		inputComponent->BindAction(PForwardBack, ETriggerEvent::Completed, this, &AMyPlayer::MoveForwardBack);
+
+		inputComponent->BindAction(PTurn, ETriggerEvent::Triggered, this, &AMyPlayer::MoveLeftRight);
+		inputComponent->BindAction(PTurn, ETriggerEvent::Completed, this, &AMyPlayer::MoveLeftRight);
+	}
 }
 
+void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
+{
+	float const Direction = Value.Get<float>();
+	FVector const Forward = GetActorForwardVector();
+	AddMovementInput(Forward, Direction);
+}
+
+void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
+{
+	// Will Move left and right but also turn to face that direction as well
+	float const TurnDirection = Value.Get<float>();
+	FRotator const Rotation = Controller->GetControlRotation();
+	FRotator const RotationAxis(0, Rotation.Yaw, 0);
+	FVector const Turning = FRotationMatrix(RotationAxis).GetUnitAxis(EAxis::Y);
+	AddMovementInput(Turning, TurnDirection);
+}
