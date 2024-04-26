@@ -42,17 +42,17 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->ClearAllMappings();
-			Subsystem->AddMappingContext(InputMapping, 0);
+			Subsystem->AddMappingContext(PInputMapping, 0);
 		}
 	}
 
 	if (UEnhancedInputComponent* inputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
-		inputComponent->BindAction(ForwardBack, ETriggerEvent::Triggered, this, &AMyPlayer::MoveForwardBack);
-		inputComponent->BindAction(ForwardBack, ETriggerEvent::Completed, this, &AMyPlayer::MoveForwardBack);
+		inputComponent->BindAction(PForwardBack, ETriggerEvent::Triggered, this, &AMyPlayer::MoveForwardBack);
+		inputComponent->BindAction(PForwardBack, ETriggerEvent::Completed, this, &AMyPlayer::MoveForwardBack);
 
-		inputComponent->BindAction(Turn, ETriggerEvent::Triggered, this, &AMyPlayer::TurnLeftRight);
-		inputComponent->BindAction(Turn, ETriggerEvent::Completed, this, &AMyPlayer::TurnLeftRight);
+		inputComponent->BindAction(PTurn, ETriggerEvent::Triggered, this, &AMyPlayer::MoveLeftRight);
+		inputComponent->BindAction(PTurn, ETriggerEvent::Completed, this, &AMyPlayer::MoveLeftRight);
 	}
 }
 
@@ -63,8 +63,9 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	AddMovementInput(Forward, Direction);
 }
 
-void AMyPlayer::TurnLeftRight(const FInputActionValue& Value)
+void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
+	// Will Move left and right but also tuen to fave that direction as well
 	float const TurnDirection = Value.Get<float>();
 	FRotator const Rotation = Controller->GetControlRotation();
 	FRotator const RotationAxis(0, Rotation.Yaw, 0);

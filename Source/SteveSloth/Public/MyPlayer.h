@@ -42,16 +42,16 @@ public:
 	int CurrentSlingshotAmmo;
 
 	UPROPERTY(EditAnywhere, Category = "Input|IMC")
-	UInputMappingContext* InputMapping;
+	UInputMappingContext* PInputMapping;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* ForwardBack;
+	UInputAction* PForwardBack;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* Turn;
+	UInputAction* PTurn;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* Jumping;
+	UInputAction* PJumping;
 	
 private:
 	int LeavesFound;
@@ -69,5 +69,5 @@ public:
 
 private:
 	void MoveForwardBack(const FInputActionValue& Value);
-	void TurnLeftRight(const FInputActionValue& Value);
+	void MoveLeftRight(const FInputActionValue& Value);
 };
