@@ -64,19 +64,19 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	float const Direction = Value.Get<float>();
 	FVector const Forward = GetActorForwardVector();
 	AddMovementInput(Forward, Direction);
+	// Add Animations here with changing of mesh direction
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
-	// Will Move left and right but also turn to face that direction as well
 	float const TurnDirection = Value.Get<float>();
-	FRotator const Rotation = Controller->GetControlRotation();
-	FRotator const RotationAxis(0, Rotation.Yaw, 0);
-	FVector const Turning = FRotationMatrix(RotationAxis).GetUnitAxis(EAxis::Y);
-	AddMovementInput(Turning, TurnDirection);
+	FVector const Sideways = FVector(0,1,0);
+	AddMovementInput(Sideways, TurnDirection);
+	// Add Animations here with changing of mesh direction
 }
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
 	Jump();
+	// Add Animations here
 }
