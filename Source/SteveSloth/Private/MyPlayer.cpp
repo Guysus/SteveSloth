@@ -78,6 +78,5 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
-	float const IsJumping = Value.Get<bool>();
 	Jump();
 }
