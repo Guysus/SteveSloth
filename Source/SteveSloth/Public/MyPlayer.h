@@ -35,12 +35,6 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CurrentHealth;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentSlingshotAmmo;
-
 	UPROPERTY(EditAnywhere, Category = "Input|IMC")
 	UInputMappingContext* PInputMapping;
 
@@ -54,8 +48,13 @@ public:
 	UInputAction* PJumping;
 	
 private:
+	float CurrentHealth;
+	
 	int LeavesFound;
     int GrubsCollected;
+	int CurrentSlingshotAmmo;
+
+	bool IsMoving;
 	
 public:
 	AMyPlayer();

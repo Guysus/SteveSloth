@@ -13,7 +13,8 @@
 AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	
+
+	IsMoving = false;
 	MaxHealth = 0;
 	CurrentHealth = 0;
 	GrubsCollected = 0;
