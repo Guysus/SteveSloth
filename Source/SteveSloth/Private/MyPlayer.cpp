@@ -53,6 +53,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PTurn, ETriggerEvent::Triggered, this, &AMyPlayer::MoveLeftRight);
 		inputComponent->BindAction(PTurn, ETriggerEvent::Completed, this, &AMyPlayer::MoveLeftRight);
+
+		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
+		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 	}
 }
 
@@ -71,4 +74,10 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 	FRotator const RotationAxis(0, Rotation.Yaw, 0);
 	FVector const Turning = FRotationMatrix(RotationAxis).GetUnitAxis(EAxis::Y);
 	AddMovementInput(Turning, TurnDirection);
+}
+
+void AMyPlayer::JumpOne(const FInputActionValue& Value)
+{
+	float const IsJumping = Value.Get<bool>();
+	Jump();
 }

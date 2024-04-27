@@ -70,4 +70,5 @@ public:
 private:
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
+	void JumpOne(const FInputActionValue& Value);
 };
