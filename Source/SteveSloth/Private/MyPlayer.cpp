@@ -17,6 +17,8 @@ AMyPlayer::AMyPlayer()
 	PrimaryActorTick.bCanEverTick = true;
 
 	IsMoving = false;
+	DidDodge = false;
+	
 	MaxHealth = 0;
 	CurrentHealth = 0;
 	GrubsCollected = 0;
@@ -25,6 +27,7 @@ AMyPlayer::AMyPlayer()
 	SprintSpeed = 1200;
 	CrouchSpeed = 300;
 	WalkSpeed = 600;
+	DodgeDistance = -100;
 }
 
 void AMyPlayer::BeginPlay()
@@ -71,6 +74,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::Crouch);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
+		
+		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
+		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
 	}
 }
 
@@ -126,4 +132,18 @@ void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 	// Change Animation
+}
+
+void AMyPlayer::Dodge(const FInputActionValue& Value)
+{
+	if (DidDodge == false)
+	{
+		FVector const Forward = GetActorForwardVector();
+		//AddMovementInput(Forward, DodgeDistance);
+		SetActorLocation(FVector(GetActorLocation().X + DodgeDistance, GetActorLocation().Y,GetActorLocation().Z));
+		// Dodge Animation.
+	}
+	
+	DidDodge = true;
+	// Reset with a timer to be able to activate again
 }

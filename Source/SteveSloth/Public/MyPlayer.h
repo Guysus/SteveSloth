@@ -56,6 +56,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
 	
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PDodge;
+	
 private:
 	float CurrentHealth;
 	
@@ -65,8 +68,10 @@ private:
 	int SprintSpeed;
 	int CrouchSpeed;
 	int WalkSpeed;
+	int DodgeDistance;
 	
 	bool IsMoving;
+	bool DidDodge;
 	
 public:
 	AMyPlayer();
@@ -87,4 +92,5 @@ private:
 	void InteractWith(const FInputActionValue& Value);
 	void Crouch(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
+	void Dodge(const FInputActionValue& Value);
 };
