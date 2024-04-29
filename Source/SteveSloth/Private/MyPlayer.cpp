@@ -10,6 +10,8 @@
 
 #include "MyPlayer.h"
 
+#include "GameFramework/CharacterMovementComponent.h"
+
 AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -20,6 +22,8 @@ AMyPlayer::AMyPlayer()
 	GrubsCollected = 0;
 	CurrentSlingshotAmmo = 0;
 	LeavesFound = 0;
+	SprintSpeed = 1200;
+	WalkSpeed = 600;
 }
 
 void AMyPlayer::BeginPlay()
@@ -57,6 +61,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
+
+		inputComponent->BindAction(PSprint, ETriggerEvent::Triggered, this, &AMyPlayer::Sprint);
+		inputComponent->BindAction(PSprint, ETriggerEvent::Completed, this, &AMyPlayer::SprintStop);
 	}
 }
 
@@ -80,4 +87,17 @@ void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
 	Jump();
 	// Add Animations here
+}
+
+void AMyPlayer::Sprint(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+	// Reduce Stamina while Sprint held down
+	// Change Animation?
+}
+
+void AMyPlayer::SprintStop(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	
 }

@@ -46,6 +46,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PSprint;
 	
 private:
 	float CurrentHealth;
@@ -53,7 +56,9 @@ private:
 	int LeavesFound;
     int GrubsCollected;
 	int CurrentSlingshotAmmo;
-
+	int SprintSpeed;
+	int WalkSpeed;
+	
 	bool IsMoving;
 	
 public:
@@ -70,4 +75,6 @@ private:
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
+	void Sprint(const FInputActionValue& Value);
+	void SprintStop(const FInputActionValue& Value);
 };
