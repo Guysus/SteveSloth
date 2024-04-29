@@ -10,12 +10,16 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
 
+// ENUMS HERE
 enum class EAmmoTypes
 {
 	Pebble,
@@ -31,15 +35,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 	
-public:
+public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float CurrentHealth;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	int CurrentSlingshotAmmo;
 
 	UPROPERTY(EditAnywhere, Category = "Input|IMC")
 	UInputMappingContext* PInputMapping;
@@ -48,26 +46,55 @@ public:
 	UInputAction* PForwardBack;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PTurn;
+	UInputAction* PLeftRight;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PSprint;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PInteract;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PCrouch;
 	
-private:
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PDodge;
+	
+private: // PRIVATE VARIABLES
+	float CurrentHealth;
+	
 	int LeavesFound;
     int GrubsCollected;
+	int CurrentSlingshotAmmo;
+	int SprintSpeed;
+	int CrouchSpeed;
+	int WalkSpeed;
+	int DodgeDistance;
 	
-public:
+	bool IsMoving;
+	bool DidDodge;
+	
+public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
-protected:
+protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:	
+public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override; 
 
-private:
+private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
+	void JumpOne(const FInputActionValue& Value);
+	void Sprint(const FInputActionValue& Value);
+	void SprintStop(const FInputActionValue& Value);
+	void InteractWith(const FInputActionValue& Value);
+	void Crouch(const FInputActionValue& Value);
+	void CrouchStop(const FInputActionValue& Value);
+	void Dodge(const FInputActionValue& Value);
 };
