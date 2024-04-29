@@ -42,7 +42,7 @@ public:
 	UInputAction* PForwardBack;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PTurn;
+	UInputAction* PLeftRight;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
