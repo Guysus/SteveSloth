@@ -9,22 +9,47 @@
  ****************************************************************************************/
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
+
+// ENUMS HERE
+enum EState
+{
+	Idle,
+	Patrol,
+	Chase,
+	Flee,
+	Attack,
+	Dead
+};
 
 UCLASS()
 class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
 
-public:
+private: // PRIVATE VARIABLES
+	EState CurrentState;
+	
+public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
-protected:
+protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
-
-public:	
-	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+
+public:	// UPDATE FUNCTIONS
+	virtual void Tick(float DeltaTime) override;
+	
+private: // PRIVATE INTERNAL FUNCTIONS
+	void IdleState();
+	void PatrolState();
+	void ChaseState();
+	void FleeState();
+	void AttackState();
+	void DeadState();
 };
