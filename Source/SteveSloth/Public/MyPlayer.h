@@ -52,6 +52,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PInteract;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PCrouch;
 	
 private:
 	float CurrentHealth;
@@ -60,6 +63,7 @@ private:
     int GrubsCollected;
 	int CurrentSlingshotAmmo;
 	int SprintSpeed;
+	int CrouchSpeed;
 	int WalkSpeed;
 	
 	bool IsMoving;
@@ -81,4 +85,6 @@ private:
 	void Sprint(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
+	void Crouch(const FInputActionValue& Value);
+	void CrouchStop(const FInputActionValue& Value);
 };

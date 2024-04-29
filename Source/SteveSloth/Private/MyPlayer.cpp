@@ -23,6 +23,7 @@ AMyPlayer::AMyPlayer()
 	CurrentSlingshotAmmo = 0;
 	LeavesFound = 0;
 	SprintSpeed = 1200;
+	CrouchSpeed = 300;
 	WalkSpeed = 600;
 }
 
@@ -67,6 +68,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PInteract, ETriggerEvent::Triggered, this, &AMyPlayer::InteractWith);
 		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractWith);
+
+		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::Crouch);
+		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
 	}
 }
 
@@ -107,6 +111,19 @@ void AMyPlayer::SprintStop(const FInputActionValue& Value)
 
 void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
+	// Play Interact Animation.
 	// Should use Interfaces or Delegates here
 	// Check whether the object we are trying to interact with can be interacted with
+}
+
+void AMyPlayer::Crouch(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
+	// Change Animation
+}
+
+void AMyPlayer::CrouchStop(const FInputActionValue& Value)
+{
+	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+	// Change Animation
 }
