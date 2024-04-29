@@ -22,7 +22,6 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void AMyEnemyBaseClass::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -61,36 +60,42 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 void AMyEnemyBaseClass::IdleState()
 {
+	// Play Idle Animation
 	// Standing Still
 	// Check if player is in chase range
 }
 
 void AMyEnemyBaseClass::PatrolState()
 {
+	//Play Walking Animation
 	// Moving around a controlled pattern or area
 	// Check if Player is in chase range
 }
 
 void AMyEnemyBaseClass::ChaseState()
 {
+	// Play Walking or Running Animation
 	// Chase player
 	// Check if Player is in attack range
 }
 
 void AMyEnemyBaseClass::FleeState()
 {
+	// Play Running Animation
 	// Head back to start location
 	// Check if Player is in chase range
 }
 
 void AMyEnemyBaseClass::AttackState()
 {
+	// Go through Attacks and timers and run animations
 	// attack player
 	// check if player is withing attack range
 }
 
 void AMyEnemyBaseClass::DeadState()
 {
+	// Play Dying Animation
 	// decay over time
 	// drop loot
 }
