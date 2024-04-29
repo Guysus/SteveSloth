@@ -9,21 +9,26 @@
  ****************************************************************************************/
 
 #include "MyPlayer.h"
-
 #include "GameFramework/CharacterMovementComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	// Bools
 	IsMoving = false;
 	DidDodge = false;
-	
+
+	// Health Stuff
 	MaxHealth = 0;
 	CurrentHealth = 0;
+
+	// Collection Stuff
 	GrubsCollected = 0;
 	CurrentSlingshotAmmo = 0;
 	LeavesFound = 0;
+	
+	// Movement Stuff
 	SprintSpeed = 1200;
 	CrouchSpeed = 300;
 	WalkSpeed = 600;

@@ -10,12 +10,16 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/Character.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
 
+// ENUMS HERE
 enum class EAmmoTypes
 {
 	Pebble,
@@ -31,7 +35,7 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 	
-public:
+public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
 
@@ -59,7 +63,7 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 	
-private:
+private: // PRIVATE VARIABLES
 	float CurrentHealth;
 	
 	int LeavesFound;
@@ -73,17 +77,17 @@ private:
 	bool IsMoving;
 	bool DidDodge;
 	
-public:
+public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
-protected:
+protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:	
+public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override; 
 
-private:
+private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
