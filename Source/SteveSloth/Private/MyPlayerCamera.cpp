@@ -13,6 +13,8 @@
 AMyPlayerCamera::AMyPlayerCamera()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	PCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 }
 
 void AMyPlayerCamera::BeginPlay()
