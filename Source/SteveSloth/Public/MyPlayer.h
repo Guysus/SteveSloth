@@ -49,6 +49,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PSprint;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PInteract;
 	
 private:
 	float CurrentHealth;
@@ -77,4 +80,5 @@ private:
 	void JumpOne(const FInputActionValue& Value);
 	void Sprint(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
+	void InteractWith(const FInputActionValue& Value);
 };

@@ -64,6 +64,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSprint, ETriggerEvent::Triggered, this, &AMyPlayer::Sprint);
 		inputComponent->BindAction(PSprint, ETriggerEvent::Completed, this, &AMyPlayer::SprintStop);
+
+		inputComponent->BindAction(PInteract, ETriggerEvent::Triggered, this, &AMyPlayer::InteractWith);
+		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractWith);
 	}
 }
 
@@ -99,5 +102,11 @@ void AMyPlayer::Sprint(const FInputActionValue& Value)
 void AMyPlayer::SprintStop(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
-	
+	// Change Animation
+}
+
+void AMyPlayer::InteractWith(const FInputActionValue& Value)
+{
+	// Should use Interfaces or Delegates here
+	// Check whether the object we are trying to interact with can be interacted with
 }
