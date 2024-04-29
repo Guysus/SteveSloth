@@ -25,6 +25,11 @@ void AMyEnemyBaseClass::BeginPlay()
 
 }
 
+void AMyEnemyBaseClass::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
