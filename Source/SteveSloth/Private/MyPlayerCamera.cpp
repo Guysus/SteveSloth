@@ -10,14 +10,12 @@
 
 #include "MyPlayerCamera.h"
 
-#include "K2Node_SpawnActorFromClass.h"
-#include "Kismet/GameplayStatics.h"
-
 AMyPlayerCamera::AMyPlayerCamera()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	PSpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	PCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
-	
+	PCamera->SetupAttachment(PSpringArm);
 }
 
 void AMyPlayerCamera::BeginPlay()

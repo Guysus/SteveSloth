@@ -13,8 +13,8 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Actor.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayerCamera.generated.h"
@@ -25,6 +25,9 @@ class STEVESLOTH_API AMyPlayerCamera : public AActor
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	USpringArmComponent* PSpringArm;
+	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UCameraComponent* PCamera;
 	
