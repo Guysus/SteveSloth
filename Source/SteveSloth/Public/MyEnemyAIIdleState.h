@@ -1,7 +1,7 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Aidan MacLeod
- * Script: MyEnemyIdleState.h
+ * Script: MyEnemyAIIdleState.h
  * Date: April 29. 2024
  * Description: Idle State Class for all enemies to inherit from
  * TODO:
@@ -11,26 +11,26 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
-#include "MyEnemyAIIdleState.generated.h"
 
 /**
  * 
  */
+
+UCLASS()
 class STEVESLOTH_API MyEnemyAIIdleState
 {
 
-protected:
+private:
 
-	virtual void BeginPlay() override;
+	bool IsIdle;
+	bool HasDetectedPlayer;
 
 public:
-
-	bool IsDetected;
-
-	virtual void Tick(float DeltaTime) override;
-	virtual void DetectPlayer() override;
+	
 	MyEnemyAIIdleState();
 	~MyEnemyAIIdleState();
 	
+private:
+
+	void DetectPlayer();
 };
