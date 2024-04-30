@@ -14,6 +14,7 @@
 #include "CoreMinimal.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Actor.h"
+#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayerCamera.generated.h"
