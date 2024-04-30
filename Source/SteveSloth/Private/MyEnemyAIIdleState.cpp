@@ -10,22 +10,13 @@
 
 #include "MyEnemyAIIdleState.h"
 
-
-
-
-
-MyEnemyAIIdleState::MyEnemyAIIdleState()
+AMyEnemyAIIdleState::AMyEnemyAIIdleState()
 {
 	IsIdle = false;
 	HasDetectedPlayer = false;
 }
 
-MyEnemyAIIdleState::~MyEnemyAIIdleState()
-{
-
-}
-
-void MyEnemyAIIdleState::DetectPlayer()
+void AMyEnemyAIIdleState::DetectPlayer()
 {
 	//Detect Player within certain range
 	//Go into chase or flee state from there

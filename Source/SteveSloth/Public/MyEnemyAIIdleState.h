@@ -11,26 +11,20 @@
 #pragma once
 
 #include "CoreMinimal.h"
-
-/**
- * 
- */
+#include "GameFramework/Character.h"
+#include "MyEnemyAIIdleState.generated.h"
 
 UCLASS()
-class STEVESLOTH_API MyEnemyAIIdleState
+class STEVESLOTH_API AMyEnemyAIIdleState : public ACharacter
 {
-
+	GENERATED_BODY()
 private:
-
 	bool IsIdle;
 	bool HasDetectedPlayer;
 
 public:
-	
-	MyEnemyAIIdleState();
-	~MyEnemyAIIdleState();
+	AMyEnemyAIIdleState();
 	
 private:
-
 	void DetectPlayer();
 };
