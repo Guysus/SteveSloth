@@ -21,10 +21,21 @@ class STEVESLOTH_API AMyEnemyAIIdleState : public ACharacter
 private:
 	bool IsIdle;
 	bool HasDetectedPlayer;
+	float PatrolTime;
+	float DetectionRange;
+	float IdleResetTime;
 
 public:
 	AMyEnemyAIIdleState();
-	
+
+public:
+	virtual void Tick(float DeltaTime);
+
+
 private:
 	void DetectPlayer();
+	void StartPatrol();
+	void ResetToIdle();
+	void BeginChase();
+	void PlayIdleAnimation();
 };

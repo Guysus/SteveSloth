@@ -14,12 +14,44 @@ AMyEnemyAIIdleState::AMyEnemyAIIdleState()
 {
 	IsIdle = false;
 	HasDetectedPlayer = false;
+	PatrolTime = 5.0f;
+	DetectionRange = 1000.0f;
+	IdleResetTime = 5.0f;
+}
+
+void AMyEnemyAIIdleState::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	DetectPlayer();
 }
 
 void AMyEnemyAIIdleState::DetectPlayer()
 {
-	//Detect Player within certain range
-	//Go into chase or flee state from there
+	if (/*condition to be added*/)
+	{
+		IsIdle = false;
+		HasDetectedPlayer = true;
+	}
+}
+
+void AMyEnemyAIIdleState::StartPatrol()
+{
+
+}
+
+void AMyEnemyAIIdleState::ResetToIdle()
+{
+	PlayIdleAnimation();
+}
+
+void AMyEnemyAIIdleState::BeginChase()
+{
+
+}
+
+void AMyEnemyAIIdleState::PlayIdleAnimation()
+{
+
 }
 
 
