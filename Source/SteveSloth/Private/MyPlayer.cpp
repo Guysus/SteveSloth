@@ -82,6 +82,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
+
+		inputComponent->BindAction(PSwim, ETriggerEvent::Triggered, this, &AMyPlayer::Swim);
+		inputComponent->BindAction(PSwim, ETriggerEvent::Completed, this, &AMyPlayer::Swim);
 	}
 }
 
@@ -151,4 +154,12 @@ void AMyPlayer::Dodge(const FInputActionValue& Value)
 	
 	DidDodge = true;
 	// Reset with a timer to be able to activate again
+}
+
+void AMyPlayer::Swim(const FInputActionValue& Value)
+{
+	float const SwimDirection = Value.Get<float>();
+	FVector const SwimDirectionVector = FVector(0, 0, 1);
+	AddMovementInput(SwimDirectionVector, SwimDirection);
+	// Add swimming animation here
 }
