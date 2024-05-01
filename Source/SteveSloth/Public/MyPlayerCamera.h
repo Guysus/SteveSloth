@@ -15,6 +15,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/Actor.h"
+#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayerCamera.generated.h"
@@ -30,6 +31,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	UCameraComponent* PCamera;
+	
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	AMyPlayer* PPlayer;
 	
 public:	// CONSTRUCTOR
 	AMyPlayerCamera();
