@@ -45,7 +45,7 @@ protected: // SETUP FUNCTIONS
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 	
-private: // PRIVATE INTERNAL FUNCTIONS
+protected: // PRIVATE INTERNAL FUNCTIONS
 	void IdleState();
 	void PatrolState();
 	void ChaseState();
