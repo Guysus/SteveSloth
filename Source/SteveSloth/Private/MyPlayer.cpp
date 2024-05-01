@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy Boisvert edited by Jeff
+ * Name: Tammy Boisvert edited by Jeff and Ken
  * Script: MyPlayer.cpp
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
