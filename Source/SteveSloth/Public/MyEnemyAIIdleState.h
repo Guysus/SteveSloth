@@ -12,6 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+//This include goes last
 #include "MyEnemyAIIdleState.generated.h"
 
 UCLASS()
@@ -22,10 +23,11 @@ private:
 	bool IsIdle;
 	bool HasDetectedPlayer;
 	float PatrolTime;
-	float DetectionRange;
 	float IdleResetTime;
+	float DetectionRange;
+	float DistancetoPlayer;
 
-public:
+public: // constructor
 	AMyEnemyAIIdleState();
 
 public:
@@ -38,4 +40,5 @@ private:
 	void ResetToIdle();
 	void BeginChase();
 	void PlayIdleAnimation();
+	void CalculateDistancetoPlayer();
 };
