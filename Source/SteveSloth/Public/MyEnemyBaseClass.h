@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy Jeff Moreau
+ * Name: Tammy, Jeff Moreau, Elad Saretzky 
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -25,6 +25,13 @@ enum EState
 	Flee,
 	Attack,
 	Dead
+};
+
+enum EAttackType
+{
+	Melee,
+	Range,
+	MeleeAndRange
 };
 
 UCLASS()
