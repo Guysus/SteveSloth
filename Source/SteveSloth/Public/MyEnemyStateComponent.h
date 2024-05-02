@@ -13,6 +13,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "MyEnemyBaseState.h"
 #include "MyEnemyStateComponent.generated.h"
 
 
@@ -29,9 +30,16 @@ protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	//more states will go here as new TArrays
+	UPROPERTY (EditAnywhere, Category = "States")
+	TArray<UMyEnemyBaseState*> AttackStates;
+
+	UMyEnemyBaseState* CurrentState;
+
 public:	
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-		
+	void ChangeState(UMyEnemyBaseState* newState);
+
 };
