@@ -11,8 +11,11 @@
 
 #include "MyEnemyAIChasingState.h"
 
+
+
 MyEnemyAIChasingState::MyEnemyAIChasingState()
-{
+{	
+	
 }
 
 MyEnemyAIChasingState::~MyEnemyAIChasingState()

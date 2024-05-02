@@ -21,6 +21,10 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 
 void AMyEnemyBaseClass::BeginPlay()
 {
+	//EnemyLocation = (0, 0, 0);
+   // PlayerLocation = (0, 0, 0);
+	//DistanceToPlayer = 0.0f;
+
 	Super::BeginPlay();
 }
 
@@ -29,9 +33,19 @@ void AMyEnemyBaseClass::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 }
 
+void AMyEnemyBaseClass::GetPlayerDistance() 
+{
+	 EnemyLocation = EnemyCharacter->GetActorLocation();
+	 PlayerLocation = PlayerCharacter->GetActorLocation();
+
+	 DistanceToPlayer = FVector::Distance(EnemyLocation, PlayerLocation);
+}
+
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	void GetPlayerDistance();
 	
 	switch (CurrentState)
 	{

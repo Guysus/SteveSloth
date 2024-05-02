@@ -12,6 +12,7 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
@@ -42,6 +43,8 @@ protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+	void GetPlayerDistance();
+
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 	
@@ -52,4 +55,12 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void FleeState();
 	void AttackState();
 	void DeadState();
+    	
+public:
+	AMyPlayer* PlayerCharacter;
+	AMyEnemyBaseClass* EnemyCharacter;
+	FVector EnemyLocation;
+	FVector PlayerLocation;
+
+	float DistanceToPlayer;
 };
