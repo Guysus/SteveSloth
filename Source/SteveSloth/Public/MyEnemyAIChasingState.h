@@ -18,9 +18,6 @@ class STEVESLOTH_API MyEnemyAIChasingState
 {
 public:
 	MyEnemyAIChasingState();
+	void PlayChasingAnimation();
 	~MyEnemyAIChasingState();
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float ChasingRange;
-	
 };

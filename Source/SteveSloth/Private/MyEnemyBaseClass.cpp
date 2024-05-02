@@ -21,10 +21,6 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 
 void AMyEnemyBaseClass::BeginPlay()
 {
-	//EnemyLocation = (0, 0, 0);
-   // PlayerLocation = (0, 0, 0);
-	//DistanceToPlayer = 0.0f;
-
 	Super::BeginPlay();
 }
 

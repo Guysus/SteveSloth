@@ -63,4 +63,6 @@ public:
 	FVector PlayerLocation;
 
 	float DistanceToPlayer;
+	float ChaseRange;
+	float AttackRange;
 };

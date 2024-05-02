@@ -12,9 +12,29 @@
 #include "MyEnemyAIChasingState.h"
 
 
-
 MyEnemyAIChasingState::MyEnemyAIChasingState()
 {	
+}
+
+void AMyEnemyBaseClass::GetPlayerDistance() 
+{
+	if(DistanceToPlayer <= ChaseRange) 
+	{
+		UCharacterMovementComponent* MovementComponent = EnemyCharacter->GetCharacterMovement();
+		void PlayChasingAnimation();
+	}
+	if (DistanceToPlayer <= AttackRange) 
+	{
+		AttackState();
+	}
+	if (DistanceToPlayer > ChaseRange) 
+	{
+		PatrolState();
+	}
+}
+
+void MyEnemyAIChasingState::PlayChasingAnimation() 
+{
 	
 }
 
