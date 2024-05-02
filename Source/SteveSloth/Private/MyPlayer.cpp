@@ -33,18 +33,19 @@ AMyPlayer::AMyPlayer()
 	CrouchSpeed = 300;
 	WalkSpeed = 600;
 	DodgeDistance = -100;
+
+	// IMC Inputs
+	IMCInputs = Normal;
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -56,7 +57,19 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
 			Subsystem->ClearAllMappings();
-			Subsystem->AddMappingContext(PInputMapping, 0);
+			
+			switch (IMCInputs)
+			{
+			case Normal:
+				Subsystem->AddMappingContext(PMainInputMapping, 0);
+				break;
+			case Water:
+				Subsystem->AddMappingContext(PWaterInputMapping, 0);
+				break;
+			case Aiming:
+				Subsystem->AddMappingContext(PAimingInputMapping, 0);
+				break;
+			}
 		}
 	}
 
