@@ -14,8 +14,7 @@ AMyEnemyAIIdleState::AMyEnemyAIIdleState()
 {
 	IsIdle = false;
 	HasDetectedPlayer = false;
-	PatrolTime = 5.0f;
-	IdleResetTime = 5.0f;
+	PatrolTime = 10.0f;
 	DetectionRange = 1000.0f;
 	DistancetoPlayer = 2000.0f;
 }
@@ -25,6 +24,11 @@ void AMyEnemyAIIdleState::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 	CalculateDistancetoPlayer();
 	DetectPlayer();
+
+	if (HasDetectedPlayer == true && DetectionRange < DistancetoPlayer)
+	{
+		PatrolTime -= DeltaTime;
+	}
 }
 
 void AMyEnemyAIIdleState::DetectPlayer()
@@ -39,7 +43,11 @@ void AMyEnemyAIIdleState::DetectPlayer()
 
 void AMyEnemyAIIdleState::StartPatrol()
 {
-
+	EState::Patrol;
+	if (PatrolTime <= 0.0f)
+	{
+		ResetToIdle();
+	}
 }
 
 void AMyEnemyAIIdleState::ResetToIdle()
@@ -47,11 +55,13 @@ void AMyEnemyAIIdleState::ResetToIdle()
 	PlayIdleAnimation();
 	IsIdle = true;
 	HasDetectedPlayer = false;
+	PatrolTime = 10.0f;
+	EState::Idle;
 }
 
 void AMyEnemyAIIdleState::BeginChase()
 {
-
+	EState::Chase;
 	if (HasDetectedPlayer == true && DetectionRange < DistancetoPlayer)
 	{
 		StartPatrol();
@@ -69,7 +79,20 @@ void AMyEnemyAIIdleState::PlayIdleAnimation()
 
 void AMyEnemyAIIdleState::CalculateDistancetoPlayer()
 {
+	ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	ACharacter* EnemyCharacter;
 
+		if (PlayerCharacter && EnemyCharacter)
+		{
+			//Calculates the distance between the player and enemy
+			float Distance = FVector::Distance(PlayerCharacter->GetActorLocation(), EnemyCharacter->GetActorLocation());
+
+			//Assigns the calculated distance to the DistancetoPlayer variable
+			DistancetoPlayer = Distance;
+
+			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Distance to Player: %f"), DistancetoPlayer));
+		}
 }
+
 
 

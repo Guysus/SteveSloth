@@ -12,6 +12,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "MyEnemyBaseClass.h"
+#include "MyPlayer.h"
+#include "MyLevelManager.h"
 //This include goes last
 #include "MyEnemyAIIdleState.generated.h"
 
@@ -23,7 +26,6 @@ private:
 	bool IsIdle;
 	bool HasDetectedPlayer;
 	float PatrolTime;
-	float IdleResetTime;
 	float DetectionRange;
 	float DistancetoPlayer;
 
@@ -32,7 +34,6 @@ public: // constructor
 
 public:
 	virtual void Tick(float DeltaTime);
-
 
 private:
 	void DetectPlayer();
