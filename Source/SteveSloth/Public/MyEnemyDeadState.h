@@ -11,6 +11,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "MyEnemyBaseState.h"
 #include "MyEnemyDeadState.generated.h"
 
@@ -21,7 +22,12 @@ UCLASS()
 class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
-	
+
+private:
+	FTimerHandle DeathTimerHandle;
+	float DeathDelayTime;
+	bool TimerStarted;
+
 public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;

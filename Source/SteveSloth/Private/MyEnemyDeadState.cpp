@@ -13,12 +13,29 @@
 
 void UMyEnemyDeadState::EnterState()
 {
+	TimerStarted = true;
+	DeathDelayTime = 3.0f;
 }
 
 void UMyEnemyDeadState::ExitState()
 {
+	AActor::Destroy;
 }
 
 void UMyEnemyDeadState::UpdateState(float deltaTime)
 {
+	if (TimerStarted == true)
+	{
+		GetWorld()->GetTimerManager().SetTimer(
+			DeathTimerHandle, // handle to cancel timer at a later time
+			this, // the owning object
+			&UMyEnemyDeadState::ExitState, // function to call on elapsed
+			DeathDelayTime, // float delay until elapsed
+			false); // looping?
+
+		//Death animation
+		//Death sound FX
+
+
+	}
 }
