@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy Boisvert edited by Jeff
+ * Name: Tammy Boisvert edited by Jeff and Ken
  * Script: MyPlayer.h
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -62,6 +62,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PSwim;
 	
 private: // PRIVATE VARIABLES
 	float CurrentHealth;
@@ -97,4 +100,5 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Crouch(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
 	void Dodge(const FInputActionValue& Value);
+	void Swim(const FInputActionValue& Value);
 };
