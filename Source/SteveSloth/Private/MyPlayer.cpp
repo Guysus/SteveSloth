@@ -56,6 +56,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
+			CurrentIMC = Subsystem;
 			Subsystem->ClearAllMappings();
 			
 			switch (IMCInputs)
@@ -147,6 +148,10 @@ void AMyPlayer::Crouch(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 	// Change Animation
+
+	// For testing Purposes
+	CurrentIMC->ClearAllMappings();
+	CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)

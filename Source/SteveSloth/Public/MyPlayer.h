@@ -70,6 +70,8 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PSwim;
 	
 private: // PRIVATE VARIABLES
+	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
+	
 	float CurrentHealth;
 
 	EMappingInputs IMCInputs;
