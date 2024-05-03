@@ -1,7 +1,7 @@
 /****************************************************************************************
  * Copyright:
  * Name: Guy Lapensee
- * Script: ItemBaseClass
+ * Script: Enemy AI dead state
  * Date: April 29, 2024
  * Description: Enemy AI dead state for enemy base class
  * TODO:
@@ -13,7 +13,8 @@
 
 MyEnemyAIDeadState::MyEnemyAIDeadState()
 {
-	isDead = false;
+	IsDead = false;
+	DeadAnimation();
 }
 
 MyEnemyAIDeadState::~MyEnemyAIDeadState()
@@ -22,6 +23,7 @@ MyEnemyAIDeadState::~MyEnemyAIDeadState()
 
 void MyEnemyAIDeadState::DeadAnimation()
 {
+
 	// PLAY DEATH ANIMATION
 	// WAIT X TIME FOR DESTUCT ACTOR
 	// DROP ITEM()
