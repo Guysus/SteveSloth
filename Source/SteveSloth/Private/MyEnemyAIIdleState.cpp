@@ -43,7 +43,7 @@ void AMyEnemyAIIdleState::DetectPlayer()
 
 void AMyEnemyAIIdleState::StartPatrol()
 {
-	EState::Patrol;
+	//EState::Patrol;
 	if (PatrolTime <= 0.0f)
 	{
 		ResetToIdle();
@@ -56,12 +56,12 @@ void AMyEnemyAIIdleState::ResetToIdle()
 	IsIdle = true;
 	HasDetectedPlayer = false;
 	PatrolTime = 10.0f;
-	EState::Idle;
+	//EState::Idle;
 }
 
 void AMyEnemyAIIdleState::BeginChase()
 {
-	EState::Chase;
+	//EState::Chase;
 	if (HasDetectedPlayer == true && DetectionRange < DistancetoPlayer)
 	{
 		StartPatrol();
@@ -73,11 +73,11 @@ void AMyEnemyAIIdleState::PlayIdleAnimation()
 	if (UAnimInstance* AnimInstance = GetMesh()->GetAnimInstance())
 	{
 		//Plays idle animation, IdleAnim is placeholder text
-		AnimInstance->Montage_Play(IdleAnim, 1.0f);
+		//AnimInstance->Montage_Play(IdleAnim, 1.0f);
 	}
 }
 
-void AMyEnemyAIIdleState::CalculateDistancetoPlayer()
+/*void AMyEnemyAIIdleState::CalculateDistancetoPlayer()
 {
 	ACharacter* PlayerCharacter = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
 	ACharacter* EnemyCharacter;
@@ -92,7 +92,7 @@ void AMyEnemyAIIdleState::CalculateDistancetoPlayer()
 
 			GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, FString::Printf(TEXT("Distance to Player: %f"), DistancetoPlayer));
 		}
-}
+}*/
 
 
 
