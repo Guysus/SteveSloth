@@ -58,19 +58,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		{
 			CurrentIMC = Subsystem;
 			Subsystem->ClearAllMappings();
-			
-			switch (IMCInputs)
-			{
-			case Normal:
-				Subsystem->AddMappingContext(PMainInputMapping, 0);
-				break;
-			case Water:
-				Subsystem->AddMappingContext(PWaterInputMapping, 0);
-				break;
-			case Aiming:
-				Subsystem->AddMappingContext(PAimingInputMapping, 0);
-				break;
-			}
+			Subsystem->AddMappingContext(PMainInputMapping, 0);
 		}
 	}
 
