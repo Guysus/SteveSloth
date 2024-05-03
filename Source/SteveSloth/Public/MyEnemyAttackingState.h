@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+ * Copyright: SteveSloth
+ * Name: Ken Ferris
+ * Script: MyEnemyAttackingState.h
+ * Date: May 3, 2024
+ * Description: 
+ * TODO:
+ * Known Bugs:
+ ****************************************************************************************/
 
 #pragma once
 
@@ -14,4 +22,8 @@ class STEVESLOTH_API UMyEnemyAttackingState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 	
+public:
+	virtual void EnterState() override;
+	virtual void ExitState() override;
+	virtual void UpdateState(float deltaTime) override;
 };
