@@ -71,6 +71,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PLockTarget;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PAiming;
 	
 private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
@@ -112,4 +115,7 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Dodge(const FInputActionValue& Value);
 	void Swim(const FInputActionValue& Value);
 	void LockOn(const FInputActionValue& Value);
+	void Aiming(const FInputActionValue& Value);
+	void AimingStop(const FInputActionValue& Value);
+	
 };
