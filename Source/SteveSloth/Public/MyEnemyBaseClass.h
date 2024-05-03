@@ -1,10 +1,10 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy Jeff Moreau
+ * Name: Tammy, Jeff Moreau, Elad Saretzky 
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
- * TODO:
+ * TODO: Add more Variables (such as animations)
  * Known Bugs:
  ****************************************************************************************/
 #pragma once
@@ -12,20 +12,21 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "MyPlayer.h"
+#include "MyEnemyStateComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
 
 // ENUMS HERE
-enum EState
+
+UENUM(BlueprintType)
+enum class EAttackType
 {
-	Idle,
-	Patrol,
-	Chase,
-	Flee,
-	Attack,
-	Dead
+	Melee UMETA(DisplayName = "Melee"),
+	Range UMETA(DisplayName = "Range"),
+	MeleeAndRange UMETA(DisplayName = "Melee And Range")
 };
 
 UCLASS()
@@ -33,36 +34,41 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
 
-private: // PRIVATE VARIABLES
-	EState CurrentState;
+protected: // PROTECTED VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UMyEnemyStateComponent* StateMachine;
+
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visuals")
+	//add animation variable 
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats")
+	TEnumAsByte<EAttackType> AttackType;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats") 
+	float AttackRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats")
+	float Damage;
 	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float MovementSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	FTransform StartingLocation;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	float MaxHealth;
+
+	float CurrentHealth;
+
+	AMyPlayer* Player;
+
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-
-	void GetPlayerDistance();
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
-	
-protected: // PRIVATE INTERNAL FUNCTIONS
-	void IdleState();
-	void PatrolState();
-	void ChaseState();
-	void FleeState();
-	void AttackState();
-	void DeadState();
-    	
-public:
-	AMyPlayer* PlayerCharacter;
-	AMyEnemyBaseClass* EnemyCharacter;
-	FVector EnemyLocation;
-	FVector PlayerLocation;
-
-	float DistanceToPlayer;
-	float ChaseRange;
-	float AttackRange;
 };
