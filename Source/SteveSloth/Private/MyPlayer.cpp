@@ -87,6 +87,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSwim, ETriggerEvent::Triggered, this, &AMyPlayer::Swim);
 		inputComponent->BindAction(PSwim, ETriggerEvent::Completed, this, &AMyPlayer::Swim);
+
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
 	}
 }
 
@@ -168,4 +171,9 @@ void AMyPlayer::Swim(const FInputActionValue& Value)
 	FVector const SwimDirectionVector = FVector(0, 0, 1);
 	AddMovementInput(SwimDirectionVector, SwimDirection);
 	// Add swimming animation here
+}
+
+void AMyPlayer::LockOn(const FInputActionValue& Value)
+{
+	//Get Closest Target and lock on.
 }
