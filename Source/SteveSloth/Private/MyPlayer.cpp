@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy Boisvert edited by Jeff
+ * Name: Tammy Boisvert edited by Jeff and Ken
  * Script: MyPlayer.cpp
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -33,18 +33,19 @@ AMyPlayer::AMyPlayer()
 	CrouchSpeed = 300;
 	WalkSpeed = 600;
 	DodgeDistance = -100;
+
+	// IMC Inputs
+	IMCInputs = Normal;
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -55,8 +56,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
+			CurrentIMC = Subsystem;
 			Subsystem->ClearAllMappings();
-			Subsystem->AddMappingContext(PInputMapping, 0);
+			Subsystem->AddMappingContext(PMainInputMapping, 0);
 		}
 	}
 
@@ -82,6 +84,12 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
+
+		inputComponent->BindAction(PSwim, ETriggerEvent::Triggered, this, &AMyPlayer::Swim);
+		inputComponent->BindAction(PSwim, ETriggerEvent::Completed, this, &AMyPlayer::Swim);
+
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
 	}
 }
 
@@ -131,6 +139,10 @@ void AMyPlayer::Crouch(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 	// Change Animation
+
+	// For testing Purposes
+	CurrentIMC->ClearAllMappings();
+	CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
@@ -151,4 +163,17 @@ void AMyPlayer::Dodge(const FInputActionValue& Value)
 	
 	DidDodge = true;
 	// Reset with a timer to be able to activate again
+}
+
+void AMyPlayer::Swim(const FInputActionValue& Value)
+{
+	float const SwimDirection = Value.Get<float>();
+	FVector const SwimDirectionVector = FVector(0, 0, 1);
+	AddMovementInput(SwimDirectionVector, SwimDirection);
+	// Add swimming animation here
+}
+
+void AMyPlayer::LockOn(const FInputActionValue& Value)
+{
+	//Get Closest Target and lock on.
 }
