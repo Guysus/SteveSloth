@@ -26,4 +26,8 @@ public:
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
+
+private:
+	bool IsPlayerInRange() const;
+	void AttackPlayer();
 };

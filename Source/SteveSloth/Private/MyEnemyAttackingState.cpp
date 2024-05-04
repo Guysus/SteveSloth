@@ -25,3 +25,13 @@ void UMyEnemyAttackingState::UpdateState(float deltaTime)
 {
 
 }
+
+bool UMyEnemyAttackingState::IsPlayerInRange() const
+{
+	return false;
+}
+
+void UMyEnemyAttackingState::AttackPlayer()
+{
+
+}
