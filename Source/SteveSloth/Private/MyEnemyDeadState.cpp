@@ -13,18 +13,18 @@
 
 void UMyEnemyDeadState::EnterState()
 {
-	TimerStarted = true;
+	IsTimerStarted = false;
 	DeathDelayTime = 3.0f;
 }
 
 void UMyEnemyDeadState::ExitState()
 {
-	AActor::Destroy;
+	Enemy->Destroy();
 }
 
 void UMyEnemyDeadState::UpdateState(float deltaTime)
 {
-	if (TimerStarted == true)
+	if (!IsTimerStarted)
 	{
 		GetWorld()->GetTimerManager().SetTimer(
 			DeathTimerHandle, // handle to cancel timer at a later time
@@ -36,6 +36,7 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 		//Death animation
 		//Death sound FX
 
-
+		//Drop Item
+		IsTimerStarted = true;
 	}
 }

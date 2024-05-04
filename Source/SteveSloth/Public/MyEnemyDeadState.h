@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MyEnemyBaseState.h"
+#include "MyEnemyBaseClass.h"
 #include "MyEnemyDeadState.generated.h"
 
 /**
@@ -23,10 +24,13 @@ class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 
+public:
+	AMyEnemyBaseClass* Enemy;
+
 private:
 	FTimerHandle DeathTimerHandle;
 	float DeathDelayTime;
-	bool TimerStarted;
+	bool IsTimerStarted;
 
 public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() override;
