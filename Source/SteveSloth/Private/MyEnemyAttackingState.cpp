@@ -49,6 +49,7 @@ bool UMyEnemyAttackingState::IsPlayerInRange() const
 
 	float Distance = FVector::Distance(Owner->GetActorLocation(), PlayerCharacter->GetActorLocation());
 	return Distance <= Owner->GetAttackRange();*/
+	return false;
 }
 
 void UMyEnemyAttackingState::AttackPlayer()
