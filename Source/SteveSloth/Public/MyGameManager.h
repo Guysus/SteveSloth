@@ -12,7 +12,6 @@
 
 #include "CoreMinimal.h"
 #include "LevelInstance/LevelInstanceActor.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGameManager.generated.h"
@@ -33,12 +32,5 @@ public:
 	// SINGLETON END
 
 public:
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TSubclassOf<AMyPlayer> PlayerBlueprint;
-
-	AMyPlayer* Player;
-	
-public:
 	AMyGameManager();
-	AMyPlayer* GetPlayer() const { return Player; }
 };
