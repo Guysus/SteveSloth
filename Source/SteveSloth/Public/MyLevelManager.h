@@ -48,7 +48,6 @@ private: // PRIVATE VARIABLES
 	int TotalLevels;
 	FString CurrentLevelName;
 	AMyGameManager* MyGameManager;
-	AMyPlayer* Player;
 	
 public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }

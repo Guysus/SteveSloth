@@ -11,7 +11,6 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Engine/GameInstance.h"
 #include "LevelInstance/LevelInstanceActor.h"
 #include "MyPlayer.h"
 
@@ -35,12 +34,11 @@ public:
 
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	TArray<ALevelInstance*> GameLevels;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TSubclassOf<AMyPlayer> PlayerBlueprint;
 
+	AMyPlayer* Player;
+	
 public:
 	AMyGameManager();
-	TSubclassOf<AMyPlayer> GetPlayer() const { return PlayerBlueprint; }
+	AMyPlayer* GetPlayer() const { return Player; }
 };
