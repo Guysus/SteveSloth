@@ -1,23 +1,25 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
+/****************************************************************************************
+* Copyright: SteveSloth
+ * Name: Elad Saretzky
+ * Script: MyEnemyStateComponent.cpp
+ * Date: May 2, 2024
+ * Description: Component that is the state machine for the enemy to use
+ * TODO: 
+ * Known Bugs:
+ ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
 
-// Sets default values for this component's properties
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
 
-
-// Called when the game starts
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
 
-
-// Called every frame
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
@@ -37,4 +39,3 @@ void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
 		CurrentState->EnterState();
 	}
 }
-

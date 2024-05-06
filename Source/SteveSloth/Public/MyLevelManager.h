@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
+#include "MyGameManager.h"
 #include "MyLevelManager.generated.h"
 
 class ALevelInstance;
@@ -46,6 +47,8 @@ public: // DETAILS PANEL VARIABLES
 private: // PRIVATE VARIABLES
 	int TotalLevels;
 	FString CurrentLevelName;
+	AMyGameManager* MyGameManager;
+	AMyPlayer* Player;
 	
 public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }
