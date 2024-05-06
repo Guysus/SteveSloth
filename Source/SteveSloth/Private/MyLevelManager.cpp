@@ -36,21 +36,15 @@ AMyLevelManager::AMyLevelManager()
 	MyGameManager = AMyGameManager::GetInstance();
 }
 
-void AMyLevelManager::InitializeVariables()
-{
-}
-
 void AMyLevelManager::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	Player = GetWorld()->SpawnActor<AMyPlayer>(MyGameManager->GetPlayer());
-	
-	// TotalLevels = GameLevels.Num();
-	//
-	// FString levelName = GetWorld()->GetMapName();
-	// levelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
-	// CurrentLevelName = levelName;
+
+	ACharacter* Steve = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	if (Steve)
+	{
+		USteveSingleton::GetSteve()->SetSteve(Steve);
+	}
 }
 
 void AMyLevelManager::Tick(float DeltaTime)
