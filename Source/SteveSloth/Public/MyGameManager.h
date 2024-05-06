@@ -2,7 +2,7 @@
 * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGameManager.h
- * Date: April 23. 2024
+ * Date: May 3, 2024
  * Description: This is the Game Manager that will direct the flow of the game
  * TODO: 
  * Known Bugs: 
@@ -13,32 +13,34 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "LevelInstance/LevelInstanceActor.h"
+#include "MyPlayer.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyGameManager.generated.h"
 
 UCLASS()
-class STEVESLOTH_API UMyGameManager : public UGameInstance
+class STEVESLOTH_API AMyGameManager : public AActor
 {
 	GENERATED_BODY()
 
-// SINGLETON STUFF
+	// SINGLETON STUFF
 public:
-	static UMyGameManager* pInstance;
-	UMyGameManager* Instance();
+	static AMyGameManager* pInstance;
+	AMyGameManager* Instance();
 
 	UFUNCTION(BlueprintCallable)
-	static UMyGameManager* GetInstance();
-// SINGLETON END
+	static AMyGameManager* GetInstance();
 	
-private:
-	//ELevels CurrentLevel;
-	
+	// SINGLETON END
+
 public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<ALevelInstance*> GameLevels;
 
-public:
-	UMyGameManager();
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<AMyPlayer> PlayerBlueprint;
 
-private:
-	void InitializeVariables();
+public:
+	AMyGameManager();
+	TSubclassOf<AMyPlayer> GetPlayer() const { return PlayerBlueprint; }
 };

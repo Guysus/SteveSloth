@@ -1,7 +1,7 @@
 /****************************************************************************************
  * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyEnemyStateComponent.h
+ * Script: MyEnemyBaseState.h
  * Date: May 2, 2024
  * Description: Houses the abstract functions (enter, update, exit) for the state machine
  * TODO: 
