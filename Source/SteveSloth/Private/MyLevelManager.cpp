@@ -47,6 +47,9 @@ void AMyLevelManager::InitializeVariables()
 void AMyLevelManager::BeginPlay()
 {
 	Super::BeginPlay();
+	//MyGameManager = AMyGameManager::GetInstance();
+	
+	//Player = GetWorld()->SpawnActor<AMyPlayer>(MyGameManager->GetPlayer());
 }
 
 void AMyLevelManager::Tick(float DeltaTime)

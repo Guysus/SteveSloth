@@ -8,12 +8,12 @@
  * Known Bugs: 
  ****************************************************************************************/
 
-#include "MyGameManager.h"
+#include "MyOldGameManager.h"
 
 // SINGLETON STUFF
-UMyGameManager* UMyGameManager::pInstance = nullptr;
+UMyOldGameManager* UMyOldGameManager::pInstance = nullptr;
 
-UMyGameManager* UMyGameManager::Instance()
+UMyOldGameManager* UMyOldGameManager::Instance()
 {
 	if (pInstance == nullptr)
 	{
@@ -22,19 +22,19 @@ UMyGameManager* UMyGameManager::Instance()
 	return pInstance;
 }
 
-UMyGameManager* UMyGameManager::GetInstance()
+UMyOldGameManager* UMyOldGameManager::GetInstance()
 {
 	return pInstance;
 }
 
 // SINGLETON END
 
-UMyGameManager::UMyGameManager()
+UMyOldGameManager::UMyOldGameManager()
 {
 	InitializeVariables();
 }
 
-void UMyGameManager::InitializeVariables()
+void UMyOldGameManager::InitializeVariables()
 {
 	
 }
