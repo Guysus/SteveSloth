@@ -37,10 +37,10 @@ public:
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<ALevelInstance*> GameLevels;
 
-	//UPROPERTY(BlueprintReadWrite, EditAnywhere)
-	//TSubclassOf<AMyPlayer> PlayerBlueprint;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	TSubclassOf<AMyPlayer> PlayerBlueprint;
 
 public:
 	AMyGameManager();
-	//TSubclassOf<AMyPlayer> GetPlayer() const { return PlayerBlueprint; }
+	TSubclassOf<AMyPlayer> GetPlayer() const { return PlayerBlueprint; }
 };
