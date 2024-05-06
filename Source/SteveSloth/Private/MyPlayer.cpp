@@ -33,18 +33,19 @@ AMyPlayer::AMyPlayer()
 	CrouchSpeed = 300;
 	WalkSpeed = 600;
 	DodgeDistance = -100;
+
+	// IMC Inputs
+	IMCInputs = Normal;
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -55,8 +56,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	{
 		if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer()))
 		{
+			CurrentIMC = Subsystem;
 			Subsystem->ClearAllMappings();
-			Subsystem->AddMappingContext(PInputMapping, 0);
+			Subsystem->AddMappingContext(PMainInputMapping, 0);
 		}
 	}
 
@@ -85,6 +87,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSwim, ETriggerEvent::Triggered, this, &AMyPlayer::Swim);
 		inputComponent->BindAction(PSwim, ETriggerEvent::Completed, this, &AMyPlayer::Swim);
+
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
+		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
 	}
 }
 
@@ -134,6 +139,10 @@ void AMyPlayer::Crouch(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 	// Change Animation
+
+	// For testing Purposes
+	CurrentIMC->ClearAllMappings();
+	CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
@@ -162,4 +171,9 @@ void AMyPlayer::Swim(const FInputActionValue& Value)
 	FVector const SwimDirectionVector = FVector(0, 0, 1);
 	AddMovementInput(SwimDirectionVector, SwimDirection);
 	// Add swimming animation here
+}
+
+void AMyPlayer::LockOn(const FInputActionValue& Value)
+{
+	//Get Closest Target and lock on.
 }

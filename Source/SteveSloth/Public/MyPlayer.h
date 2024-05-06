@@ -20,14 +20,11 @@
 #include "MyPlayer.generated.h"
 
 // ENUMS HERE
-enum class EAmmoTypes
+enum EMappingInputs
 {
-	Pebble,
-	FireCracker,
-	WaterBalloon,
-	PoisonSac,
-	ChristmasBeetle,
-	BigRock
+	Normal,
+	Water,
+	Aiming
 };
 
 UCLASS()
@@ -40,7 +37,13 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	float MaxHealth;
 
 	UPROPERTY(EditAnywhere, Category = "Input|IMC")
-	UInputMappingContext* PInputMapping;
+	UInputMappingContext* PMainInputMapping;
+
+	UPROPERTY(EditAnywhere, Category = "Input|IMC")
+	UInputMappingContext* PWaterInputMapping;
+
+	UPROPERTY(EditAnywhere, Category = "Input|IMC")
+	UInputMappingContext* PAimingInputMapping;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PForwardBack;
@@ -65,9 +68,16 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PSwim;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PLockTarget;
 	
 private: // PRIVATE VARIABLES
+	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
+	
 	float CurrentHealth;
+
+	EMappingInputs IMCInputs;
 	
 	int LeavesFound;
     int GrubsCollected;
@@ -88,7 +98,7 @@ protected: // SETUP FUNCTIONS
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 public:	// UPDATE FUNCTIONS
-	virtual void Tick(float DeltaTime) override; 
+	virtual void Tick(float DeltaTime) override;
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
@@ -101,4 +111,5 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void CrouchStop(const FInputActionValue& Value);
 	void Dodge(const FInputActionValue& Value);
 	void Swim(const FInputActionValue& Value);
+	void LockOn(const FInputActionValue& Value);
 };

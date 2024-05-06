@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy, Jeff Moreau, Elad Saretzky 
+ * Name: Tammy, Elad Saretzky 
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -13,7 +13,6 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "MyPlayer.h"
 #include "MyEnemyStateComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -60,8 +59,6 @@ protected: // PROTECTED VARIABLES
 	float MaxHealth;
 
 	float CurrentHealth;
-
-	AMyPlayer* Player;
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
