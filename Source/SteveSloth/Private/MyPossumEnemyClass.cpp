@@ -1,12 +1,13 @@
 /****************************************************************************************
  * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyEnemyBaseState.cpp
- * Date: May 2, 2024
- * Description: Houses the abstract functions (enter, update, exit) for the state machine
+ * Script: MyPossumEnemyClass.cpp
+ * Date: May 6, 2024
+ * Description: Does all of the specific to possum things
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyEnemyBaseState.h"
+
+#include "MyPossumEnemyClass.h"
 
