@@ -14,12 +14,10 @@
 #include "MyEnemyBaseClass.h"
 #include "MyPossumEnemyClass.generated.h"
 
-/**
- * 
- */
+
 UCLASS()
 class STEVESLOTH_API AMyPossumEnemyClass : public AMyEnemyBaseClass
 {
 	GENERATED_BODY()
-	
+
 };
