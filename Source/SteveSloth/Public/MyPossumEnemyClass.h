@@ -20,4 +20,9 @@ class STEVESLOTH_API AMyPossumEnemyClass : public AMyEnemyBaseClass
 {
 	GENERATED_BODY()
 
+protected: // SETUP FUNCTIONS
+	virtual void BeginPlay() override;
+
+public:	// UPDATE FUNCTIONS
+	virtual void Tick(float DeltaTime) override;
 };

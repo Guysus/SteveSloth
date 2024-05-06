@@ -11,3 +11,12 @@
 
 #include "MyPossumEnemyClass.h"
 
+void AMyPossumEnemyClass::BeginPlay()
+{
+	Super::BeginPlay();
+}
+
+void AMyPossumEnemyClass::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+}
