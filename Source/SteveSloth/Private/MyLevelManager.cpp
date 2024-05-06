@@ -44,8 +44,6 @@ void AMyLevelManager::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	Player = GetWorld()->SpawnActor<AMyPlayer>(MyGameManager->GetPlayer());
-	
 	// TotalLevels = GameLevels.Num();
 	//
 	// FString levelName = GetWorld()->GetMapName();

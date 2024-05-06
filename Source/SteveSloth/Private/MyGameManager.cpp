@@ -29,5 +29,5 @@ AMyGameManager* AMyGameManager::GetInstance()
 
 AMyGameManager::AMyGameManager()
 {
-
+	//Player = GetWorld()->SpawnActor<AMyPlayer>(PlayerBlueprint);
 }
