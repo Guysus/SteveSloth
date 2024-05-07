@@ -3,7 +3,7 @@
  * Name: Ken Ferris
  * Script: MyEnemyAttackingState.h
  * Date: May 3, 2024
- * Description: Enemy Attack State
+ * Description: This is the logic for the enemy attack and handles actions within that state
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
