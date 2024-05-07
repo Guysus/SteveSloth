@@ -14,7 +14,9 @@
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/SpringArmComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
@@ -35,6 +37,24 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float RotationSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float PitchSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int SprintSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int CrouchSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int WalkSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	int DodgeDistance;
 
 	UPROPERTY(EditAnywhere, Category = "Input|IMC")
 	UInputMappingContext* PMainInputMapping;
@@ -50,6 +70,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PLeftRight;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PTurning;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
@@ -78,20 +101,18 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
-	float CurrentHealth;
-
 	EMappingInputs IMCInputs;
+	float CurrentHealth;
 	
 	int LeavesFound;
     int GrubsCollected;
 	int CurrentSlingshotAmmo;
-	int SprintSpeed;
-	int CrouchSpeed;
-	int WalkSpeed;
-	int DodgeDistance;
 	
 	bool IsMoving;
 	bool DidDodge;
+
+	USpringArmComponent* CameraArm;
+	UCameraComponent* PlayerCamera;
 	
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
@@ -117,5 +138,5 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void LockOn(const FInputActionValue& Value);
 	void Aiming(const FInputActionValue& Value);
 	void AimingStop(const FInputActionValue& Value);
-	
+	void CamTurn(const FInputActionValue& Value);
 };
