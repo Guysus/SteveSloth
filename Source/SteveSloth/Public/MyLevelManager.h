@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Actor.h"
+#include "SteveSingleton.h"
 #include "MyGameManager.h"
 #include "MyLevelManager.generated.h"
 
@@ -64,5 +65,5 @@ public:
 	void ChangeLevel(ELevels level);
 	
 private: // INTERNAL FUNCTIONS
-	void InitializeVariables();
+
 };
