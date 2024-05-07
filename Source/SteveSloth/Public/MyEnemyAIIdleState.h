@@ -18,7 +18,7 @@
 #include "MyLevelManager.h"
 #include "MyEnemyAIIdleState.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyAIIdleState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
@@ -29,17 +29,10 @@ public:
 
 private:
 	bool IsIdle = false;
-	bool HasDetectedPlayer = false;
-	float DetectionRange = 1000.0;
-	float DistancetoPlayer = 2000.0f;
 	float IdleTimer = 5.0f;
 
 public:
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
-
-private:
-	void DetectPlayer();
-
 };
