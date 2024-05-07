@@ -30,14 +30,29 @@ public:
 protected:
 	ACharacter* Player;
 
-	// Combat parameters
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
-	float AttackDamage;
+    // Combat parameters
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
+    float MeleeAttackDamage;
 
-	// Animation parameters
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
-	UAnimMontage* AttackMontage;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
+    float RangedAttackDamage;
 
-	// Function to perform attack
-	void PerformAttack();
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
+    float AttackCooldown;
+
+    // Animation parameters
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+    UAnimMontage* MeleeAttackMontage;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+    UAnimMontage* RangedAttackMontage;
+
+    // Function to perform melee attack
+    void PerformMeleeAttack();
+
+    // Function to perform ranged attack
+    void PerformRangedAttack();
+
+    // Function to select attack based on distance
+    void SelectAttack();
 };
