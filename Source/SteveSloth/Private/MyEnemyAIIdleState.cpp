@@ -12,7 +12,7 @@
 
 void UMyEnemyAIIdleState::EnterState()
 {
-	Enemy->PlayAnimMontage(IdleAnim, 1.0f);
+
 }
 
 void UMyEnemyAIIdleState::ExitState()

@@ -12,16 +12,12 @@
 
 #include "CoreMinimal.h"
 #include "MyEnemyBaseState.h"
-#include "MyEnemyBaseClass.h"
 #include "MyEnemyAIIdleState.generated.h"
 
 UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyAIIdleState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
-
-public:
-	AMyEnemyBaseClass* Enemy;
 
 public:
 	virtual void EnterState() override;
