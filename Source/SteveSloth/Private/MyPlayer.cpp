@@ -114,9 +114,9 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	FRotator const YawRotation(0, Rotation.Yaw, 0);
 	FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
 	AddMovementInput(Direction, Amount);
-	SetActorRotation(Direction.Rotation());
-	/*const FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
-	SetActorRotation(NewRotation);*/
+	//SetActorRotation(Direction.Rotation());
+	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
+	//SetActorRotation(NewRotation);
 	//FVector const Forward = GetActorForwardVector();
 	
 	// Add Animations here with changing of mesh direction
@@ -129,9 +129,9 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 	FRotator const YawRotation(0, Rotation.Yaw, 0);
 	FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
 	AddMovementInput(Sideways, TurnAmount);
-	SetActorRotation(Sideways.Rotation());
-	/*const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
-	SetActorRotation(NewRotation);*/
+	//SetActorRotation(Sideways.Rotation());
+	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
+	//SetActorRotation(NewRotation);
 	// Add Animations here with changing of mesh direction
 }
 
