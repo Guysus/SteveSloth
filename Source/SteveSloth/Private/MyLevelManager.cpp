@@ -32,21 +32,19 @@ AMyLevelManager* AMyLevelManager::GetInstance()
 AMyLevelManager::AMyLevelManager()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	//InitializeVariables();
-}
-
-void AMyLevelManager::InitializeVariables()
-{
-	TotalLevels = GameLevels.Num();
-
-	FString levelName = GetWorld()->GetMapName();
-	levelName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
-	CurrentLevelName = levelName;
+	
+	MyGameManager = AMyGameManager::GetInstance();
 }
 
 void AMyLevelManager::BeginPlay()
 {
 	Super::BeginPlay();
+
+	ACharacter* Steve = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
+	if (Steve)
+	{
+		USteveSingleton::GetSteve()->SetSteve(Steve);
+	}
 }
 
 void AMyLevelManager::Tick(float DeltaTime)
