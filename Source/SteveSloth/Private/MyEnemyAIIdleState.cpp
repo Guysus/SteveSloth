@@ -12,11 +12,7 @@
 
 void UMyEnemyAIIdleState::EnterState()
 {
-	IsIdle = true;
-	IdleTimer = 5.0f;
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-
-	//Enemy->PlayAnimMontage(IdleAnim, 1.0f);
+	Enemy->PlayAnimMontage(IdleAnim, 1.0f);
 }
 
 void UMyEnemyAIIdleState::ExitState()
@@ -26,5 +22,5 @@ void UMyEnemyAIIdleState::ExitState()
 
 void UMyEnemyAIIdleState::UpdateState(float deltaTime)
 {
-	IdleTimer -= deltaTime;
+
 }

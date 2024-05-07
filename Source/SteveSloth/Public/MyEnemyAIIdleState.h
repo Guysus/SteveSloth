@@ -11,11 +11,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Kismet/GameplayStatics.h"
 #include "MyEnemyBaseState.h"
 #include "MyEnemyBaseClass.h"
-#include "MyLevelManager.h"
 #include "MyEnemyAIIdleState.generated.h"
 
 UCLASS(Blueprintable)
@@ -25,11 +22,6 @@ class STEVESLOTH_API UMyEnemyAIIdleState : public UMyEnemyBaseState
 
 public:
 	AMyEnemyBaseClass* Enemy;
-	ACharacter* Player;
-
-private:
-	bool IsIdle = false;
-	float IdleTimer = 5.0f;
 
 public:
 	virtual void EnterState() override;
