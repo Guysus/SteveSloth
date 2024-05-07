@@ -19,4 +19,6 @@ void AMyPossumEnemyClass::BeginPlay()
 void AMyPossumEnemyClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+
 }

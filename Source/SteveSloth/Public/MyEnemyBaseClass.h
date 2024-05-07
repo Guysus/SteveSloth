@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -57,6 +58,8 @@ protected: // PROTECTED VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float MaxHealth;
+
+	ACharacter* Player; 
 
 	float CurrentHealth;
 

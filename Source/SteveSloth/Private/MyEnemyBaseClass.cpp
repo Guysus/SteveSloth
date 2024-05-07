@@ -15,6 +15,8 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
 }
 
 void AMyEnemyBaseClass::BeginPlay()
