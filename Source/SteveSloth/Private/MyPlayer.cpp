@@ -90,9 +90,6 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
-
-		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
-		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
 	}
 }
 
@@ -142,6 +139,10 @@ void AMyPlayer::Crouch(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 	// Change Animation
+
+	// For testing Purposes
+	CurrentIMC->ClearAllMappings();
+	CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
@@ -175,18 +176,4 @@ void AMyPlayer::Swim(const FInputActionValue& Value)
 void AMyPlayer::LockOn(const FInputActionValue& Value)
 {
 	//Get Closest Target and lock on.
-}
-
-void AMyPlayer::Aiming(const FInputActionValue& Value)
-{
-	// For testing Purposes
-	CurrentIMC->ClearAllMappings();
-	CurrentIMC->AddMappingContext(PAimingInputMapping, 0);
-}
-
-void AMyPlayer::AimingStop(const FInputActionValue& Value)
-{
-	// For testing Purposes
-	CurrentIMC->ClearAllMappings();
-	CurrentIMC->AddMappingContext(PMainInputMapping, 0);
 }

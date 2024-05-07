@@ -1,10 +1,10 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy Jeff Moreau
+ * Name: Tammy, Elad Saretzky 
  * Script: MyEnemyBaseClass.cpp
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
- * TODO:
+ * TODO: Add more Variables (such as animations)
  * Known Bugs:
  ****************************************************************************************/
 
@@ -26,4 +26,3 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-
