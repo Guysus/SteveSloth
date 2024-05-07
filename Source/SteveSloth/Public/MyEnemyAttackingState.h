@@ -3,7 +3,7 @@
  * Name: Ken Ferris
  * Script: MyEnemyAttackingState.h
  * Date: May 3, 2024
- * Description: 
+ * Description: Enemy Attack State
  * TODO:
  * Known Bugs:
  ****************************************************************************************/

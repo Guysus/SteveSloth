@@ -62,6 +62,7 @@ protected: // PROTECTED VARIABLES
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
+	float GetAttackRange() const { return AttackRange; }
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;

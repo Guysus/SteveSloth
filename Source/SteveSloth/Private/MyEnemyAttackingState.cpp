@@ -3,7 +3,7 @@
  * Name: Ken Ferris
  * Script: MyEnemyAttackingState.cpp
  * Date: May 3, 2024
- * Description: 
+ * Description: Enemy Attack State
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
@@ -33,7 +33,7 @@ void UMyEnemyAttackingState::UpdateState(float deltaTime)
 
 bool UMyEnemyAttackingState::IsPlayerInRange() const
 {
-	/*AMyEnemyBaseClass* Owner = Cast<AMyEnemyBaseClass>(GetOwner());
+	AMyEnemyBaseClass* Owner = Cast<AMyEnemyBaseClass>(GetOuter());
 	if (!Owner)
 	{
 		UE_LOG(LogTemp, Error, TEXT("MyEnemyAttackingState::IsPlayerInRange - Owner is not valid"));
@@ -48,13 +48,12 @@ bool UMyEnemyAttackingState::IsPlayerInRange() const
 	}
 
 	float Distance = FVector::Distance(Owner->GetActorLocation(), PlayerCharacter->GetActorLocation());
-	return Distance <= Owner->GetAttackRange();*/
-	return false;
+	return Distance <= Owner->GetAttackRange();
 }
 
 void UMyEnemyAttackingState::AttackPlayer()
 {
-	/*AMyEnemyBaseClass* Owner = Cast<AMyEnemyBaseClass>(GetOwner());
+	AMyEnemyBaseClass* Owner = Cast<AMyEnemyBaseClass>(GetOuter());
 	if (!Owner)
 	{
 		UE_LOG(LogTemp, Error, TEXT("MyEnemyAttackingState::AttackPlayer - Owner is not valid"));
@@ -66,5 +65,5 @@ void UMyEnemyAttackingState::AttackPlayer()
 	{
 		UE_LOG(LogTemp, Error, TEXT("MyEnemyAttackingState::AttackPlayer - Player character not found"));
 		return;
-	}*/
+	}
 }
