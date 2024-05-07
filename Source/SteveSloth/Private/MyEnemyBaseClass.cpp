@@ -27,4 +27,9 @@ void AMyEnemyBaseClass::BeginPlay()
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (UKismetMathLibrary::Vector_IsNearlyZero(AMyEnemyBaseClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE))
+	{
+
+	}
 }

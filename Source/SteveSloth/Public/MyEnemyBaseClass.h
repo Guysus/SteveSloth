@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
 
@@ -33,6 +34,9 @@ UCLASS()
 class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
+
+private: //PRIVATE CONST VARIABLES
+	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
 
 protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
