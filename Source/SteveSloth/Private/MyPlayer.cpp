@@ -10,7 +10,7 @@
 
 #include "MyPlayer.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "GameFramework/SpringArmComponent.h"
+//#include "GameFramework/SpringArmComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
