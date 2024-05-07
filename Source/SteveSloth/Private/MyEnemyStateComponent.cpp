@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Elad Saretzky
+ * Name: Elad Saretzky, edited:Guy Lapensee
  * Script: MyEnemyStateComponent.cpp
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
@@ -36,11 +36,14 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
 	auto currentState = Cast<UMyEnemyBaseState>(CurrentState);
-	currentState->ExitState();
+	
 	if (CurrentState != newState)
 	{
-		CurrentState->ExitState();
+		currentState->ExitState();
 		CurrentState = newState;
-		CurrentState->EnterState();
+		currentState->EnterState();
+		//CurrentState->ExitState();
+		//CurrentState = newState;
+		//CurrentState->EnterState();
 	}
 }

@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Elad Saretzky
+ * Name: Elad Saretzky, edited:Guy Lapensee
  * Script: MyEnemyStateComponent.h
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
