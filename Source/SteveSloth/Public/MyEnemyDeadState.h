@@ -1,9 +1,9 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name:Guy Lapensee
- * Script: MyTemplate.h
+ * Script: MyEnemyDeadState.h
  * Date:May 3, 2024
- * Description:Enemy Dead State
+ * Description:Enemy Dead State; run timer for death animation montage
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
@@ -16,9 +16,9 @@
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyDeadState.generated.h"
 
-/**
- * 
- */
+//DECLARATIONS
+class UAnimMontage;
+
 UCLASS()
 class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 {
@@ -29,8 +29,11 @@ public:
 
 private:
 	FTimerHandle DeathTimerHandle;
-	float DeathDelayTime;
 	bool IsTimerStarted;
+
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
+	float DeathDelayTime;
 
 public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() override;

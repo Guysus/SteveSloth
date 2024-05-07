@@ -1,7 +1,7 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name:Guy Lapensee
- * Script: MyTemplate.h
+ * Script: MyEnemyDeadState.cpp
  * Date:May 3, 2024
  * Description:Enemy Dead State
  * TODO:
@@ -13,6 +13,7 @@
 
 void UMyEnemyDeadState::EnterState()
 {
+	
 	IsTimerStarted = false;
 	DeathDelayTime = 3.0f;
 }
