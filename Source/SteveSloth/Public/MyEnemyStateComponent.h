@@ -12,6 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "MyEnemyDeadState.h"
 #include "MyEnemyBaseState.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -27,7 +28,10 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<UMyEnemyBaseState*> AttackStates;
 	
-	UMyEnemyBaseState* CurrentState;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TSubclassOf<UMyEnemyDeadState> DeathState;
+
+	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
@@ -37,5 +41,5 @@ protected:
 
 public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void ChangeState(UMyEnemyBaseState* newState);
+	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 };

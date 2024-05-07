@@ -13,19 +13,15 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MyEnemyBaseState.h"
-#include "MyEnemyBaseClass.h"
 #include "MyEnemyDeadState.generated.h"
 
 //DECLARATIONS
 class UAnimMontage;
 
-UCLASS()
+UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
-
-public:
-	AMyEnemyBaseClass* Enemy;
 
 private:
 	FTimerHandle DeathTimerHandle;
@@ -35,8 +31,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
 	float DeathDelayTime;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Montage")
+	UAnimMontage* CallMontage;  
+
 public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
+
+protected:
+	//CALL MONTAGE ABILITY
+	void PlayMontage();
 };

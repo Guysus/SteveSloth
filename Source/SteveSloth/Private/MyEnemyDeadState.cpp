@@ -13,18 +13,9 @@
 
 void UMyEnemyDeadState::EnterState()
 {
-	
 	IsTimerStarted = false;
 	DeathDelayTime = 3.0f;
-}
 
-void UMyEnemyDeadState::ExitState()
-{
-	Enemy->Destroy();
-}
-
-void UMyEnemyDeadState::UpdateState(float deltaTime)
-{
 	if (!IsTimerStarted)
 	{
 		GetWorld()->GetTimerManager().SetTimer(
@@ -34,10 +25,24 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 			DeathDelayTime, // float delay until elapsed
 			false); // looping?
 
-		//Death animation
-		//Death sound FX
+		PlayMontage();
 
 		//Drop Item
 		IsTimerStarted = true;
 	}
+}
+
+void UMyEnemyDeadState::ExitState()
+{
+	
+}
+
+void UMyEnemyDeadState::UpdateState(float deltaTime)
+{
+	
+}
+
+void UMyEnemyDeadState::PlayMontage()
+{
+	//UAnimInstance* AnimInstance;
 }

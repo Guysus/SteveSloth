@@ -18,6 +18,7 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	ChangeState(DeathState);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -26,12 +27,16 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 	if (CurrentState != nullptr)
 	{
-		CurrentState->UpdateState(DeltaTime);
+		auto currentState = Cast<UMyEnemyBaseState>(CurrentState);
+		currentState->UpdateState(DeltaTime);
+		//CurrentState->UpdateState(DeltaTime);
 	}
 }
 
-void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
+void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
+	auto currentState = Cast<UMyEnemyBaseState>(CurrentState);
+	currentState->ExitState();
 	if (CurrentState != newState)
 	{
 		CurrentState->ExitState();
