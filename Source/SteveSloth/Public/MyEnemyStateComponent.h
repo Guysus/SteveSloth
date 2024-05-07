@@ -41,5 +41,6 @@ protected:
 
 public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
+	UFUNCTION(BlueprintCallable)
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 };

@@ -13,6 +13,7 @@
 
 void UMyEnemyDeadState::EnterState()
 {
+	UE_LOG(LogTemp, Warning, TEXT("Player health is low!"));
 	IsTimerStarted = false;
 	DeathDelayTime = 3.0f;
 
@@ -44,5 +45,6 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 
 void UMyEnemyDeadState::PlayMontage()
 {
+	
 	//UAnimInstance* AnimInstance;
 }
