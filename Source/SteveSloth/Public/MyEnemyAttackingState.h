@@ -13,7 +13,8 @@
 #include "CoreMinimal.h"
 #include "MyEnemyBaseState.h"
 #include "Kismet/GameplayStatics.h"
-#include "MySteveSingleton.h"
+#include "SteveSingleton.h"
+#include "Animation/AnimMontage.h"
 #include "MyEnemyAttackingState.generated.h"
 
 UCLASS(Blueprintable)
@@ -28,4 +29,15 @@ public:
 
 protected:
 	ACharacter* Player;
+
+	// Combat parameters
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
+	float AttackDamage;
+
+	// Animation parameters
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+	UAnimMontage* AttackMontage;
+
+	// Function to perform attack
+	void PerformAttack();
 };
