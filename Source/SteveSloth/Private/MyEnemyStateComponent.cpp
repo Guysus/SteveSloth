@@ -18,39 +18,31 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	ActiveState = Cast<UMyEnemyBaseState>(CurrentState);
-	ChangeState(DeathState);
 	
+	ChangeState(DeathState);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	//UE_LOG(LogTemp, Warning, TEXT("Current State"));
 
-	if (ActiveState != nullptr)
+	if (CurrentState != nullptr)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Current State IF"));
-		ActiveState->UpdateState(DeltaTime);
-		//CurrentState->UpdateState(DeltaTime);
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->UpdateState(DeltaTime);
 	}
 }
 
 void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
-	UE_LOG(LogTemp, Warning, TEXT("Change State "));
-	//if (ActiveState != Cast<UMyEnemyBaseState>(newState))
-	//{
-		
-		if (ActiveState != nullptr) 
-		{
-			ActiveState->ExitState();
-		}
-		
-		ActiveState = Cast<UMyEnemyBaseState>(newState);
-		if (ActiveState != nullptr)
-		{
-			ActiveState->EnterState();
-		}
-	//}
+	if (CurrentState != nullptr) 
+	{
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->ExitState();
+	}
+	
+	CurrentState = newState;
+
+	if (CurrentState != nullptr)
+	{
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->EnterState();
+	}
 }

@@ -8,13 +8,12 @@
  * Known Bugs:
  ****************************************************************************************/
 
-
 #include "MyEnemyDeadState.h"
 
 void UMyEnemyDeadState::EnterState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Death State"));
-	IsTimerStarted = false;
+	UE_LOG(LogTemp, Warning, TEXT("Death Enter State"));
+	/*IsTimerStarted = false;
 	DeathDelayTime = 3.0f;
 
 	if (!IsTimerStarted)
@@ -30,7 +29,7 @@ void UMyEnemyDeadState::EnterState()
 
 		//Drop Item
 		IsTimerStarted = true;
-	}
+	}*/
 }
 
 void UMyEnemyDeadState::ExitState()
