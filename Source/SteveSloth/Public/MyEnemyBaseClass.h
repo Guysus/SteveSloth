@@ -35,9 +35,6 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
 
-private: //PRIVATE CONST VARIABLES
-	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
-
 protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
