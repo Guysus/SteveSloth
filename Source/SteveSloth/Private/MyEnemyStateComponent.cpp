@@ -18,33 +18,39 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	ActiveState = Cast<UMyEnemyBaseState>(CurrentState);
 	ChangeState(DeathState);
+	
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-	UE_LOG(LogTemp, Warning, TEXT("Player health is low!"));
+	//UE_LOG(LogTemp, Warning, TEXT("Current State"));
 
-	if (CurrentState != nullptr)
+	if (ActiveState != nullptr)
 	{
-		auto currentState = Cast<UMyEnemyBaseState>(CurrentState);
-		currentState->UpdateState(DeltaTime);
+		UE_LOG(LogTemp, Warning, TEXT("Current State IF"));
+		ActiveState->UpdateState(DeltaTime);
 		//CurrentState->UpdateState(DeltaTime);
 	}
 }
 
 void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
-	auto currentState = Cast<UMyEnemyBaseState>(CurrentState);
-	
-	if (CurrentState != newState)
-	{
-		currentState->ExitState();
-		CurrentState = newState;
-		currentState->EnterState();
-		//CurrentState->ExitState();
-		//CurrentState = newState;
-		//CurrentState->EnterState();
-	}
+	UE_LOG(LogTemp, Warning, TEXT("Change State "));
+	//if (ActiveState != Cast<UMyEnemyBaseState>(newState))
+	//{
+		
+		if (ActiveState != nullptr) 
+		{
+			ActiveState->ExitState();
+		}
+		
+		ActiveState = Cast<UMyEnemyBaseState>(newState);
+		if (ActiveState != nullptr)
+		{
+			ActiveState->EnterState();
+		}
+	//}
 }

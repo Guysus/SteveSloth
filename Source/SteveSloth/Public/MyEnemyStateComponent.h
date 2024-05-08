@@ -33,6 +33,8 @@ protected: // PROTECTED VARIABLES
 
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
+	UMyEnemyBaseState* ActiveState;
+
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
 
