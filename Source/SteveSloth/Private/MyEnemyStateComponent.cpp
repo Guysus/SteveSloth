@@ -10,6 +10,8 @@
 
 #include "MyEnemyStateComponent.h"
 
+#include "MyGenericEnemyIdleState.h"
+
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -18,7 +20,7 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
-	ChangeState(IdleState);
+	IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

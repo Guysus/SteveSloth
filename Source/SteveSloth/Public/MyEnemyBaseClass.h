@@ -58,8 +58,12 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float MaxHealth;
 
-	float CurrentHealth;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* Idle;
 
+	float CurrentHealth;
+	
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
@@ -68,4 +72,5 @@ protected: // SETUP FUNCTIONS
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+	
 };

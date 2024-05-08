@@ -28,9 +28,14 @@ private:
 	ACharacter* Player;
 	AMyPlayer* Steve;
 	AMyEnemyBaseClass* Myself;
+	USkeletalMeshComponent* MyMesh;
+	bool animplaying;
 	
 public: //PUBLIC FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
+
+	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { Myself = myEnemy; }
+	void SetEnemyMesh(USkeletalMeshComponent* mesh) { MyMesh = mesh; }
 };

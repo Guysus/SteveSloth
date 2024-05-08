@@ -10,17 +10,22 @@
 
 #include "MyEnemyBaseClass.h"
 
+#include "MyGenericEnemyIdleState.h"
+
 AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+
 	CurrentHealth = MaxHealth;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
+	StateMachine->ChangeState(StateMachine->GetIdleState());
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)

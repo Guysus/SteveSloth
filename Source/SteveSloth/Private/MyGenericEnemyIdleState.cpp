@@ -16,14 +16,15 @@ void UMyGenericEnemyIdleState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+	animplaying = false;
+		/*FVector testing = Myself->GetActorLocation();
+		FString newTesting = testing.ToString();
+	
+		UE_LOG(LogTemp, Warning, TEXT("%s"), *newTesting);*/
 	
 	/*UE_LOG(LogTemp, Warning, TEXT("Enter Idle"));
 	if (Player != nullptr)
 	{
-		FVector testing = Steve->GetActorLocation();
-		FString newTesting = testing.ToString();
-	
-		UE_LOG(LogTemp, Warning, TEXT("%s"), *newTesting);
 	}
 	else
 	{
@@ -39,6 +40,15 @@ void UMyGenericEnemyIdleState::ExitState()
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
+	if (Myself != nullptr && !animplaying)
+	{
+		Myself->GetMesh()->PlayAnimation(Myself->Idle, true);
+		animplaying = true;
+	}
+	else
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Im Null"));
+	}
 	/*if (Player != nullptr)
 	{
 		FVector testing = Player->GetActorLocation();
