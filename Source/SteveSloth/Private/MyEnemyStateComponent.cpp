@@ -18,6 +18,7 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	ChangeState(IdleState);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

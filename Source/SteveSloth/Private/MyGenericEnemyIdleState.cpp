@@ -12,15 +12,18 @@
 
 void UMyGenericEnemyIdleState::EnterState()
 {
-	Super::EnterState();
+	FVector testing = Player->GetActorLocation();
+	FString newTesting = testing.ToString();
+
+	UE_LOG(LogTemp, Warning, TEXT("%s"), *newTesting);
 }
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-	Super::ExitState();
+	
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
-	Super::UpdateState(deltaTime);
+	
 }

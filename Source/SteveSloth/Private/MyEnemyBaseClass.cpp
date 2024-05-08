@@ -15,6 +15,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	CurrentHealth = MaxHealth;
 }
 
 void AMyEnemyBaseClass::BeginPlay()

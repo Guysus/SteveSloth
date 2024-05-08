@@ -10,6 +10,7 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "MyEnemyBaseState.h"
@@ -26,7 +27,10 @@ protected: // PROTECTED VARIABLES
 	////more states will go here as new TArrays
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<UMyEnemyBaseState*> AttackStates;
-	
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TSubclassOf<UMyEnemyBaseState> IdleState;
+
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
 public:	// CONSTRUCTOR HERE
