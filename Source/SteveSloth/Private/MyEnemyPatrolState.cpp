@@ -17,7 +17,7 @@ void UMyEnemyPatrolState::EnterState()
 
 void UMyEnemyPatrolState::ExitState()
 {
-	//Call this state when enemy notices player(Chase state) or reaches end of spline(Idle state)
+	
 }
 
 void UMyEnemyPatrolState::UpdateState(float deltaTime)

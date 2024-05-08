@@ -19,7 +19,7 @@
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyPatrolState.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyPatrolState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
