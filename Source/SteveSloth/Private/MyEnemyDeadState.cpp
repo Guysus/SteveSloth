@@ -44,6 +44,6 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 
 void UMyEnemyDeadState::PlayMontage()
 {
-	
+	CallMontage->IsValidToPlay();
 	//UAnimInstance* AnimInstance;
 }
