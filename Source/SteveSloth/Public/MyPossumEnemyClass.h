@@ -30,6 +30,14 @@ protected: // PROTECTED VARIABLES
 	FTimerHandle IdleResetTimerHandle;
 
 	bool IsIdle;
+	bool IsChasing;
+	bool IsAttackingMelee;
+	bool IsAttackingRanged;
+	bool IsDead;
+
+	float ChaseRange;
+	float MeleeAttackRange;
+	float RangedAttackRange;
 
 public:	// CONSTRUCTOR HERE
 	AMyPossumEnemyClass();
