@@ -12,8 +12,7 @@
 
 void UMyEnemyPatrolState::EnterState()
 {
-	//Get enemy movement speed
-	//Get patrol spline from enemy
+	
 }
 
 void UMyEnemyPatrolState::ExitState()
@@ -23,6 +22,22 @@ void UMyEnemyPatrolState::ExitState()
 
 void UMyEnemyPatrolState::UpdateState(float deltaTime)
 {
-	//Move enemy from start to finish of spline
-	//Play walking animation while moving
+	ProcessMovement(deltaTime);
+}
+
+void UMyEnemyPatrolState::ProcessMovement(float value)
+{
+	const float SplineLength = PSplineComponent->GetSplineLength();
+		
+	FVector CurrentSplineLocation = PSplineComponent->GetLocationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
+	FRotator CurrentSplineRotation = PSplineComponent->GetRotationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
+
+	PSkeletalMeshComponent->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);
+
+	/*if(PSkeletalMeshComponent->GetPosition() = PSplineComponent->)*/
+}
+
+void UMyEnemyPatrolState::OnEndMovement()
+{
+
 }

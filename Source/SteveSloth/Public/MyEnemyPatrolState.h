@@ -12,6 +12,9 @@
  // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "MyEnemyBaseState.h"
+#include "Components/SplineComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/TimelineComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyPatrolState.generated.h"
@@ -26,6 +29,22 @@ public: // INHERITED FUNCTIONS
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
-private: // PRIVATE VARIABLES
+//private: // PRIVATE VARIABLES
+	
+public: // DETAILS PANEL VARIABLES
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spline")
+	USplineComponent* PSplineComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
+	USkeletalMeshComponent* PSkeletalMeshComponent;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")
 	float MovementVelocity;
+
+private: // PRIVATE INTERNAL FUNCTIONS
+
+	void ProcessMovement(float value);
+
+	void OnEndMovement();
 };
