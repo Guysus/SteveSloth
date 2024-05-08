@@ -1,13 +1,12 @@
 /****************************************************************************************
-* Copyright:
-* Name:
-* Script: MyEnemyManager.cpp
-* Date: 
-* Description: 
-* TODO: 
-* Known Bugs: 
-*****************************************************************************************/
-
+* Copyright: SteveSloth
+ * Name: Jeff Moreau
+ * Script: MyEnemyManager.cpp
+ * Date: May 8, 2024
+ * Description: To take care of all Enemy entities in the game. Easy place to access
+ * TODO: 
+ * Known Bugs:
+ ****************************************************************************************/
 
 #include "MyEnemyManager.h"
 
@@ -26,4 +25,3 @@ void AMyEnemyManager::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
-

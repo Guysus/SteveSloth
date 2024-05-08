@@ -21,7 +21,7 @@ UCLASS(Abstract)
 class STEVESLOTH_API UMyEnemyBaseState : public UObject
 {
 	GENERATED_BODY()
-	
+
 public: // PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() PURE_VIRTUAL(MyEnemyBaseState::EnterState, );
 	virtual void ExitState() PURE_VIRTUAL(MyEnemyBaseState::ExitState, );

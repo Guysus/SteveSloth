@@ -1,12 +1,12 @@
 /****************************************************************************************
-* Copyright:
-* Name:
-* Script: MyEnemyManager.h
-* Date: 
-* Description: 
-* TODO: 
-* Known Bugs: 
-*****************************************************************************************/
+* Copyright: SteveSloth
+ * Name: Jeff Moreau
+ * Script: MyEnemyManager.h
+ * Date: May 8, 2024
+ * Description: To take care of all Enemy entities in the game. Easy place to access
+ * TODO: 
+ * Known Bugs:
+ ****************************************************************************************/
 
 #pragma once
 

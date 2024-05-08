@@ -12,6 +12,7 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+//#include "MyGenericEnemyIdleState.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "MyEnemyStateComponent.h"
 
