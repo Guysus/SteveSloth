@@ -10,11 +10,22 @@
 
 #include "MyPlayer.h"
 #include "GameFramework/CharacterMovementComponent.h"
+//#include "GameFramework/SpringArmComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
+	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
+	
+	CameraArm->SetupAttachment((RootComponent));
+	CameraArm->bUsePawnControlRotation = true;
+	CameraArm->TargetArmLength = 200;
+
+	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
+	PlayerCamera->bUsePawnControlRotation = false;
+	
 	// Bools
 	IsMoving = false;
 	DidDodge = false;
@@ -70,6 +81,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PLeftRight, ETriggerEvent::Triggered, this, &AMyPlayer::MoveLeftRight);
 		inputComponent->BindAction(PLeftRight, ETriggerEvent::Completed, this, &AMyPlayer::MoveLeftRight);
 
+		inputComponent->BindAction(PTurning, ETriggerEvent::Triggered, this, &AMyPlayer::CamTurn);
+		inputComponent->BindAction(PTurning, ETriggerEvent::Completed, this, &AMyPlayer::CamTurn);
+		
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 
@@ -95,17 +109,29 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 {
-	float const Direction = Value.Get<float>();
-	FVector const Forward = GetActorForwardVector();
-	AddMovementInput(Forward, Direction);
+	float const Amount = Value.Get<float>();
+	FRotator const Rotation = Controller->GetControlRotation();
+	FRotator const YawRotation(0, Rotation.Yaw, 0);
+	FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	AddMovementInput(Direction, Amount);
+	//SetActorRotation(Direction.Rotation());
+	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
+	//SetActorRotation(NewRotation);
+	//FVector const Forward = GetActorForwardVector();
+	
 	// Add Animations here with changing of mesh direction
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
-	float const TurnDirection = Value.Get<float>();
-	FVector const Sideways = FVector(0,1,0);
-	AddMovementInput(Sideways, TurnDirection);
+	float const TurnAmount = Value.Get<float>();
+	FRotator const Rotation = Controller->GetControlRotation();
+	FRotator const YawRotation(0, Rotation.Yaw, 0);
+	FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	AddMovementInput(Sideways, TurnAmount);
+	//SetActorRotation(Sideways.Rotation());
+	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
+	//SetActorRotation(NewRotation);
 	// Add Animations here with changing of mesh direction
 }
 
@@ -176,4 +202,10 @@ void AMyPlayer::Swim(const FInputActionValue& Value)
 void AMyPlayer::LockOn(const FInputActionValue& Value)
 {
 	//Get Closest Target and lock on.
+}
+
+void AMyPlayer::CamTurn(const FInputActionValue& Value)
+{
+	float const TurnSpeed = Value.Get<float>();
+	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
 }
