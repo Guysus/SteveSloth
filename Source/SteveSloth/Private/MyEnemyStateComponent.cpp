@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Elad Saretzky
+ * Name: Elad Saretzky, Jeff Moreau
  * Script: MyEnemyStateComponent.cpp
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
@@ -10,6 +10,8 @@
 
 #include "MyEnemyStateComponent.h"
 
+#include "MyGenericEnemyIdleState.h"
+
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
 	PrimaryComponentTick.bCanEverTick = true;
@@ -18,6 +20,8 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
@@ -26,16 +30,21 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 	if (CurrentState != nullptr)
 	{
-		CurrentState->UpdateState(DeltaTime);
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->UpdateState(DeltaTime);
 	}
 }
 
-void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
+void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
-	if (CurrentState != newState)
+	if (CurrentState != nullptr) 
 	{
-		CurrentState->ExitState();
-		CurrentState = newState;
-		CurrentState->EnterState();
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->ExitState();
+	}
+	
+	CurrentState = newState;
+
+	if (CurrentState != nullptr)
+	{
+		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->EnterState();
 	}
 }

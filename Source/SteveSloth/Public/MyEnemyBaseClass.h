@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky 
+ * Name: Tammy, Elad Saretzky, Jeff Moreau
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -12,6 +12,7 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+//#include "MyGenericEnemyIdleState.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "MyEnemyStateComponent.h"
 
@@ -36,10 +37,7 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visuals")
-	//add animation variable 
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats")
 	TEnumAsByte<EAttackType> AttackType;
 
@@ -58,8 +56,12 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float MaxHealth;
 
-	float CurrentHealth;
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* Idle;
 
+	float CurrentHealth;
+	
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
