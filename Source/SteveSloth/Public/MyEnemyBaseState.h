@@ -21,9 +21,6 @@ UCLASS(Abstract)
 class STEVESLOTH_API UMyEnemyBaseState : public UObject
 {
 	GENERATED_BODY()
-
-protected:
-	ACharacter* Player = USteveSingleton::GetSteve()->GetPlayerCharacter();;
 	
 public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() PURE_VIRTUAL(MyEnemyBaseState::EnterState, );

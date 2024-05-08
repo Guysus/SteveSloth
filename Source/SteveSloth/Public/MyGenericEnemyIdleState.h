@@ -22,6 +22,9 @@ class STEVESLOTH_API UMyGenericEnemyIdleState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 
+private:
+	ACharacter* Player;
+	
 public: //PUBLIC FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
