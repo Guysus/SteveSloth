@@ -26,7 +26,7 @@ void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->Idle, true);
+		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
 		IsAnimationRunning = true;
 	}
 }
