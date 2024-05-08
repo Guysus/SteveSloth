@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky 
+ * Name: Tammy, Elad Saretzky, Jeff Moreau
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -36,10 +36,7 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
-
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Visuals")
-	//add animation variable 
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats")
 	TEnumAsByte<EAttackType> AttackType;
 
@@ -72,5 +69,4 @@ protected: // SETUP FUNCTIONS
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
-	
 };

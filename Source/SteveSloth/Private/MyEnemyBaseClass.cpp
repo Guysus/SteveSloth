@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky 
+ * Name: Tammy, Elad Saretzky, Jeff Moreau
  * Script: MyEnemyBaseClass.cpp
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -9,7 +9,6 @@
  ****************************************************************************************/
 
 #include "MyEnemyBaseClass.h"
-
 #include "MyGenericEnemyIdleState.h"
 
 AMyEnemyBaseClass::AMyEnemyBaseClass()

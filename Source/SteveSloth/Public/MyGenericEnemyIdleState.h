@@ -29,7 +29,7 @@ private:
 	AMyPlayer* Steve;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
-	bool animplaying;
+	bool IsAnimationRunning;
 	
 public: //PUBLIC FUNCTIONS
 	virtual void EnterState() override;
