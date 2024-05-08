@@ -30,6 +30,8 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		//change to idle state here
 		GetWorldTimerManager().SetTimer(IdleTimerHandle, this, &AMyPossumEnemyClass::IdleOver, IDLE_TIMER_AMOUNT, false);
 	}
+
+
 }
 
 void AMyPossumEnemyClass::IdleOver()
