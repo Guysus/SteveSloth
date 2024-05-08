@@ -10,13 +10,17 @@
 
 #include "MyGenericEnemyIdleState.h"
 
+#include "MyPlayer.h"
+
 void UMyGenericEnemyIdleState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	UE_LOG(LogTemp, Warning, TEXT("Enter Idle"));
+	Steve = Cast<AMyPlayer>(Player);
+	
+	/*UE_LOG(LogTemp, Warning, TEXT("Enter Idle"));
 	if (Player != nullptr)
 	{
-		FVector testing = Player->GetActorLocation();
+		FVector testing = Steve->GetActorLocation();
 		FString newTesting = testing.ToString();
 	
 		UE_LOG(LogTemp, Warning, TEXT("%s"), *newTesting);
@@ -25,7 +29,7 @@ void UMyGenericEnemyIdleState::EnterState()
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Null Idle"));
 	}
-	UE_LOG(LogTemp, Warning, TEXT("Exit Idle"));
+	UE_LOG(LogTemp, Warning, TEXT("Exit Idle"));*/
 }
 
 void UMyGenericEnemyIdleState::ExitState()
@@ -35,7 +39,7 @@ void UMyGenericEnemyIdleState::ExitState()
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
-	if (Player != nullptr)
+	/*if (Player != nullptr)
 	{
 		FVector testing = Player->GetActorLocation();
 		FString newTesting = testing.ToString();
@@ -45,5 +49,5 @@ void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("Null Update"));
-	}
+	}*/
 }

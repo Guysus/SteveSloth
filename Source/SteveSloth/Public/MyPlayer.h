@@ -102,6 +102,7 @@ private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
+	
 	float CurrentHealth;
 	
 	int LeavesFound;
@@ -123,6 +124,7 @@ protected: // SETUP FUNCTIONS
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+	void HitPlayer(float damageAmount);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);

@@ -12,7 +12,9 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
+#include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
+#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyIdleState.generated.h"
@@ -24,6 +26,8 @@ class STEVESLOTH_API UMyGenericEnemyIdleState : public UMyEnemyBaseState
 
 private:
 	ACharacter* Player;
+	AMyPlayer* Steve;
+	AMyEnemyBaseClass* Myself;
 	
 public: //PUBLIC FUNCTIONS
 	virtual void EnterState() override;
