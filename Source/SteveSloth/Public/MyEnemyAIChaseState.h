@@ -11,6 +11,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyPlayer.h"
+#include "Animation/AnimInstance.h"
 #include "MyEnemyBaseState.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyAIChaseState.generated.h"
@@ -24,7 +26,9 @@ public:
 	virtual void EnterState()override;
 	virtual void ExitState()override;
 	virtual void UpdateState(float deltaTime)override;
+	void PlayAnimMontage();
 private:
 	AMyPlayer* Player;
 	AMyEnemyBaseClass* Enemy;
+	AMyEnemyBaseClass* MovementSpeed;
 };
