@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Elad Saretzky
+ * Name: Elad Saretzky, Jeff Moreau
  * Script: MyEnemyStateComponent.h
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
@@ -27,7 +27,7 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<UMyEnemyBaseState*> AttackStates;
 	
-	UMyEnemyBaseState* CurrentState;
+	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
@@ -37,5 +37,5 @@ protected:
 
 public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void ChangeState(UMyEnemyBaseState* newState);
+	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 };
