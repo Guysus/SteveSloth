@@ -12,6 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
 #include "MyEnemyDeadState.generated.h"
 
@@ -24,9 +25,9 @@ class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 	GENERATED_BODY()
 
 private:
-	FTimerHandle DeathTimerHandle;
-	bool IsTimerStarted;
-
+	AMyEnemyBaseClass* Enemy;
+	USkeletalMeshComponent* EnemyMesh;
+	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
 	float DeathDelayTime;

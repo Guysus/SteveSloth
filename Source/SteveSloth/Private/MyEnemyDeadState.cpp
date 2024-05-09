@@ -13,28 +13,11 @@
 void UMyEnemyDeadState::EnterState()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Death Enter State"));
-	/*IsTimerStarted = false;
-	DeathDelayTime = 3.0f;
-
-	if (!IsTimerStarted)
-	{
-		GetWorld()->GetTimerManager().SetTimer(
-			DeathTimerHandle, // handle to cancel timer at a later time
-			this, // the owning object
-			&UMyEnemyDeadState::ExitState, // function to call on elapsed
-			DeathDelayTime, // float delay until elapsed
-			false); // looping?
-
-		PlayMontage();
-
-		//Drop Item
-		IsTimerStarted = true;
-	}*/
 }
 
 void UMyEnemyDeadState::ExitState()
 {
-
+	UE_LOG(LogTemp, Warning, TEXT("Exit Death State"));
 }
 
 void UMyEnemyDeadState::UpdateState(float deltaTime)
@@ -44,6 +27,5 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 
 void UMyEnemyDeadState::PlayMontage()
 {
-	CallMontage->IsValidToPlay();
-	//UAnimInstance* AnimInstance;
+	
 }
