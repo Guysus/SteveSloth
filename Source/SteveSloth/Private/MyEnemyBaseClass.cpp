@@ -26,7 +26,7 @@ void AMyEnemyBaseClass::BeginPlay()
 
 	//StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	//StateMachine->ChangeState(StateMachine->GetIdleState());
-	StateMachine->GetDeadState()->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyBaseClass(this);
+	StateMachine->GetDeadState()->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyBaseClassDeadState(this);
 	StateMachine->ChangeState(StateMachine->GetDeadState());
 }
 

@@ -22,7 +22,12 @@ void UMyEnemyStateComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	//IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
-	DeadState->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyMesh(EnemyMesh);
+	
+	if (DeadState != nullptr)
+	{
+		DeadState->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyMesh(EnemyMesh);
+	}
+	
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
