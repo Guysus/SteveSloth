@@ -66,6 +66,8 @@ public: // PUBLIC VARIABLES
 
 	float CurrentHealth;
 	
+	bool IsDead;
+
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 

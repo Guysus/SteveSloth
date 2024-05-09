@@ -33,7 +33,6 @@ protected: // PROTECTED VARIABLES
 	bool IsChasing;
 	bool IsAttackingMelee;
 	bool IsAttackingRanged;
-	bool IsDead;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chase")
 	float ChaseRange;

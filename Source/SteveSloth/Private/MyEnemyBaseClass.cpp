@@ -19,6 +19,8 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
 
 	CurrentHealth = MaxHealth;
+
+	IsDead = false;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
@@ -32,4 +34,9 @@ void AMyEnemyBaseClass::BeginPlay()
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (CurrentHealth <= 0 && !IsDead)
+	{
+
+	}
 }

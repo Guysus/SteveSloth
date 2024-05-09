@@ -17,7 +17,6 @@ AMyPossumEnemyClass::AMyPossumEnemyClass()
 	IsChasing = false;
 	IsAttackingMelee = false;
 	IsAttackingRanged = false;
-	IsDead = false;
 }
 
 void AMyPossumEnemyClass::BeginPlay()
@@ -29,6 +28,15 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	FHitResult outHit;
+
+	FVector start = this->GetActorLocation(); //this should change to a specific location we want to shoot from (arm maybe)
+	FVector end = (start + (this->GetActorForwardVector() * RangedAttackRange));
+
+	FCollisionQueryParams collisionParams;
+
+	bool isHit = GetWorld()->LineTraceSingleByChannel(outHit, start, end, ECC_Visibility, collisionParams);
+
 	//if the enemy is in melee distance
 	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !IsAttackingMelee)
 	{
@@ -36,10 +44,16 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		IsAttackingMelee = true;
 	}
 	//if the enemy is in ranged distance
-	else if ( && !IsAttackingRanged)
+	else if (isHit && outHit.bBlockingHit && outHit.GetActor() == Player && !IsAttackingRanged)
 	{
 		// ----change to ranged attack state here----
 		IsAttackingRanged = true;
+	}
+	//if the enemy is within the chasing distance
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !IsChasing)
+	{
+		// ---- change to chasing state here ----
+		IsChasing = true;
 	}
 	//if the enemy is still, do idle for a bit
 	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
@@ -48,7 +62,6 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		GetWorldTimerManager().SetTimer(IdleTimerHandle, this, &AMyPossumEnemyClass::IdleOver, IDLE_TIMER_AMOUNT, false);
 		IsIdle = true;
 	}
-
 }
 
 void AMyPossumEnemyClass::IdleOver()
