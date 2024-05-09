@@ -20,7 +20,6 @@
 #include "MyEnemyBaseClass.generated.h"
 
 // ENUMS HERE
-
 UENUM(BlueprintType)
 enum class EAttackType
 {

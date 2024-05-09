@@ -14,8 +14,8 @@
 AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
+	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 	CurrentHealth = MaxHealth;
 }
 
@@ -30,5 +30,4 @@ void AMyEnemyBaseClass::BeginPlay()
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
 }

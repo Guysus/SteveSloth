@@ -124,16 +124,18 @@ protected: // SETUP FUNCTIONS
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+
+public: // NORMAL FUNCTIONS
 	void HitPlayer(float damageAmount);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
-	void Sprint(const FInputActionValue& Value);
+	void IsSprinting(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
-	void Crouch(const FInputActionValue& Value);
+	void IsCrouching(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
 	void Dodge(const FInputActionValue& Value);
 	void Swim(const FInputActionValue& Value);
