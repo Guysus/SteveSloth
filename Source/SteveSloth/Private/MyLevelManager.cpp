@@ -41,7 +41,7 @@ void AMyLevelManager::BeginPlay()
 	Super::BeginPlay();
 
 	ACharacter* Steve = UGameplayStatics::GetPlayerCharacter(GetWorld(), 0);
-	if (Steve)
+	if (Steve != nullptr)
 	{
 		USteveSingleton::GetSteve()->SetSteve(Steve);
 	}
