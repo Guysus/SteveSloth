@@ -14,6 +14,10 @@
 AMyPossumEnemyClass::AMyPossumEnemyClass()
 {
 	IsIdle = false;
+	IsChasing = false;
+	IsAttackingMelee = false;
+	IsAttackingRanged = false;
+	IsDead = false;
 }
 
 void AMyPossumEnemyClass::BeginPlay()
@@ -25,18 +29,31 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
+	//if the enemy is in melee distance
+	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !IsAttackingMelee)
 	{
-		//change to idle state here
-		GetWorldTimerManager().SetTimer(IdleTimerHandle, this, &AMyPossumEnemyClass::IdleOver, IDLE_TIMER_AMOUNT, false);
+		// ---- change to melee attack state here ----
+		IsAttackingMelee = true;
 	}
-
+	//if the enemy is in ranged distance
+	else if ( && !IsAttackingRanged)
+	{
+		// ----change to ranged attack state here----
+		IsAttackingRanged = true;
+	}
+	//if the enemy is still, do idle for a bit
+	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
+	{
+		// ---- change to idle state here ----
+		GetWorldTimerManager().SetTimer(IdleTimerHandle, this, &AMyPossumEnemyClass::IdleOver, IDLE_TIMER_AMOUNT, false);
+		IsIdle = true;
+	}
 
 }
 
 void AMyPossumEnemyClass::IdleOver()
 {
-	//change to patrol state
+	// ---- change to patrol state here ----
 	GetWorldTimerManager().SetTimer(IdleTimerHandle, this, &AMyPossumEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
 }
 

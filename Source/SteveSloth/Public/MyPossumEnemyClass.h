@@ -35,8 +35,13 @@ protected: // PROTECTED VARIABLES
 	bool IsAttackingRanged;
 	bool IsDead;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chase")
 	float ChaseRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
 	float MeleeAttackRange;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
 	float RangedAttackRange;
 
 public:	// CONSTRUCTOR HERE
