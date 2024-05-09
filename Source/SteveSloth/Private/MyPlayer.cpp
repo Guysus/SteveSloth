@@ -10,7 +10,6 @@
 
 #include "MyPlayer.h"
 #include "GameFramework/CharacterMovementComponent.h"
-//#include "GameFramework/SpringArmComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
@@ -57,6 +56,11 @@ void AMyPlayer::BeginPlay()
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AMyPlayer::HitPlayer(float damageAmount)
+{
+	CurrentHealth = CurrentHealth - damageAmount;
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
