@@ -29,6 +29,12 @@ public:
 	void PlayAnimMontage();
 private:
 	AMyPlayer* Player;
+	FVector PlayerLocation;
+
 	AMyEnemyBaseClass* Enemy;
+	FVector EnemyLocation;
+
+	FVector Direction;
+	FVector NewLocation;
 	AMyEnemyBaseClass* MovementSpeed;
 };

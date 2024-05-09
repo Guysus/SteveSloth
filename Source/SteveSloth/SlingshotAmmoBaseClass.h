@@ -19,7 +19,7 @@ enum DamageType
 {
 	Physical,
 	Fire,
-	Water,
+	//Water,
 	Poison,
 	Ice
 };

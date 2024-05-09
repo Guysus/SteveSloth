@@ -22,26 +22,30 @@ void UMyEnemyAIChaseState::EnterState()
 void UMyEnemyAIChaseState::UpdateState(float deltaTime)
 {
 	//Get The Players Location(will be handled in enemy base class)
-	FVector PlayerLocation = Player->GetActorLocation();
+	PlayerLocation = Player->GetActorLocation();
 
 	//Get The Enemies Location(will be handled in enemy base class)
-	FVector EnemyLocation = Enemy->GetActorLocation();
+	EnemyLocation = Enemy->GetActorLocation();
 
-	//Have Enemy Face Players Direction(will be handled in enemybase class)
-    FVector Direction = EnemyLocation - PlayerLocation;
-    Direction.Normalize();
-
-    //Move Enemy Towards Player
-    FVector NewLocation = EnemyLocation + Direction * MovementSpeed * deltaTime;
-    EnemyLocation = NewLocation;
-	
-	//Rotate Enemy to face The player
+    //Rotate Enemy to face The player
     FRotator TargetRotation = Direction.Rotation();
+	
+	if (PlayerLocation != FVector::ZeroVector) 
+	{
+       //Have Enemy Face Players Direction(will be handled in enemybase class)
+       Direction = PlayerLocation - EnemyLocation;
+       Direction.Normalize();
+
+	   //Update Enemy Location 
+      // NewLocation = EnemyLocation + Direction * MovementSpeed * deltaTime ;
+      // EnemyLocation = NewLocation;
+	}
+    	
 }
 
 void UMyEnemyAIChaseState::PlayAnimMontage() 
 {
-	UAnimMontage* WalkMotage;
+	//UAnimMontage* WalkMotage;
 }
 
 void UMyEnemyAIChaseState::ExitState()
