@@ -41,5 +41,6 @@ public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
-
+	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { Enemy = myEnemy; }
+	void SetEnemyMesh(USkeletalMeshComponent* mesh) { EnemyMesh = mesh; }
 };
