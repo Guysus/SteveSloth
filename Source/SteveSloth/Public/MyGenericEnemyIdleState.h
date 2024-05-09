@@ -38,5 +38,4 @@ public: //PUBLIC FUNCTIONS
 
 	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { Myself = myEnemy; }
 	void SetEnemyMesh(USkeletalMeshComponent* mesh) { MyMesh = mesh; }
-	void SetSteve(AMyPlayer* steve) { Steve = steve; }
 };
