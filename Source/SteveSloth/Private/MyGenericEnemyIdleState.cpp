@@ -12,8 +12,8 @@
 
 void UMyGenericEnemyIdleState::EnterState()
 {
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
+	/*Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);*/
 	IsAnimationRunning = false;
 }
 

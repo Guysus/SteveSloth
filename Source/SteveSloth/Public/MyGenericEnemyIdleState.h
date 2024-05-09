@@ -25,7 +25,7 @@ class STEVESLOTH_API UMyGenericEnemyIdleState : public UMyEnemyBaseState
 	GENERATED_BODY()
 
 private:
-	ACharacter* Player;
+	//ACharacter* Player;
 	AMyPlayer* Steve;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
@@ -38,4 +38,5 @@ public: //PUBLIC FUNCTIONS
 
 	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { Myself = myEnemy; }
 	void SetEnemyMesh(USkeletalMeshComponent* mesh) { MyMesh = mesh; }
+	void SetSteve(AMyPlayer* steve) { Steve = steve; }
 };

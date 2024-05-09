@@ -11,6 +11,7 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
+#include "MyPlayer.h"
 #include "MyEnemyStateComponent.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -72,6 +73,9 @@ public:
 	UAnimationAsset* DeathAnim;
 
 	float CurrentHealth;
+public:
+	ACharacter* Player;
+	AMyPlayer* Steve;
 	
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
