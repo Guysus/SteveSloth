@@ -35,6 +35,8 @@ UCLASS()
 class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
+private: //PRIVATE CONST VARIABLES
+	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
 protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -60,13 +62,15 @@ protected: // PROTECTED VARIABLES
 
 	ACharacter* Player; 
 
+	bool IsDead;
+
+	FTimerHandle DespawnTimerHandle;
+
 public: // PUBLIC VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* Idle;
 
 	float CurrentHealth;
-	
-	bool IsDead;
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
@@ -76,4 +80,7 @@ protected: // SETUP FUNCTIONS
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+
+private: // PRIVATE INTERNAL FUNCTIONS
+	void Despawn();
 };

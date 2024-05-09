@@ -37,6 +37,13 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 	if (CurrentHealth <= 0 && !IsDead)
 	{
-
+		// ---- change to dead state here ----
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+		IsDead = true;
 	}
+}
+
+void AMyEnemyBaseClass::Despawn()
+{
+	this->Destroy();
 }

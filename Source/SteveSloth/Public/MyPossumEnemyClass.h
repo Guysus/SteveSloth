@@ -24,10 +24,12 @@ private: //PRIVATE CONST VARIABLES
 	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
 	const float IDLE_TIMER_AMOUNT = 1.0f;
 	const float IDLE_RESET_TIMER_AMOUNT = 1.0f;
+	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
 protected: // PROTECTED VARIABLES 
 	FTimerHandle IdleTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
+	FTimerHandle RangedResetTimerHandle;
 
 	bool IsIdle;
 	bool IsChasing;
@@ -55,4 +57,6 @@ public:	// UPDATE FUNCTIONS
 private: // PRIVATE INTERNAL FUNCTIONS
 	void IdleOver();
 	void IdleReset();
+
+	void RangedAttackOver();
 };

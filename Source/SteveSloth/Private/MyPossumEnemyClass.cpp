@@ -74,3 +74,8 @@ void AMyPossumEnemyClass::IdleReset()
 {
 	IsIdle = false;
 }
+
+void AMyPossumEnemyClass::RangedAttackOver()
+{
+
+}
