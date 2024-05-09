@@ -73,9 +73,6 @@ public:
 	UAnimationAsset* DeathAnim;
 
 	float CurrentHealth;
-public:
-	ACharacter* Player;
-	AMyPlayer* Steve;
 	
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();

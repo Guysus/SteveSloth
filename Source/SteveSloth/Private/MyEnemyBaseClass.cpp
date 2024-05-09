@@ -15,11 +15,6 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	if (Player != nullptr)
-	{
-		Steve = Cast<AMyPlayer>(Player);
-	}
 
 	CurrentHealth = MaxHealth;
 }
@@ -29,7 +24,6 @@ void AMyEnemyBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
-	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetSteve(Steve);
 	StateMachine->ChangeState(StateMachine->GetIdleState());
 }
 

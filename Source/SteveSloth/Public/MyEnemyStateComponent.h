@@ -31,9 +31,6 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> IdleState;
 
-	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	//USkeletalMeshComponent* MyMesh;
-
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
 public:	// CONSTRUCTOR HERE
