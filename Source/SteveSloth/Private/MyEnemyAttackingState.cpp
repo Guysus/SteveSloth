@@ -10,11 +10,12 @@
 
 
 #include "MyEnemyAttackingState.h"
-#include "MyEnemyBaseClass.h"
 
 void UMyEnemyAttackingState::EnterState()
 {
     Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+    Enemy = Cast<AMyEnemyBaseClass>(GetOuter());
 }
 
 void UMyEnemyAttackingState::ExitState()
@@ -33,25 +34,7 @@ void UMyEnemyAttackingState::UpdateState(float deltaTime)
 
 void UMyEnemyAttackingState::SelectAttack()
 {
-    AMyEnemyBaseClass* Owner = Cast<AMyEnemyBaseClass>(GetOuter());
-    if (Owner)
-    {
-        FVector EnemyLocation = Owner->GetActorLocation();
-        FVector PlayerLocation = Player->GetActorLocation();
-        float Distance = FVector::Distance(EnemyLocation, PlayerLocation);
-
-        // Choose attack based on distance
-        if (Distance < Owner->GetAttackRange())
-        {
-            // Perform melee attack
-            PerformMeleeAttack();
-        }
-        else
-        {
-            // Perform ranged attack
-            PerformRangedAttack();
-        }
-    }
+    
 }
 
 void UMyEnemyAttackingState::PerformMeleeAttack()

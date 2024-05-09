@@ -17,6 +17,9 @@
 #include "Animation/AnimMontage.h"
 #include "MyEnemyAttackingState.generated.h"
 
+
+class AMyEnemyBaseClass;
+
 UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyAttackingState : public UMyEnemyBaseState
 {
@@ -29,6 +32,7 @@ public:
 
 protected:
 	ACharacter* Player;
+    AMyEnemyBaseClass* Enemy;
 
     // Combat parameters
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
