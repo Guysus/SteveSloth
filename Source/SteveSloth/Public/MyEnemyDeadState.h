@@ -27,6 +27,7 @@ class STEVESLOTH_API UMyEnemyDeadState : public UMyEnemyBaseState
 private:
 	AMyEnemyBaseClass* Enemy;
 	USkeletalMeshComponent* EnemyMesh;
+	bool IsAnimationRunning;
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Timer")
@@ -40,7 +41,5 @@ public: //PUBLIC ABSTRACT FUNCTIONS
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
-protected:
-	//CALL MONTAGE ABILITY
-	void PlayMontage();
+
 };

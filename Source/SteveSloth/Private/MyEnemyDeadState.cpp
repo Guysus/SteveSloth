@@ -13,6 +13,7 @@
 void UMyEnemyDeadState::EnterState()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Death Enter State"));
+	IsAnimationRunning = false;
 }
 
 void UMyEnemyDeadState::ExitState()
@@ -23,9 +24,9 @@ void UMyEnemyDeadState::ExitState()
 void UMyEnemyDeadState::UpdateState(float deltaTime)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Update State"));
-}
-
-void UMyEnemyDeadState::PlayMontage()
-{
-	
+	if (Enemy != nullptr && !IsAnimationRunning)
+	{
+		Enemy->GetMesh()->PlayAnimation(Enemy->Dead, true);
+		IsAnimationRunning = true;
+	}
 }
