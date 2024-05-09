@@ -25,7 +25,7 @@
 enum EMappingInputs
 {
 	Normal,
-	Water,
+	Swimming,
 	Aiming
 };
 
