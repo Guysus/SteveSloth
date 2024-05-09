@@ -74,3 +74,5 @@ Plugins/*/Intermediate/*
 DerivedDataCache/*
 Content/Artwork/LevelAssets/BeachAssets/tedndbsq_8K_Normal.uasset
 Content/Artwork/LevelAssets/BeachAssets/tedndbsq_8K_Albedo.uasset
+Content/Artwork/LevelAssets/BeachAssets/Trampled_BeachSand_8K_Normal.uasset
+Content/Artwork/LevelAssets/BeachAssets/Trampled_BeachSand_8K_Albedo.uasset
