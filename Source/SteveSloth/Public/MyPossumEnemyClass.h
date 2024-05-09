@@ -27,7 +27,7 @@ private: //PRIVATE CONST VARIABLES
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
 protected: // PROTECTED VARIABLES 
-	FTimerHandle IdleTimerHandle;
+	FTimerHandle StartPatrolTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
@@ -55,7 +55,7 @@ public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 private: // PRIVATE INTERNAL FUNCTIONS
-	void IdleOver();
+	void StartPatrolState(); 
 	void IdleReset();
 
 	void RangedAttackOver();
