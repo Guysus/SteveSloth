@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Elad Saretzky, edited:Guy Lapensee
+ * Name: Elad Saretzky, Jeff Moreau
  * Script: MyEnemyStateComponent.cpp
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
@@ -9,6 +9,8 @@
  ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
+
+#include "MyGenericEnemyIdleState.h"
 
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
@@ -19,7 +21,7 @@ void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	ChangeState(DeathState);
+	IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

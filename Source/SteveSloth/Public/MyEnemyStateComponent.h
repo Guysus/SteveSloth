@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Elad Saretzky, edited:Guy Lapensee
+ * Name: Elad Saretzky, Jeff Moreau
  * Script: MyEnemyStateComponent.h
  * Date: May 2, 2024
  * Description: Component that is the state machine for the enemy to use
@@ -10,9 +10,9 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
-#include "MyEnemyDeadState.h"
 #include "MyEnemyBaseState.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -27,9 +27,12 @@ protected: // PROTECTED VARIABLES
 	////more states will go here as new TArrays
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<UMyEnemyBaseState*> AttackStates;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TSubclassOf<UMyEnemyDeadState> DeathState;
+	TSubclassOf<UMyEnemyBaseState> IdleState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	USkeletalMeshComponent* MyMesh;
 
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
@@ -41,6 +44,7 @@ protected:
 
 public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	UFUNCTION(BlueprintCallable)
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
+
+	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
 };
