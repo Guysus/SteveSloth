@@ -11,9 +11,9 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
+#include "MyEnemyStateComponent.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "MyEnemyStateComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"

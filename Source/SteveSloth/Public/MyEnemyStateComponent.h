@@ -31,8 +31,8 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> IdleState;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	USkeletalMeshComponent* MyMesh;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	//USkeletalMeshComponent* MyMesh;
 
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
@@ -46,5 +46,6 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 
-	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
+	TSubclassOf<UMyEnemyBaseState> GetIdleState() const { return IdleState; }
+	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
 };

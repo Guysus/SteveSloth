@@ -21,7 +21,7 @@ void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
 	
-	IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
+	//IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
