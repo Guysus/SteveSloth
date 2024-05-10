@@ -35,6 +35,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	FVector end = (start + (this->GetActorForwardVector() * RangedAttackRange));
 
 	FCollisionQueryParams collisionParams;
+	collisionParams.AddIgnoredActor(this);
 
 	bool isHit = GetWorld()->LineTraceSingleByChannel(outHit, start, end, ECC_Visibility, collisionParams);
 

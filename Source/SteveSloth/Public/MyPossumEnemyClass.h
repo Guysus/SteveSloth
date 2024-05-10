@@ -26,7 +26,7 @@ private: //PRIVATE CONST VARIABLES
 	const float IDLE_RESET_TIMER_AMOUNT = 1.0f;
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
-protected: // PROTECTED VARIABLES 
+private: // PRIVATE VARIABLES 
 	FTimerHandle StartPatrolTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
@@ -36,6 +36,7 @@ protected: // PROTECTED VARIABLES
 	bool IsAttackingMelee;
 	bool IsAttackingRanged;
 
+protected: // PROTECTED VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chase")
 	float ChaseRange;
 
