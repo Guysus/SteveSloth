@@ -60,7 +60,7 @@ public:
 	UAnimationAsset* IdleAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-	UAnimationAsset* MoveAnim;
+	UAnimationAsset* PatrolAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* AttackAnim;

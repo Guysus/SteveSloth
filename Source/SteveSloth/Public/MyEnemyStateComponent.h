@@ -26,6 +26,7 @@ enum EStates
 	Chase,
 	Flee,
 	Attack,
+	RangedAttack,
 	Die
 };
 
@@ -55,6 +56,7 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	TSubclassOf<UMyEnemyBaseState> GetChaseState() const { return States[Chase]; }
 	TSubclassOf<UMyEnemyBaseState> GetFleeState() const { return States[Flee]; }
 	TSubclassOf<UMyEnemyBaseState> GetAttackState() const { return States[Attack]; }
+	TSubclassOf<UMyEnemyBaseState> GetRangedAttackState() const { return States[RangedAttack]; }
 	TSubclassOf<UMyEnemyBaseState> GetDieState() const { return States[Die]; }
 	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
 	TArray<TSubclassOf<UMyEnemyBaseState>> GetState() const { return States; }

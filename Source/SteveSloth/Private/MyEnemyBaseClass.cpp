@@ -25,11 +25,12 @@ void AMyEnemyBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
-	/*StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);
+	/*StateMachine->GetPatrolState()->GetDefaultObject<UMyGenericEnemyPatrolState>()->SetEnemyBaseClass(this);
+	StateMachine->GetChaseState()->GetDefaultObject<UMyGenericEnemyChaseState>()->SetEnemyBaseClass(this);
+	StateMachine->GetFleeState()->GetDefaultObject<UMyGenericEnemyFleeState>()->SetEnemyBaseClass(this);*/
 	StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);
-	StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);*/
-	StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);
-	/*StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);*/
+	/*StateMachine->GetRangedAttackState()->GetDefaultObject<UMyGenericEnemyRangedAttackState>()->SetEnemyBaseClass(this);*/
+	/*StateMachine->GetDieState()->GetDefaultObject<UMyGenericEnemyDieState>()->SetEnemyBaseClass(this);*/
 	StateMachine->ChangeState(StateMachine->GetState()[Attack]);
 }
 
