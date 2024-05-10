@@ -36,7 +36,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);
 	StateMachine->GetRangedAttackState()->GetDefaultObject<UMyGenericEnemyRangeAttackState>()->SetEnemyBaseClass(this);
 	StateMachine->GetDieState()->GetDefaultObject<UMyGenericEnemyDieState>()->SetEnemyBaseClass(this);
-	StateMachine->ChangeState(StateMachine->GetState()[Attack]);
+	StateMachine->ChangeState(StateMachine->GetState()[Idle]);
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
