@@ -30,6 +30,9 @@ protected: // PROTECTED VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> IdleState;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TSubclassOf<UMyEnemyBaseState> PatrolState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	USkeletalMeshComponent* MyMesh;
@@ -47,4 +50,5 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 
 	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
+	TSubclassOf<UMyEnemyBaseState> GetPatrolState() { return PatrolState; }
 };

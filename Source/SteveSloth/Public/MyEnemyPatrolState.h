@@ -11,10 +11,10 @@
 
  // INCLUDES HERE
 #include "CoreMinimal.h"
+#include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
 #include "Components/SplineComponent.h"
 #include "Components/SkeletalMeshComponent.h"
-#include "Components/TimelineComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyPatrolState.generated.h"
@@ -23,24 +23,21 @@ UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyPatrolState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
+
+private:
+	AMyEnemyBaseClass* PMyself;
+	USkeletalMeshComponent* PMyMesh;
+	USplineComponent* PMySpline;
+	float MovementVelocity;
+	bool IsAnimationRunning;
 	
-public: // INHERITED FUNCTIONS 
+public: // PUBLIC FUNCTIONS 
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
-//private: // PRIVATE VARIABLES
-	
-public: // DETAILS PANEL VARIABLES
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spline")
-	USplineComponent* PSplineComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Mesh")
-	USkeletalMeshComponent* PSkeletalMeshComponent;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Speed")
-	float MovementVelocity;
+	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { PMyself = myEnemy; }
+	void SetEnemyMesh(USkeletalMeshComponent* mesh) { PMyMesh = mesh; }
 
 private: // PRIVATE INTERNAL FUNCTIONS
 

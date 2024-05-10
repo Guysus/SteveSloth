@@ -9,7 +9,7 @@
  ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
-
+#include "MyEnemyPatrolState.h"
 #include "MyGenericEnemyIdleState.h"
 
 UMyEnemyStateComponent::UMyEnemyStateComponent()
@@ -22,6 +22,7 @@ void UMyEnemyStateComponent::BeginPlay()
 	Super::BeginPlay();
 	
 	IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
+	PatrolState->GetDefaultObject<UMyEnemyPatrolState>()->SetEnemyMesh(MyMesh);
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

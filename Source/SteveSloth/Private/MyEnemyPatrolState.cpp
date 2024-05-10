@@ -12,7 +12,7 @@
 
 void UMyEnemyPatrolState::EnterState()
 {
-	
+	UE_LOG(LogTemp, Warning, TEXT("Enter Patrol"));
 }
 
 void UMyEnemyPatrolState::ExitState()
@@ -22,17 +22,20 @@ void UMyEnemyPatrolState::ExitState()
 
 void UMyEnemyPatrolState::UpdateState(float deltaTime)
 {
-	ProcessMovement(deltaTime);
+	if (PMyself != nullptr) 
+	{
+		//ProcessMovement(deltaTime);
+	}
 }
 
 void UMyEnemyPatrolState::ProcessMovement(float value)
 {
-	const float SplineLength = PSplineComponent->GetSplineLength();
+	const float SplineLength = PMySpline->GetSplineLength();
 		
-	FVector CurrentSplineLocation = PSplineComponent->GetLocationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
-	FRotator CurrentSplineRotation = PSplineComponent->GetRotationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
+	FVector CurrentSplineLocation = PMySpline->GetLocationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
+	FRotator CurrentSplineRotation = PMySpline->GetRotationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
 
-	PSkeletalMeshComponent->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);
+	PMyMesh->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);
 
 	/*if(PSkeletalMeshComponent->GetPosition() = PSplineComponent->)*/
 }
