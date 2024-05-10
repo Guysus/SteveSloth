@@ -1,28 +1,28 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Jeff Moreau
- * Script: MyGenericEnemyPatrolState.cpp
+ * Script: MyGenericEnemyFleeState.cpp
  * Date: May 8, 2024
- * Description: What Happens when the Enemy is Patroling around
+ * Description: What Happens when the Enemy is running away from the player
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyGenericEnemyPatrolState.h"
+#include "MyGenericEnemyFleeState.h"
 
-void UMyGenericEnemyPatrolState::EnterState()
+void UMyGenericEnemyFleeState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
-void UMyGenericEnemyPatrolState::ExitState()
+void UMyGenericEnemyFleeState::ExitState()
 {
 
 }
 
-void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
+void UMyGenericEnemyFleeState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{

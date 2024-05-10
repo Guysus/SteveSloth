@@ -1,28 +1,28 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Jeff Moreau
- * Script: MyGenericEnemyPatrolState.cpp
+ * Script: MyGenericEnemyChaseState.cpp
  * Date: May 8, 2024
- * Description: What Happens when the Enemy is Patroling around
+ * Description: What Happens when the Enemy is Chasing the Player
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyGenericEnemyPatrolState.h"
+#include "MyGenericEnemyChaseState.h"
 
-void UMyGenericEnemyPatrolState::EnterState()
+void UMyGenericEnemyChaseState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
-void UMyGenericEnemyPatrolState::ExitState()
+void UMyGenericEnemyChaseState::ExitState()
 {
 
 }
 
-void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
+void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{

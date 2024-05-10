@@ -1,32 +1,32 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Jeff Moreau
- * Script: MyGenericEnemyPatrolState.cpp
+ * Script: MyGenericEnemyDieState.cpp
  * Date: May 8, 2024
- * Description: What Happens when the Enemy is Patroling around
+ * Description: What Happens when the Enemy Dies
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyGenericEnemyPatrolState.h"
+#include "MyGenericEnemyDieState.h"
 
-void UMyGenericEnemyPatrolState::EnterState()
+void UMyGenericEnemyDieState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
-void UMyGenericEnemyPatrolState::ExitState()
+void UMyGenericEnemyDieState::ExitState()
 {
 
 }
 
-void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
+void UMyGenericEnemyDieState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
+		Myself->GetMesh()->PlayAnimation(Myself->DeathAnim, true);
 		IsAnimationRunning = true;
 	}
 }

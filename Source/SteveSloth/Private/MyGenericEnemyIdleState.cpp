@@ -19,7 +19,7 @@ void UMyGenericEnemyIdleState::EnterState()
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Exit Idle"));
+	
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
