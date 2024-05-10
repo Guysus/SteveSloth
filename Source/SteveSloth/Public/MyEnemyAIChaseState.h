@@ -12,6 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "MyPlayer.h"
+#include "Math/Vector.h"
 #include "Animation/AnimInstance.h"
 #include "MyEnemyBaseState.h"
 #include "MyEnemyBaseClass.h"
@@ -34,7 +35,5 @@ private:
 	AMyEnemyBaseClass* Enemy;
 	FVector EnemyLocation;
 
-	FVector Direction;
-	FVector NewLocation;
-	AMyEnemyBaseClass* MovementSpeed;
+    FVector Direction;
 };

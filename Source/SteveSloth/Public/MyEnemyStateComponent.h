@@ -28,6 +28,8 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<UMyEnemyBaseState*> AttackStates;
 
+	                 //ADD CHASE STATE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> IdleState;
 

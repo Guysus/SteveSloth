@@ -60,6 +60,8 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* Idle;
 
+	float GetMovementSpeed() const { return MovementSpeed; }
+
 	float CurrentHealth;
 	
 public:	// CONSTRUCTOR HERE

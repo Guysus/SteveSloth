@@ -24,6 +24,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
+	//StateMachine->GetChaseState()  FINISH THIS !!!!!!!!!!!!!!
 	StateMachine->ChangeState(StateMachine->GetIdleState());
 }
 

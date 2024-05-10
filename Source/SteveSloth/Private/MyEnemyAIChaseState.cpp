@@ -15,6 +15,7 @@
 
 void UMyEnemyAIChaseState::EnterState()
 {
+	 
 	//play the walking or running animation montage for the enemy
 	 PlayAnimMontage();
 }
@@ -37,10 +38,8 @@ void UMyEnemyAIChaseState::UpdateState(float deltaTime)
        Direction.Normalize();
 
 	   //Update Enemy Location 
-      // NewLocation = EnemyLocation + Direction * MovementSpeed * deltaTime ;
-      // EnemyLocation = NewLocation;
-	}
-    	
+	   Enemy->SetActorLocation(EnemyLocation + Direction * Enemy->GetMovementSpeed() * deltaTime);
+	}  	
 }
 
 void UMyEnemyAIChaseState::PlayAnimMontage() 
