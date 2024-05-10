@@ -26,8 +26,6 @@ void AMyEnemyBaseClass::BeginPlay()
 
 	//StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	//StateMachine->ChangeState(StateMachine->GetIdleState());
-	StateMachine->GetDeadState()->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyBaseClass(this);
-	StateMachine->ChangeState(StateMachine->GetDeadState());
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
