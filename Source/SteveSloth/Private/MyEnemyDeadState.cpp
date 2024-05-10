@@ -21,7 +21,7 @@ void UMyEnemyDeadState::EnterState()
 
 void UMyEnemyDeadState::ExitState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Exit Death State"));
+	
 }
 
 void UMyEnemyDeadState::UpdateState(float deltaTime)
