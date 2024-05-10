@@ -3,7 +3,7 @@
  * Name:Guy Lapensee
  * Script: MyEnemyDeadState.cpp
  * Date:May 3, 2024
- * Description:Enemy Dead State
+ * Description:Enemy Dead State; plays death animation upon death
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
