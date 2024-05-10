@@ -16,7 +16,11 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
+
 	CurrentHealth = MaxHealth;
+
+	IsDead = false;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
@@ -30,4 +34,16 @@ void AMyEnemyBaseClass::BeginPlay()
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (CurrentHealth <= 0 && !IsDead)
+	{
+		// ---- change to dead state here ----
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+		IsDead = true;
+	}
+}
+
+void AMyEnemyBaseClass::Despawn()
+{
+	this->Destroy();
 }
