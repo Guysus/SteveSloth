@@ -10,19 +10,17 @@
 
 #include "MyEnemyBaseClass.h"
 #include "MyGenericEnemyIdleState.h"
-#include <MyGenericEnemyAttackState.h>
-#include <MyGenericEnemyPatrolState.h>
-#include <MyGenericEnemyChaseState.h>
-#include <MyGenericEnemyFleeState.h>
-#include <MyGenericEnemyRangeAttackState.h>
-#include <MyGenericEnemyDieState.h>
 
 AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
-
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
+
 	CurrentHealth = MaxHealth;
+
+	IsDead = false;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
@@ -30,16 +28,22 @@ void AMyEnemyBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
-	StateMachine->GetPatrolState()->GetDefaultObject<UMyGenericEnemyPatrolState>()->SetEnemyBaseClass(this);
-	StateMachine->GetChaseState()->GetDefaultObject<UMyGenericEnemyChaseState>()->SetEnemyBaseClass(this);
-	StateMachine->GetFleeState()->GetDefaultObject<UMyGenericEnemyFleeState>()->SetEnemyBaseClass(this);
-	StateMachine->GetAttackState()->GetDefaultObject<UMyGenericEnemyAttackState>()->SetEnemyBaseClass(this);
-	StateMachine->GetRangedAttackState()->GetDefaultObject<UMyGenericEnemyRangeAttackState>()->SetEnemyBaseClass(this);
-	StateMachine->GetDieState()->GetDefaultObject<UMyGenericEnemyDieState>()->SetEnemyBaseClass(this);
-	StateMachine->ChangeState(StateMachine->GetState()[Idle]);
+	StateMachine->ChangeState(StateMachine->GetIdleState());
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (CurrentHealth <= 0 && !IsDead)
+	{
+		// ---- change to dead state here ----
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+		IsDead = true;
+	}
+}
+
+void AMyEnemyBaseClass::Despawn()
+{
+	this->Destroy();
 }
