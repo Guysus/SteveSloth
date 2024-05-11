@@ -13,6 +13,7 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Components/SplineComponent.h"
 #include "MyEnemyBaseState.h"
 
 // MAKE SURE THIS INCLUDE IS LAST

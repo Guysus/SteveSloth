@@ -13,31 +13,58 @@
 void UMyEnemyPatrolState::EnterState()
 {
 	UE_LOG(LogTemp, Warning, TEXT("Enter Patrol"));
+
+	if (PMyself != nullptr && PMySpline != nullptr)
+	{
+		TotalPathTimeController = 8.0f;
+		PMySpline->Duration = TotalPathTimeController;
+	}
 }
 
 void UMyEnemyPatrolState::ExitState()
 {
-	
+
 }
 
 void UMyEnemyPatrolState::UpdateState(float deltaTime)
 {
-	if (PMyself != nullptr) 
+	StartTime = deltaTime;
+
+	if (PMyself != nullptr && PMySpline != nullptr) 
 	{
-		//ProcessMovement(deltaTime);
+		float CurrentSplineTime = (deltaTime - StartTime) / TotalPathTimeController;
+
+		float Distance = PMySpline->GetSplineLength() * CurrentSplineTime;
+
+		//World Position
+		FVector Position = PMySpline->GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
+		PMyself->SetActorLocation(Position);
+
+		//World Rotation
+		FVector Direction = PMySpline->GetDirectionAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
+		//Create rotator given a vector director (normalized)
+		FRotator Rotator = FRotationMatrix::MakeFromX(Direction).Rotator();
+		PMyself->SetActorRotation(Rotator);
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Nullcheck failed"));
 	}
 }
 
 void UMyEnemyPatrolState::ProcessMovement(float value)
 {
+	UE_LOG(LogTemp, Warning, TEXT("Processing Movement"));
+
 	const float SplineLength = PMySpline->GetSplineLength();
 		
 	FVector CurrentSplineLocation = PMySpline->GetLocationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
 	FRotator CurrentSplineRotation = PMySpline->GetRotationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
 
-	PMyMesh->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);
+	UE_LOG(LogTemp, Warning, TEXT("Current Spline Location is: %s"), *CurrentSplineLocation.ToString());
+	UE_LOG(LogTemp, Warning, TEXT("Current Spline Rotation is: %s"), *CurrentSplineRotation.ToString());
 
-	/*if(PSkeletalMeshComponent->GetPosition() = PSplineComponent->)*/
+	/*PMyMesh->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);*/
 }
 
 void UMyEnemyPatrolState::OnEndMovement()

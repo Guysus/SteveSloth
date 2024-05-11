@@ -28,7 +28,8 @@ private:
 	AMyEnemyBaseClass* PMyself;
 	USkeletalMeshComponent* PMyMesh;
 	USplineComponent* PMySpline;
-	float MovementVelocity;
+	float StartTime;
+	float TotalPathTimeController;
 	bool IsAnimationRunning;
 	
 public: // PUBLIC FUNCTIONS 
@@ -38,6 +39,7 @@ public: // PUBLIC FUNCTIONS
 
 	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { PMyself = myEnemy; }
 	void SetEnemyMesh(USkeletalMeshComponent* mesh) { PMyMesh = mesh; }
+	void SetEnemySpline(USplineComponent* spline) { PMySpline = spline; }
 
 private: // PRIVATE INTERNAL FUNCTIONS
 

@@ -16,6 +16,8 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	MySpline = CreateDefaultSubobject<USplineComponent>(TEXT("My Spline"));
+	MySpline->SetupAttachment(RootComponent);
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
 
@@ -31,6 +33,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	/*StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->ChangeState(StateMachine->GetIdleState());*/
 	StateMachine->GetPatrolState()->GetDefaultObject<UMyEnemyPatrolState>()->SetEnemyBaseClass(this);
+	StateMachine->GetPatrolState()->GetDefaultObject<UMyEnemyPatrolState>()->SetEnemySpline(MySpline);
 	StateMachine->ChangeState(StateMachine->GetPatrolState());
 }
 
@@ -48,5 +51,5 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 void AMyEnemyBaseClass::Despawn()
 {
-	this->Destroy();
+	//this->Destroy();
 }
