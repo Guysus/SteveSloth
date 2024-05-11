@@ -15,36 +15,48 @@
 
 void UMyEnemyAIChaseState::EnterState()
 {
-	 
-	//play the walking or running animation montage for the enemy
-	 PlayAnimMontage();
+	 Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	 IsAnimationRunning = false;
 }
 
 void UMyEnemyAIChaseState::UpdateState(float deltaTime)
 {
-	//Get The Players Location(will be handled in enemy base class)
-	PlayerLocation = Player->GetActorLocation();
-
-	//Get The Enemies Location(will be handled in enemy base class)
-	EnemyLocation = Enemy->GetActorLocation();
-
-    //Rotate Enemy to face The player
-    FRotator TargetRotation = Direction.Rotation();
-	
-	if (PlayerLocation != FVector::ZeroVector) 
+	if (Myself != nullptr && Player != nullptr) 
 	{
-       //Have Enemy Face Players Direction(will be handled in enemybase class)
-       Direction = PlayerLocation - EnemyLocation;
-       Direction.Normalize();
+		//Get The Players Location(will be handled in enemy base class)
+		PlayerLocation = Player->GetActorLocation();
+		//Get The Enemies Location(will be handled in enemy base class)
+		EnemyLocation = Myself->GetActorLocation();
+		//Rotate Enemy to face The player
+		FRotator EnemyRotation = UKismetMathLibrary::FindLookAtRotation(EnemyLocation, PlayerLocation);
+		
+		if (PlayerLocation != FVector::ZeroVector) 
+		{
+			 //Have Enemy Face Players Direction(will be handled in enemybase class)
+			 Direction = PlayerLocation - EnemyLocation;
+			 Direction.Normalize();
+			 //Update Enemy Location 
+			 Myself->SetActorLocation(EnemyLocation + Direction * Myself->GetMovementSpeed() * deltaTime);
 
-	   //Update Enemy Location 
-	   Enemy->SetActorLocation(EnemyLocation + Direction * Enemy->GetMovementSpeed() * deltaTime);
-	}  	
-}
-
-void UMyEnemyAIChaseState::PlayAnimMontage() 
-{
-	//UAnimMontage* WalkMotage;
+			 if (Myself != nullptr && !IsAnimationRunning) 
+			 {
+				Myself->GetMesh()->PlayAnimation(Myself->Move, true);
+				IsAnimationRunning = true;
+			 }
+		} 
+		if (MyMesh != nullptr)
+		{
+			MyMesh->SetWorldRotation(EnemyRotation);
+		}
+		else
+		{
+			UE_LOG(LogTemp, Warning, TEXT("set world rotation issue"));
+		}
+	}
+	else 
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Enemy or player location Issue"));
+	}  
 }
 
 void UMyEnemyAIChaseState::ExitState()

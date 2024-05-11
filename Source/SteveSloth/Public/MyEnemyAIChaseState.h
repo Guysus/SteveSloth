@@ -22,18 +22,19 @@ UCLASS()
 class STEVESLOTH_API UMyEnemyAIChaseState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
-	
+
+private:
+	ACharacter* Player;
+	FVector PlayerLocation;
+    AMyEnemyBaseClass* Myself;
+	FVector EnemyLocation;
+    FVector Direction;	
+	USkeletalMeshComponent* MyMesh;
+	bool IsAnimationRunning;
 public:
 	virtual void EnterState()override;
 	virtual void ExitState()override;
 	virtual void UpdateState(float deltaTime)override;
-	void PlayAnimMontage();
-private:
-	AMyPlayer* Player;
-	FVector PlayerLocation;
-
-	AMyEnemyBaseClass* Enemy;
-	FVector EnemyLocation;
-
-    FVector Direction;
+	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { Myself = myEnemy; }
+	void SetEnemyMesh(USkeletalMeshComponent* mesh) { MyMesh = mesh; }
 };
