@@ -9,6 +9,8 @@
  ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
+#include "MyEnemyDeadState.h"
+#include "MyGenericEnemyIdleState.h"
 
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
@@ -18,6 +20,14 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
+	
+	//IdleState->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyMesh(MyMesh);
+	
+	if (DeadState != nullptr)
+	{
+		DeadState->GetDefaultObject<UMyEnemyDeadState>()->SetEnemyMesh(EnemyMesh);
+	}
+	
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

@@ -84,6 +84,9 @@ public: // PUBLIC VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* DeathAnim;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* Dead;
+
 	float CurrentHealth;
 
 public:	// CONSTRUCTOR HERE
