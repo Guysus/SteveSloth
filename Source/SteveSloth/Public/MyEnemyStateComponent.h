@@ -76,7 +76,7 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	TSubclassOf<UMyEnemyBaseState> GetRangedAttackState() const { return States[RangedAttack]; }
 	TSubclassOf<UMyEnemyBaseState> GetDieState() const { return States[Die]; }
 	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
-	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[(wantedState]; }
+	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[wantedState]; }
 	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
 	TSubclassOf<UMyEnemyBaseState> GetDeadState() { return DeadState; }
 };
