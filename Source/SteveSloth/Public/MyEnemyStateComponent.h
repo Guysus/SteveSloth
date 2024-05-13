@@ -29,13 +29,16 @@ protected: // PROTECTED VARIABLES
 	TArray<UMyEnemyBaseState*> AttackStates;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TSubclassOf<UMyEnemyBaseState> ChaseState;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> IdleState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TSubclassOf<UMyEnemyBaseState> DeadState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	USkeletalMeshComponent* MyMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	USkeletalMeshComponent* EnemyMesh;
 
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
@@ -50,5 +53,5 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 
 	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
-	TSubclassOf<UMyEnemyBaseState> GetChaseState() { return ChaseState; }
+	TSubclassOf<UMyEnemyBaseState> GetDeadState() { return DeadState; }
 };
