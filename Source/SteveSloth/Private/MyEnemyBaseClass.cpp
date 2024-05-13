@@ -9,6 +9,7 @@
  ****************************************************************************************/
 
 #include "MyEnemyBaseClass.h"
+#include "MyEnemyDeadState.h"
 #include "MyGenericEnemyIdleState.h"
 
 AMyEnemyBaseClass::AMyEnemyBaseClass()
@@ -27,8 +28,8 @@ void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
-	StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
-	StateMachine->ChangeState(StateMachine->GetIdleState());
+	//StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
+	//StateMachine->ChangeState(StateMachine->GetIdleState());
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
