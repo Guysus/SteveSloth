@@ -91,13 +91,13 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 
-		inputComponent->BindAction(PSprint, ETriggerEvent::Triggered, this, &AMyPlayer::Sprint);
+		inputComponent->BindAction(PSprint, ETriggerEvent::Triggered, this, &AMyPlayer::IsSprinting);
 		inputComponent->BindAction(PSprint, ETriggerEvent::Completed, this, &AMyPlayer::SprintStop);
 
 		inputComponent->BindAction(PInteract, ETriggerEvent::Triggered, this, &AMyPlayer::InteractWith);
 		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractWith);
 
-		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::Crouch);
+		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
 		
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
@@ -145,7 +145,7 @@ void AMyPlayer::JumpOne(const FInputActionValue& Value)
 	// Add Animations here
 }
 
-void AMyPlayer::Sprint(const FInputActionValue& Value)
+void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 	// Reduce Stamina while Sprint held down
@@ -165,7 +165,7 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 	// Check whether the object we are trying to interact with can be interacted with
 }
 
-void AMyPlayer::Crouch(const FInputActionValue& Value)
+void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 {
 	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 	// Change Animation
@@ -206,6 +206,14 @@ void AMyPlayer::Swim(const FInputActionValue& Value)
 void AMyPlayer::LockOn(const FInputActionValue& Value)
 {
 	//Get Closest Target and lock on.
+}
+
+void AMyPlayer::Aiming(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::AimingStop(const FInputActionValue& Value)
+{
 }
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)

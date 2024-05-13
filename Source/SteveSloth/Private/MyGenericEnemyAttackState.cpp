@@ -1,32 +1,32 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Jeff Moreau
- * Script: MyGenericEnemyIdleState.cpp
+ * Script: MyGenericEnemyAttackState.cpp
  * Date: May 8, 2024
- * Description: What Happens when the Enemy is Idle
- * TODO: 
+ * Description: What Happens when the Enemy is Attacking the Player
+ * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyGenericEnemyIdleState.h"
+#include "MyGenericEnemyAttackState.h"
 
-void UMyGenericEnemyIdleState::EnterState()
+void UMyGenericEnemyAttackState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
-void UMyGenericEnemyIdleState::ExitState()
+void UMyGenericEnemyAttackState::ExitState()
 {
-	
+
 }
 
-void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
+void UMyGenericEnemyAttackState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
+		Myself->GetMesh()->PlayAnimation(Myself->AttackAnim, true);
 		IsAnimationRunning = true;
 	}
 }

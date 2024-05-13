@@ -1,32 +1,32 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Jeff Moreau
- * Script: MyGenericEnemyIdleState.cpp
+ * Script: MyGenericEnemyChaseState.cpp
  * Date: May 8, 2024
- * Description: What Happens when the Enemy is Idle
- * TODO: 
+ * Description: What Happens when the Enemy is Chasing the Player
+ * TODO:
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyGenericEnemyIdleState.h"
+#include "MyGenericEnemyChaseState.h"
 
-void UMyGenericEnemyIdleState::EnterState()
+void UMyGenericEnemyChaseState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
-void UMyGenericEnemyIdleState::ExitState()
+void UMyGenericEnemyChaseState::ExitState()
 {
-	
+
 }
 
-void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
+void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
+		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
 		IsAnimationRunning = true;
 	}
 }
