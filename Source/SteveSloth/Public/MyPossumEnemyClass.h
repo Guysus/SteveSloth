@@ -27,16 +27,22 @@ private: //PRIVATE CONST VARIABLES
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
 private: // PRIVATE VARIABLES 
-	FTimerHandle StartPatrolTimerHandle;
+	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
 	bool IsIdle;
+	bool IsPatroling;
 	bool IsChasing;
 	bool IsAttackingMelee;
 	bool IsAttackingRanged;
 
+	FVector StartingLocation;
+
 protected: // PROTECTED VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Patrol")
+	float PatrolRange;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chase")
 	float ChaseRange;
 
@@ -56,7 +62,7 @@ public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 private: // PRIVATE INTERNAL FUNCTIONS
-	void StartPatrolState(); 
+	void StartFleeState(); 
 	void IdleReset();
 
 	void RangedAttackOver();
