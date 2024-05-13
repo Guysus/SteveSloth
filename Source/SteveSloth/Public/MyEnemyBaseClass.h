@@ -12,7 +12,6 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
-//#include "MyGenericEnemyIdleState.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "SteveSingleton.h"
@@ -68,7 +67,25 @@ protected: // PROTECTED VARIABLES
 
 public: // PUBLIC VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-	UAnimationAsset* Idle;
+	UAnimationAsset* IdleAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* MoveAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* AttackAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* RangedAttackAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* HitAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* DeathAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* Dead;
 
 	float CurrentHealth;
 
