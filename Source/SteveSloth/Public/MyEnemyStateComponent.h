@@ -32,6 +32,9 @@ protected: // PROTECTED VARIABLES
 	TSubclassOf<UMyEnemyBaseState> IdleState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TSubclassOf<UMyEnemyBaseState> ChaseState;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TSubclassOf<UMyEnemyBaseState> DeadState;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
@@ -54,4 +57,6 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 
 	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
 	TSubclassOf<UMyEnemyBaseState> GetDeadState() { return DeadState; }
+	TSubclassOf<UMyEnemyBaseState> GetChaseState() { return ChaseState; }
+
 };
