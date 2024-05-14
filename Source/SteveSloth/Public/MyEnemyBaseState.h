@@ -17,6 +17,7 @@
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseState.generated.h"
 
+class AMyEnemyBaseClass;
 
 UCLASS(Abstract)
 class STEVESLOTH_API UMyEnemyBaseState : public UObject
@@ -27,4 +28,6 @@ public: // PUBLIC ABSTRACT FUNCTIONS
 	virtual void EnterState() PURE_VIRTUAL(MyEnemyBaseState::EnterState, );
 	virtual void ExitState() PURE_VIRTUAL(MyEnemyBaseState::ExitState, );
 	virtual void UpdateState(float deltaTime) PURE_VIRTUAL(MyEnemyBaseState::UpdateState, );
+	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) PURE_VIRTUAL(MyEnemyBaseState::SetEnemyBaseClass, );
+	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) PURE_VIRTUAL(MyEnemyBaseState::SetEnemyMesh, );
 };
