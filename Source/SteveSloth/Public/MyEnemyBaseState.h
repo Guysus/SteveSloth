@@ -17,6 +17,7 @@
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseState.generated.h"
 
+
 UCLASS(Abstract)
 class STEVESLOTH_API UMyEnemyBaseState : public UObject
 {

@@ -14,6 +14,7 @@
 AMyPossumEnemyClass::AMyPossumEnemyClass()
 {
 	IsIdle = false;
+	IsPatroling = false;
 	IsChasing = false;
 	IsAttackingMelee = false;
 	IsAttackingRanged = false;
@@ -22,6 +23,8 @@ AMyPossumEnemyClass::AMyPossumEnemyClass()
 void AMyPossumEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartingLocation = this->GetActorLocation();
 }
 
 void AMyPossumEnemyClass::Tick(float DeltaTime)
@@ -46,9 +49,10 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		// ---- change to melee attack state here ----
 		IsAttackingMelee = true;
 
-		//reset other state bools & clear start patrol timer
-		GetWorldTimerManager().ClearTimer(StartPatrolTimerHandle);
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		IsIdle = false;
+		IsPatroling = false;
 		IsChasing = false;
 		IsAttackingRanged = false;
 	}
@@ -59,10 +63,11 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		IsAttackingRanged = true;
 
 		IsIdle = true; //remains true to stay in ranged state until timer is done
+		IsPatroling = true;
 		IsChasing = true; //remains true to stay in ranged state until timer is done
 
-		//reset other state bools & clear start patrol timer
-		GetWorldTimerManager().ClearTimer(StartPatrolTimerHandle);
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyPossumEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
 		IsAttackingMelee = false;
 	}
@@ -72,9 +77,10 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		// ---- change to chasing state here ----
 		IsChasing = true;
 
-		//reset other state bools & clear start patrol timer
-		GetWorldTimerManager().ClearTimer(StartPatrolTimerHandle);
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		IsIdle = false;
+		IsPatroling = false;
 		IsAttackingMelee = false;
 		IsAttackingRanged = false;
 	}
@@ -82,10 +88,23 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
 	{
 		// ---- change to idle state here ----
-		GetWorldTimerManager().SetTimer(StartPatrolTimerHandle, this, &AMyPossumEnemyClass::StartPatrolState, IDLE_TIMER_AMOUNT, false);
+		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyPossumEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
 		IsIdle = true;
 
-		//reset other state bools & clear start patrol timer
+		//reset other state bools
+		IsChasing = false;
+		IsPatroling = false;
+		IsAttackingMelee = false;
+		IsAttackingRanged = false;
+	}
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation) <= PatrolRange && !IsPatroling)
+	{
+		// ---- change to patrol state here ----
+		IsPatroling = true;
+
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
+		IsIdle = false;
 		IsChasing = false;
 		IsAttackingMelee = false;
 		IsAttackingRanged = false;
@@ -93,13 +112,13 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 
 	if (CurrentHealth <= 0)
 	{
-		GetWorldTimerManager().ClearTimer(StartPatrolTimerHandle);
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 	}
 }
 
-void AMyPossumEnemyClass::StartPatrolState()
+void AMyPossumEnemyClass::StartFleeState()
 {
-	// ---- change to patrol state here ----
+	// ---- change to flee state here ----
 	GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyPossumEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
 }
 
@@ -111,5 +130,6 @@ void AMyPossumEnemyClass::IdleReset()
 void AMyPossumEnemyClass::RangedAttackOver()
 {
 	IsIdle = false;
+	IsPatroling = false;
 	IsChasing = false;
 }
