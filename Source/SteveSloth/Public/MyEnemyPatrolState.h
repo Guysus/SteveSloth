@@ -28,8 +28,7 @@ private:
 	AMyEnemyBaseClass* PMyself;
 	USkeletalMeshComponent* PMyMesh;
 	USplineComponent* PMySpline;
-	float StartTime;
-	float TotalPathTimeController;
+	float Speed;
 	bool IsAnimationRunning;
 	
 public: // PUBLIC FUNCTIONS 
@@ -40,10 +39,4 @@ public: // PUBLIC FUNCTIONS
 	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
 
 	void SetEnemySpline(USplineComponent* spline) { PMySpline = spline; }
-
-private: // PRIVATE INTERNAL FUNCTIONS
-
-	void ProcessMovement(float value);
-
-	void OnEndMovement();
 };

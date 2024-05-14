@@ -26,6 +26,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	MySpline = CreateDefaultSubobject<USplineComponent>(TEXT("My Patrol Spline"));
 	MySpline->SetupAttachment(RootComponent);
 
+
 	CurrentHealth = MaxHealth;
 
 	IsDead = false;

@@ -12,12 +12,10 @@
 
 void UMyEnemyPatrolState::EnterState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Enter Patrol"));
-
 	if (PMyself != nullptr && PMySpline != nullptr)
 	{
-		TotalPathTimeController = 8.0f;
-		PMySpline->Duration = TotalPathTimeController;
+		Speed = PMyself->GetMovementSpeed();
+		IsAnimationRunning = false;
 	}
 }
 
@@ -28,27 +26,27 @@ void UMyEnemyPatrolState::ExitState()
 
 void UMyEnemyPatrolState::UpdateState(float deltaTime)
 {
-	StartTime = deltaTime;
 
-	if (PMyself != nullptr && PMySpline != nullptr) 
+	if (PMyself != nullptr && PMySpline != nullptr)
 	{
-		float CurrentSplineTime = (deltaTime - StartTime) / TotalPathTimeController;
+		//Member variable to hold the spline length
+		const float SplineLength = PMySpline->GetSplineLength();
 
-		float Distance = PMySpline->GetSplineLength() * CurrentSplineTime;
+		//Member variable for spline location and rotation
+		FVector CurrentSplineLocation = PMySpline->GetLocationAtDistanceAlongSpline(SplineLength * Speed, ESplineCoordinateSpace::World);
+		FRotator CurrentSplineRotation = PMySpline->GetRotationAtDistanceAlongSpline(SplineLength * Speed, ESplineCoordinateSpace::World);
 
-		//World Position
-		FVector Position = PMySpline->GetLocationAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
-		PMyself->SetActorLocation(Position);
+		//Set enemies location and rotation
+		PMyself->SetActorLocation(CurrentSplineLocation);
+		PMyself->SetActorRotation(CurrentSplineRotation);
 
-		//World Rotation
-		FVector Direction = PMySpline->GetDirectionAtDistanceAlongSpline(Distance, ESplineCoordinateSpace::World);
-		//Create rotator given a vector director (normalized)
-		FRotator Rotator = FRotationMatrix::MakeFromX(Direction).Rotator();
-		PMyself->SetActorRotation(Rotator);
+		IsAnimationRunning = true;
 	}
-	else 
+
+	if (IsAnimationRunning)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("Nullcheck failed"));
+		//Run animation
+		PMyself->GetMesh()->PlayAnimation(PMyself->MoveAnim, true);
 	}
 }
 
@@ -60,24 +58,4 @@ void UMyEnemyPatrolState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
 void UMyEnemyPatrolState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 {
 	PMyMesh = mesh;
-}
-
-void UMyEnemyPatrolState::ProcessMovement(float value)
-{
-	UE_LOG(LogTemp, Warning, TEXT("Processing Movement"));
-
-	const float SplineLength = PMySpline->GetSplineLength();
-		
-	FVector CurrentSplineLocation = PMySpline->GetLocationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
-	FRotator CurrentSplineRotation = PMySpline->GetRotationAtDistanceAlongSpline(value * SplineLength, ESplineCoordinateSpace::World);
-
-	UE_LOG(LogTemp, Warning, TEXT("Current Spline Location is: %s"), *CurrentSplineLocation.ToString());
-	UE_LOG(LogTemp, Warning, TEXT("Current Spline Rotation is: %s"), *CurrentSplineRotation.ToString());
-
-	/*PMyMesh->SetWorldLocationAndRotation(CurrentSplineLocation, CurrentSplineRotation);*/
-}
-
-void UMyEnemyPatrolState::OnEndMovement()
-{
-
 }
