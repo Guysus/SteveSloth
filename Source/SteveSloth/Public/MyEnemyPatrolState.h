@@ -36,9 +36,9 @@ public: // PUBLIC FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
+	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) override;
+	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
 
-	void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) { PMyself = myEnemy; }
-	void SetEnemyMesh(USkeletalMeshComponent* mesh) { PMyMesh = mesh; }
 	void SetEnemySpline(USplineComponent* spline) { PMySpline = spline; }
 
 private: // PRIVATE INTERNAL FUNCTIONS

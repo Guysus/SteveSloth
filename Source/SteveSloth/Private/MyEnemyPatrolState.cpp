@@ -52,6 +52,16 @@ void UMyEnemyPatrolState::UpdateState(float deltaTime)
 	}
 }
 
+void UMyEnemyPatrolState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
+{
+	PMyself = myEnemy;
+}
+
+void UMyEnemyPatrolState::SetEnemyMesh(USkeletalMeshComponent* mesh)
+{
+	PMyMesh = mesh;
+}
+
 void UMyEnemyPatrolState::ProcessMovement(float value)
 {
 	UE_LOG(LogTemp, Warning, TEXT("Processing Movement"));
