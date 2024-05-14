@@ -30,3 +30,13 @@ void UMyGenericEnemyRangeAttackState::UpdateState(float deltaTime)
 		IsAnimationRunning = true;
 	}
 }
+
+void UMyGenericEnemyRangeAttackState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
+{
+	Myself = myEnemy;
+}
+
+void UMyGenericEnemyRangeAttackState::SetEnemyMesh(USkeletalMeshComponent* mesh)
+{
+	MyMesh = mesh;
+}
