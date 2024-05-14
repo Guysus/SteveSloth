@@ -18,6 +18,18 @@
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyStateComponent.generated.h"
 
+// ENUMS HERE
+enum EStates
+{
+	Idle,
+	Patrol,
+	Chase,
+	Flee,
+	Attack,
+	RangedAttack,
+	Die
+};
+
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 {
@@ -26,16 +38,10 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 protected: // PROTECTED VARIABLES
 	////more states will go here as new TArrays
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TArray<UMyEnemyBaseState*> AttackStates;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TSubclassOf<UMyEnemyBaseState> IdleState;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TSubclassOf<UMyEnemyBaseState> DeadState;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	USkeletalMeshComponent* MyMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
+	TArray<TSubclassOf<UMyEnemyBaseState>> States;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	USkeletalMeshComponent* EnemyMesh;
@@ -52,6 +58,7 @@ public:	// PUBLIC INTERNAL FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
 
-	TSubclassOf<UMyEnemyBaseState> GetIdleState() { return IdleState; }
-	TSubclassOf<UMyEnemyBaseState> GetDeadState() { return DeadState; }
+	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
+	TArray<TSubclassOf<UMyEnemyBaseState>> GetStateList() const {return States; }
+	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[wantedState]; }
 };

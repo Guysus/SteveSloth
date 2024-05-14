@@ -19,14 +19,24 @@ void UMyGenericEnemyIdleState::EnterState()
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Exit Idle"));
+	
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->Idle, true);
+		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
 		IsAnimationRunning = true;
 	}
+}
+
+void UMyGenericEnemyIdleState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
+{
+	Myself = myEnemy;
+}
+
+void UMyGenericEnemyIdleState::SetEnemyMesh(USkeletalMeshComponent* mesh)
+{
+	MyMesh = mesh;
 }
