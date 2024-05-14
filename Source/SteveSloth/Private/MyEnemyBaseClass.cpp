@@ -10,7 +10,7 @@
 
 #include "MyEnemyBaseClass.h"
 //#include "MyEnemyDeadState.h"
-#include "MyGenericEnemyIdleState.h"
+//#include "MyGenericEnemyIdleState.h"
 //#include <MyGenericEnemyAttackState.h>
 //#include <MyGenericEnemyPatrolState.h>
 //#include <MyGenericEnemyChaseState.h>
@@ -23,8 +23,6 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
-
 	CurrentHealth = MaxHealth;
 
 	IsDead = false;
@@ -33,6 +31,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter(); 
 
 	for (int i = 0; i < StateMachine->GetStateList().Num(); i++)
 	{
@@ -56,8 +55,8 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 	if (CurrentHealth <= 0 && !IsDead)
 	{
-		StateMachine->ChangeState(StateMachine->GetState(Die));
-		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+		StateMachine->ChangeState(StateMachine->GetState(Idle));
+		//GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
 		IsDead = true;
 	}
 }

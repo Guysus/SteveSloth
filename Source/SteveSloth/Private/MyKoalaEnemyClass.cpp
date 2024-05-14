@@ -57,17 +57,17 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyKoalaEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
 	}
 	//if the enemy is within the chasing distance
-	//else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !IsChasing)
-	//{
-	//	// ---- change to chasing state here ----
-	//	IsChasing = true;
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !IsChasing)
+	{
+		// ---- change to chasing state here ----
+		IsChasing = true;
 
-	//	//reset other state bools & clear start flee timer
-	//	GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-	//	IsIdle = false;
-	//	IsPatroling = false;
-	//	IsAttackingRanged = false;
-	//}
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
+		IsIdle = false;
+		IsPatroling = false;
+		IsAttackingRanged = false;
+	}
 	//if the enemy is still, do idle for a bit
 	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyKoalaEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
 	{
