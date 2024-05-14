@@ -9,6 +9,7 @@
  ****************************************************************************************/
 
 #include "MyEnemyBaseClass.h"
+#include "MyEnemyPatrolState.h"
 //#include "MyEnemyDeadState.h"
 //#include "MyGenericEnemyIdleState.h"
 //#include <MyGenericEnemyAttackState.h>
@@ -22,6 +23,9 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	MySpline = CreateDefaultSubobject<USplineComponent>(TEXT("My Patrol Spline"));
+	MySpline->SetupAttachment(RootComponent);
+
 
 	CurrentHealth = MaxHealth;
 
@@ -46,7 +50,9 @@ void AMyEnemyBaseClass::BeginPlay()
 	StateMachine->GetState(RangedAttack)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->GetState(Die)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);*/
 	//StateMachine->GetState(Idle)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
-	StateMachine->ChangeState(StateMachine->GetState(Idle));
+	/*StateMachine->ChangeState(StateMachine->GetState(Idle));*/
+	StateMachine->ChangeState(StateMachine->GetState(Patrol));
+	StateMachine->GetState(Patrol)->GetDefaultObject<UMyEnemyPatrolState>()->SetEnemySpline(MySpline);
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
@@ -55,7 +61,7 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 	if (CurrentHealth <= 0 && !IsDead)
 	{
-		StateMachine->ChangeState(StateMachine->GetState(Idle));
+		/*StateMachine->ChangeState(StateMachine->GetState(Idle));*/
 		//GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
 		IsDead = true;
 	}
