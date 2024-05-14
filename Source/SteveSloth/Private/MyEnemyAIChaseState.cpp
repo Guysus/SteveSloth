@@ -52,13 +52,8 @@ void UMyEnemyAIChaseState::UpdateState(float deltaTime)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("set world rotation issue"));
 		}
-	}
-	else 
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Enemy or player location Issue"));
-	}  
+	} 
 }
-
 void UMyEnemyAIChaseState::ExitState()
 {
 }
