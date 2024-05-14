@@ -3,7 +3,7 @@
  * Name: Ken Ferris
  * Script: MyEnemyAttackingState.cpp
  * Date: May 3, 2024
- * Description: This is the logic for the enemy attack and handles actions within that state
+ * Description: This is the logic for the enemy melee attack state
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
@@ -13,9 +13,9 @@
 
 void UMyEnemyAttackingState::EnterState()
 {
-    Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-
-    Enemy = Cast<AMyEnemyBaseClass>(GetOuter());
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);
+	IsAnimationRunning = false;
 }
 
 void UMyEnemyAttackingState::ExitState()
@@ -25,44 +25,52 @@ void UMyEnemyAttackingState::ExitState()
 
 void UMyEnemyAttackingState::UpdateState(float deltaTime)
 {
-    if (Player)
-    {
-        // Select and perform attack based on distance
-        SelectAttack();
-    }
+	if (Myself != nullptr && !IsAnimationRunning)
+	{
+		SelectAttack();
+	}
 }
 
-void UMyEnemyAttackingState::SelectAttack()
+void UMyEnemyAttackingState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
 {
-    
+	Myself = myEnemy;
+	AttackRange = Myself->GetAttackRange();
+	MeleeAttackDamage = Myself->GetDamage();
+}
+
+void UMyEnemyAttackingState::SetEnemyMesh(USkeletalMeshComponent* mesh)
+{
+	MyMesh = mesh;
 }
 
 void UMyEnemyAttackingState::PerformMeleeAttack()
 {
-    // Check if melee attack montage is valid
-    if (MeleeAttackMontage)
-    {
-       
-    }
+	if (MyMesh && Myself)
+	{
+		// Play melee attack animation montage
+		MyMesh->PlayAnimation(Myself->AttackAnim, false);
+	}
 
-    // Apply melee attack damage to the player
-    if (Player)
-    {
-       
-    }
+	
+	if (Steve)
+	{
+		// Apply melee attack damage to the player
+	}
 }
 
-void UMyEnemyAttackingState::PerformRangedAttack()
+void UMyEnemyAttackingState::SelectAttack()
 {
-    // Check if ranged attack montage is valid
-    if (RangedAttackMontage)
-    {
-        
-    }
+	if (Player && Myself)
+	{
+		FVector EnemyLocation = Myself->GetActorLocation();
+		FVector PlayerLocation = Player->GetActorLocation();
+		float Distance = FVector::Distance(EnemyLocation, PlayerLocation);
 
-    // Apply ranged attack damage to the player
-    if (Player)
-    {
-        
-    }
+		// Check if the player is within attack range
+		if (Distance <= AttackRange)
+		{
+			// Perform melee attack
+			PerformMeleeAttack();
+		}
+	}
 }

@@ -3,7 +3,7 @@
  * Name: Ken Ferris
  * Script: MyEnemyAttackingState.h
  * Date: May 3, 2024
- * Description: This is the logic for the enemy attack and handles actions within that state
+ * Description: This is the logic for the enemy melee attack state
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
@@ -11,52 +11,37 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "Kismet/GameplayStatics.h"
-#include "SteveSingleton.h"
-#include "Animation/AnimMontage.h"
+#include "MyPlayer.h"
 #include "MyEnemyAttackingState.generated.h"
 
-
-class AMyEnemyBaseClass;
-
-UCLASS(Blueprintable)
+UCLASS()
 class STEVESLOTH_API UMyEnemyAttackingState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
-	
+
+private:
+	ACharacter* Player;
+	AMyPlayer* Steve;
+	AMyEnemyBaseClass* Myself;
+	USkeletalMeshComponent* MyMesh;
+	bool IsAnimationRunning;
+
+	// Combat parameter
+	float MeleeAttackDamage;
+	float AttackRange;
+
 public:
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
-protected:
-	ACharacter* Player;
-    AMyEnemyBaseClass* Enemy;
+	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) override;
+	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
 
-    // Combat parameters
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
-    float MeleeAttackDamage;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
-    float RangedAttackDamage;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Combat")
-    float AttackCooldown;
-
-    // Animation parameters
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
-    UAnimMontage* MeleeAttackMontage;
-
-    UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
-    UAnimMontage* RangedAttackMontage;
-
-    // Function to perform melee attack
-    void PerformMeleeAttack();
-
-    // Function to perform ranged attack
-    void PerformRangedAttack();
-
-    // Function to select attack based on distance
-    void SelectAttack();
+private:
+	// Internal functions
+	void PerformMeleeAttack();
+	void SelectAttack();
 };

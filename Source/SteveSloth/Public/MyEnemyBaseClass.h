@@ -92,6 +92,7 @@ public: // PUBLIC VARIABLES
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 	float GetAttackRange() const { return AttackRange; }
+	float GetDamage() const { return Damage; }
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
