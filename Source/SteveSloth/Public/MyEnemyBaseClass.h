@@ -87,6 +87,11 @@ public: // PUBLIC VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* Dead;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
+	UAnimationAsset* Move;
+
+	float GetMovementSpeed() const { return MovementSpeed; }
+
 	float CurrentHealth;
 
 public:	// CONSTRUCTOR HERE
