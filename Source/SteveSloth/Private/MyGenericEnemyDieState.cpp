@@ -30,3 +30,13 @@ void UMyGenericEnemyDieState::UpdateState(float deltaTime)
 		IsAnimationRunning = true;
 	}
 }
+
+void UMyGenericEnemyDieState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
+{
+	Myself = myEnemy;
+}
+
+void UMyGenericEnemyDieState::SetEnemyMesh(USkeletalMeshComponent* mesh)
+{
+	MyMesh = mesh;
+}
