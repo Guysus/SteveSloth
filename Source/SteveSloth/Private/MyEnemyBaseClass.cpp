@@ -34,6 +34,7 @@ void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
+<<<<<<< HEAD
 	StateMachine->GetState(Idle)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->GetState(Patrol)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->GetState(Chase)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
@@ -42,6 +43,8 @@ void AMyEnemyBaseClass::BeginPlay()
 	StateMachine->GetState(RangedAttack)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->GetState(Die)->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	StateMachine->ChangeState(StateMachine->GetState(Idle));
+=======
+>>>>>>> parent of 2c0f75c (Commit)
 	//StateMachine->GetIdleState()->GetDefaultObject<UMyGenericEnemyIdleState>()->SetEnemyBaseClass(this);
 	//StateMachine->ChangeState(StateMachine->GetIdleState());
 }
