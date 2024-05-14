@@ -16,7 +16,7 @@
 #include "MyPlayer.h"
 #include "MyEnemyAttackingState.generated.h"
 
-UCLASS()
+UCLASS(Blueprintable)
 class STEVESLOTH_API UMyEnemyAttackingState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
