@@ -37,16 +37,6 @@ private: // PRIVATE VARIABLES
 
 	FVector StartingLocation;
 
-protected: // PROTECTED VARIABLES 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Patrol")
-	float PatrolRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Chase")
-	float ChaseRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack")
-	float MeleeAttackRange;
-
 public:	// CONSTRUCTOR HERE
 	AMyCrocodileEnemyClass();
 
