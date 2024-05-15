@@ -22,6 +22,7 @@ void UMyGenericEnemyDieState::ExitState()
 
 void UMyGenericEnemyDieState::UpdateState(float deltaTime)
 {
+	UE_LOG(LogTemp, Warning, TEXT("im dead"));
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->DeathAnim, true);

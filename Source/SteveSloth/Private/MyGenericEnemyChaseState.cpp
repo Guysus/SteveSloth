@@ -15,6 +15,7 @@ void UMyGenericEnemyChaseState::EnterState()
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
+	IsChasing = false;
 }
 
 void UMyGenericEnemyChaseState::ExitState()
@@ -24,18 +25,25 @@ void UMyGenericEnemyChaseState::ExitState()
 
 void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 {
+
 	FVector myLocation = Myself->GetActorLocation();
-	FVector steveLocation = Steve->GetActorLocation();
+	FVector steveLocation = Player->GetActorLocation();
 
 	FVector directionToTravel = (steveLocation - myLocation).GetSafeNormal();
 
-	Myself->SetActorLocation(directionToTravel);
+	FVector newDirection = myLocation + directionToTravel * Myself->GetMovementSpeed() * deltaTime;
 
-	if (Myself != nullptr && !IsAnimationRunning)
+	FString location = steveLocation.ToString();
+	UE_LOG(LogTemp, Warning, TEXT("im chasing steve: %s"), *location);
+
+	Myself->SetActorLocation(newDirection);
+
+
+	/*if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
 		IsAnimationRunning = true;
-	}
+	}*/
 }
 
 void UMyGenericEnemyChaseState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)

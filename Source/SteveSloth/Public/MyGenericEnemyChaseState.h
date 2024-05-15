@@ -30,6 +30,7 @@ private:
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 	bool IsAnimationRunning;
+	bool IsChasing;
 
 public: //PUBLIC FUNCTIONS
 	virtual void EnterState() override;

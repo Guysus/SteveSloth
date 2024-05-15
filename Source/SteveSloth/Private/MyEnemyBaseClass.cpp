@@ -16,10 +16,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
-	MySpline = CreateDefaultSubobject<USplineComponent>(TEXT("My Patrol Spline"));
-	MySpline->SetupAttachment(RootComponent);
 
-	CurrentHealth = MaxHealth;
 	IsDead = false;
 }
 
@@ -28,6 +25,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	CurrentHealth = MaxHealth;
 
 	// Instantiates all States with the EnemyBaseClass
 	for (int i = 0; i < StateMachine->GetStateList().Num(); i++)
@@ -37,8 +35,6 @@ void AMyEnemyBaseClass::BeginPlay()
 
 	// Sets the initial State to being Idle when first spawned in
 	StateMachine->ChangeState(StateMachine->GetState(Idle));
-
-	StateMachine->GetState(Patrol)->GetDefaultObject<UMyEnemyPatrolState>()->SetEnemySpline(MySpline);
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)

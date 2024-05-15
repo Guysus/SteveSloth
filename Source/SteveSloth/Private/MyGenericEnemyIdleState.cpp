@@ -22,6 +22,7 @@ void UMyGenericEnemyIdleState::ExitState()
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
+	UE_LOG(LogTemp, Warning, TEXT("im idle"));
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
