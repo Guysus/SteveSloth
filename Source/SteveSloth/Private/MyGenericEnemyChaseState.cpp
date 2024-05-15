@@ -39,11 +39,11 @@ void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 	Myself->SetActorLocation(newDirection);
 
 
-	/*if (Myself != nullptr && !IsAnimationRunning)
+	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
+		//Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true); // need new animation
 		IsAnimationRunning = true;
-	}*/
+	}
 }
 
 void UMyGenericEnemyChaseState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)

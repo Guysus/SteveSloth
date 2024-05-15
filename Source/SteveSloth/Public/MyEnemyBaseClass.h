@@ -102,13 +102,14 @@ public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 	float GetAttackRange() const { return AttackRange; }
 	float GetDamage() const { return Damage; }
+	FTransform GetStartingLocation() { return StartingLocation; }
+
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
 
 public:	// UPDATE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
-
 private: // PRIVATE INTERNAL FUNCTIONS
 	void Despawn();
 };

@@ -25,10 +25,13 @@ class STEVESLOTH_API UMyGenericEnemyPatrolState : public UMyEnemyBaseState
 	GENERATED_BODY()
 	
 private:
-	ACharacter* Player;
 	AMyPlayer* Steve;
+	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
+
+	FVector StartingSpot;
+	FVector PatrolSpot;
 	bool IsAnimationRunning;
 
 public: //PUBLIC FUNCTIONS
