@@ -24,6 +24,13 @@ void UMyGenericEnemyChaseState::ExitState()
 
 void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 {
+	FVector myLocation = Myself->GetActorLocation();
+	FVector steveLocation = Steve->GetActorLocation();
+
+	FVector directionToTravel = (steveLocation - myLocation).GetSafeNormal();
+
+	Myself->SetActorLocation(directionToTravel);
+
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);

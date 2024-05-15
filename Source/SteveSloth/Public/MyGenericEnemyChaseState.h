@@ -11,10 +11,10 @@
 #pragma once
 
  // INCLUDES HERE
+#include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyChaseState.generated.h"

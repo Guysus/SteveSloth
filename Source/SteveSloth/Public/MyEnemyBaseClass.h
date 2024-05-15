@@ -11,12 +11,12 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "Components/SplineComponent.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
+#include "GameFramework/Character.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Components/SplineComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
