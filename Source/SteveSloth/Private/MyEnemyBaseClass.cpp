@@ -26,6 +26,25 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	MySpline = CreateDefaultSubobject<USplineComponent>(TEXT("My Patrol Spline"));
 	MySpline->SetupAttachment(RootComponent);
 
+	const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
+	
+	if (enemyData)
+	{
+		enemyData->MeleeDamage = Damage;
+		enemyData->MovementSpeed = MovementSpeed;
+		enemyData->MaxHealth = MaxHealth;
+		enemyData->PatrolRange = PatrolRange;
+		enemyData->ChaseRange = ChaseRange;
+		enemyData->MeleeAttackRange = MeleeAttackRange;
+		enemyData->RangedAttackRange = RangedAttackRange;
+
+		enemyData->IdleAnim = IdleAnim;
+		enemyData->MoveAnim = MoveAnim;
+		enemyData->MeleeAttackAnim = AttackAnim;
+		enemyData->RangedAttackAnim = RangedAttackAnim;
+		enemyData->HitAnim = HitAnim;
+		enemyData->DeathAnim = DeathAnim;
+	}
 
 	CurrentHealth = MaxHealth;
 
