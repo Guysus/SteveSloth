@@ -11,13 +11,13 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "Components/SplineComponent.h"
-#include "Kismet/KismetMathLibrary.h"
 #include "SteveSingleton.h"
 #include "MyEnemyData.h"
 #include "MyEnemyStateComponent.h"
+#include "GameFramework/Character.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Components/SplineComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
@@ -36,38 +36,41 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
-	FTransform StartingLocation;
-	float Damage;
-	float MovementSpeed;
-	float MaxHealth;
-	float PatrolRange;
-	float ChaseRange;
-	float MeleeAttackRange;
-	float RangedAttackRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spline")
-	USplineComponent* MySpline;
-
 	ACharacter* Player; 
 
+	float Damage;
+	float MaxHealth;
+	float ChaseRange;
+	float PatrolRange;
+	float MovementSpeed;
+	float MeleeAttackRange;
+	float RangedAttackRange;
+	FTransform StartingLocation;
+
 	bool IsDead;
+	bool IsIdle;
+	bool IsPatroling;
+	bool IsChasing;
+	bool IsAttackingRanged;
 
 	FTimerHandle DespawnTimerHandle;
 
 public: // PUBLIC VARIABLES
+	UAnimationAsset* HitAnim;
 	UAnimationAsset* IdleAnim;
 	UAnimationAsset* MoveAnim;
+	UAnimationAsset* DeathAnim;
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
-	UAnimationAsset* HitAnim;
-	UAnimationAsset* DeathAnim;
 
 	float CurrentHealth;
 
 public: // GETTERS/ACCESSORS
+	float GetDamage() const { return Damage; }
+	float GetPatrolRange() const { return PatrolRange; }
 	float GetMovementSpeed() const { return MovementSpeed; }
 	float GetAttackRange() const { return MeleeAttackRange; }
-	float GetDamage() const { return Damage; }
+	FTransform GetStartingLocation() const { return StartingLocation; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();

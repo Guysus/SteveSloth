@@ -16,7 +16,8 @@ void UMyGenericEnemyPatrolState::EnterState()
 	Steve = Cast<AMyPlayer>(Player);
 
 	StartingSpot = Myself->GetStartingLocation().GetLocation();
-	//PatrolSpot = StartingSpot + UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, WalkRadius);
+	PatrolSpot = StartingSpot + UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, Myself->GetPatrolRange());
+
 	IsAnimationRunning = false;
 }
 

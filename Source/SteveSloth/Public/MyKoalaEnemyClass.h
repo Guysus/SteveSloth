@@ -31,13 +31,6 @@ private: // PRIVATE VARIABLES
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
-	bool IsIdle;
-	bool IsPatroling;
-	bool IsChasing;
-	bool IsAttackingRanged;
-
-	FVector StartingLocation;
-
 public:	// CONSTRUCTOR HERE
 	AMyKoalaEnemyClass();
 

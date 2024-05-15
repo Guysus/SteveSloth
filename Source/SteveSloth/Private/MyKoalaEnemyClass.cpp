@@ -22,7 +22,6 @@ void AMyKoalaEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
 
-	StartingLocation = this->GetActorLocation();
 }
 
 void AMyKoalaEnemyClass::Tick(float DeltaTime)
@@ -79,7 +78,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		IsPatroling = false;
 		IsAttackingRanged = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
 	{
 		// ---- change to patrol state here ----
 		IsPatroling = true;
