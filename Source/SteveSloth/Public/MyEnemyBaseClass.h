@@ -56,12 +56,12 @@ protected: // PROTECTED VARIABLES
 	FTimerHandle DespawnTimerHandle;
 
 public: // PUBLIC VARIABLES
-	UAnimationAsset* IdleAnim;
-	UAnimationAsset* MoveAnim;
-	UAnimationAsset* AttackAnim;
-	UAnimationAsset* RangedAttackAnim;
-	UAnimationAsset* HitAnim;
-	UAnimationAsset* DeathAnim;
+	TSoftObjectPtr<UAnimationAsset> IdleAnim;
+	TSoftObjectPtr<UAnimationAsset> MoveAnim;
+	TSoftObjectPtr<UAnimationAsset> AttackAnim;
+	TSoftObjectPtr<UAnimationAsset> RangedAttackAnim;
+	TSoftObjectPtr<UAnimationAsset> HitAnim;
+	TSoftObjectPtr<UAnimationAsset> DeathAnim;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
 	UAnimationAsset* Dead;

@@ -38,6 +38,12 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 		enemyData->MeleeAttackRange = MeleeAttackRange;
 		enemyData->RangedAttackRange = RangedAttackRange;
 
+		enemyData->IdleAnim = IdleAnim;
+		enemyData->MoveAnim = MoveAnim;
+		enemyData->MeleeAttackAnim = AttackAnim;
+		enemyData->RangedAttackAnim = RangedAttackAnim;
+		enemyData->HitAnim = HitAnim;
+		enemyData->DeathAnim = DeathAnim;
 	}
 
 	CurrentHealth = MaxHealth;
