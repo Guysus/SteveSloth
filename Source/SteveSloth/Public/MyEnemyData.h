@@ -44,9 +44,6 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
 	float MaxHealth;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Mesh")
-	TSoftObjectPtr<USkeletalMesh> Mesh;
-
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
 	TSoftObjectPtr<UAnimationAsset> IdleAnim;
 
