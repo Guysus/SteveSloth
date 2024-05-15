@@ -40,7 +40,7 @@ void UMyEnemyAIChaseState::UpdateState(float deltaTime)
 
 			 if (Myself != nullptr && !IsAnimationRunning) 
 			 {
-				Myself->GetMesh()->PlayAnimation(Myself->Move, true);
+				Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
 				IsAnimationRunning = true;
 			 }
 		} 

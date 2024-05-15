@@ -24,7 +24,7 @@ void UMyEnemyDeadState::UpdateState(float deltaTime)
 {
 	if (Enemy != nullptr && !IsAnimationRunning)
 	{
-		Enemy->GetMesh()->PlayAnimation(Enemy->Dead, true);
+		Enemy->GetMesh()->PlayAnimation(Enemy->DeathAnim, true);
 		IsAnimationRunning = true;
 	}
 }
