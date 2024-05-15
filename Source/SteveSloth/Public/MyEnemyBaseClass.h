@@ -13,6 +13,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/SplineComponent.h"
 #include "Kismet/KismetMathLibrary.h"
 #include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
@@ -50,7 +51,7 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Attack Stats")
 	float Damage;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")	
 	float MovementSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
@@ -58,6 +59,9 @@ protected: // PROTECTED VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
 	float MaxHealth;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spline")
+	USplineComponent* MySpline;
 
 	ACharacter* Player; 
 
@@ -96,6 +100,8 @@ public: // PUBLIC VARIABLES
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
+	float GetAttackRange() const { return AttackRange; }
+	float GetDamage() const { return Damage; }
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;
