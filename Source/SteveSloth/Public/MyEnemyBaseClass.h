@@ -33,11 +33,10 @@ protected: // PROTECTED VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
 	
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "DT_Enemy"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
 	FTransform StartingLocation;
-	float AttackRange;
 	float Damage;
 	float MovementSpeed;
 	float MaxHealth;
@@ -56,27 +55,22 @@ protected: // PROTECTED VARIABLES
 	FTimerHandle DespawnTimerHandle;
 
 public: // PUBLIC VARIABLES
-	TSoftObjectPtr<UAnimationAsset> IdleAnim;
-	TSoftObjectPtr<UAnimationAsset> MoveAnim;
-	TSoftObjectPtr<UAnimationAsset> AttackAnim;
-	TSoftObjectPtr<UAnimationAsset> RangedAttackAnim;
-	TSoftObjectPtr<UAnimationAsset> HitAnim;
-	TSoftObjectPtr<UAnimationAsset> DeathAnim;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-	UAnimationAsset* Dead;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animations")
-	UAnimationAsset* Move;
-
-	float GetMovementSpeed() const { return MovementSpeed; }
+	UAnimationAsset* IdleAnim;
+	UAnimationAsset* MoveAnim;
+	UAnimationAsset* AttackAnim;
+	UAnimationAsset* RangedAttackAnim;
+	UAnimationAsset* HitAnim;
+	UAnimationAsset* DeathAnim;
 
 	float CurrentHealth;
 
+public: // GETTERS/ACCESSORS
+	float GetMovementSpeed() const { return MovementSpeed; }
+	float GetAttackRange() const { return MeleeAttackRange; }
+	float GetDamage() const { return Damage; }
+
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
-	float GetAttackRange() const { return AttackRange; }
-	float GetDamage() const { return Damage; }
 
 protected: // SETUP FUNCTIONS
 	virtual void BeginPlay() override;

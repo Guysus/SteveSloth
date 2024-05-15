@@ -20,45 +20,45 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Name")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FString Name;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float MeleeAttackRange;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float RangedAttackRange;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float ChaseRange;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float PatrolRange;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float MeleeDamage;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float MovementSpeed;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Stats")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float MaxHealth;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> IdleAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* IdleAnim;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> MoveAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* MoveAnim;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> MeleeAttackAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* MeleeAttackAnim;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> RangedAttackAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* RangedAttackAnim;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> HitAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* HitAnim;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animations")
-	TSoftObjectPtr<UAnimationAsset> DeathAnim;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* DeathAnim;
 };
