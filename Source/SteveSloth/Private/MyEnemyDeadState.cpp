@@ -8,23 +8,23 @@
  * Known Bugs:
  ****************************************************************************************/
 
-#include "MyEnemyDeadState.h"
-
-void UMyEnemyDeadState::EnterState()
-{
-	IsAnimationRunning = false;
-}
-
-void UMyEnemyDeadState::ExitState()
-{
-	
-}
-
-void UMyEnemyDeadState::UpdateState(float deltaTime)
-{
-	if (Enemy != nullptr && !IsAnimationRunning)
-	{
-		Enemy->GetMesh()->PlayAnimation(Enemy->DeathAnim, true);
-		IsAnimationRunning = true;
-	}
-}
+//#include "MyEnemyDeadState.h"
+//
+//void UMyEnemyDeadState::EnterState()
+//{
+//	IsAnimationRunning = false;
+//}
+//
+//void UMyEnemyDeadState::ExitState()
+//{
+//	
+//}
+//
+//void UMyEnemyDeadState::UpdateState(float deltaTime)
+//{
+//	if (Enemy != nullptr && !IsAnimationRunning)
+//	{
+//		Enemy->GetMesh()->PlayAnimation(Enemy->DeathAnim, true);
+//		IsAnimationRunning = true;
+//	}
+//}
