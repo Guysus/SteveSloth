@@ -13,6 +13,7 @@
 // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyProjectileData.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyProjectile.generated.h"
@@ -22,6 +23,23 @@ class STEVESLOTH_API AMyEnemyProjectile : public AActor
 {
 	GENERATED_BODY()
 	
+protected: // PROTECTED DETAILS PANEL VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyProjectileData"), Category = "Data")
+	FDataTableRowHandle ProjectileDataTable;
+
+private: //PRIVATE VARIABLES
+	TEnumAsByte<EProjectileType> ProjectileType;
+
+	float Damage;
+	float ProjectileSpeed;
+	float ProjectileRange;
+	float ProjectileGravity;
+	float InitialLaunchAngle;
+	float AreaOfEffectDamage;
+	float AreaOfEffectRadius;
+	float DamageOverTime;
+	float DamageOverTimeDuration;
+
 public: // CONSTRUCTOR HERE
 	AMyEnemyProjectile();
 

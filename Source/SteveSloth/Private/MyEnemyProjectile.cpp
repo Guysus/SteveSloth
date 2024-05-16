@@ -13,6 +13,24 @@
 AMyEnemyProjectile::AMyEnemyProjectile()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	// Initialize Variables to the Projectile Data Table
+	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
+
+	if (projectileData)
+	{
+		ProjectileType = projectileData->ProjectileType;
+
+		Damage = projectileData->Damage;
+		ProjectileSpeed = projectileData->ProjectileSpeed;
+		ProjectileRange = projectileData->ProjectileRange;
+		ProjectileGravity = projectileData->ProjectileGravity;
+		InitialLaunchAngle = projectileData->InitialLaunchAngle;
+		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
+		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
+		DamageOverTime = projectileData->DamageOverTime;
+		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
+	}
 }
 
 void AMyEnemyProjectile::BeginPlay()
