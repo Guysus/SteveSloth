@@ -28,7 +28,7 @@ USTRUCT(BlueprintType)
 struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 {
 	GENERATED_BODY()
-	
+
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	FString Name;
 
