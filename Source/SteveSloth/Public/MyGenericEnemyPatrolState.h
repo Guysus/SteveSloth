@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyPatrolState.h
  * Date: May 8, 2024
@@ -11,10 +11,10 @@
 #pragma once
 
  // INCLUDES HERE
+#include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyPatrolState.generated.h"
@@ -24,17 +24,17 @@ class STEVESLOTH_API UMyGenericEnemyPatrolState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 	
-private:
+private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
-	FVector StartingSpot;
 	FVector PatrolSpot;
+	FVector StartingSpot;
 	bool IsAnimationRunning;
 
-public: //PUBLIC FUNCTIONS
+public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;

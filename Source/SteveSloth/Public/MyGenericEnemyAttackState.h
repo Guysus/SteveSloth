@@ -10,7 +10,7 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
 #include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
@@ -24,16 +24,17 @@ class STEVESLOTH_API UMyGenericEnemyAttackState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 	
-private:
+private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
-	FTimerHandle AttackSpeed;
+	bool IsAttacking;
 	bool IsAnimationRunning;
+	FTimerHandle AttackSpeed;
 
-public: //PUBLIC FUNCTIONS
+public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
@@ -41,6 +42,6 @@ public: //PUBLIC FUNCTIONS
 	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) override;
 	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
 
-private:
+private: // PRIVATE INTERNAL FUNCTIONS
 	void PerformAttack();
 };

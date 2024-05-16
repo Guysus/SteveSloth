@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyDieState.cpp
  * Date: May 8, 2024
@@ -22,6 +22,7 @@ void UMyGenericEnemyDieState::ExitState()
 
 void UMyGenericEnemyDieState::UpdateState(float deltaTime)
 {
+	// Play the Animation for Dieing
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->DeathAnim, true);
