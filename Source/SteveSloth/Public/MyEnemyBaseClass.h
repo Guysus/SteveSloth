@@ -7,6 +7,7 @@
  * TODO: Add more Variables (such as animations)
  * Known Bugs:
  ****************************************************************************************/
+
 #pragma once
 
 // INCLUDES HERE
@@ -28,13 +29,14 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 private: //PRIVATE CONST VARIABLES
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
-protected: // PROTECTED VARIABLES 
+protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
+protected: // PROTECTED INHERITABLE VARIABLES
 	ACharacter* Player; 
 
 	float Damage;
@@ -46,7 +48,6 @@ protected: // PROTECTED VARIABLES
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
-	FTransform StartingLocation;
 
 	bool IsDead;
 	bool IsIdle;
@@ -54,16 +55,18 @@ protected: // PROTECTED VARIABLES
 	bool IsPatroling;
 	bool IsAttackingRanged;
 
+	FTransform StartingLocation;
 	FTimerHandle DespawnTimerHandle;
 
-public: // PUBLIC VARIABLES
+public: // PUBLIC ACCESS ANYWHERE VARIABLES
+	AActor* AmmoType;
+
 	UAnimationAsset* HitAnim;
 	UAnimationAsset* IdleAnim;
 	UAnimationAsset* MoveAnim;
 	UAnimationAsset* DeathAnim;
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
-	AActor* AmmoType;
 
 	float CurrentHealth;
 
@@ -79,10 +82,10 @@ public: // GETTERS/ACCESSORS
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
-protected: // SETUP FUNCTIONS
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	// UPDATE FUNCTIONS
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 private: // PRIVATE INTERNAL FUNCTIONS

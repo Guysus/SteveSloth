@@ -35,30 +35,25 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-protected: // PROTECTED VARIABLES
-	////more states will go here as new TArrays
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	USkeletalMeshComponent* MyMesh;
-
+protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<TSubclassOf<UMyEnemyBaseState>> States;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	USkeletalMeshComponent* EnemyMesh;
-
+private: // PRIVATE INTERNAL VARIABLES
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
+
+public: // GETTERS/ACCESSORS
+	TArray<TSubclassOf<UMyEnemyBaseState>> GetStateList() const {return States; }
+	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
+	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[wantedState]; }
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
 
-protected:
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	// PUBLIC INTERNAL FUNCTIONS
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
-
-	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
-	TArray<TSubclassOf<UMyEnemyBaseState>> GetStateList() const {return States; }
-	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[wantedState]; }
 };
