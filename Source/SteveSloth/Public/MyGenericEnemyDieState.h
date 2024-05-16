@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyDieState.h
  * Date: May 8, 2024
@@ -14,7 +14,6 @@
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyDieState.generated.h"
@@ -24,14 +23,13 @@ class STEVESLOTH_API UMyGenericEnemyDieState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 
-private:
-	ACharacter* Player;
-	AMyPlayer* Steve;
+private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
+
 	bool IsAnimationRunning;
 
-public: //PUBLIC FUNCTIONS
+public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
