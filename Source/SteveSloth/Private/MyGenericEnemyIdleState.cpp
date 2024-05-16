@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyIdleState.cpp
  * Date: May 8, 2024
@@ -12,8 +12,6 @@
 
 void UMyGenericEnemyIdleState::EnterState()
 {
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 }
 
@@ -24,6 +22,7 @@ void UMyGenericEnemyIdleState::ExitState()
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 {
+	// Play the Animation for being Idle
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->IdleAnim, true);
