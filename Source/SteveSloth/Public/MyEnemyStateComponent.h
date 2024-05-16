@@ -12,8 +12,8 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
 #include "MyEnemyBaseState.h"
+#include "Components/ActorComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyStateComponent.generated.h"

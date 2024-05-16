@@ -11,12 +11,11 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "SteveSingleton.h"
 #include "MyEnemyData.h"
+#include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
 #include "GameFramework/Character.h"
 #include "Kismet/KismetMathLibrary.h"
-#include "Components/SplineComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -43,14 +42,16 @@ protected: // PROTECTED VARIABLES
 	float ChaseRange;
 	float PatrolRange;
 	float MovementSpeed;
+	float MeleeAttackSpeed;
 	float MeleeAttackRange;
+	float RangedAttackSpeed;
 	float RangedAttackRange;
 	FTransform StartingLocation;
 
 	bool IsDead;
 	bool IsIdle;
-	bool IsPatroling;
 	bool IsChasing;
+	bool IsPatroling;
 	bool IsAttackingRanged;
 
 	FTimerHandle DespawnTimerHandle;
@@ -62,6 +63,7 @@ public: // PUBLIC VARIABLES
 	UAnimationAsset* DeathAnim;
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
+	AActor* AmmoType;
 
 	float CurrentHealth;
 
@@ -70,6 +72,8 @@ public: // GETTERS/ACCESSORS
 	float GetPatrolRange() const { return PatrolRange; }
 	float GetMovementSpeed() const { return MovementSpeed; }
 	float GetAttackRange() const { return MeleeAttackRange; }
+	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
+	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
 
 public:	// CONSTRUCTOR HERE

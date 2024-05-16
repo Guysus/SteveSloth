@@ -1,12 +1,12 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky, Jeff Moreau
- * Script: MyEnemyBaseClass.cpp
- * Date: April 29. 2024
- * Description: Base Class for all enemies to inherit from
- * TODO: Add more Variables (such as animations)
- * Known Bugs:
- ****************************************************************************************/
+* Name: Tammy, Elad Saretzky, Jeff Moreau
+* Script: MyEnemyBaseClass.cpp
+* Date: April 29. 2024
+* Description: Base Class for all enemies to inherit from
+* TODO: Add more Variables (such as animations)
+* Known Bugs:
+****************************************************************************************/
 
 #include "MyEnemyBaseClass.h"
 
@@ -15,25 +15,26 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
-
 	const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
 	
 	if (enemyData)
 	{
-		enemyData->MeleeDamage = Damage;
-		enemyData->MovementSpeed = MovementSpeed;
-		enemyData->MaxHealth = MaxHealth;
-		enemyData->PatrolRange = PatrolRange;
-		enemyData->ChaseRange = ChaseRange;
-		enemyData->MeleeAttackRange = MeleeAttackRange;
-		enemyData->RangedAttackRange = RangedAttackRange;
-
-		enemyData->IdleAnim = IdleAnim;
-		enemyData->MoveAnim = MoveAnim;
-		enemyData->MeleeAttackAnim = AttackAnim;
-		enemyData->RangedAttackAnim = RangedAttackAnim;
-		enemyData->HitAnim = HitAnim;
-		enemyData->DeathAnim = DeathAnim;
+		Damage = enemyData->MeleeDamage;
+		MovementSpeed = enemyData->MovementSpeed;
+		MaxHealth = enemyData->MaxHealth;
+		PatrolRange = enemyData->PatrolRange;
+		ChaseRange = enemyData->ChaseRange;
+		MeleeAttackRange = enemyData->MeleeAttackRange;
+		RangedAttackRange = enemyData->RangedAttackRange;
+		MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
+		RangedAttackSpeed = enemyData->RangedAttackSpeed;
+		IdleAnim = enemyData->IdleAnim;
+		MoveAnim = enemyData->MoveAnim;
+		AttackAnim = enemyData->MeleeAttackAnim;
+		RangedAttackAnim = enemyData->RangedAttackAnim;
+		HitAnim = enemyData->HitAnim;
+		DeathAnim = enemyData->DeathAnim;
+		AmmoType = enemyData->AmmoType;
 	}
 
 	CurrentHealth = MaxHealth;

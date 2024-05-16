@@ -1,20 +1,20 @@
 /****************************************************************************************
- * Copyright: SteveSloth
- * Name: Elad Saretzky
- * Script: MyKoalaEnemyClass.cpp
- * Date: May 10, 2024
- * Description: Does all of the specific to Koala things
- * TODO:
- * Known Bugs:
- ****************************************************************************************/
+* Copyright: SteveSloth
+* Name: Elad Saretzky
+* Script: MyKoalaEnemyClass.cpp
+* Date: May 10, 2024
+* Description: Does all of the specific to Koala things
+* TODO:
+* Known Bugs:
+****************************************************************************************/
 
 #include "MyKoalaEnemyClass.h"
 
 AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 {
 	IsIdle = false;
-	IsPatroling = false;
 	IsChasing = false;
+	IsPatroling = false;
 	IsAttackingRanged = false;
 }
 
@@ -43,7 +43,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 	//if the enemy is in ranged distance
 	if (isHit && outHit.bBlockingHit && outHit.GetActor() == Player && !IsAttackingRanged)
 	{
-		// ----change to ranged attack state here----
+		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
 		IsAttackingRanged = true;
 
 		IsIdle = true; //remains true to stay in ranged state until timer is done
@@ -80,7 +80,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 	}
 	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
 	{
-		// ---- change to patrol state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Patrol));
 		IsPatroling = true;
 
 		//reset other state bools & clear start flee timer

@@ -45,6 +45,12 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	float MaxHealth;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MeleeAttackSpeed;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float RangedAttackSpeed;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UAnimationAsset* IdleAnim;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
@@ -61,4 +67,7 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UAnimationAsset* DeathAnim;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	AActor* AmmoType;
 };

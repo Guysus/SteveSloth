@@ -1,12 +1,12 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Elad Saretzky, Jeff Moreau
- * Script: MyEnemyStateComponent.cpp
- * Date: May 2, 2024
- * Description: Component that is the state machine for the enemy to use
- * TODO: 
- * Known Bugs:
- ****************************************************************************************/
+* Name: Elad Saretzky, Jeff Moreau
+* Script: MyEnemyStateComponent.cpp
+* Date: May 2, 2024
+* Description: Component that is the state machine for the enemy to use
+* TODO: 
+* Known Bugs:
+****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
 #include "MyEnemyDeadState.h"

@@ -15,11 +15,13 @@ void UMyGenericEnemyAttackState::EnterState()
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
+
+	GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyAttackState::PerformAttack, Myself->GetMeleeAttackSpeed(), true);
 }
 
 void UMyGenericEnemyAttackState::ExitState()
 {
-
+	GetWorld()->GetTimerManager().ClearTimer(AttackSpeed);
 }
 
 void UMyGenericEnemyAttackState::UpdateState(float deltaTime)
@@ -39,4 +41,9 @@ void UMyGenericEnemyAttackState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
 void UMyGenericEnemyAttackState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 {
 	MyMesh = mesh;
+}
+
+void UMyGenericEnemyAttackState::PerformAttack()
+{
+	Steve->HitPlayer(Myself->GetDamage());
 }
