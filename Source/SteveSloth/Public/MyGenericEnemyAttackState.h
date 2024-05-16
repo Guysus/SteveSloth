@@ -10,11 +10,11 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
+#include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyAttackState.generated.h"
@@ -24,18 +24,24 @@ class STEVESLOTH_API UMyGenericEnemyAttackState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 	
-private:
-	ACharacter* Player;
+private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
+	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
-	bool IsAnimationRunning;
 
-public: //PUBLIC FUNCTIONS
+	bool IsAttacking;
+	bool IsAnimationRunning;
+	FTimerHandle AttackSpeed;
+
+public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
 
 	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) override;
 	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
+
+private: // PRIVATE INTERNAL FUNCTIONS
+	void PerformAttack();
 };

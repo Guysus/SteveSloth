@@ -11,10 +11,10 @@
 #pragma once
 
  // INCLUDES HERE
+#include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "MyEnemyBaseClass.h"
 #include "MyEnemyBaseState.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyGenericEnemyRangeAttackState.generated.h"
@@ -25,10 +25,12 @@ class STEVESLOTH_API UMyGenericEnemyRangeAttackState : public UMyEnemyBaseState
 	GENERATED_BODY()
 	
 private:
-	ACharacter* Player;
 	AMyPlayer* Steve;
+	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
+
+	FTimerHandle AttackSpeed;
 	bool IsAnimationRunning;
 
 public: //PUBLIC FUNCTIONS
@@ -38,4 +40,7 @@ public: //PUBLIC FUNCTIONS
 
 	virtual void SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy) override;
 	virtual void SetEnemyMesh(USkeletalMeshComponent* mesh) override;
+
+private:
+	void LaunchProjectile();
 };
