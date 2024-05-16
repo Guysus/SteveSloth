@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyChaseState.cpp
  * Date: May 8, 2024
@@ -14,6 +14,7 @@ void UMyGenericEnemyChaseState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+
 	IsAnimationRunning = false;
 	IsChasing = false;
 }
@@ -25,22 +26,19 @@ void UMyGenericEnemyChaseState::ExitState()
 
 void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 {
-
+	// GetsDirection for Enemy to move in
 	FVector myLocation = Myself->GetActorLocation();
 	FVector steveLocation = Player->GetActorLocation();
-
 	FVector directionToTravel = (steveLocation - myLocation).GetSafeNormal();
-
 	FVector newDirection = myLocation + directionToTravel * Myself->GetMovementSpeed() * deltaTime;
 
-	FString location = steveLocation.ToString();
-
+	// Move Enemy in that direction
 	Myself->SetActorLocation(newDirection);
 
-
+	// Play the Animation for Walking
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		//Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true); // need new animation
+		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
 		IsAnimationRunning = true;
 	}
 }

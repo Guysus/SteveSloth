@@ -24,7 +24,7 @@ class STEVESLOTH_API UMyEnemyBaseState : public UObject
 {
 	GENERATED_BODY()
 
-public: // PUBLIC ABSTRACT FUNCTIONS
+public: // PUBLIC INHERITABLE FUNCTIONS
 	virtual void EnterState() PURE_VIRTUAL(MyEnemyBaseState::EnterState, );
 	virtual void ExitState() PURE_VIRTUAL(MyEnemyBaseState::ExitState, );
 	virtual void UpdateState(float deltaTime) PURE_VIRTUAL(MyEnemyBaseState::UpdateState, );

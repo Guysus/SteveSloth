@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyChaseState.h
  * Date: May 8, 2024
@@ -24,15 +24,16 @@ class STEVESLOTH_API UMyGenericEnemyChaseState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 	
-private:
-	ACharacter* Player;
+private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
+	ACharacter* Player;
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
-	bool IsAnimationRunning;
-	bool IsChasing;
 
-public: //PUBLIC FUNCTIONS
+	bool IsChasing;
+	bool IsAnimationRunning;
+
+public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
 	virtual void ExitState() override;
 	virtual void UpdateState(float deltaTime) override;
