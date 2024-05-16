@@ -34,7 +34,6 @@ void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 	FVector newDirection = myLocation + directionToTravel * Myself->GetMovementSpeed() * deltaTime;
 
 	FString location = steveLocation.ToString();
-	UE_LOG(LogTemp, Warning, TEXT("im chasing steve: %s"), *location);
 
 	Myself->SetActorLocation(newDirection);
 

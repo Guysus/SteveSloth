@@ -29,7 +29,7 @@ void UMyGenericEnemyPatrolState::ExitState()
 void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
 {
 	FVector currentSpot = Myself->GetStartingLocation().GetLocation();
-	FVector locationToGo = FMath::VInterpConstantTo(currentSpot, PatrolSpot, deltaTime, 100.f);
+	FVector locationToGo = FMath::VInterpConstantTo(currentSpot, PatrolSpot, deltaTime, Myself->GetMovementSpeed());
 	Myself->SetActorLocation(locationToGo);
 
 	if (Myself != nullptr && !IsAnimationRunning)
