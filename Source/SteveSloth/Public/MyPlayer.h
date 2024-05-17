@@ -26,7 +26,7 @@ enum EMappingInputs
 {
 	Normal,
 	Swimming,
-	Aiming
+	EAiming
 };
 
 UCLASS()

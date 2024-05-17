@@ -108,6 +108,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
+
+		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
+		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
 	}
 }
 
@@ -210,10 +213,13 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
+	/*UE_LOG(LogTemp, Warning, TEXT("Aiming Mode Entered"));*/
+	CameraArm->TargetArmLength = 100;
 }
 
 void AMyPlayer::AimingStop(const FInputActionValue& Value)
 {
+	CameraArm->TargetArmLength = 200;
 }
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
