@@ -220,16 +220,16 @@ void AMyPlayer::Aiming(const FInputActionValue& Value)
 
 	if (!IsZoomOffsetAdded) 
 	{
-		CameraArm->AddLocalOffset(ZoomOffset);
+		CameraArm->AddWorldOffset(ZoomOffset);
 		IsZoomOffsetAdded = true;
 	}
 }
 
 void AMyPlayer::AimingStop(const FInputActionValue& Value)
 {
-	FVector ZoomReset = FVector(0, 0, 0);
+	FVector ZoomOutOffset = FVector(0, -10, 0);
+	CameraArm->AddWorldOffset(ZoomOutOffset);
 	CameraArm->TargetArmLength = 200;
-	CameraArm->AddLocalOffset(ZoomReset);
 	IsZoomOffsetAdded = false;
 }
 
