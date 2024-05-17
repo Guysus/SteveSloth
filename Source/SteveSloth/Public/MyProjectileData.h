@@ -1,9 +1,9 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyEnemyData.h
- * Date: May 14, 2024
- * Description: data table that holds all the enemy variables
+ * Script: MyProjectileData.h
+ * Date: May 16, 2024
+ * Description: data table that holds all the projectile variables
  * TODO:
  * Known Bugs:
  ****************************************************************************************/
@@ -12,11 +12,20 @@
 
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "MyEnemyData.generated.h"
+#include "MyProjectileData.generated.h"
 
+UENUM(BlueprintType)
+enum class EProjectileType
+{
+	Physical UMETA(DisplayName = "Physical"),
+	Fire UMETA(DisplayName = "Fire"),
+	Water UMETA(DisplayName = "Water"),
+	Poison UMETA(DisplayName = "Poison"),
+	Ice UMETA(DisplayName = "Ice")
+};
 
 USTRUCT(BlueprintType)
-struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
+struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 {
 	GENERATED_BODY()
 
@@ -24,50 +33,32 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	FString Name;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float MeleeAttackRange;
+	TEnumAsByte<EProjectileType> ProjectileType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float RangedAttackRange;
+	float Damage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float ChaseRange;
+	float ProjectileSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float PatrolRange;
+	float ProjectileRange;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float MeleeDamage;
+	float ProjectileGravity;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float MovementSpeed;
+	float InitialLaunchAngle;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float MaxHealth;
+	float AreaOfEffectDamage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float MeleeAttackSpeed;
+	float AreaOfEffectRadius;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float RangedAttackSpeed;
+	float DamageOverTime;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* IdleAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* MoveAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* MeleeAttackAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* RangedAttackAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* HitAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UAnimationAsset* DeathAnim;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	AActor* AmmoType;
+	float DamageOverTimeDuration;
 };

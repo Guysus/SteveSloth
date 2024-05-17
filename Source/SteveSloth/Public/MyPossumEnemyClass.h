@@ -31,14 +31,6 @@ private: // PRIVATE VARIABLES
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
-	bool IsIdle;
-	bool IsPatroling;
-	bool IsChasing;
-	bool IsAttackingMelee;
-	bool IsAttackingRanged;
-
-	FVector StartingLocation;
-
 public:	// CONSTRUCTOR HERE
 	AMyPossumEnemyClass();
 
@@ -51,6 +43,5 @@ public:	// UPDATE FUNCTIONS
 private: // PRIVATE INTERNAL FUNCTIONS
 	void StartFleeState(); 
 	void IdleReset();
-
 	void RangedAttackOver();
 };

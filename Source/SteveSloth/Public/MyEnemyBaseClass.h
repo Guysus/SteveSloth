@@ -7,17 +7,17 @@
  * TODO: Add more Variables (such as animations)
  * Known Bugs:
  ****************************************************************************************/
+
 #pragma once
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "GameFramework/Character.h"
-#include "Components/SkeletalMeshComponent.h"
-#include "Components/SplineComponent.h"
-#include "Kismet/KismetMathLibrary.h"
-#include "SteveSingleton.h"
 #include "MyEnemyData.h"
+#include "SteveSingleton.h"
 #include "MyEnemyStateComponent.h"
+#include "GameFramework/Character.h"
+#include "Kismet/KismetMathLibrary.h"
+#include "Components/SkeletalMeshComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyBaseClass.generated.h"
@@ -29,53 +29,64 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 private: //PRIVATE CONST VARIABLES
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
-protected: // PROTECTED VARIABLES 
+protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
-	FTransform StartingLocation;
-	float Damage;
-	float MovementSpeed;
-	float MaxHealth;
-	float PatrolRange;
-	float ChaseRange;
-	float MeleeAttackRange;
-	float RangedAttackRange;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Spline")
-	USplineComponent* MySpline;
-
+protected: // PROTECTED INHERITABLE VARIABLES
 	ACharacter* Player; 
 
-	bool IsDead;
+	float Damage;
+	float MaxHealth;
+	float ChaseRange;
+	float PatrolRange;
+	float MovementSpeed;
+	float MeleeAttackSpeed;
+	float MeleeAttackRange;
+	float RangedAttackSpeed;
+	float RangedAttackRange;
 
+	bool IsDead;
+	bool IsIdle;
+	bool IsChasing;
+	bool IsPatroling;
+	bool IsAttackingMelee;
+	bool IsAttackingRanged;
+
+	FTransform StartingLocation;
 	FTimerHandle DespawnTimerHandle;
 
-public: // PUBLIC VARIABLES
+public: // PUBLIC ACCESS ANYWHERE VARIABLES
+	AActor* AmmoType;
+
+	UAnimationAsset* HitAnim;
 	UAnimationAsset* IdleAnim;
 	UAnimationAsset* MoveAnim;
+	UAnimationAsset* DeathAnim;
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
-	UAnimationAsset* HitAnim;
-	UAnimationAsset* DeathAnim;
 
 	float CurrentHealth;
 
 public: // GETTERS/ACCESSORS
+	float GetDamage() const { return Damage; }
+	float GetPatrolRange() const { return PatrolRange; }
 	float GetMovementSpeed() const { return MovementSpeed; }
 	float GetAttackRange() const { return MeleeAttackRange; }
-	float GetDamage() const { return Damage; }
+	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
+	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
+	FTransform GetStartingLocation() const { return StartingLocation; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
 
-protected: // SETUP FUNCTIONS
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	// UPDATE FUNCTIONS
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 private: // PRIVATE INTERNAL FUNCTIONS

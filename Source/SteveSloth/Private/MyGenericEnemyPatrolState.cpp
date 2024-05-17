@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Jeff Moreau
  * Script: MyGenericEnemyPatrolState.cpp
  * Date: May 8, 2024
@@ -14,16 +14,27 @@ void UMyGenericEnemyPatrolState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+
+	// Get Enemy Starting Location
+	StartingSpot = Myself->GetStartingLocation().GetLocation();
+	PatrolSpot = StartingSpot + UKismetMathLibrary::RandomUnitVector() * FMath::FRandRange(0.f, Myself->GetPatrolRange());
+
 	IsAnimationRunning = false;
 }
 
 void UMyGenericEnemyPatrolState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
 {
+	FVector currentSpot = Myself->GetStartingLocation().GetLocation();
+	FVector locationToGo = FMath::VInterpConstantTo(currentSpot, PatrolSpot, deltaTime, Myself->GetMovementSpeed());
+
+	Myself->SetActorLocation(locationToGo);
+
+	// Play the Animation for Walking
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);

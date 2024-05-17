@@ -1,5 +1,5 @@
 /****************************************************************************************
-* Copyright: SteveSloth
+ * Copyright: SteveSloth
  * Name: Elad Saretzky, Jeff Moreau
  * Script: MyEnemyStateComponent.cpp
  * Date: May 2, 2024
@@ -9,8 +9,6 @@
  ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
-#include "MyEnemyDeadState.h"
-#include "MyGenericEnemyIdleState.h"
 
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
@@ -26,6 +24,7 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
+	// Update the Currently Selected State
 	if (CurrentState != nullptr)
 	{
 		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->UpdateState(DeltaTime);
@@ -34,13 +33,16 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 
 void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
 {
+	// Exit the Previously Selected State
 	if (CurrentState != nullptr) 
 	{
 		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->ExitState();
 	}
 	
+	// Change previous state to new State
 	CurrentState = newState;
 
+	// Enter New State
 	if (CurrentState != nullptr)
 	{
 		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->EnterState();
