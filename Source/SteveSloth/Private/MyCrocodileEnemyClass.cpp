@@ -22,8 +22,6 @@ AMyCrocodileEnemyClass::AMyCrocodileEnemyClass()
 void AMyCrocodileEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StartingLocation = this->GetActorLocation();
 }
 
 void AMyCrocodileEnemyClass::Tick(float DeltaTime)
@@ -67,7 +65,7 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 		IsPatroling = false;
 		IsAttackingMelee = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
 	{
 		// ---- change to patrol state here ----
 		IsPatroling = true;

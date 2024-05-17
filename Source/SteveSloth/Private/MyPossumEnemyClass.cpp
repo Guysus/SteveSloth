@@ -23,8 +23,6 @@ AMyPossumEnemyClass::AMyPossumEnemyClass()
 void AMyPossumEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StartingLocation = this->GetActorLocation();
 }
 
 void AMyPossumEnemyClass::Tick(float DeltaTime)
@@ -97,7 +95,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 		IsAttackingMelee = false;
 		IsAttackingRanged = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
 	{
 		// ---- change to patrol state here ----
 		IsPatroling = true;

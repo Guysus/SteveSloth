@@ -29,13 +29,6 @@ private: // PRIVATE VARIABLES
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 
-	bool IsIdle;
-	bool IsPatroling;
-	bool IsChasing;
-	bool IsAttackingMelee;
-
-	FVector StartingLocation;
-
 public:	// CONSTRUCTOR HERE
 	AMyEmuEnemyClass();
 
