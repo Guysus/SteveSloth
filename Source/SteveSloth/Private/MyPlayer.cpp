@@ -28,6 +28,7 @@ AMyPlayer::AMyPlayer()
 	// Bools
 	IsMoving = false;
 	DidDodge = false;
+	IsAimMode = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -74,6 +75,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 			CurrentIMC = Subsystem;
 			Subsystem->ClearAllMappings();
 			Subsystem->AddMappingContext(PMainInputMapping, 0);
+			Subsystem->AddMappingContext(PAimingInputMapping, 1);
 		}
 	}
 
@@ -108,22 +110,28 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Triggered, this, &AMyPlayer::LockOn);
 		inputComponent->BindAction(PLockTarget, ETriggerEvent::Completed, this, &AMyPlayer::LockOn);
+
+		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
+		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
 	}
 }
 
 void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 {
-	float const Amount = Value.Get<float>();
-	FRotator const Rotation = Controller->GetControlRotation();
-	FRotator const YawRotation(0, Rotation.Yaw, 0);
-	FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	AddMovementInput(Direction, Amount);
-	//SetActorRotation(Direction.Rotation());
-	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
-	//SetActorRotation(NewRotation);
-	//FVector const Forward = GetActorForwardVector();
-	
-	// Add Animations here with changing of mesh direction
+	if (!IsAimMode)
+	{
+		float const Amount = Value.Get<float>();
+		FRotator const Rotation = Controller->GetControlRotation();
+		FRotator const YawRotation(0, Rotation.Yaw, 0);
+		FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, Amount);
+		//SetActorRotation(Direction.Rotation());
+		//const FRotator NewRotation = FRotationMatrix::MakeFromX(Direction).Rotator();
+		//SetActorRotation(NewRotation);
+		//FVector const Forward = GetActorForwardVector();
+
+		// Add Animations here with changing of mesh direction 
+	}
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
@@ -141,66 +149,90 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
-	Jump();
-	// Add Animations here
+	if (!IsAimMode)
+	{
+		Jump();
+		// Add Animations here 
+	}
 }
 
 void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 {
-	GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
-	// Reduce Stamina while Sprint held down
-	// Change Animation?
+	if (!IsAimMode)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+		// Reduce Stamina while Sprint held down
+		// Change Animation? 
+	}
 }
 
 void AMyPlayer::SprintStop(const FInputActionValue& Value)
 {
-	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
-	// Change Animation
+	if (!IsAimMode)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+		// Change Animation  
+	}
 }
 
 void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
-	// Play Interact Animation.
-	// Should use Interfaces or Delegates here
-	// Check whether the object we are trying to interact with can be interacted with
+	if (!IsAimMode)
+	{
+		// Play Interact Animation.
+		// Should use Interfaces or Delegates here
+		// Check whether the object we are trying to interact with can be interacted with 
+	}
 }
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 {
-	GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
-	// Change Animation
+	if (!IsAimMode)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
+		// Change Animation
 
-	// For testing Purposes
-	CurrentIMC->ClearAllMappings();
-	CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
+		// For testing Purposes
+		CurrentIMC->ClearAllMappings();
+		CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
+	}
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {
-	GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
-	// Change Animation
+	if (!IsAimMode)
+	{
+		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
+		// Change Animation 
+	}
 }
 
 void AMyPlayer::Dodge(const FInputActionValue& Value)
 {
-	if (DidDodge == false)
+	if (!IsAimMode)
 	{
-		FVector const Forward = GetActorForwardVector();
-		//AddMovementInput(Forward, DodgeDistance);
-		SetActorLocation(FVector(GetActorLocation().X + DodgeDistance, GetActorLocation().Y,GetActorLocation().Z));
-		// Dodge Animation.
+		if (DidDodge == false)
+		{
+			FVector const Forward = GetActorForwardVector();
+			//AddMovementInput(Forward, DodgeDistance);
+			SetActorLocation(FVector(GetActorLocation().X + DodgeDistance, GetActorLocation().Y, GetActorLocation().Z));
+			// Dodge Animation.
+		}
+
+		DidDodge = true;
+		// Reset with a timer to be able to activate again 
 	}
-	
-	DidDodge = true;
-	// Reset with a timer to be able to activate again
 }
 
 void AMyPlayer::Swim(const FInputActionValue& Value)
 {
-	float const SwimDirection = Value.Get<float>();
-	FVector const SwimDirectionVector = FVector(0, 0, 1);
-	AddMovementInput(SwimDirectionVector, SwimDirection);
-	// Add swimming animation here
+	if (!IsAimMode)
+	{
+		float const SwimDirection = Value.Get<float>();
+		FVector const SwimDirectionVector = FVector(0, 0, 1);
+		AddMovementInput(SwimDirectionVector, SwimDirection);
+		// Add swimming animation here 
+	}
 }
 
 void AMyPlayer::LockOn(const FInputActionValue& Value)
@@ -210,10 +242,22 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
+	//if statement to prevent offset to be applied with each tick
+	if (!IsAimMode) 
+	{
+		FVector ZoomOffset = FVector(0, 10, 0);
+		CameraArm->TargetArmLength = 100;
+		CameraArm->AddLocalOffset(ZoomOffset);
+		IsAimMode = true;
+	}
 }
 
 void AMyPlayer::AimingStop(const FInputActionValue& Value)
 {
+	FVector ZoomOutOffset = FVector(0, -10, 0);
+	CameraArm->AddLocalOffset(ZoomOutOffset);
+	CameraArm->TargetArmLength = 200;
+	IsAimMode = false;
 }
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
