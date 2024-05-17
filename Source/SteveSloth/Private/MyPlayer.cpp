@@ -262,9 +262,6 @@ void AMyPlayer::AimingStop(const FInputActionValue& Value)
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
-	{
-		float const TurnSpeed = Value.Get<float>();
-		AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
-	}
+	float const TurnSpeed = Value.Get<float>();
+	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
 }
