@@ -14,19 +14,20 @@
 #include "GameFramework/Actor.h"
 #include "ItemBaseClass.generated.h"
 
+//Enums
+enum ItemNames
+{
+	Leaf,
+	Grubs,
+	Eucalyptus,
+
+
+};
 UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
-	AItemBaseClass();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
@@ -43,6 +44,15 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float DropChance;
+
+public:	
+	// Sets default values for this actor's properties
+	AItemBaseClass();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 
 	
 };
