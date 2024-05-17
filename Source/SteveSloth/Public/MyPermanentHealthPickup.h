@@ -12,7 +12,8 @@
 
 #include "CoreMinimal.h"
 #include "ItemBaseClass.h"
-//#include "MyPermanentHealthPickup.generated.h"
+#include "MyPlayer.h"
+#include "MyPermanentHealthPickup.generated.h"
 
 /**
  * 
@@ -22,9 +23,17 @@ class STEVESLOTH_API AMyPermanentHealthPickup : public AItemBaseClass
 {
 	GENERATED_BODY()
 	
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	float HealthIncrease;
+
 private: // PRIVATE VARIABLES
 	AItemBaseClass* ItemClass;
+	AMyPlayer* PlayerClass;
 
 public: // CONSTRUCTOR HERE
 	AMyPermanentHealthPickup();
+
+private: // PRIVATE INTERNAL FUNCTIONS
+	void OnPickUp();
 };

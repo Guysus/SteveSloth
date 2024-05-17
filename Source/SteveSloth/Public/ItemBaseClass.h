@@ -12,17 +12,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-//#include "ItemBaseClass.generated.h"
+#include "ItemBaseClass.generated.h"
 
-//Enums
-enum EPickups
-{
-	Leaf,
-	RedFlower,
-	BlueFlower,
-	GreenFlower,
-	
-};
+
 UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
 {
@@ -45,10 +37,7 @@ public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float DropChance;
-
-private: // PRIVATE VARIABLES
-	EPickups ItemName;
-
+ 
 public:	
 	// Sets default values for this actor's properties
 	AItemBaseClass();
