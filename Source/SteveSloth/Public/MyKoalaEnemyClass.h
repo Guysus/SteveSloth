@@ -43,6 +43,5 @@ public:	// UPDATE FUNCTIONS
 private: // PRIVATE INTERNAL FUNCTIONS
 	void StartFleeState();
 	void IdleReset();
-
 	void RangedAttackOver();
 };

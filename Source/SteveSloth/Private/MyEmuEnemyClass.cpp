@@ -21,8 +21,6 @@ AMyEmuEnemyClass::AMyEmuEnemyClass()
 void AMyEmuEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
-
-	StartingLocation = this->GetActorLocation();
 }
 
 void AMyEmuEnemyClass::Tick(float DeltaTime)
@@ -66,7 +64,7 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		IsPatroling = false;
 		IsAttackingMelee = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
 	{
 		// ---- change to patrol state here ----
 		IsPatroling = true;
