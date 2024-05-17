@@ -12,7 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "ItemBaseClass.h"
-#include "MyPermanentHealthPickup.generated.h"
+//#include "MyPermanentHealthPickup.generated.h"
 
 /**
  * 

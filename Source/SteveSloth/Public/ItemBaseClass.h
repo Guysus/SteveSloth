@@ -12,22 +12,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "ItemBaseClass.generated.h"
+//#include "ItemBaseClass.generated.h"
 
 //Enums
 enum EPickups
 {
 	Leaf,
-	Grubs,
-	Eucalyptus,
 	RedFlower,
 	BlueFlower,
 	GreenFlower,
-	Pebble,
-	Firecracker,
-	WaterBallon,
-	PoisonSac,
-	ChristmasBeetle
+	
 };
 UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
