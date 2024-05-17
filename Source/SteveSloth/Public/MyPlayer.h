@@ -111,6 +111,7 @@ private: // PRIVATE VARIABLES
 	
 	bool IsMoving;
 	bool DidDodge;
+	bool IsZoomOffsetAdded;
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;

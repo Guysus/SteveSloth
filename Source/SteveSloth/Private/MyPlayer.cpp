@@ -28,6 +28,7 @@ AMyPlayer::AMyPlayer()
 	// Bools
 	IsMoving = false;
 	DidDodge = false;
+	IsZoomOffsetAdded = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -214,12 +215,22 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	/*UE_LOG(LogTemp, Warning, TEXT("Aiming Mode Entered"));*/
+	FVector ZoomOffset = FVector(0, 10, 0);
 	CameraArm->TargetArmLength = 100;
+
+	if (!IsZoomOffsetAdded) 
+	{
+		CameraArm->AddLocalOffset(ZoomOffset);
+		IsZoomOffsetAdded = true;
+	}
 }
 
 void AMyPlayer::AimingStop(const FInputActionValue& Value)
 {
+	FVector ZoomReset = FVector(0, 0, 0);
 	CameraArm->TargetArmLength = 200;
+	CameraArm->AddLocalOffset(ZoomReset);
+	IsZoomOffsetAdded = false;
 }
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
