@@ -15,20 +15,29 @@
 #include "ItemBaseClass.generated.h"
 
 //Enums
-enum ItemNames
+enum Pickups
 {
 	Leaf,
 	Grubs,
 	Eucalyptus,
-
-
+	RedFlower,
+	BlueFlower,
+	GreenFlower,
+	Pebble,
+	Firecracker,
+	WaterBallon,
+	PoisonSac,
+	ChristmasBeetle
 };
 UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+private: // PRIVATE VARIABLES
+	Pickups ItemName;
+
+public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
