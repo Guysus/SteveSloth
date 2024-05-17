@@ -53,6 +53,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	bool IsIdle;
 	bool IsChasing;
 	bool IsPatroling;
+	bool IsAttackingMelee;
 	bool IsAttackingRanged;
 
 	FTransform StartingLocation;
