@@ -15,7 +15,7 @@
 #include "ItemBaseClass.generated.h"
 
 //Enums
-enum Pickups
+enum EPickups
 {
 	Leaf,
 	Grubs,
@@ -34,8 +34,6 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
 
-private: // PRIVATE VARIABLES
-	Pickups ItemName;
 
 public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	// Called every frame
@@ -53,6 +51,9 @@ public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float DropChance;
+
+private: // PRIVATE VARIABLES
+	EPickups ItemName;
 
 public:	
 	// Sets default values for this actor's properties

@@ -14,5 +14,4 @@
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
 	ItemClass = CreateDefaultSubobject<AItemBaseClass>(TEXT("Item Class"));
-	isItemUnlocked = true;
 }
