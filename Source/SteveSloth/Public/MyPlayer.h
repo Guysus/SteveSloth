@@ -26,7 +26,7 @@ enum EMappingInputs
 {
 	Normal,
 	Swimming,
-	Aiming
+	EAiming
 };
 
 UCLASS()
@@ -111,6 +111,7 @@ private: // PRIVATE VARIABLES
 	
 	bool IsMoving;
 	bool DidDodge;
+	bool IsAimMode;
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
