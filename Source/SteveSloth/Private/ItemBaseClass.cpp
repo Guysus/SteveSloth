@@ -10,12 +10,15 @@
 
 
 #include "ItemBaseClass.h"
+#include "Components/BoxComponent.h"
 
 // Sets default values
 AItemBaseClass::AItemBaseClass()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
 }
 
 // Called when the game starts or when spawned
@@ -23,8 +26,13 @@ void AItemBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnOverlapStart);
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+}
+
+void AItemBaseClass::OnOverlapStart(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
 }
 
 // Called every frame
