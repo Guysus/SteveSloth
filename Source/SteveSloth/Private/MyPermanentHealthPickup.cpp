@@ -12,20 +12,14 @@
 
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
-	ItemClass = CreateDefaultSubobject<AItemBaseClass>(TEXT("Item Class"));
-	PlayerClass = CreateDefaultSubobject<AMyPlayer>(TEXT("Player Class"));
-
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	ItemName = "Leaf";
-	HealthIncrease = 25;
-	isItemUnlocked = true;
-
-	OnPickUp();
 }
 
 void AMyPermanentHealthPickup::OnPickUp()
 {
 	if (isItemUnlocked != false)
 	{
-		PlayerClass->MaxHealth += HealthIncrease;
+		Player->
 	}
 }

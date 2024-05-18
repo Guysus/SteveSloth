@@ -23,13 +23,15 @@ class STEVESLOTH_API AMyPermanentHealthPickup : public AItemBaseClass
 {
 	GENERATED_BODY()
 	
-public:
+protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float HealthIncrease;
 
-private: // PRIVATE VARIABLES
-	AItemBaseClass* ItemClass;
-	AMyPlayer* PlayerClass;
+private:
+	AMyPlayer* Steve;
+	ACharacter* Player;
+
+private: // PRIVATE VARIABLES	
 
 public: // CONSTRUCTOR HERE
 	AMyPermanentHealthPickup();
