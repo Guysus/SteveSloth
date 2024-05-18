@@ -13,6 +13,7 @@
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);
 	ItemName = "Leaf";
 }
 

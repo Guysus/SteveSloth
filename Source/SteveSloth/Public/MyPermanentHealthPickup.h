@@ -15,10 +15,7 @@
 #include "MyPlayer.h"
 #include "MyPermanentHealthPickup.generated.h"
 
-/**
- * 
- */
-UCLASS()
+UCLASS(Blueprintable)
 class STEVESLOTH_API AMyPermanentHealthPickup : public AItemBaseClass
 {
 	GENERATED_BODY()
