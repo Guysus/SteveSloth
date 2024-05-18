@@ -12,7 +12,6 @@
 
 #include "CoreMinimal.h"
 #include "ItemBaseClass.h"
-#include "MyPlayer.h"
 #include "MyPermanentHealthPickup.generated.h"
 
 UCLASS(Blueprintable)
@@ -22,17 +21,16 @@ class STEVESLOTH_API AMyPermanentHealthPickup : public AItemBaseClass
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	float HealthIncrease;
+	float HealthIncrease;	
 
-private:
+private: // PRIVATE VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
-
-private: // PRIVATE VARIABLES	
 
 public: // CONSTRUCTOR HERE
 	AMyPermanentHealthPickup();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void OnPickUp();
+	void IncreaseHealthBar();
 };

@@ -22,6 +22,9 @@ AItemBaseClass::AItemBaseClass()
 void AItemBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);
 }
 
 // Called every frame

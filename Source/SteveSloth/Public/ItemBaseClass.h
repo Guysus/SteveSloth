@@ -12,6 +12,8 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "SteveSingleton.h"
+#include "MyPlayer.h"
 #include "ItemBaseClass.generated.h"
 
 
@@ -37,6 +39,10 @@ public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float DropChance;
+
+private: // PRIVATE VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
  
 public:	
 	// Sets default values for this actor's properties

@@ -12,15 +12,17 @@
 
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
-	ItemName = "Leaf";
+	
 }
 
 void AMyPermanentHealthPickup::OnPickUp()
 {
-	if (isItemUnlocked != false)
+	if (Player != nullptr)
 	{
-		Player->
+		
 	}
+}
+
+void AMyPermanentHealthPickup::IncreaseHealthBar()
+{
 }
