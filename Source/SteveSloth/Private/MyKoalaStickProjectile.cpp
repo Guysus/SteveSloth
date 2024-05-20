@@ -11,3 +11,18 @@
 
 #include "MyKoalaStickProjectile.h"
 
+AMyKoalaStickProjectile::AMyKoalaStickProjectile()
+{
+
+}
+
+void AMyKoalaStickProjectile::BeginPlay() 
+{
+	Super::BeginPlay();
+}
+
+void AMyKoalaStickProjectile::Tick(float DeltaTime) 
+{
+	Super::Tick(DeltaTime);
+}
+
