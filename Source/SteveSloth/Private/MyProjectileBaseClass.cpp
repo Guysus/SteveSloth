@@ -42,7 +42,7 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
-	
+
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->InitialSpeed = ProjectileSpeed;
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
@@ -72,7 +72,39 @@ void AMyProjectileBaseClass::Tick(float DeltaTime)
 
 void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
+	if (Enemy = Cast<AMyEnemyBaseClass>(OtherActor))
+	{
+		switch (ProjectileType)
+		{
+		case EProjectileType::Physical:
+			Enemy->HitEnemy(Damage);
+			this->Destroy();
 
+			break;
+		case EProjectileType::Fire:
+			Enemy->HitEnemy(Damage);
+			Mesh->SetVisibility(false);
+			ProjectileHitbox->SetActive(false);
+			AreaOfEffectHitbox->SetActive(true);
+
+			break;
+		case EProjectileType::Water:
+			Enemy->HitEnemy(Damage);
+			//add confusion here
+			this->Destroy();
+
+			break;
+		case EProjectileType::Poison:
+			Enemy->HitEnemy(Damage);
+			Mesh->SetVisibility(false);
+			ProjectileHitbox->SetActive(false);
+		}
+		//Physical UMETA(DisplayName = "Physical"),
+		//Fire UMETA(DisplayName = "Fire"),
+		//Water UMETA(DisplayName = "Water"),
+		//Poison UMETA(DisplayName = "Poison"),
+		//Ice UMETA(DisplayName = "Ice")
+	}
 }
 
 void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
