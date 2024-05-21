@@ -30,6 +30,10 @@ private: // PRIVATE VARIABLES
 public: // CONSTRUCTOR HERE
 	AMyPermanentHealthPickup();
 
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
 private: // PRIVATE INTERNAL FUNCTIONS
 	void OnPickUp();
 	void IncreaseHealthBar();

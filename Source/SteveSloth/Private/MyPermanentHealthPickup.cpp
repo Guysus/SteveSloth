@@ -14,7 +14,13 @@
 
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
-	
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);
+}
+
+void AMyPermanentHealthPickup::BeginPlay()
+{
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnOverlapStart);
 }
 
 void AMyPermanentHealthPickup::OnPickUp()
@@ -22,6 +28,7 @@ void AMyPermanentHealthPickup::OnPickUp()
 	if (Steve != nullptr)
 	{
 		UGameplayStatics::SpawnSoundAtLocation(this, ItemSound, GetActorLocation());
+
 	}
 }
 
