@@ -13,10 +13,7 @@
 
 AMyCrocodileEnemyClass::AMyCrocodileEnemyClass()
 {
-	IsIdle = false;
-	IsPatroling = false;
-	IsChasing = false;
-	IsAttackingMelee = false;
+
 }
 
 void AMyCrocodileEnemyClass::BeginPlay()

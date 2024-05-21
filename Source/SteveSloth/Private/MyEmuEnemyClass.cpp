@@ -12,10 +12,7 @@
 
 AMyEmuEnemyClass::AMyEmuEnemyClass()
 {
-	IsIdle = false;
-	IsPatroling = false;
-	IsChasing = false;
-	IsAttackingMelee = false;
+
 }
 
 void AMyEmuEnemyClass::BeginPlay()

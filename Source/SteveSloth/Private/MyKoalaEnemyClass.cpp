@@ -12,10 +12,7 @@
 
 AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 {
-	IsIdle = false;
-	IsChasing = false;
-	IsPatroling = false;
-	IsAttackingRanged = false;
+
 }
 
 void AMyKoalaEnemyClass::BeginPlay()

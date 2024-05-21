@@ -12,8 +12,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyPlayer.h"
+#include "SteveSingleton.h"
+#include "MyEnemyBaseClass.h"
 #include "MyProjectileData.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
 
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyProjectileBaseClass.generated.h"
@@ -30,18 +35,37 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovement;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* ProjectileHitbox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USphereComponent* AreaOfEffectHitbox;
+
 private: //PRIVATE VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
+
+	AMyEnemyBaseClass* Enemy;
+
+	UStaticMeshComponent* Mesh;
+
 	TEnumAsByte<EProjectileType> ProjectileType;
 
 	float Damage;
 	float ProjectileSpeed;
+	float ProjectileMaxSpeed;
 	float ProjectileRange;
 	float ProjectileGravity;
 	float InitialLaunchAngle;
 	float AreaOfEffectDamage;
 	float AreaOfEffectRadius;
 	float DamageOverTime;
-	float DamageOverTimeDuration;
+	float DamageOverTimeRate;
+	int DamageOverTimeDuration;
+
+	FVector StartingLocation;
+
+	FTimerHandle DamageOverTimeTimerHandle;
 
 public: // CONSTRUCTOR HERE
 	AMyProjectileBaseClass();
@@ -51,4 +75,17 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+
+public: // PUBLIC FUNCTIONS
+	UFUNCTION()
+	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+private:
+	void DamageOverTimeEnemy();
+	void DamageOverTimePlayer();
 };
