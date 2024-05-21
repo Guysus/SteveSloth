@@ -37,6 +37,7 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
 		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
 		DamageOverTime = projectileData->DamageOverTime;
+		DamageOverTimeRate = projectileData->DamageOverTimeRate;
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
@@ -74,40 +75,128 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 {
 	if (Enemy = Cast<AMyEnemyBaseClass>(OtherActor))
 	{
+		Enemy->HitEnemy(Damage);
+
 		switch (ProjectileType)
 		{
 		case EProjectileType::Physical:
-			Enemy->HitEnemy(Damage);
 			this->Destroy();
 
 			break;
+
 		case EProjectileType::Fire:
-			Enemy->HitEnemy(Damage);
 			Mesh->SetVisibility(false);
 			ProjectileHitbox->SetActive(false);
 			AreaOfEffectHitbox->SetActive(true);
 
 			break;
+
 		case EProjectileType::Water:
-			Enemy->HitEnemy(Damage);
 			//add confusion here
 			this->Destroy();
 
 			break;
+
 		case EProjectileType::Poison:
-			Enemy->HitEnemy(Damage);
 			Mesh->SetVisibility(false);
 			ProjectileHitbox->SetActive(false);
+
+			GetWorldTimerManager().SetTimer(DamageOverTimeTimerHandle, this, &AMyProjectileBaseClass::DamageOverTimeEnemy,
+				DamageOverTimeRate, true, DamageOverTimeRate);
+
+			break;
+
+		case EProjectileType::Ice:
+			Enemy->SetIsFrozen(true);
+			this->Destroy();
+
+			break;
 		}
-		//Physical UMETA(DisplayName = "Physical"),
-		//Fire UMETA(DisplayName = "Fire"),
-		//Water UMETA(DisplayName = "Water"),
-		//Poison UMETA(DisplayName = "Poison"),
-		//Ice UMETA(DisplayName = "Ice")
+	}
+	else if (Steve == OtherActor)
+	{
+		Steve->HitPlayer(Damage);
+
+		switch (ProjectileType)
+		{
+		case EProjectileType::Physical:
+			this->Destroy();
+
+			break;
+
+		case EProjectileType::Fire:
+			Mesh->SetVisibility(false);
+			ProjectileHitbox->SetActive(false);
+			AreaOfEffectHitbox->SetActive(true);
+
+			break;
+
+		case EProjectileType::Water:
+			//add effect here
+			this->Destroy();
+
+			break;
+
+		case EProjectileType::Poison:
+			Mesh->SetVisibility(false);
+			ProjectileHitbox->SetActive(false);
+
+			GetWorldTimerManager().SetTimer(DamageOverTimeTimerHandle, this, &AMyProjectileBaseClass::DamageOverTimePlayer,
+				DamageOverTimeRate, true, DamageOverTimeRate);
+
+			break;
+
+		case EProjectileType::Ice:
+			//add effect here
+			this->Destroy();
+
+			break;
+		}
+	}
+	else
+	{
+		if (ProjectileType == EProjectileType::Fire)
+		{
+			Mesh->SetVisibility(false);
+			ProjectileHitbox->SetActive(false);
+			AreaOfEffectHitbox->SetActive(true);
+		}
+		else
+		{
+			this->Destroy();
+		}
 	}
 }
 
 void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 
+}
+
+void AMyProjectileBaseClass::DamageOverTimeEnemy()
+{
+	if (DamageOverTimeDuration > 0)
+	{
+		DamageOverTimeDuration--;
+		Enemy->HitEnemy(DamageOverTime);
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(DamageOverTimeTimerHandle);
+		this->Destroy();
+	}
+}
+
+void AMyProjectileBaseClass::DamageOverTimePlayer()
+{
+	if (DamageOverTimeDuration > 0)
+	{
+		DamageOverTimeDuration--;
+		Steve->HitPlayer(DamageOverTime);
+	}
+	else
+	{
+		GetWorldTimerManager().ClearTimer(DamageOverTimeTimerHandle);
+		this->Destroy();
+	}
 }

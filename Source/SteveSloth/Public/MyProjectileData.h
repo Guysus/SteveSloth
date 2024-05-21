@@ -63,5 +63,8 @@ struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 	float DamageOverTime;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float DamageOverTimeDuration;
+	float DamageOverTimeRate;
+	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	int DamageOverTimeDuration;
 };
