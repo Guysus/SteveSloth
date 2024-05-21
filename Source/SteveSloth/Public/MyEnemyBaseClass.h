@@ -28,6 +28,7 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 	GENERATED_BODY()
 private: //PRIVATE CONST VARIABLES
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
+	const float THAW_TIMER_AMOUNT = 1.5f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -40,6 +41,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	ACharacter* Player; 
 
 	float Damage;
+	float CurrentHealth;
 	float MaxHealth;
 	float ChaseRange;
 	float PatrolRange;
@@ -48,7 +50,8 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
-
+	
+	bool IsFrozen;
 	bool IsDead;
 	bool IsIdle;
 	bool IsChasing;
@@ -57,7 +60,9 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	bool IsAttackingRanged;
 
 	FTransform StartingLocation;
+
 	FTimerHandle DespawnTimerHandle;
+	FTimerHandle ThawTimerHandle;
 
 public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	AActor* AmmoType;
@@ -69,8 +74,6 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
 
-	float CurrentHealth;
-
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
 	float GetPatrolRange() const { return PatrolRange; }
@@ -79,6 +82,9 @@ public: // GETTERS/ACCESSORS
 	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
 	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
+
+public: // SETTER/MUTATOR
+	void SetIsFrozen(bool isFrozen) { IsFrozen = isFrozen; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
@@ -89,6 +95,10 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
+public: // PUBLIC FUNCTIONS
+	void HitEnemy(float damageAmount);
+
 private: // PRIVATE INTERNAL FUNCTIONS
 	void Despawn();
+	void Thaw();
 };

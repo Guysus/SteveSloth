@@ -42,7 +42,14 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 
 	// Initialize Variables before use
 	CurrentHealth = MaxHealth;
+
+	IsFrozen = false;
 	IsDead = false;
+	IsIdle = false;
+	IsChasing = false;
+	IsPatroling = false;
+	IsAttackingMelee = false;
+	IsAttackingRanged = false;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
@@ -76,9 +83,38 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
 		IsDead = true;
 	}
+	//Check if frozen
+	else if (IsFrozen)
+	{
+		//show visual of freezing here
+
+		IsFrozen = true;
+		IsIdle = true;
+		IsChasing = true;
+		IsPatroling = true;
+		IsAttackingMelee = true;
+		IsAttackingRanged = true;
+
+		GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
+	}
+}
+
+void AMyEnemyBaseClass::HitEnemy(float damageAmount)
+{
+	CurrentHealth -= damageAmount;
 }
 
 void AMyEnemyBaseClass::Despawn()
 {
 	this->Destroy();
+}
+
+void AMyEnemyBaseClass::Thaw()
+{
+	IsFrozen = false;
+	IsIdle = false;
+	IsChasing = false;
+	IsPatroling = false;
+	IsAttackingMelee = false;
+	IsAttackingRanged = false;
 }
