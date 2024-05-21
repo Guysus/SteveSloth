@@ -37,6 +37,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 		RangedAttackAnim = enemyData->RangedAttackAnim;
 		HitAnim = enemyData->HitAnim;
 		DeathAnim = enemyData->DeathAnim;
+		FrozenAnim = enemyData->FrozenAnim;
 		AmmoType = enemyData->AmmoType;
 	}
 
@@ -44,6 +45,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	CurrentHealth = MaxHealth;
 
 	IsFrozen = false;
+	IsCurrentlyFrozen = false;
 	IsDead = false;
 	IsIdle = false;
 	IsChasing = false;
@@ -84,12 +86,13 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 		IsDead = true;
 	}
 	//Check if frozen
-	else if (IsFrozen)
+	else if (IsFrozen && !IsCurrentlyFrozen)
 	{
-		//show visual of freezing here
-		StateMachine->ChangeState(StateMachine->GetState(Idle));
+		//set state to idle to frozen
+		StateMachine->ChangeState(StateMachine->GetState(Frozen));
 
 		IsFrozen = true;
+		IsCurrentlyFrozen = true;
 		IsIdle = true;
 		IsChasing = true;
 		IsPatroling = true;
@@ -113,6 +116,7 @@ void AMyEnemyBaseClass::Despawn()
 void AMyEnemyBaseClass::Thaw()
 {
 	IsFrozen = false;
+	IsCurrentlyFrozen = false;
 	IsIdle = false;
 	IsChasing = false;
 	IsPatroling = false;

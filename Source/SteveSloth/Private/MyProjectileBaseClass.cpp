@@ -14,9 +14,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
-
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
@@ -58,6 +55,13 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 void AMyProjectileBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+	if (IsValid(Player))
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
 
 	StartingLocation = GetActorLocation();
 

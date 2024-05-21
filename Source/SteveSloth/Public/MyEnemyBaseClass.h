@@ -52,6 +52,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float RangedAttackRange;
 
 	bool IsFrozen;
+	bool IsCurrentlyFrozen;
 	bool IsDead;
 	bool IsIdle;
 	bool IsChasing;
@@ -73,6 +74,7 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	UAnimationAsset* DeathAnim;
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
+	UAnimationAsset* FrozenAnim;
 
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
