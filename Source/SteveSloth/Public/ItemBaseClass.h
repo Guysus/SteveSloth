@@ -24,9 +24,6 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 
 
 public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	//Store all the item names
 	FString ItemName;
@@ -39,21 +36,6 @@ public:	// DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	float DropChance;
-
-private: // PRIVATE VARIABLES
-	AMyPlayer* Steve;
-	ACharacter* Player;
- 
-public:	
-	// Sets default values for this actor's properties
-	AItemBaseClass();
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
-private://PRIVATE INTERNAL FUNCTIONS
-	void DespawnItem();
 
 protected:
 	UPROPERTY(EditAnywhere, Category = "Sound")
@@ -80,5 +62,23 @@ private:
 		UPrimitiveComponent* OtherComp, 
 		int32 OtherBodyIndex, bool bFromSweep, 
 		const FHitResult& SweepResult);
+
+private: // PRIVATE VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
 	
+public:	
+	// Sets default values for this actor's properties
+	AItemBaseClass();
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
+
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+private://PRIVATE INTERNAL FUNCTIONS
+	void DespawnItem();
 };

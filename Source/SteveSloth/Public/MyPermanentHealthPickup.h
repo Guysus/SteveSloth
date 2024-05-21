@@ -37,4 +37,14 @@ protected:
 private: // PRIVATE INTERNAL FUNCTIONS
 	void OnPickUp();
 	void IncreaseHealthBar();
+
+private:
+	//Pointer to component,					  
+	UFUNCTION() void OnOverlapStart(UPrimitiveComponent* OverlappedComponent,
+		//Pointer to other actor in the overlap,
+		AActor* OtherActor,
+		//Pointer to component on other actor
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep,
+		const FHitResult& SweepResult);
 };
