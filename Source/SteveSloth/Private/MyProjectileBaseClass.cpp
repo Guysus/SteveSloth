@@ -170,7 +170,20 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 
 void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	if (Enemy = Cast<AMyEnemyBaseClass>(OtherActor))
+	{
+		Enemy->HitEnemy(AreaOfEffectDamage);
+		this->Destroy();
+	}
+	else if (Steve == OtherActor)
+	{
+		Steve->HitPlayer(AreaOfEffectDamage);
+		this->Destroy();
+	}
+	else
+	{
+		this->Destroy();
+	}
 }
 
 void AMyProjectileBaseClass::DamageOverTimeEnemy()
