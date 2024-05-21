@@ -33,12 +33,12 @@ private: //PRIVATE CONST VARIABLES
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UMyEnemyStateComponent* StateMachine;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
 protected: // PROTECTED INHERITABLE VARIABLES
-	ACharacter* Player; 
+	ACharacter* Player;
 
 	float Damage;
 	float CurrentHealth;
@@ -50,7 +50,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
-	
+
 	bool IsFrozen;
 	bool IsDead;
 	bool IsIdle;
