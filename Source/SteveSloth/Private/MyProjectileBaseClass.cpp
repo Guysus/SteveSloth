@@ -15,6 +15,8 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
+	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
 
 	// Initialize Variables to the Projectile Data Table
 	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");

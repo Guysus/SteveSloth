@@ -14,6 +14,9 @@
 #include "GameFramework/Actor.h"
 #include "MyProjectileData.h"
 #include "GameFramework/ProjectileMovementComponent.h"
+#include "Components/BoxComponent.h"
+#include "Components/SphereComponent.h"
+
 
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyProjectileBaseClass.generated.h"
@@ -29,6 +32,12 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UProjectileMovementComponent* ProjectileMovement;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* ProjectileHitbox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USphereComponent* AreaOfEffectHitbox;
 
 private: //PRIVATE VARIABLES
 	TEnumAsByte<EProjectileType> ProjectileType;
