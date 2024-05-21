@@ -15,6 +15,7 @@ void UMyEnemyAttackingState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+
 	IsAnimationRunning = false;
 }
 

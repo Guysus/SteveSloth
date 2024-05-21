@@ -61,6 +61,10 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Components") 
 	class UStaticMeshComponent* BaseMesh;
 
+	//Create Sprite component
+	/*UPROPERTY(EditDefaultsOnly, Category = "Sprite ")
+	class UPaperSpite* Sprite;*/
+
 	//Pointer to component,					  
 	UFUNCTION() void OnOverlapStart(UPrimitiveComponent* OverlappedComponent, 
 		//Pointer to other actor in the overlap,

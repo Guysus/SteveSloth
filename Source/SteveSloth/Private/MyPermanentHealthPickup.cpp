@@ -17,7 +17,7 @@ AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 
 void AMyPermanentHealthPickup::OnPickUp()
 {
-	if (Player != nullptr)
+	if (Steve != nullptr)
 	{
 		
 	}
