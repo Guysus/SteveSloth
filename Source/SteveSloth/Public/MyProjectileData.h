@@ -36,6 +36,9 @@ struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 	TEnumAsByte<EProjectileType> ProjectileType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float Damage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)

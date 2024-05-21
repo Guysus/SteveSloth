@@ -87,6 +87,7 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 	else if (IsFrozen)
 	{
 		//show visual of freezing here
+		StateMachine->ChangeState(StateMachine->GetState(Idle));
 
 		IsFrozen = true;
 		IsIdle = true;

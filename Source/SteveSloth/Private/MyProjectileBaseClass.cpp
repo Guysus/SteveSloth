@@ -26,6 +26,8 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 
 	if (projectileData)
 	{
+		Mesh = projectileData->Mesh;
+
 		ProjectileType = projectileData->ProjectileType;
 
 		Damage = projectileData->Damage;
@@ -40,6 +42,8 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 		DamageOverTimeRate = projectileData->DamageOverTimeRate;
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
+
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
