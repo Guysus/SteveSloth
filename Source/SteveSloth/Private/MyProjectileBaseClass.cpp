@@ -14,6 +14,9 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	Steve = Cast<AMyPlayer>(Player);
+
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
@@ -52,6 +55,9 @@ void AMyProjectileBaseClass::BeginPlay()
 	Super::BeginPlay();
 
 	StartingLocation = GetActorLocation();
+
+	ProjectileHitbox->OnComponentBeginOverlap.AddDynamic(this, &AMyProjectileBaseClass::OnHitboxOverlapBegin);
+	AreaOfEffectHitbox->OnComponentBeginOverlap.AddDynamic(this, &AMyProjectileBaseClass::OnAOEHitboxOverlapBegin);
 }
 
 void AMyProjectileBaseClass::Tick(float DeltaTime)
@@ -62,4 +68,14 @@ void AMyProjectileBaseClass::Tick(float DeltaTime)
 	{
 		this->Destroy();
 	}
+}
+
+void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+
+}
+
+void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+
 }

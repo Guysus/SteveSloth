@@ -12,6 +12,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyPlayer.h"
+#include "SteveSingleton.h"
+#include "MyEnemyBaseClass.h"
 #include "MyProjectileData.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/BoxComponent.h"
@@ -40,6 +43,9 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	USphereComponent* AreaOfEffectHitbox;
 
 private: //PRIVATE VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
+
 	TEnumAsByte<EProjectileType> ProjectileType;
 
 	float Damage;
@@ -63,4 +69,13 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
+
+public: // PUBLIC FUNCTIONS
+	UFUNCTION()
+	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+	UFUNCTION()
+	void OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };
