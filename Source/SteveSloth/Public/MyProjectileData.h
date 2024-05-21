@@ -42,6 +42,9 @@ struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 	float ProjectileSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float ProjectileMaxSpeed;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float ProjectileRange;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)

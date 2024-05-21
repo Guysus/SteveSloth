@@ -27,6 +27,7 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 
 		Damage = projectileData->Damage;
 		ProjectileSpeed = projectileData->ProjectileSpeed;
+		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
 		ProjectileRange = projectileData->ProjectileRange;
 		ProjectileGravity = projectileData->ProjectileGravity;
 		InitialLaunchAngle = projectileData->InitialLaunchAngle;
@@ -35,6 +36,8 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 		DamageOverTime = projectileData->DamageOverTime;
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
+
+	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 }
 
 void AMyProjectileBaseClass::BeginPlay()

@@ -44,6 +44,7 @@ private: //PRIVATE VARIABLES
 
 	float Damage;
 	float ProjectileSpeed;
+	float ProjectileMaxSpeed;
 	float ProjectileRange;
 	float ProjectileGravity;
 	float InitialLaunchAngle;
