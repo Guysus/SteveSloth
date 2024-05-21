@@ -38,14 +38,28 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	}
 
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
+	AreaOfEffectHitbox->SetActive(false);
+	
+	ProjectileMovement->bRotationFollowsVelocity = true;
+	ProjectileMovement->InitialSpeed = ProjectileSpeed;
+	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
+	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
+	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
 }
 
 void AMyProjectileBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	StartingLocation = GetActorLocation();
 }
 
 void AMyProjectileBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	if (FVector::Dist(StartingLocation, GetActorLocation()) > ProjectileRange)
+	{
+		this->Destroy();
+	}
 }

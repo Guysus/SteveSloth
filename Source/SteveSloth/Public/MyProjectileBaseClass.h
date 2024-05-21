@@ -53,6 +53,8 @@ private: //PRIVATE VARIABLES
 	float DamageOverTime;
 	float DamageOverTimeDuration;
 
+	FVector StartingLocation;
+
 public: // CONSTRUCTOR HERE
 	AMyProjectileBaseClass();
 
