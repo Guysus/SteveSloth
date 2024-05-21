@@ -8,6 +8,8 @@
  * Known Bugs:
  ****************************************************************************************/
 
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "MyPermanentHealthPickup.h"
 
 AMyPermanentHealthPickup::AMyPermanentHealthPickup()
@@ -19,7 +21,7 @@ void AMyPermanentHealthPickup::OnPickUp()
 {
 	if (Steve != nullptr)
 	{
-		
+		UGameplayStatics::SpawnSoundAtLocation(this, ItemSound, GetActorLocation());
 	}
 }
 

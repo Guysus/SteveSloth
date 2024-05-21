@@ -19,7 +19,7 @@ AItemBaseClass::AItemBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
+	//Steve = Cast<AMyPlayer>(Player);
 
 	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
 	RootComponent = BoxComp;

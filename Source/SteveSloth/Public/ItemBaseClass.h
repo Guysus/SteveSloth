@@ -52,6 +52,10 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+protected:
+	UPROPERTY(EditAnywhere, Category = "Sound")
+	class USoundBase* ItemSound;
+
 private:	
 	//Box Component to get collision
 	UPROPERTY(EditDefaultsOnly, Category = "Components") 
