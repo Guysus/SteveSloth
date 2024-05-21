@@ -41,13 +41,14 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* AreaOfEffectHitbox;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
 private: //PRIVATE VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
 
 	AMyEnemyBaseClass* Enemy;
-
-	UStaticMeshComponent* Mesh;
 
 	TEnumAsByte<EProjectileType> ProjectileType;
 
