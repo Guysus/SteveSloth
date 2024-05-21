@@ -8,8 +8,7 @@
  * Known Bugs:
  ****************************************************************************************/
 
-#include "Kismet/GameplayStatics.h"
-#include "Sound/SoundBase.h"
+#include "Components/BoxComponent.h"
 #include "MyPermanentHealthPickup.h"
 
 
@@ -17,27 +16,20 @@ AMyPermanentHealthPickup::AMyPermanentHealthPickup()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
+
+	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
+	RootComponent = BoxComp;
+
+	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	BaseMesh->SetupAttachment(RootComponent);
 }
 
 void AMyPermanentHealthPickup::BeginPlay()
 {
-	
-}
-
-void AMyPermanentHealthPickup::OnPickUp()
-{
-	if (Steve != nullptr)
-	{
-		UGameplayStatics::SpawnSoundAtLocation(this, ItemSound, GetActorLocation());
-
-	}
+	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnOverlapStart);
 }
 
 void AMyPermanentHealthPickup::IncreaseHealthBar()
 {
-}
-
-void AMyPermanentHealthPickup::OnOverlapStart(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
-{
-
+	//Increase health bar once we have one
 }

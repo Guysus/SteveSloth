@@ -21,7 +21,16 @@ class STEVESLOTH_API AMyPermanentHealthPickup : public AItemBaseClass
 	
 protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	float HealthIncrease;	
+	float HealthIncrease;
+
+private:
+	//Box Component to get collision
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	class UBoxComponent* BoxComp;
+
+	//Create the mesh we will see in the world
+	UPROPERTY(EditDefaultsOnly, Category = "Components")
+	class UStaticMeshComponent* BaseMesh;
 
 private: // PRIVATE VARIABLES
 	AMyPlayer* Steve;
@@ -35,16 +44,5 @@ protected:
 	virtual void BeginPlay() override;
 
 private: // PRIVATE INTERNAL FUNCTIONS
-	void OnPickUp();
 	void IncreaseHealthBar();
-
-private:
-	//Pointer to component,					  
-	UFUNCTION() void OnOverlapStart(UPrimitiveComponent* OverlappedComponent,
-		//Pointer to other actor in the overlap,
-		AActor* OtherActor,
-		//Pointer to component on other actor
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex, bool bFromSweep,
-		const FHitResult& SweepResult);
 };

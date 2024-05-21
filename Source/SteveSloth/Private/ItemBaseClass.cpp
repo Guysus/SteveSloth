@@ -8,9 +8,9 @@
  * Known Bugs: 
  ****************************************************************************************/
 
-
+#include "Kismet/GameplayStatics.h"
 #include "ItemBaseClass.h"
-#include "Components/BoxComponent.h"
+#include "Sound/SoundBase.h"
 
 // Sets default values
 AItemBaseClass::AItemBaseClass()
@@ -20,20 +20,12 @@ AItemBaseClass::AItemBaseClass()
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
-
-	BoxComp = CreateDefaultSubobject<UBoxComponent>(TEXT("Box Collision"));
-	RootComponent = BoxComp;
-
-	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-	BaseMesh->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
 void AItemBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
-
-	BoxComp->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnOverlapStart);
 }
 
 // Called every frame
@@ -44,11 +36,14 @@ void AItemBaseClass::Tick(float DeltaTime)
 
 void AItemBaseClass::OnOverlapStart(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Steve != nullptr)
+	if (Steve == OtherActor)
 	{
-		    
+		UGameplayStatics::SpawnSoundAtLocation(this, ItemSound, GetActorLocation());
+		Steve->MaxHealth += 25;
 	}
 }
+
+
 
 void AItemBaseClass::DespawnItem()
 {

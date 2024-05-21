@@ -41,26 +41,17 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "Sound")
 	class USoundBase* ItemSound;
 
-private:	
-	//Box Component to get collision
-	UPROPERTY(EditDefaultsOnly, Category = "Components") 
-	class UBoxComponent* BoxComp;
-
-	//Create the mesh we will see in the world
-	UPROPERTY(EditDefaultsOnly, Category = "Components") 
-	class UStaticMeshComponent* BaseMesh;
-
 	//Create Sprite component
 	/*UPROPERTY(EditDefaultsOnly, Category = "Sprite ")
 	class UPaperSpite* Sprite;*/
 
-	//Pointer to component,					  
-	UFUNCTION() void OnOverlapStart(UPrimitiveComponent* OverlappedComponent, 
-		//Pointer to other actor in the overlap,
+public:
+	UFUNCTION() void OnOverlapStart(UPrimitiveComponent* OverlappedComponent,
+		//POINTER TO OTHER ACTOR,
 		AActor* OtherActor,
-		//Pointer to component on other actor
-		UPrimitiveComponent* OtherComp, 
-		int32 OtherBodyIndex, bool bFromSweep, 
+		//POINTER TO COMPONENT ON OTHER ACTOR
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep,
 		const FHitResult& SweepResult);
 
 private: // PRIVATE VARIABLES
