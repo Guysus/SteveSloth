@@ -73,8 +73,10 @@ void AMyProjectileBaseClass::Tick(float DeltaTime)
 
 void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Enemy = Cast<AMyEnemyBaseClass>(OtherActor))
+	if (Enemy == OtherActor)
 	{
+		Enemy = Cast<AMyEnemyBaseClass>(OtherActor);
+
 		Enemy->HitEnemy(Damage);
 
 		switch (ProjectileType)
@@ -170,8 +172,10 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 
 void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (Enemy = Cast<AMyEnemyBaseClass>(OtherActor))
+	if (Enemy == OtherActor)
 	{
+		Enemy = Cast<AMyEnemyBaseClass>(OtherActor);
+
 		Enemy->HitEnemy(AreaOfEffectDamage);
 		this->Destroy();
 	}
