@@ -27,6 +27,7 @@ enum EStates
 	Flee,
 	Attack,
 	RangedAttack,
+	Frozen,
 	Die
 };
 

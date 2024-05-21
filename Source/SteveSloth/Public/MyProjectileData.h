@@ -36,10 +36,16 @@ struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 	TEnumAsByte<EProjectileType> ProjectileType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float Damage;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float ProjectileSpeed;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float ProjectileMaxSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float ProjectileRange;
@@ -60,5 +66,8 @@ struct STEVESLOTH_API FMyProjectileData : public FTableRowBase
 	float DamageOverTime;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	float DamageOverTimeDuration;
+	float DamageOverTimeRate;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	int DamageOverTimeDuration;
 };
