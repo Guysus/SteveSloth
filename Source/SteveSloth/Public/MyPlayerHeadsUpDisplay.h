@@ -1,4 +1,12 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/****************************************************************************************
+ * Copyright: SteveSloth
+ * Name: Elad Saretzky
+ * Script: MyPlayerHeadsUpDisplay.h
+ * Date: May 22, 2024
+ * Description: sets up the HUD widgets and allows for the hud blueprint to get values from scripts
+ * TODO:
+ * Known Bugs:
+ *****************************************************************************************/
 
 #pragma once
 
@@ -6,9 +14,18 @@
 #include "Blueprint/UserWidget.h"
 #include "MyPlayerHeadsUpDisplay.generated.h"
 
-UCLASS()
+UCLASS(Abstract)
 class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
 {
 	GENERATED_BODY()
 	
+protected: //WIDGET VARIABLES
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class STextBlock* GrubCount;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	class STextBlock* EucalyptusCount;
+
+public: //PUBLIC FUNCTIONS
+
 };
