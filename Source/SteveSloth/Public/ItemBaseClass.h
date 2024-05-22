@@ -10,11 +10,11 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 
- // MAKE SURE THIS INCLUDE IS LAST
+// MAKE SURE THIS INCLUDE IS LAST
 #include "ItemBaseClass.generated.h"
 
 UCLASS()

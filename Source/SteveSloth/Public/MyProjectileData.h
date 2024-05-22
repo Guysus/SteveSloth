@@ -10,8 +10,11 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyProjectileData.generated.h"
 
 UENUM(BlueprintType)
