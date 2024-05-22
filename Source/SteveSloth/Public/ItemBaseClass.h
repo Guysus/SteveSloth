@@ -22,21 +22,26 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+protected: // PROTECTED DETAILS PANEL VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyItemData"), Category = "Data")
+	FDataTableRowHandle ItemDataTable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	bool bIsItemUnlocked;
+
+private: // PRIVATE INTERNAL VARIABLES
+	FString Name;
+	int StackAmount;
+	bool bIsCurrency;
+	float DropChance;
+	UStaticMeshComponent* Mesh;
+
+public:	// CONSTRUCTOR HERE
 	AItemBaseClass();
 
-protected:
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	int StackAmount;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	bool isItemUnlocked;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	float DropChance;
 };

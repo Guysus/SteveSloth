@@ -27,4 +27,13 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	int StackAmount;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float DropChance;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	bool bIsCurrency;
 };
