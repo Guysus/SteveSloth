@@ -21,10 +21,10 @@ class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
 	
 protected: //WIDGET VARIABLES
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	class STextBlock* GrubCount;
+	STextBlock* GrubCount;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	class STextBlock* EucalyptusCount;
+	STextBlock* EucalyptusCount;
 
 public: //PUBLIC FUNCTIONS
 
