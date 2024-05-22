@@ -69,5 +69,8 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	UAnimationAsset* DeathAnim;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* FrozenAnim;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	AActor* AmmoType;
 };
