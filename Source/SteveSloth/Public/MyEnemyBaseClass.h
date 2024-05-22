@@ -29,6 +29,7 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 private: //PRIVATE CONST VARIABLES
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 	const float THAW_TIMER_AMOUNT = 1.5f;
+	const float CONFUSION_TIMER_AMOUNT = 1.5f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -53,6 +54,8 @@ protected: // PROTECTED INHERITABLE VARIABLES
 
 	bool IsFrozen;
 	bool IsCurrentlyFrozen;
+	bool IsConfused;
+	bool IsCurrentlyConfused;
 	bool IsDead;
 	bool IsIdle;
 	bool IsChasing;
@@ -64,6 +67,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 
 	FTimerHandle DespawnTimerHandle;
 	FTimerHandle ThawTimerHandle;
+	FTimerHandle ConfusionTimerHandle;
 
 public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	AActor* AmmoType;
@@ -75,6 +79,7 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
 	UAnimationAsset* FrozenAnim;
+	UAnimationAsset* ConfusionAnim;
 
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
@@ -87,6 +92,7 @@ public: // GETTERS/ACCESSORS
 
 public: // SETTER/MUTATOR
 	void SetIsFrozen(bool isFrozen) { IsFrozen = isFrozen; }
+	void SetIsConfused(bool isConfused) { IsConfused = isConfused; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
@@ -103,4 +109,5 @@ public: // PUBLIC FUNCTIONS
 private: // PRIVATE INTERNAL FUNCTIONS
 	void Despawn();
 	void Thaw();
+	void SnapOutOfConfusion();
 };

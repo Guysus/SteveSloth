@@ -38,6 +38,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 		HitAnim = enemyData->HitAnim;
 		DeathAnim = enemyData->DeathAnim;
 		FrozenAnim = enemyData->FrozenAnim;
+		ConfusionAnim = enemyData->ConfusionAnim;
 		AmmoType = enemyData->AmmoType;
 	}
 
@@ -46,6 +47,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 
 	IsFrozen = false;
 	IsCurrentlyFrozen = false;
+	IsConfused = false;
 	IsDead = false;
 	IsIdle = false;
 	IsChasing = false;
@@ -101,6 +103,22 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 		GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
 	}
+	//Check if confused
+	else if (IsConfused && !IsCurrentlyConfused) 
+	{
+		StateMachine->ChangeState(StateMachine->GetState(Confused));
+
+		IsConfused = true;
+		IsCurrentlyConfused = true;
+		IsIdle = true;
+		IsChasing = true;
+		IsPatroling = true;
+		IsAttackingMelee = true;
+		IsAttackingRanged = true;
+
+		GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
+			&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
+	}
 }
 
 void AMyEnemyBaseClass::HitEnemy(float damageAmount)
@@ -117,6 +135,17 @@ void AMyEnemyBaseClass::Thaw()
 {
 	IsFrozen = false;
 	IsCurrentlyFrozen = false;
+	IsIdle = false;
+	IsChasing = false;
+	IsPatroling = false;
+	IsAttackingMelee = false;
+	IsAttackingRanged = false;
+}
+
+void AMyEnemyBaseClass::SnapOutOfConfusion() 
+{
+	IsConfused = false;
+	IsCurrentlyConfused = false;
 	IsIdle = false;
 	IsChasing = false;
 	IsPatroling = false;

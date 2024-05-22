@@ -102,7 +102,7 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 			break;
 
 		case EProjectileType::Water:
-			//add confusion here
+			Enemy->SetIsConfused(true);
 			this->Destroy();
 
 			break;

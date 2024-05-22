@@ -72,5 +72,8 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	UAnimationAsset* FrozenAnim;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* ConfusionAnim;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	AActor* AmmoType;
 };
