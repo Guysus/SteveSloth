@@ -10,15 +10,15 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "MyPlayer.h"
+#include "CoreMinimal.h"
 #include "SteveSingleton.h"
 #include "MyEnemyBaseClass.h"
 #include "MyProjectileData.h"
-#include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyProjectileBaseClass.generated.h"
