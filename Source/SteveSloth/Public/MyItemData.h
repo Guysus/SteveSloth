@@ -10,7 +10,7 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 
@@ -22,4 +22,9 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 {
 	GENERATED_BODY()
 	
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	FString Name;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
 };
