@@ -13,11 +13,7 @@
 
 AMyPossumEnemyClass::AMyPossumEnemyClass()
 {
-	IsIdle = false;
-	IsPatroling = false;
-	IsChasing = false;
-	IsAttackingMelee = false;
-	IsAttackingRanged = false;
+
 }
 
 void AMyPossumEnemyClass::BeginPlay()
