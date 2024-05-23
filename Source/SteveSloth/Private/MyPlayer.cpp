@@ -85,7 +85,14 @@ void AMyPlayer::AddGrubs(int grubAmount)
 
 void AMyPlayer::RemoveGrubs(int grubAmount)
 {
-	GrubCount -= grubAmount;
+	if (GrubCount - grubAmount >= 0)
+	{
+		GrubCount -= grubAmount;
+	}
+	else
+	{
+		GrubCount = 0;
+	}
 	PlayerHUD->GrubCountText(GrubCount);
 }
 
@@ -97,7 +104,14 @@ void AMyPlayer::AddEucalyptus(int eucalyptusAmount)
 
 void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 {
-	EucalyptusCount -= eucalyptusAmount;
+	if (EucalyptusCount - eucalyptusAmount >= 0)
+	{
+		EucalyptusCount -= eucalyptusAmount;
+	}
+	else
+	{
+		EucalyptusCount = 0;
+	}
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
