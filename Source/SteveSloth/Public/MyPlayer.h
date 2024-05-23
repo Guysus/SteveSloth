@@ -98,6 +98,12 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
+
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
+
+	UPROPERTY()
+	UMyPlayerHeadsUpDisplay* PlayerHUD;
 	
 private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
@@ -116,6 +122,9 @@ private: // PRIVATE VARIABLES
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
+
+	int GrubCount;
+	int EucalyptusCount;
 	
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
@@ -129,6 +138,11 @@ public:	// UPDATE FUNCTIONS
 
 public: // NORMAL FUNCTIONS
 	void HitPlayer(float damageAmount);
+
+	void AcquireGrubs(int grubAmount);
+	void RemoveGrubs(int grubAmount);
+	void AcquireEucalyptus(int eucalyptusAmount);
+	void RemoveEucalyptus(int eucalyptusAmount);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
