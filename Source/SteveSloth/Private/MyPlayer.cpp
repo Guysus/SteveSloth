@@ -53,18 +53,18 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (PlayerHUDClass)
-	{
-		PlayerHUD = CreateWidget<UMyPlayerHeadsUpDisplay>(this, PlayerHUDClass);
+	//if (PlayerHUDClass)
+	//{
+	//	PlayerHUD = CreateWidget<UMyPlayerHeadsUpDisplay>(this, PlayerHUDClass);
 
-		if (PlayerHUD)
-		{
-			PlayerHUD->AddToPlayerScreen();
+	//	if (PlayerHUD)
+	//	{
+	//		PlayerHUD->AddToPlayerScreen();
 
-			PlayerHUD->GrubCountText(GrubCount);
-			PlayerHUD->EucalyptusCountText(EucalyptusCount);
-		}
-	}
+	//		PlayerHUD->GrubCountText(GrubCount);
+	//		PlayerHUD->EucalyptusCountText(EucalyptusCount);
+	//	}
+	//}
 }
 
 void AMyPlayer::Tick(float DeltaTime)
@@ -80,25 +80,25 @@ void AMyPlayer::HitPlayer(float damageAmount)
 void AMyPlayer::AcquireGrubs(int grubAmount)
 {
 	GrubCount += grubAmount;
-	PlayerHUD->GrubCountText(GrubCount);
+	//PlayerHUD->GrubCountText(GrubCount);
 }
 
 void AMyPlayer::RemoveGrubs(int grubAmount)
 {
 	GrubCount -= grubAmount;
-	PlayerHUD->GrubCountText(GrubCount);
+	//PlayerHUD->GrubCountText(GrubCount);
 }
 
 void AMyPlayer::AcquireEucalyptus(int eucalyptusAmount)
 {
 	EucalyptusCount += eucalyptusAmount;
-	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+	//PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
 void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 {
 	EucalyptusCount -= eucalyptusAmount;
-	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+	//PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
