@@ -73,7 +73,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	}
 
 	// Set initial State as Idle
-	StateMachine->ChangeState(StateMachine->GetState(Patrol));
+	StateMachine->ChangeState(StateMachine->GetState(Confused));
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)

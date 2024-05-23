@@ -32,7 +32,7 @@ void AMyProjectileBaseClass::BeginPlay()
 		ProjectileType = projectileData->ProjectileType;
 
 		Name = projectileData->Name;
-		Mesh = projectileData->Mesh;
+		/*Mesh = projectileData->Mesh;*/
 
 		Damage = projectileData->Damage;
 		ProjectileType = projectileData->ProjectileType;

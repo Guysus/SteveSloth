@@ -13,7 +13,8 @@
 
 void UMyGenericEnemyConfusionState::EnterState() 
 {
-	MaxConfusionRange = 2.0f;
+	MaxConfusionRange = 200.0f;
+
 	IsAnimationRunning = false;
 }
 
@@ -25,8 +26,8 @@ void UMyGenericEnemyConfusionState::ExitState()
 void UMyGenericEnemyConfusionState::UpdateState(float deltaTime) 
 {
 	FVector currentPoint = Myself->GetStartingLocation().GetLocation();
-	ConfusionSpot = currentPoint + UKismetMathLibrary::RandomUnitVector() * FMath::RandRange(0.0f, MaxConfusionRange);
-	FVector moveLocation = FMath::VInterpConstantTo(currentPoint, ConfusionSpot, deltaTime, Myself->GetMovementSpeed());
+	/*ConfusionSpot = currentPoint + UKismetMathLibrary::RandomUnitVector().Y * FMath::RandRange(0.0f, MaxConfusionRange);*/
+	FVector moveLocation = FMath::VInterpTo(currentPoint, ConfusionSpot, deltaTime, Myself->GetMovementSpeed());
 
 	Myself->SetActorLocation(moveLocation);
 

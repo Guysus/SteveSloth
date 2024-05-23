@@ -27,6 +27,7 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
+	FVector StartingPoint;
 	FVector ConfusionSpot;
 	float MaxConfusionRange;
 	bool IsAnimationRunning;
