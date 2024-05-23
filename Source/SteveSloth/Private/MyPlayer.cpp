@@ -55,7 +55,7 @@ void AMyPlayer::BeginPlay()
 
 	if (PlayerHUDClass)
 	{
-		PlayerHUD = CreateWidget<UMyPlayerHeadsUpDisplay>(GetController(), PlayerHUDClass);
+		PlayerHUD = CreateWidget<UMyPlayerHeadsUpDisplay>(UGameplayStatics::GetPlayerController(GetWorld(), 0), PlayerHUDClass);
 
 		if (PlayerHUD)
 		{

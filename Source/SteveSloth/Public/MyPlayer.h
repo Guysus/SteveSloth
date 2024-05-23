@@ -18,6 +18,7 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
+#include "Kismet/GameplayStatics.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
