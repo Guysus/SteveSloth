@@ -1,6 +1,6 @@
 /****************************************************************************************
- * Copyright: 
- * Name: Guy Lapensee, Jeff Moreau
+ * Copyright: SteveSloth
+ * Name: Jeff Moreau, Guy Lapensee
  * Script: ItemBaseClass.cpp
  * Date: April 23, 2024
  * Description: Base Class for Items
@@ -28,6 +28,8 @@ AItemBaseClass::AItemBaseClass()
 		DropChance = itemData->DropChance;
 		StackAmount = itemData->StackAmount;
 		bIsCurrency = itemData->bIsCurrency;
+		AddHealthAmount = itemData->AddHealthAmount;
+		AddHealthPercentage = itemData->AddHealthPercentage;
 	}
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
@@ -57,22 +59,30 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 		switch (ItemType)
 		{
 			case EItemType::Leaf:
-			//Steve->Set
+				Steve->SetMaxHealth(AddHealthAmount);
 			break;
+
 			case EItemType::Grub:
-
+				//Need to talk to Elad first
 			break;
+
 			case EItemType::Eucalyptus:
-	
+				//Need to talk to Elad first
 			break;
+
 			case EItemType::GreenBud:
-
+				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
+				Steve->SetCurrentHealth(healthAmount);
 			break;
+
 			case EItemType::BlueBud:
-
+				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
+				Steve->SetCurrentHealth(healthAmount);
 			break;
-			case EItemType::RedBud:
 
+			case EItemType::RedBud:
+				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
+				Steve->SetCurrentHealth(healthAmount);
 			break;
 		}
 	}

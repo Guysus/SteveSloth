@@ -53,4 +53,10 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	bool bIsCurrency;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float AddHealthAmount;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float AddHealthPercentage;
 };

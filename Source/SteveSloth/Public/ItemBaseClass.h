@@ -1,6 +1,6 @@
 /****************************************************************************************
- * Copyright:
- * Name: Guy Lapensee, Jeff Moreau
+ * Copyright: SteveSloth
+ * Name: Jeff Moreau, Guy Lapensee
  * Script: ItemBaseClass.h
  * Date: April 23, 2024
  * Description:Base Class for Items
@@ -50,6 +50,8 @@ private: // PRIVATE INTERNAL VARIABLES
 
 	float Health;
 	float DropChance;
+	float AddHealthAmount;
+	float AddHealthPercentage;
 
 	int StackAmount;
 	bool bIsCurrency;

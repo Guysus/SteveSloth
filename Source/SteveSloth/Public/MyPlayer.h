@@ -97,7 +97,15 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
-	
+
+public: // GETTERS/ACCESSORS
+	float GetMaxHealth() { return MaxHealth; }
+	float GetCurrentHealth() { return CurrentHealth; }
+
+public: // SETTERS/MUTATORS
+	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
+	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+
 private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
