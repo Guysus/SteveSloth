@@ -17,6 +17,8 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "MyPlayerHeadsUpDisplay.h"
+#include "Kismet/GameplayStatics.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
@@ -106,6 +108,12 @@ public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
 	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
 
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
+
+	UPROPERTY()
+	UMyPlayerHeadsUpDisplay* PlayerHUD;
+	
 private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
@@ -123,6 +131,9 @@ private: // PRIVATE VARIABLES
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
+
+	int GrubCount;
+	int EucalyptusCount;
 	
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
@@ -136,6 +147,11 @@ public:	// UPDATE FUNCTIONS
 
 public: // NORMAL FUNCTIONS
 	void HitPlayer(float damageAmount);
+
+	void AddGrubs(int grubAmount);
+	void RemoveGrubs(int grubAmount);
+	void AddEucalyptus(int eucalyptusAmount);
+	void RemoveEucalyptus(int eucalyptusAmount);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void MoveForwardBack(const FInputActionValue& Value);
