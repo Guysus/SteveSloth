@@ -63,11 +63,11 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			break;
 
 			case EItemType::Grub:
-				//Need to talk to Elad first
+				Steve->AddGrubs(1);
 			break;
 
 			case EItemType::Eucalyptus:
-				//Need to talk to Elad first
+				Steve->AddEucalyptus(1);
 			break;
 
 			case EItemType::GreenBud:
