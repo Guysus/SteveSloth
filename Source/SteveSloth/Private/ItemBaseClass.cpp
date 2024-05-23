@@ -16,6 +16,20 @@ AItemBaseClass::AItemBaseClass()
 
 	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
 
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+}
+
+void AItemBaseClass::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+	if (Player)
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
+
 	// Initialize Variables to the Item Data Table
 	const auto itemData = ItemDataTable.GetRow<FUMyItemData>("");
 
@@ -30,20 +44,6 @@ AItemBaseClass::AItemBaseClass()
 		bIsCurrency = itemData->bIsCurrency;
 		AddHealthAmount = itemData->AddHealthAmount;
 		AddHealthPercentage = itemData->AddHealthPercentage;
-	}
-
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-}
-
-void AItemBaseClass::BeginPlay()
-{
-	Super::BeginPlay();
-
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-
-	if (Player)
-	{
-		Steve = Cast<AMyPlayer>(Player);
 	}
 }
 
