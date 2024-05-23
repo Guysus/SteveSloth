@@ -10,9 +10,12 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "GameFramework/Character.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "SteveSingleton.generated.h"
 
 UCLASS()
