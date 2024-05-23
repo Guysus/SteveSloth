@@ -24,8 +24,9 @@ AItemBaseClass::AItemBaseClass()
 		Name = itemData->Name;
 		Mesh = itemData->Mesh;
 		Health = itemData->Health;
-		StackAmount = itemData->StackAmount;
+		ItemType = itemData->ItemType;
 		DropChance = itemData->DropChance;
+		StackAmount = itemData->StackAmount;
 		bIsCurrency = itemData->bIsCurrency;
 	}
 
@@ -53,6 +54,26 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 {
 	if (OtherActor == Player)
 	{
+		switch (ItemType)
+		{
+			case EItemType::Leaf:
+			//Steve->Set
+			break;
+			case EItemType::Grub:
 
+			break;
+			case EItemType::Eucalyptus:
+	
+			break;
+			case EItemType::GreenBud:
+
+			break;
+			case EItemType::BlueBud:
+
+			break;
+			case EItemType::RedBud:
+
+			break;
+		}
 	}
 }

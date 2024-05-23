@@ -17,6 +17,17 @@
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyItemData.generated.h"
 
+UENUM(BlueprintType)
+enum class EItemType
+{
+	Leaf UMETA(DisplayName = "Leaf"),
+	Grub UMETA(DisplayName = "Grub"),
+	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
+	GreenBud UMETA(DisplayName = "GreenBud"),
+	BlueBud UMETA(DisplayName = "BlueBud"),
+	RedBud UMETA(DisplayName = "RedBud")
+};
+
 USTRUCT(BlueprintType)
 struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 {
@@ -27,6 +38,9 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	TEnumAsByte<EItemType> ItemType;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float Health;

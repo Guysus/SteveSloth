@@ -44,6 +44,8 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Enemy;
 	UStaticMeshComponent* Mesh;
 
+	TEnumAsByte<EItemType> ItemType;
+
 	FString Name;
 
 	float Health;
