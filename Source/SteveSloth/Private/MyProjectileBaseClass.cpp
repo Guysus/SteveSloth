@@ -17,14 +17,18 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+}
+
+void AMyProjectileBaseClass::BeginPlay()
+{
+	Super::BeginPlay();
 
 	// Initialize Variables to the Projectile Data Table
 	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
 
 	if (projectileData)
 	{
-		Mesh = projectileData->Mesh;
-
 		ProjectileType = projectileData->ProjectileType;
 
 		Damage = projectileData->Damage;
@@ -40,8 +44,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
 
@@ -50,11 +52,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
 	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
 	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
-}
-
-void AMyProjectileBaseClass::BeginPlay()
-{
-	Super::BeginPlay();
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 

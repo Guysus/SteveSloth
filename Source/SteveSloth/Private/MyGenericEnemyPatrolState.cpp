@@ -12,7 +12,6 @@
 
 void UMyGenericEnemyPatrolState::EnterState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Patrol State Entered"));
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	Steve = Cast<AMyPlayer>(Player);
 
