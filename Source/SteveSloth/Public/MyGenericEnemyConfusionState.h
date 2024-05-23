@@ -27,6 +27,8 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
+	FVector ConfusionSpot;
+	float MaxConfusionRange;
 	bool IsAnimationRunning;
 
 public: //PUBLIC INHERITED FUNCTIONS
