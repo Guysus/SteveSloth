@@ -29,6 +29,9 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float Health;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int StackAmount;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
