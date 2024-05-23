@@ -1,7 +1,7 @@
 /****************************************************************************************
- * Copyright:
- * Name: Guy Lapensee
- * Script: ItemBaseClass
+ * Copyright: SteveSloth
+ * Name: Jeff Moreau, Guy Lapensee
+ * Script: ItemBaseClass.h
  * Date: April 23, 2024
  * Description:Base Class for Items
  * TODO: 
@@ -10,8 +10,16 @@
 
 #pragma once
 
+// INCLUDES HERE
+#include "MyPlayer.h"
+#include "MyItemData.h"
 #include "CoreMinimal.h"
+#include "SteveSingleton.h"
+#include "MyEnemyBaseClass.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "ItemBaseClass.generated.h"
 
 UCLASS()
@@ -19,30 +27,45 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+protected: // PROTECTED DETAILS PANEL VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "UMyItemData"), Category = "Data")
+	FDataTableRowHandle ItemDataTable;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* ItemHitBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
+	bool bIsItemUnlocked;
+
+private: // PRIVATE INTERNAL VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
+
+	AMyEnemyBaseClass* Enemy;
+	UStaticMeshComponent* Mesh;
+
+	TEnumAsByte<EItemType> ItemType;
+
+	FString Name;
+
+	float Health;
+	float DropChance;
+	float AddHealthAmount;
+	float AddHealthPercentage;
+
+	int StackAmount;
+	bool bIsCurrency;
+
+public:	// CONSTRUCTOR HERE
 	AItemBaseClass();
 
-protected:
-	// Called when the game starts or when spawned
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	//Store all the item names
-	FString ItemName;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	int StackAmount;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	bool isItemUnlocked;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
-	float DropChance;
-
-	
+	UFUNCTION()
+	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };

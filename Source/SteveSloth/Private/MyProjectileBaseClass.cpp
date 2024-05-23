@@ -31,16 +31,20 @@ void AMyProjectileBaseClass::BeginPlay()
 	{
 		ProjectileType = projectileData->ProjectileType;
 
+		Name = projectileData->Name;
+		Mesh = projectileData->Mesh;
+
 		Damage = projectileData->Damage;
-		ProjectileSpeed = projectileData->ProjectileSpeed;
-		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
+		ProjectileType = projectileData->ProjectileType;
+		DamageOverTime = projectileData->DamageOverTime;
 		ProjectileRange = projectileData->ProjectileRange;
+		ProjectileSpeed = projectileData->ProjectileSpeed;
 		ProjectileGravity = projectileData->ProjectileGravity;
 		InitialLaunchAngle = projectileData->InitialLaunchAngle;
 		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
 		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
-		DamageOverTime = projectileData->DamageOverTime;
 		DamageOverTimeRate = projectileData->DamageOverTimeRate;
+		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
