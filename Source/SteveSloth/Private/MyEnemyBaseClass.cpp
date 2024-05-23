@@ -17,9 +17,52 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	// Create the StateMachine Component on the Enemy Base Class
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
+	//// Initialize Variables to the Enemy Data Table
+	//const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
+	
+	/*if (enemyData)
+	{
+		Damage = enemyData->MeleeDamage;
+		MovementSpeed = enemyData->MovementSpeed;
+		MaxHealth = enemyData->MaxHealth;
+		PatrolRange = enemyData->PatrolRange;
+		ChaseRange = enemyData->ChaseRange;
+		MeleeAttackRange = enemyData->MeleeAttackRange;
+		RangedAttackRange = enemyData->RangedAttackRange;
+		MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
+		RangedAttackSpeed = enemyData->RangedAttackSpeed;
+		IdleAnim = enemyData->IdleAnim;
+		MoveAnim = enemyData->MoveAnim;
+		AttackAnim = enemyData->MeleeAttackAnim;
+		RangedAttackAnim = enemyData->RangedAttackAnim;
+		HitAnim = enemyData->HitAnim;
+		DeathAnim = enemyData->DeathAnim;
+		FrozenAnim = enemyData->FrozenAnim;
+		ConfusionAnim = enemyData->ConfusionAnim;
+		AmmoType = enemyData->AmmoType;
+	}
+
+	 Initialize Variables before use
+	CurrentHealth = MaxHealth;*/
+
+	IsFrozen = false;
+	IsCurrentlyFrozen = false;
+	IsConfused = false;
+	IsDead = false;
+	IsIdle = false;
+	IsChasing = false;
+	IsPatroling = false;
+	IsAttackingMelee = false;
+	IsAttackingRanged = false;
+}
+
+void AMyEnemyBaseClass::BeginPlay()
+{
+	Super::BeginPlay();
+
 	// Initialize Variables to the Enemy Data Table
 	const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
-	
+
 	if (enemyData)
 	{
 		Damage = enemyData->MeleeDamage;
@@ -45,20 +88,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	// Initialize Variables before use
 	CurrentHealth = MaxHealth;
 
-	IsFrozen = false;
-	IsCurrentlyFrozen = false;
-	IsConfused = false;
-	IsDead = false;
-	IsIdle = false;
-	IsChasing = false;
-	IsPatroling = false;
-	IsAttackingMelee = false;
-	IsAttackingRanged = false;
-}
-
-void AMyEnemyBaseClass::BeginPlay()
-{
-	Super::BeginPlay();
+	/*UE_LOG(LogTemp, Warning, TEXT("Current Health: %s"), );*/
 
 	// Get a referance to the Main Player
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
@@ -73,22 +103,22 @@ void AMyEnemyBaseClass::BeginPlay()
 	}
 
 	// Set initial State as Idle
-	StateMachine->ChangeState(StateMachine->GetState(Idle));
+	StateMachine->ChangeState(StateMachine->GetState(Die));
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Check if Enemy is Dead
-	if (CurrentHealth <= 0 && !IsDead)
-	{
-		StateMachine->ChangeState(StateMachine->GetState(Die));
-		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
-		IsDead = true;
-	}
+	//// Check if Enemy is Dead
+	//if (CurrentHealth <= 0 && !IsDead)
+	//{
+	//	StateMachine->ChangeState(StateMachine->GetState(Die));
+	//	GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+	//	IsDead = true;
+	//}
 	//Check if frozen
-	else if (IsFrozen && !IsCurrentlyFrozen)
+	/*else */if (IsFrozen && !IsCurrentlyFrozen)
 	{
 		//set state to idle to frozen
 		StateMachine->ChangeState(StateMachine->GetState(Frozen));
@@ -128,7 +158,7 @@ void AMyEnemyBaseClass::HitEnemy(float damageAmount)
 
 void AMyEnemyBaseClass::Despawn()
 {
-	this->Destroy();
+	/*this->Destroy();*/
 }
 
 void AMyEnemyBaseClass::Thaw()
