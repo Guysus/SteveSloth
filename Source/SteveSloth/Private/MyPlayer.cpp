@@ -77,7 +77,7 @@ void AMyPlayer::HitPlayer(float damageAmount)
 	CurrentHealth = CurrentHealth - damageAmount;
 }
 
-void AMyPlayer::AcquireGrubs(int grubAmount)
+void AMyPlayer::AddGrubs(int grubAmount)
 {
 	GrubCount += grubAmount;
 	PlayerHUD->GrubCountText(GrubCount);
@@ -89,7 +89,7 @@ void AMyPlayer::RemoveGrubs(int grubAmount)
 	PlayerHUD->GrubCountText(GrubCount);
 }
 
-void AMyPlayer::AcquireEucalyptus(int eucalyptusAmount)
+void AMyPlayer::AddEucalyptus(int eucalyptusAmount)
 {
 	EucalyptusCount += eucalyptusAmount;
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);

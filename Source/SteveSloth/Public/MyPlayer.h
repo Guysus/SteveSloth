@@ -140,9 +140,9 @@ public:	// UPDATE FUNCTIONS
 public: // NORMAL FUNCTIONS
 	void HitPlayer(float damageAmount);
 
-	void AcquireGrubs(int grubAmount);
+	void AddGrubs(int grubAmount);
 	void RemoveGrubs(int grubAmount);
-	void AcquireEucalyptus(int eucalyptusAmount);
+	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 
 private: // PRIVATE INTERNAL FUNCTIONS
