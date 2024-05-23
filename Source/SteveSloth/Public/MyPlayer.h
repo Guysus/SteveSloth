@@ -17,6 +17,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "MyPlayerHeadsUpDisplay.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"

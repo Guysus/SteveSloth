@@ -10,3 +10,12 @@
 
 #include "MyPlayerHeadsUpDisplay.h"
 
+void UMyPlayerHeadsUpDisplay::GrubCountText(int grubAmount)
+{
+	GrubCount->SetText(FText::AsNumber(grubAmount));
+}
+
+void UMyPlayerHeadsUpDisplay::EucalyptusCountText(int eucalyptusAmount)
+{
+	EucalyptusCount->SetText(FText::AsNumber(eucalyptusAmount));
+}

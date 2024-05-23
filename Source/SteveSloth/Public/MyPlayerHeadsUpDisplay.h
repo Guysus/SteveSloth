@@ -12,6 +12,7 @@
 
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/TextBlock.h"
 #include "MyPlayerHeadsUpDisplay.generated.h"
 
 UCLASS(Abstract)
@@ -21,11 +22,12 @@ class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
 	
 protected: //WIDGET VARIABLES
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	STextBlock* GrubCount;
+	UTextBlock* GrubCount;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	STextBlock* EucalyptusCount;
+	UTextBlock* EucalyptusCount;
 
 public: //PUBLIC FUNCTIONS
-
+	void GrubCountText(int grubAmount);
+	void EucalyptusCountText(int eucalyptusAmount);
 };
