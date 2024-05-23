@@ -28,7 +28,7 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 	GENERATED_BODY()
 	
 protected: // PROTECTED DETAILS PANEL VARIABLES 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyItemData"), Category = "Data")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "UMyItemData"), Category = "Data")
 	FDataTableRowHandle ItemDataTable;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

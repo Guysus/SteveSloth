@@ -71,18 +71,15 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			break;
 
 			case EItemType::GreenBud:
-				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
-				Steve->SetCurrentHealth(healthAmount);
+				Steve->SetCurrentHealth(Steve->GetMaxHealth() * AddHealthPercentage);
 			break;
 
 			case EItemType::BlueBud:
-				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
-				Steve->SetCurrentHealth(healthAmount);
+				Steve->SetCurrentHealth(Steve->GetMaxHealth() * AddHealthPercentage);
 			break;
 
 			case EItemType::RedBud:
-				float healthAmount = Steve->GetMaxHealth() * AddHealthPercentage;
-				Steve->SetCurrentHealth(healthAmount);
+				Steve->SetCurrentHealth(Steve->GetMaxHealth() * AddHealthPercentage);
 			break;
 		}
 	}
