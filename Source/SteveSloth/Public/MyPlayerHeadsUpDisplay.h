@@ -13,7 +13,19 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
+#include "Components/Image.h"
 #include "MyPlayerHeadsUpDisplay.generated.h"
+
+UENUM(Blueprintable)
+enum class EAmmoType
+{
+	Pebble,
+	Firecracker,
+	WaterBalloon,
+	PoisonSac,
+	ChristmasBeetle,
+	BigRock
+};
 
 UCLASS(Abstract)
 class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
@@ -22,12 +34,20 @@ class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
 	
 protected: //WIDGET VARIABLES
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	UTextBlock* GrubCount;
+	UTextBlock* GrubCountTextBlock;
 
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
-	UTextBlock* EucalyptusCount;
+	UTextBlock* EucalyptusCountTextBlock;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	UTextBlock* AmmoCountTextBlock;
+
+	UPROPERTY(EditAnywhere, meta = (BindWidget))
+	UImage* AmmoIconImageBlock;
 
 public: //PUBLIC FUNCTIONS
 	void GrubCountText(int grubAmount);
 	void EucalyptusCountText(int eucalyptusAmount);
+	void AmmoCountText(int ammoAmount);
+	void AmmoIcon(UTexture2D* iconTexture);
 };
