@@ -25,7 +25,8 @@ enum class EItemType
 	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
 	GreenBud UMETA(DisplayName = "GreenBud"),
 	BlueBud UMETA(DisplayName = "BlueBud"),
-	RedBud UMETA(DisplayName = "RedBud")
+	RedBud UMETA(DisplayName = "RedBud"),
+	GrapplingHook UMETA(DisplayName = "GrapplingHook")
 };
 
 USTRUCT(BlueprintType)
