@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Jeff Moreau, Elad Saretzky
+ * Name: Jeff Moreau, Edited by Elad Saretzky
  * Script: MyProjectileBaseClass.cpp
  * Date: May 15, 2024
  * Description: Where all Projectiles are made from and all functionality
@@ -24,6 +24,13 @@ void AMyProjectileBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+	if (IsValid(Player))
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
+
 	// Initialize Variables to the Projectile Data Table
 	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
 
@@ -32,8 +39,6 @@ void AMyProjectileBaseClass::BeginPlay()
 		ProjectileType = projectileData->ProjectileType;
 
 		Name = projectileData->Name;
-		/*Mesh = projectileData->Mesh;*/
-
 		Damage = projectileData->Damage;
 		ProjectileType = projectileData->ProjectileType;
 		DamageOverTime = projectileData->DamageOverTime;
@@ -58,13 +63,6 @@ void AMyProjectileBaseClass::BeginPlay()
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
 	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
 	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
-
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-
-	if (IsValid(Player))
-	{
-		Steve = Cast<AMyPlayer>(Player);
-	}
 
 	StartingLocation = GetActorLocation();
 

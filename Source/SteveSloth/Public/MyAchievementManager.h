@@ -10,10 +10,14 @@
 
 #pragma once
 
+ // INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyAchievementManager.generated.h"
 
+// Structure for Achievements
 USTRUCT(BlueprintType)
 struct FMyAchievements
 {
@@ -34,16 +38,16 @@ class STEVESLOTH_API AMyAchievementManager : public AActor
 {
 	GENERATED_BODY()
 
-public:
+protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<FMyAchievements> AchievementList;
 	
-public:	
+public:	// CONSTRUCTOR HERE
 	AMyAchievementManager();
 
-protected:
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 };

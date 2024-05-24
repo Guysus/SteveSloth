@@ -10,7 +10,7 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
 

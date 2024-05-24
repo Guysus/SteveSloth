@@ -10,7 +10,9 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
+#include "SteveSingleton.h"
 #include "LevelInstance/LevelInstanceActor.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -21,16 +23,13 @@ class STEVESLOTH_API AMyGameManager : public AActor
 {
 	GENERATED_BODY()
 
-	// SINGLETON STUFF
-public:
+public:// SINGLETON STUFF
 	static AMyGameManager* pInstance;
 	AMyGameManager* Instance();
 
 	UFUNCTION(BlueprintCallable)
 	static AMyGameManager* GetInstance();
-	
-	// SINGLETON END
 
-public:
+public:	// CONSTRUCTOR HERE
 	AMyGameManager();
 };

@@ -8,7 +8,6 @@
  * Known Bugs:
  ****************************************************************************************/
 
-
 #include "MyCrocodileEnemyClass.h"
 
 AMyCrocodileEnemyClass::AMyCrocodileEnemyClass()
@@ -27,51 +26,51 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 
 	//Switching States:
 	//if the enemy is in melee distance
-	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !IsAttackingMelee)
+	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !bIsAttackingMelee)
 	{
-		// ---- change to melee attack state here ----
-		IsAttackingMelee = true;
+		StateMachine->ChangeState(StateMachine->GetState(Attack));
+		bIsAttackingMelee = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsPatroling = false;
-		IsChasing = false;
+		bIsIdle = false;
+		bIsPatroling = false;
+		bIsChasing = false;
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !IsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
 	{
-		// ---- change to chasing state here ----
-		IsChasing = true;
+		StateMachine->ChangeState(StateMachine->GetState(Chase));
+		bIsChasing = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsPatroling = false;
-		IsAttackingMelee = false;
+		bIsIdle = false;
+		bIsPatroling = false;
+		bIsAttackingMelee = false;
 	}
 	//if the enemy is still, do idle for a bit
-	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyCrocodileEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
+	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyCrocodileEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
 	{
-		// ---- change to idle state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Idle));
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyCrocodileEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
-		IsIdle = true;
+		bIsIdle = true;
 
 		//reset other state bools
-		IsChasing = false;
-		IsPatroling = false;
-		IsAttackingMelee = false;
+		bIsChasing = false;
+		bIsPatroling = false;
+		bIsAttackingMelee = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
 	{
-		// ---- change to patrol state here ----
-		IsPatroling = true;
+		StateMachine->ChangeState(StateMachine->GetState(Patrol));
+		bIsPatroling = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsChasing = false;
-		IsAttackingMelee = false;
+		bIsIdle = false;
+		bIsChasing = false;
+		bIsAttackingMelee = false;
 	}
 
 	if (CurrentHealth <= 0)
@@ -88,5 +87,5 @@ void AMyCrocodileEnemyClass::StartFleeState()
 
 void AMyCrocodileEnemyClass::IdleReset()
 {
-	IsIdle = false;
+	bIsIdle = false;
 }
