@@ -12,10 +12,38 @@
 
 void UMyPlayerHeadsUpDisplay::GrubCountText(int grubAmount)
 {
-	GrubCount->SetText(FText::AsNumber(grubAmount));
+	GrubCountTextBlock->SetText(FText::AsNumber(grubAmount));
 }
 
 void UMyPlayerHeadsUpDisplay::EucalyptusCountText(int eucalyptusAmount)
 {
-	EucalyptusCount->SetText(FText::AsNumber(eucalyptusAmount));
+	EucalyptusCountTextBlock->SetText(FText::AsNumber(eucalyptusAmount));
+}
+
+void UMyPlayerHeadsUpDisplay::AmmoCountText(int ammoAmount)
+{
+	AmmoCountTextBlock->SetText(FText::AsNumber(ammoAmount));
+
+	if (ammoAmount > 0)
+	{
+		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 1, 1, 1)));
+	}
+	else
+	{
+		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 0, 0, 1))); 
+	}
+}
+
+void UMyPlayerHeadsUpDisplay::AmmoIcon(UTexture2D* iconTexture, int ammoAmount)
+{
+	AmmoIconImageBlock->SetBrushFromTexture(iconTexture);
+
+	if (ammoAmount > 0)
+	{
+		AmmoIconImageBlock->SetOpacity(1.0f);
+	}
+	else
+	{
+		AmmoIconImageBlock->SetOpacity(0.3f);
+	}
 }
