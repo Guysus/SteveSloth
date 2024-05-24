@@ -32,8 +32,6 @@ AMyLevelManager* AMyLevelManager::GetInstance()
 AMyLevelManager::AMyLevelManager()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	
-	MyGameManager = AMyGameManager::GetInstance();
 }
 
 void AMyLevelManager::BeginPlay()

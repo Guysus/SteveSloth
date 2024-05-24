@@ -8,7 +8,6 @@
  * Known Bugs:
  ****************************************************************************************/
 
-
 #include "MyPossumEnemyClass.h"
 
 AMyPossumEnemyClass::AMyPossumEnemyClass()
@@ -40,20 +39,20 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	//if the enemy is in melee distance
 	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !bIsAttackingMelee)
 	{
-		// ---- change to melee attack state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Attack));
 		bIsAttackingMelee = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		bIsIdle = false;
-		bIsPatroling = false;
 		bIsChasing = false;
+		bIsPatroling = false;
 		bIsAttackingRanged = false;
 	}
 	//if the enemy is in ranged distance
 	else if (isHit && outHit.bBlockingHit && outHit.GetActor() == Player && !bIsAttackingRanged)
 	{
-		// ----change to ranged attack state here----
+		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
 		bIsAttackingRanged = true;
 
 		bIsIdle = true; //remains true to stay in ranged state until timer is done
@@ -68,7 +67,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	//if the enemy is within the chasing distance
 	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
 	{
-		// ---- change to chasing state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
 
 		//reset other state bools & clear start flee timer
@@ -81,7 +80,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	//if the enemy is still, do idle for a bit
 	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
 	{
-		// ---- change to idle state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Idle));
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyPossumEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
 		bIsIdle = true;
 
@@ -93,7 +92,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 	}
 	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
 	{
-		// ---- change to patrol state here ----
+		StateMachine->ChangeState(StateMachine->GetState(Patrol));
 		bIsPatroling = true;
 
 		//reset other state bools & clear start flee timer
@@ -112,7 +111,7 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 
 void AMyPossumEnemyClass::StartFleeState()
 {
-	// ---- change to flee state here ----
+	StateMachine->ChangeState(StateMachine->GetState(Flee));
 	GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyPossumEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
 }
 
@@ -124,6 +123,6 @@ void AMyPossumEnemyClass::IdleReset()
 void AMyPossumEnemyClass::RangedAttackOver()
 {
 	bIsIdle = false;
-	bIsPatroling = false;
 	bIsChasing = false;
+	bIsPatroling = false;
 }

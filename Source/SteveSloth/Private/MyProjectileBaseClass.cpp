@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Jeff Moreau, Elad Saretzky
+ * Name: Jeff Moreau, Edited by Elad Saretzky
  * Script: MyProjectileBaseClass.cpp
  * Date: May 15, 2024
  * Description: Where all Projectiles are made from and all functionality
@@ -17,27 +17,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
-
-	// Initialize Variables to the Projectile Data Table
-	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
-
-	if (projectileData)
-	{
-		Name = projectileData->Name;
-		Mesh = projectileData->Mesh;
-		Damage = projectileData->Damage;
-		ProjectileType = projectileData->ProjectileType;
-		DamageOverTime = projectileData->DamageOverTime;
-		ProjectileRange = projectileData->ProjectileRange;
-		ProjectileSpeed = projectileData->ProjectileSpeed;
-		ProjectileGravity = projectileData->ProjectileGravity;
-		InitialLaunchAngle = projectileData->InitialLaunchAngle;
-		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
-		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
-		DamageOverTimeRate = projectileData->DamageOverTimeRate;
-		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
-		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
-	}
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 
@@ -60,6 +39,27 @@ void AMyProjectileBaseClass::BeginPlay()
 	if (IsValid(Player))
 	{
 		Steve = Cast<AMyPlayer>(Player);
+	}
+
+	// Initialize Variables to the Projectile Data Table
+	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
+
+	if (projectileData)
+	{
+		Name = projectileData->Name;
+		Mesh = projectileData->Mesh;
+		Damage = projectileData->Damage;
+		ProjectileType = projectileData->ProjectileType;
+		DamageOverTime = projectileData->DamageOverTime;
+		ProjectileRange = projectileData->ProjectileRange;
+		ProjectileSpeed = projectileData->ProjectileSpeed;
+		ProjectileGravity = projectileData->ProjectileGravity;
+		InitialLaunchAngle = projectileData->InitialLaunchAngle;
+		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
+		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
+		DamageOverTimeRate = projectileData->DamageOverTimeRate;
+		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
+		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
 	StartingLocation = GetActorLocation();

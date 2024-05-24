@@ -11,11 +11,11 @@
 #pragma once
 
 // INCLUDES HERE
+#include "MyPlayer.h"
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "GameFramework/Actor.h"
-#include "MyPlayer.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayerCamera.generated.h"
@@ -38,9 +38,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 public:	// CONSTRUCTOR
 	AMyPlayerCamera();
 
-protected: // SETUP FUNCTIONS
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	// UPDATE FUNCTIONS
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 };

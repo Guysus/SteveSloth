@@ -10,11 +10,14 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
-#include "Blueprint/UserWidget.h"
-#include "Components/TextBlock.h"
 #include "Components/Image.h"
 #include "Styling/SlateColor.h"
+#include "Components/TextBlock.h"
+#include "Blueprint/UserWidget.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayerHeadsUpDisplay.generated.h"
 
 UCLASS(Abstract)
@@ -35,7 +38,7 @@ protected: //WIDGET VARIABLES
 	UPROPERTY(EditAnywhere, meta = (BindWidget))
 	UImage* AmmoIconImageBlock;
 
-public: //PUBLIC FUNCTIONS
+public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void GrubCountText(int grubAmount);
 	void EucalyptusCountText(int eucalyptusAmount);
 	void AmmoCountText(int ammoAmount);

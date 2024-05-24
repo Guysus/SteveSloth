@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy Boisvert edited by Jeff and Ken
+ * Name: Tammy Boisvert, Edited by Jeff Moreau, Elad Saretzky, Ken Ferris
  * Script: MyPlayer.h
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -11,15 +11,16 @@
 #pragma once
 
 // INCLUDES HERE
+#include "MyAmmoData.h"
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
-#include "EnhancedInputSubsystems.h"
 #include "Camera/CameraComponent.h"
-#include "GameFramework/Character.h"
-#include "GameFramework/SpringArmComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
 #include "Kismet/GameplayStatics.h"
-#include "MyAmmoData.h"
+#include "GameFramework/Character.h"
+#include "EnhancedInputSubsystems.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
@@ -129,70 +130,64 @@ public: // SETTERS/MUTATORS
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
 	
 private: // PRIVATE VARIABLES
+	TArray<FMyAmmoData*> Ammos;
+	UTexture2D* EquippedAmmoIcon;
+	TArray<UTexture2D*> AmmoIcons;
+	USpringArmComponent* CameraArm;
+	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
 	
 	float CurrentHealth;
 	
+	int GrubCount;
 	int LeavesFound;
     int GrubsCollected;
-	
-	bool IsMoving;
-	bool DidDodge;
-	bool IsAimMode;
-
-	USpringArmComponent* CameraArm;
-	UCameraComponent* PlayerCamera;
-
-	int GrubCount;
 	int EucalyptusCount;
-
-	TArray<FMyAmmoData*> Ammos;
-	TArray<UTexture2D*> AmmoIcons;
-	TArray<int> MaxAmmos;
-	TArray<int> CurrentAmmos;
-
-	UTexture2D* EquippedAmmoIcon;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
+	
+	bool bIsMoving;
+	bool bDidDodge;
+	bool bIsAimMode;
+
+	TArray<int> MaxAmmos;
+	TArray<int> CurrentAmmos;
 	
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
-protected: // SETUP FUNCTIONS
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-public:	// UPDATE FUNCTIONS
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
-public: // NORMAL FUNCTIONS
-	void HitPlayer(float damageAmount);
-
+public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
+	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
+	void PickUpAmmo(int ammoAmount);
 	void RemoveGrubs(int grubAmount);
+	void HitPlayer(float damageAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 
-	void UseAmmo(int ammoAmount);
-	void PickUpAmmo(int ammoAmount);
-
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
-
-	void MoveForwardBack(const FInputActionValue& Value);
-	void MoveLeftRight(const FInputActionValue& Value);
-	void JumpOne(const FInputActionValue& Value);
-	void IsSprinting(const FInputActionValue& Value);
-	void SprintStop(const FInputActionValue& Value);
-	void InteractWith(const FInputActionValue& Value);
-	void IsCrouching(const FInputActionValue& Value);
-	void CrouchStop(const FInputActionValue& Value);
-	void Dodge(const FInputActionValue& Value);
 	void Swim(const FInputActionValue& Value);
+	void Dodge(const FInputActionValue& Value);
 	void LockOn(const FInputActionValue& Value);
 	void Aiming(const FInputActionValue& Value);
-	void AimingStop(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
+	void JumpOne(const FInputActionValue& Value);
+	void SprintStop(const FInputActionValue& Value);
+	void CrouchStop(const FInputActionValue& Value);
+	void AimingStop(const FInputActionValue& Value);
+	void IsSprinting(const FInputActionValue& Value);
+	void IsCrouching(const FInputActionValue& Value);
+	void InteractWith(const FInputActionValue& Value);
+	void MoveLeftRight(const FInputActionValue& Value);
+	void MoveForwardBack(const FInputActionValue& Value);
 };

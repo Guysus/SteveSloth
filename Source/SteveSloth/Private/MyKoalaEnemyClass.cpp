@@ -44,8 +44,8 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		bIsAttackingRanged = true;
 
 		bIsIdle = true; //remains true to stay in ranged state until timer is done
-		bIsPatroling = true;
 		bIsChasing = true; //remains true to stay in ranged state until timer is done
+		bIsPatroling = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
@@ -95,7 +95,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 
 void AMyKoalaEnemyClass::StartFleeState()
 {
-	// ---- change to flee state here ----
+	StateMachine->ChangeState(StateMachine->GetState(Flee));
 	GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyKoalaEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
 }
 
@@ -107,6 +107,6 @@ void AMyKoalaEnemyClass::IdleReset()
 void AMyKoalaEnemyClass::RangedAttackOver()
 {
 	bIsIdle = false;
-	bIsPatroling = false;
 	bIsChasing = false;
+	bIsPatroling = false;
 }
