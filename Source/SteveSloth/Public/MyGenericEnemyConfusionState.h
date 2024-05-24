@@ -30,7 +30,10 @@ private: // PRIVATE INTERNAL VARIABLES
 	FVector StartingPoint;
 	FVector ConfusionSpot;
 	float MaxConfusionRange;
+	float NegMaxConfusionRange;
+	float WaitTime;
 	bool IsAnimationRunning;
+
 
 public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
