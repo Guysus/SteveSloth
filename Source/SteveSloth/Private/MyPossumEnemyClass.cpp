@@ -38,70 +38,70 @@ void AMyPossumEnemyClass::Tick(float DeltaTime)
 
 	//Switching States:
 	//if the enemy is in melee distance
-	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !IsAttackingMelee)
+	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !bIsAttackingMelee)
 	{
 		// ---- change to melee attack state here ----
-		IsAttackingMelee = true;
+		bIsAttackingMelee = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsPatroling = false;
-		IsChasing = false;
-		IsAttackingRanged = false;
+		bIsIdle = false;
+		bIsPatroling = false;
+		bIsChasing = false;
+		bIsAttackingRanged = false;
 	}
 	//if the enemy is in ranged distance
-	else if (isHit && outHit.bBlockingHit && outHit.GetActor() == Player && !IsAttackingRanged)
+	else if (isHit && outHit.bBlockingHit && outHit.GetActor() == Player && !bIsAttackingRanged)
 	{
 		// ----change to ranged attack state here----
-		IsAttackingRanged = true;
+		bIsAttackingRanged = true;
 
-		IsIdle = true; //remains true to stay in ranged state until timer is done
-		IsPatroling = true;
-		IsChasing = true; //remains true to stay in ranged state until timer is done
+		bIsIdle = true; //remains true to stay in ranged state until timer is done
+		bIsPatroling = true;
+		bIsChasing = true; //remains true to stay in ranged state until timer is done
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyPossumEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
-		IsAttackingMelee = false;
+		bIsAttackingMelee = false;
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !IsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
 	{
 		// ---- change to chasing state here ----
-		IsChasing = true;
+		bIsChasing = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsPatroling = false;
-		IsAttackingMelee = false;
-		IsAttackingRanged = false;
+		bIsIdle = false;
+		bIsPatroling = false;
+		bIsAttackingMelee = false;
+		bIsAttackingRanged = false;
 	}
 	//if the enemy is still, do idle for a bit
-	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !IsIdle)
+	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyPossumEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
 	{
 		// ---- change to idle state here ----
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyPossumEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
-		IsIdle = true;
+		bIsIdle = true;
 
 		//reset other state bools
-		IsChasing = false;
-		IsPatroling = false;
-		IsAttackingMelee = false;
-		IsAttackingRanged = false;
+		bIsChasing = false;
+		bIsPatroling = false;
+		bIsAttackingMelee = false;
+		bIsAttackingRanged = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !IsPatroling)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
 	{
 		// ---- change to patrol state here ----
-		IsPatroling = true;
+		bIsPatroling = true;
 
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		IsIdle = false;
-		IsChasing = false;
-		IsAttackingMelee = false;
-		IsAttackingRanged = false;
+		bIsIdle = false;
+		bIsChasing = false;
+		bIsAttackingMelee = false;
+		bIsAttackingRanged = false;
 	}
 
 	if (CurrentHealth <= 0)
@@ -118,12 +118,12 @@ void AMyPossumEnemyClass::StartFleeState()
 
 void AMyPossumEnemyClass::IdleReset()
 {
-	IsIdle = false;
+	bIsIdle = false;
 }
 
 void AMyPossumEnemyClass::RangedAttackOver()
 {
-	IsIdle = false;
-	IsPatroling = false;
-	IsChasing = false;
+	bIsIdle = false;
+	bIsPatroling = false;
+	bIsChasing = false;
 }
