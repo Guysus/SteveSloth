@@ -48,6 +48,8 @@ void AMyProjectileBaseClass::BeginPlay()
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
+	Mesh->SetStaticMesh(projectileData->Mesh);
+
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
 
