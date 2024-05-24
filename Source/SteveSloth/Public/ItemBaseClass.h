@@ -32,6 +32,9 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	FDataTableRowHandle ItemDataTable;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* ItemHitBox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
@@ -40,21 +43,20 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
-
 	AMyEnemyBaseClass* Enemy;
-	UStaticMeshComponent* Mesh;
-
-	TEnumAsByte<EItemType> ItemType;
 
 	FString Name;
+
+	int StackAmount;
+
+	bool bIsCurrency;
 
 	float Health;
 	float DropChance;
 	float AddHealthAmount;
 	float AddHealthPercentage;
 
-	int StackAmount;
-	bool bIsCurrency;
+	TEnumAsByte<EItemType> ItemType;
 
 public:	// CONSTRUCTOR HERE
 	AItemBaseClass();
@@ -66,6 +68,7 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION()
-	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor,
+							  UPrimitiveComponent* OtherComp, int32 OtherBodyIndex,
+							  bool bFromSweep, const FHitResult& SweepResult);
 };
