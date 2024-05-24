@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Jeff Moreau, Guy Lapensee
+ * Name: Guy Lapensee, Edited by Jeff Moreau
  * Script: ItemBaseClass.h
  * Date: April 23, 2024
  * Description:Base Class for Items
