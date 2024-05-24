@@ -143,7 +143,6 @@ private: // PRIVATE VARIABLES
 	
 	int GrubCount;
 	int LeavesFound;
-    int GrubsCollected;
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;

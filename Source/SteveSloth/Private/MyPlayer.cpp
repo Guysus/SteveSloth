@@ -35,7 +35,6 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	LeavesFound = 0;
-	GrubsCollected = 0;
 	
 	// Movement Stuff
 	WalkSpeed = 600;

@@ -22,12 +22,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
-
-	ProjectileMovement->bRotationFollowsVelocity = true;
-	ProjectileMovement->InitialSpeed = ProjectileSpeed;
-	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
-	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
-	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
 }
 
 void AMyProjectileBaseClass::BeginPlay()
@@ -61,6 +55,12 @@ void AMyProjectileBaseClass::BeginPlay()
 		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
+
+	ProjectileMovement->bRotationFollowsVelocity = true;
+	ProjectileMovement->InitialSpeed = ProjectileSpeed;
+	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
+	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
+	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
 
 	StartingLocation = GetActorLocation();
 
