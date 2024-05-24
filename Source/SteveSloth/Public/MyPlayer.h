@@ -19,6 +19,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
 #include "Kismet/GameplayStatics.h"
+#include "MyAmmoData.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyPlayer.generated.h"
@@ -45,9 +46,6 @@ UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
-
-private: // CONST VARIABLES	
-	const int AMOUNT_OF_AMMO_TYPES = 6;
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -113,11 +111,8 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	TArray<UTexture2D*> AmmoIcons;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
-	TArray<int> MaxAmmos;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
+	FDataTableRowHandle AmmoDataTable;
 
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
@@ -153,6 +148,9 @@ private: // PRIVATE VARIABLES
 	int GrubCount;
 	int EucalyptusCount;
 
+	TArray<FMyAmmoData*> Ammos;
+	TArray<UTexture2D*> AmmoIcons;
+	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
 
 	UTexture2D* EquippedAmmoIcon;

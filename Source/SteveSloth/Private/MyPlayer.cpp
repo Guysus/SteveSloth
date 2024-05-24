@@ -52,9 +52,13 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (int i = 0; i < AMOUNT_OF_AMMO_TYPES; i++)
+	AmmoDataTable.DataTable->GetAllRows("", Ammos);
+
+	for (int i = 0; i < Ammos.Num(); i++)
 	{
 		CurrentAmmos.AddUninitialized();
+		AmmoIcons.Add(Ammos[i]->AmmoIcon);
+		MaxAmmos.Add(Ammos[i]->MaxAmmo);
 		CurrentAmmos[i] = MaxAmmos[i];
 	}
 
