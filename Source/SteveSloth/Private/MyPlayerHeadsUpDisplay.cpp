@@ -23,9 +23,27 @@ void UMyPlayerHeadsUpDisplay::EucalyptusCountText(int eucalyptusAmount)
 void UMyPlayerHeadsUpDisplay::AmmoCountText(int ammoAmount)
 {
 	AmmoCountTextBlock->SetText(FText::AsNumber(ammoAmount));
+
+	if (ammoAmount > 0)
+	{
+		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 1, 1, 1)));
+	}
+	else
+	{
+		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 0, 0, 1))); 
+	}
 }
 
-void UMyPlayerHeadsUpDisplay::AmmoIcon(UTexture2D* iconTexture)
+void UMyPlayerHeadsUpDisplay::AmmoIcon(UTexture2D* iconTexture, int ammoAmount)
 {
 	AmmoIconImageBlock->SetBrushFromTexture(iconTexture);
+
+	if (ammoAmount > 0)
+	{
+		AmmoIconImageBlock->SetOpacity(100.0f);
+	}
+	else
+	{
+		AmmoIconImageBlock->SetOpacity(50.0f);
+	}
 }

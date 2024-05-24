@@ -14,18 +14,8 @@
 #include "Blueprint/UserWidget.h"
 #include "Components/TextBlock.h"
 #include "Components/Image.h"
+#include "Styling/SlateColor.h"
 #include "MyPlayerHeadsUpDisplay.generated.h"
-
-UENUM(Blueprintable)
-enum class EAmmoType
-{
-	Pebble,
-	Firecracker,
-	WaterBalloon,
-	PoisonSac,
-	ChristmasBeetle,
-	BigRock
-};
 
 UCLASS(Abstract)
 class STEVESLOTH_API UMyPlayerHeadsUpDisplay : public UUserWidget
@@ -49,5 +39,5 @@ public: //PUBLIC FUNCTIONS
 	void GrubCountText(int grubAmount);
 	void EucalyptusCountText(int eucalyptusAmount);
 	void AmmoCountText(int ammoAmount);
-	void AmmoIcon(UTexture2D* iconTexture);
+	void AmmoIcon(UTexture2D* iconTexture, int ammoAmount);
 };

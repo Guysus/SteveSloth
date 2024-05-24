@@ -36,7 +36,6 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	GrubsCollected = 0;
-	CurrentSlingshotAmmo = 0;
 	LeavesFound = 0;
 	
 	// Movement Stuff
@@ -63,6 +62,8 @@ void AMyPlayer::BeginPlay()
 
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
+			PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+			PlayerHUD->AmmoIcon(EquippedAmmoIcon);
 		}
 	}
 }
@@ -113,6 +114,26 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 		EucalyptusCount = 0;
 	}
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+}
+
+void AMyPlayer::UseAmmo(int ammoAmount)
+{
+
+}
+
+void AMyPlayer::PickUpAmmo(int ammoAmount)
+{
+
+}
+
+void AMyPlayer::EquipAmmo(EAmmoType ammoType)
+{
+	EquippedAmmoIcon = AmmoIcons[ammoType];
+	EquippedMaxAmmo = MaxAmmos[ammoType];
+	EquippedCurrentAmmo = CurrentAmmos[ammoType];
+
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon);
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
