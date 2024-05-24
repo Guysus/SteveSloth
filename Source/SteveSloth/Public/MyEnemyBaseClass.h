@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky, Jeff Moreau
+ * Name: Tammy, Edited by Elad Saretzky, Jeff Moreau
  * Script: MyEnemyBaseClass.h
  * Date: April 29. 2024
  * Description: Base Class for all enemies to inherit from
@@ -27,8 +27,8 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 {
 	GENERATED_BODY()
 private: //PRIVATE CONST VARIABLES
-	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 	const float THAW_TIMER_AMOUNT = 1.5f;
+	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -41,24 +41,24 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	ACharacter* Player;
 
 	float Damage;
-	float CurrentHealth;
 	float MaxHealth;
 	float ChaseRange;
 	float PatrolRange;
 	float MovementSpeed;
+	float CurrentHealth;
 	float MeleeAttackSpeed;
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
 
-	bool IsFrozen;
-	bool IsCurrentlyFrozen;
-	bool IsDead;
-	bool IsIdle;
-	bool IsChasing;
-	bool IsPatroling;
-	bool IsAttackingMelee;
-	bool IsAttackingRanged;
+	bool bIsDead;
+	bool bIsIdle;
+	bool bIsFrozen;
+	bool bIsChasing;
+	bool bIsPatroling;
+	bool bIsAttackingMelee;
+	bool bIsCurrentlyFrozen;
+	bool bIsAttackingRanged;
 
 	FTransform StartingLocation;
 
@@ -85,8 +85,8 @@ public: // GETTERS/ACCESSORS
 	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
 
-public: // SETTER/MUTATOR
-	void SetIsFrozen(bool isFrozen) { IsFrozen = isFrozen; }
+public: // SETTERS/MUTATORS
+	void SetIsFrozen(bool isFrozen) { bIsFrozen = isFrozen; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();

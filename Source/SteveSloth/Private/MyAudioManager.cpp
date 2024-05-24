@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Ken Ferris
+ * Name: Ken Ferris, Edited by Jeff Moreau
  * Script: MyAudioManager.cpp
  * Date: April 24. 2024
  * Description: This is the Audio Manager class
@@ -9,25 +9,32 @@
  ****************************************************************************************/
 
 #include "MyAudioManager.h"
-#include "Kismet/GameplayStatics.h"
-#include "Components/AudioComponent.h"
 
-UMyAudioManager* UMyAudioManager::Instance = nullptr;
+UMyAudioManager* UMyAudioManager::pInstance = nullptr;
 
-UMyAudioManager::UMyAudioManager()
+UMyAudioManager* UMyAudioManager::Instance()
 {
-    // Initialize the instance
-    Instance = this;
+    if (pInstance == nullptr)
+    {
+        pInstance = this;
+    }
+
+    return pInstance;
 }
 
 UMyAudioManager* UMyAudioManager::GetInstance()
 {
-    return Instance;
+    return pInstance;
+}
+
+UMyAudioManager::UMyAudioManager()
+{
+
 }
 
 void UMyAudioManager::PlaySound(USoundBase* Sound, FVector Location, float VolumeMultiplier, float PitchMultiplier)
 {
-    if (Sound)
+    if (Sound != nullptr)
     {
         UGameplayStatics::PlaySoundAtLocation(GetWorld(), Sound, Location, VolumeMultiplier, PitchMultiplier);
     }
@@ -47,7 +54,7 @@ void UMyAudioManager::StopAllSounds()
 
         for (UAudioComponent* AudioComp : AudioComponents)
         {
-            if (AudioComp && AudioComp->IsPlaying())
+            if (AudioComp != nullptr && AudioComp->IsPlaying())
             {
                 AudioComp->Stop();
             }

@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Jeff Moreau, Elad Saretzky
+ * Name: Jeff Moreau, Edited by Elad Saretzky
  * Script: MyProjectileBaseClass.h
  * Date: May 15, 2024
  * Description: Where all Projectiles are made from and all functionality
@@ -10,6 +10,7 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "MyPlayer.h"
 #include "CoreMinimal.h"
 #include "SteveSingleton.h"
@@ -36,37 +37,39 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UProjectileMovementComponent* ProjectileMovement;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* ProjectileHitbox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* AreaOfEffectHitbox;
 
-private: //PRIVATE VARIABLES
+private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
-
 	AMyEnemyBaseClass* Enemy;
-	UStaticMeshComponent* Mesh;
-
-	TEnumAsByte<EProjectileType> ProjectileType;
 
 	FString Name;
 
 	float Damage;
+	float DamageOverTime;
 	float ProjectileSpeed;
-	float ProjectileMaxSpeed;
 	float ProjectileRange;
 	float ProjectileGravity;
 	float InitialLaunchAngle;
 	float AreaOfEffectDamage;
 	float AreaOfEffectRadius;
-	float DamageOverTime;
+	float ProjectileMaxSpeed;
 	float DamageOverTimeRate;
+
 	int DamageOverTimeDuration;
 
 	FVector StartingLocation;
 
 	FTimerHandle DamageOverTimeTimerHandle;
+
+	TEnumAsByte<EProjectileType> ProjectileType;
 
 public: // CONSTRUCTOR HERE
 	AMyProjectileBaseClass();
@@ -85,7 +88,7 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	void OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
-private:
+private: // PRIVATE INTERNAL FUNCTIONS
 	void DamageOverTimeEnemy();
 	void DamageOverTimePlayer();
 };
