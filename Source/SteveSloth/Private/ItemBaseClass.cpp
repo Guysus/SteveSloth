@@ -82,7 +82,7 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 				Steve->SetCurrentHealth(Steve->GetMaxHealth() * AddHealthPercentage);
 			break;
 
-			case EItemType::GrapplingHook:
+			//case EItemType::GrapplingHook:
 
 		}
 	}
