@@ -110,13 +110,13 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Confused));
 
-		IsConfused = true;
-		IsCurrentlyConfused = true;
-		IsIdle = true;
-		IsChasing = true;
-		IsPatroling = true;
-		IsAttackingMelee = true;
-		IsAttackingRanged = true;
+		bIsConfused = true;
+		bIsCurrentlyConfused = true;
+		bIsIdle = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsAttackingRanged = true;
 
 		GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
 			&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
