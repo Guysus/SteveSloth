@@ -46,11 +46,17 @@ AMyPlayer::AMyPlayer()
 
 	// IMC Inputs
 	IMCInputs = Normal;
+
+	//for (int i = 0; i < )
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	EquippedAmmoIcon = AmmoIcons[Pebble];
+	EquippedMaxAmmo = MaxAmmos[Pebble];
+	EquippedCurrentAmmo = CurrentAmmos[Pebble];
 
 	if (PlayerHUDClass)
 	{
@@ -63,7 +69,7 @@ void AMyPlayer::BeginPlay()
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
 			PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
-			PlayerHUD->AmmoIcon(EquippedAmmoIcon);
+			PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 		}
 	}
 }
@@ -133,7 +139,7 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	EquippedCurrentAmmo = CurrentAmmos[ammoType];
 
 	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
-	PlayerHUD->AmmoIcon(EquippedAmmoIcon);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
