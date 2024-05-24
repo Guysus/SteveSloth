@@ -10,10 +10,12 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "Engine/DataTable.h"
-#include "MyEnemyData.generated.h"
 
+// MAKE SURE THIS INCLUDE IS LAST
+#include "MyEnemyData.generated.h"
 
 USTRUCT(BlueprintType)
 struct STEVESLOTH_API FMyEnemyData : public FTableRowBase

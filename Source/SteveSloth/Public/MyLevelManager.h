@@ -10,11 +10,14 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
-#include "Kismet/GameplayStatics.h"
-#include "GameFramework/Actor.h"
-#include "SteveSingleton.h"
 #include "MyGameManager.h"
+#include "SteveSingleton.h"
+#include "GameFramework/Actor.h"
+#include "Kismet/GameplayStatics.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyLevelManager.generated.h"
 
 class ALevelInstance;
@@ -41,29 +44,27 @@ public: // SINGLETON STUFF
 	UFUNCTION(BlueprintCallable)
 	static AMyLevelManager* GetInstance();
 	
-public: // DETAILS PANEL VARIABLES
+protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(BlueprintReadWrite, EditAnywhere)
 	TArray<FString> GameLevels;
 
-private: // PRIVATE VARIABLES
+private: // PRIVATE INTERNAL VARIABLES
 	int TotalLevels;
+
 	FString CurrentLevelName;
-	AMyGameManager* MyGameManager;
+
 	
 public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }
 	FString GetCurrentLevelName() { return CurrentLevelName; }
 	
-public: // CONSTRUCTORS / DESTRUCTOR
+public:	// CONSTRUCTOR HERE
 	AMyLevelManager();
 
-protected:
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 	void ChangeLevel(ELevels level);
-	
-private: // INTERNAL FUNCTIONS
-
 };

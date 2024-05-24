@@ -10,8 +10,6 @@
 
 #include "MyGameManager.h"
 
-#include "SteveSingleton.h"
-
 AMyGameManager* AMyGameManager::pInstance = nullptr;
 
 AMyGameManager* AMyGameManager::Instance()

@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Tammy, Elad Saretzky, Jeff Moreau
+ * Name: Tammy, Edited by Elad Saretzky, Jeff Moreau
  * Script: MyEnemyBaseClass.cpp
  * Date: April 29. 2024
  * Description: Base Class for all enemies to Inherit from
@@ -17,15 +17,17 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	// Create the StateMachine Component on the Enemy Base Class
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
-	IsFrozen = false;
-	IsCurrentlyFrozen = false;
-	IsConfused = false;
-	IsDead = false;
-	IsIdle = false;
-	IsChasing = false;
-	IsPatroling = false;
-	IsAttackingMelee = false;
-	IsAttackingRanged = false;
+	// Initialize Variables before use
+	bIsDead = false;
+	bIsConfused = false;
+	bIsIdle = false;
+	bIsFrozen = false;
+	bIsChasing = false;
+	bIsPatroling = false;
+	bIsAttackingMelee = false;
+	bIsCurrentlyFrozen = false;
+	bIsCurrentlyConfused = false;
+	bIsAttackingRanged = false;
 }
 
 void AMyEnemyBaseClass::BeginPlay()
@@ -80,41 +82,41 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//// Check if Enemy is Dead
-	if (CurrentHealth <= 0 && !IsDead)
+	// Check if Enemy is Dead
+	if (CurrentHealth <= 0 && !bIsDead)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Die));
 		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
-		IsDead = true;
+		bIsDead = true;
 	}
 	//Check if frozen
-	else if (IsFrozen && !IsCurrentlyFrozen)
+	else if (bIsFrozen && !bIsCurrentlyFrozen)
 	{
 		//set state to idle to frozen
 		StateMachine->ChangeState(StateMachine->GetState(Frozen));
 
-		IsFrozen = true;
-		IsCurrentlyFrozen = true;
-		IsIdle = true;
-		IsChasing = true;
-		IsPatroling = true;
-		IsAttackingMelee = true;
-		IsAttackingRanged = true;
+		bIsIdle = true;
+		bIsFrozen = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsCurrentlyFrozen = true;
+		bIsAttackingRanged = true;
 
 		GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
 	}
 	//Check if confused
-	else if (IsConfused && !IsCurrentlyConfused) 
+	else if (bIsConfused && !bIsCurrentlyConfused) 
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Confused));
 
-		IsConfused = true;
-		IsCurrentlyConfused = true;
-		IsIdle = true;
-		IsChasing = true;
-		IsPatroling = true;
-		IsAttackingMelee = true;
-		IsAttackingRanged = true;
+		bIsConfused = true;
+		bIsCurrentlyConfused = true;
+		bIsIdle = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsAttackingRanged = true;
 
 		GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
 			&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
@@ -133,22 +135,22 @@ void AMyEnemyBaseClass::Despawn()
 
 void AMyEnemyBaseClass::Thaw()
 {
-	IsFrozen = false;
-	IsCurrentlyFrozen = false;
-	IsIdle = false;
-	IsChasing = false;
-	IsPatroling = false;
-	IsAttackingMelee = false;
-	IsAttackingRanged = false;
+	bIsFrozen = false;
+	bIsCurrentlyFrozen = false;
+	bIsIdle = false;
+	bIsChasing = false;
+	bIsPatroling = false;
+	bIsAttackingMelee = false;
+	bIsAttackingRanged = false;
 }
 
 void AMyEnemyBaseClass::SnapOutOfConfusion() 
 {
-	IsConfused = false;
-	IsCurrentlyConfused = false;
-	IsIdle = false;
-	IsChasing = false;
-	IsPatroling = false;
-	IsAttackingMelee = false;
-	IsAttackingRanged = false;
+	bIsConfused = false;
+	bIsCurrentlyConfused = false;
+	bIsIdle = false;
+	bIsChasing = false;
+	bIsPatroling = false;
+	bIsAttackingMelee = false;
+	bIsAttackingRanged = false;
 }

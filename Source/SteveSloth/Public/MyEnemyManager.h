@@ -10,8 +10,11 @@
 
 #pragma once
 
+// INCLUDES HERE
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyManager.generated.h"
 
 UCLASS()
@@ -19,13 +22,12 @@ class STEVESLOTH_API AMyEnemyManager : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
+public:	// CONSTRUCTOR HERE
 	AMyEnemyManager();
 
-protected:
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
-
 };
