@@ -51,6 +51,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
+	float MaxConfusionRange;
 
 	bool bIsFrozen;
 	bool bIsCurrentlyFrozen;
@@ -88,6 +89,8 @@ public: // GETTERS/ACCESSORS
 	float GetAttackRange() const { return MeleeAttackRange; }
 	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
 	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
+	float GetMaxConfusionRange() const { return MaxConfusionRange; }
+	float GetMaxConfusionRangeInverse() const { return -MaxConfusionRange; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
 
 public: // SETTER/MUTATOR

@@ -13,8 +13,6 @@
 
 void UMyGenericEnemyConfusionState::EnterState() 
 {
-	MaxConfusionRange = 5.0f;
-	NegMaxConfusionRange = -5.0f;
 	WaitTime = 2.0f;
 	IsAnimationRunning = false;
 }
@@ -28,8 +26,8 @@ void UMyGenericEnemyConfusionState::UpdateState(float deltaTime)
 {
 	FVector currentLocation = Myself->GetActorLocation();
 	FVector range;
-	range.X = currentLocation.X + FMath::RandRange(NegMaxConfusionRange, MaxConfusionRange);
-	range.Y = currentLocation.Y + FMath::RandRange(NegMaxConfusionRange, MaxConfusionRange);;
+	range.X = currentLocation.X + FMath::RandRange(Myself->GetMaxConfusionRangeInverse(), Myself->GetMaxConfusionRange());
+	range.Y = currentLocation.Y + FMath::RandRange(Myself->GetMaxConfusionRangeInverse(), Myself->GetMaxConfusionRange());;
 	range.Z = currentLocation.Z;
 	FVector moveLocation = FMath::VInterpTo(currentLocation, range, deltaTime, Myself->GetMovementSpeed());
 
@@ -37,7 +35,7 @@ void UMyGenericEnemyConfusionState::UpdateState(float deltaTime)
 	{
 		if (Myself != nullptr && !IsAnimationRunning)
 		{
-			Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
+			Myself->GetMesh()->PlayAnimation(Myself->ConfusionAnim, true);
 			IsAnimationRunning = true;
 		}
 

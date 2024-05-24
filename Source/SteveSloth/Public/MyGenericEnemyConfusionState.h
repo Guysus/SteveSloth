@@ -27,10 +27,7 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
-	float MaxConfusionRange;
-	float NegMaxConfusionRange;
 	float WaitTime;
-
 	bool IsAnimationRunning;
 
 public: //PUBLIC INHERITED FUNCTIONS

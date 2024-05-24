@@ -48,6 +48,7 @@ void AMyEnemyBaseClass::BeginPlay()
 		RangedAttackRange = enemyData->RangedAttackRange;
 		MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
 		RangedAttackSpeed = enemyData->RangedAttackSpeed;
+		MaxConfusionRange = enemyData->MaxConfusionRange;
 		IdleAnim = enemyData->IdleAnim;
 		MoveAnim = enemyData->MoveAnim;
 		AttackAnim = enemyData->MeleeAttackAnim;
@@ -75,7 +76,7 @@ void AMyEnemyBaseClass::BeginPlay()
 	}
 
 	// Set initial State as Idle
-	StateMachine->ChangeState(StateMachine->GetState(Confused));
+	StateMachine->ChangeState(StateMachine->GetState(Idle));
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)
