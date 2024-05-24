@@ -27,13 +27,11 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
-	FVector StartingPoint;
-	FVector ConfusionSpot;
 	float MaxConfusionRange;
 	float NegMaxConfusionRange;
 	float WaitTime;
-	bool IsAnimationRunning;
 
+	bool IsAnimationRunning;
 
 public: //PUBLIC INHERITED FUNCTIONS
 	virtual void EnterState() override;
