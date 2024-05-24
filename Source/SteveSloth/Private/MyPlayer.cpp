@@ -29,6 +29,7 @@ AMyPlayer::AMyPlayer()
 	IsMoving = false;
 	DidDodge = false;
 	IsAimMode = false;
+	IsGrapplingHookUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -130,6 +131,12 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
+void AMyPlayer::AddGrapplingHook()
+{
+	IsGrapplingHookUnlocked = true;
+}
+
+
 void AMyPlayer::UseAmmo(int ammoAmount)
 {
 	if (EquippedCurrentAmmo > 0)
@@ -219,6 +226,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
+
+		inputComponent->BindAction(PGrapplingHook, ETriggerEvent::Triggered, this, &AMyPlayer::GrapplingHook);
+		inputComponent->BindAction(PGrapplingHook, ETriggerEvent::Completed, this, &AMyPlayer::GrapplingHook);
 	}
 }
 
@@ -370,4 +380,12 @@ void AMyPlayer::CamTurn(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
 	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
+}
+
+void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
+{
+	if (IsAimMode && IsGrapplingHookUnlocked)
+	{
+
+	}
 }

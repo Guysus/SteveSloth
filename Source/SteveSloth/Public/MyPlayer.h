@@ -111,6 +111,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
 
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PGrapplingHook;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
@@ -141,6 +144,7 @@ private: // PRIVATE VARIABLES
 	bool IsMoving;
 	bool DidDodge;
 	bool IsAimMode;
+	bool IsGrapplingHookUnlocked;
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
@@ -174,6 +178,7 @@ public: // NORMAL FUNCTIONS
 	void RemoveGrubs(int grubAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
+	void AddGrapplingHook();
 
 	void UseAmmo(int ammoAmount);
 	void PickUpAmmo(int ammoAmount);
@@ -195,4 +200,5 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Aiming(const FInputActionValue& Value);
 	void AimingStop(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
+	void GrapplingHook(const FInputActionValue& Value);
 };
