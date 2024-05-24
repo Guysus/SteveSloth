@@ -31,11 +31,24 @@ enum EMappingInputs
 	EAiming
 };
 
+enum EAmmoType
+{
+	Pebble,
+	Firecracker,
+	WaterBalloon,
+	PoisonSac,
+	ChristmasBeetle,
+	BigRock
+};
+
 UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
-	
+
+private: // CONST VARIABLES	
+	const int AMOUNT_OF_AMMO_TYPES = 6;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
@@ -100,6 +113,12 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	TArray<UTexture2D*> AmmoIcons;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo")
+	TArray<int> MaxAmmos;
+
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
@@ -123,7 +142,6 @@ private: // PRIVATE VARIABLES
 	
 	int LeavesFound;
     int GrubsCollected;
-	int CurrentSlingshotAmmo;
 	
 	bool IsMoving;
 	bool DidDodge;
@@ -134,6 +152,12 @@ private: // PRIVATE VARIABLES
 
 	int GrubCount;
 	int EucalyptusCount;
+
+	TArray<int> CurrentAmmos;
+
+	UTexture2D* EquippedAmmoIcon;
+	int EquippedMaxAmmo;
+	int EquippedCurrentAmmo;
 	
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
@@ -153,7 +177,12 @@ public: // NORMAL FUNCTIONS
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 
+	void UseAmmo(int ammoAmount);
+	void PickUpAmmo(int ammoAmount);
+
 private: // PRIVATE INTERNAL FUNCTIONS
+	void EquipAmmo(EAmmoType ammoType);
+
 	void MoveForwardBack(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
