@@ -8,7 +8,6 @@
  * Known Bugs: 
  ****************************************************************************************/
 
-
 #include "SteveSingleton.h"
 
 USteveSingleton* USteveSingleton::SteveInstance = nullptr;
@@ -17,7 +16,7 @@ USteveSingleton* USteveSingleton::GetSteve()
 {
 	if (!SteveInstance)
 	{
-			SteveInstance = NewObject<USteveSingleton>();
+		SteveInstance = NewObject<USteveSingleton>();
 	}
 	return SteveInstance;
 }

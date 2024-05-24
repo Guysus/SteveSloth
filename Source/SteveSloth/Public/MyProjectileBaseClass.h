@@ -10,15 +10,15 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
 #include "MyPlayer.h"
+#include "CoreMinimal.h"
 #include "SteveSingleton.h"
 #include "MyEnemyBaseClass.h"
 #include "MyProjectileData.h"
-#include "GameFramework/ProjectileMovementComponent.h"
+#include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
  // MAKE SURE THIS INCLUDE IS LAST
 #include "MyProjectileBaseClass.generated.h"
@@ -41,16 +41,16 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USphereComponent* AreaOfEffectHitbox;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UStaticMeshComponent* Mesh;
-
 private: //PRIVATE VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
 
 	AMyEnemyBaseClass* Enemy;
+	UStaticMeshComponent* Mesh;
 
 	TEnumAsByte<EProjectileType> ProjectileType;
+
+	FString Name;
 
 	float Damage;
 	float ProjectileSpeed;
@@ -77,7 +77,6 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
-public: // PUBLIC FUNCTIONS
 	UFUNCTION()
 	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
