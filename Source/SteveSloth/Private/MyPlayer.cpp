@@ -36,7 +36,6 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	GrubsCollected = 0;
-	CurrentSlingshotAmmo = 0;
 	LeavesFound = 0;
 	
 	// Movement Stuff
@@ -53,6 +52,16 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 
+	for (int i = 0; i < AMOUNT_OF_AMMO_TYPES; i++)
+	{
+		CurrentAmmos.AddUninitialized();
+		CurrentAmmos[i] = MaxAmmos[i];
+	}
+
+	EquippedAmmoIcon = AmmoIcons[Pebble];
+	EquippedMaxAmmo = MaxAmmos[Pebble];
+	EquippedCurrentAmmo = CurrentAmmos[Pebble];
+
 	if (PlayerHUDClass)
 	{
 		PlayerHUD = CreateWidget<UMyPlayerHeadsUpDisplay>(UGameplayStatics::GetPlayerController(GetWorld(), 0), PlayerHUDClass);
@@ -63,6 +72,8 @@ void AMyPlayer::BeginPlay()
 
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
+			PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+			PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 		}
 	}
 }
@@ -113,6 +124,46 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 		EucalyptusCount = 0;
 	}
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+}
+
+void AMyPlayer::UseAmmo(int ammoAmount)
+{
+	if (EquippedCurrentAmmo > 0)
+	{
+		EquippedCurrentAmmo -= ammoAmount;
+	}
+	else
+	{
+		EquippedCurrentAmmo = 0;
+	}
+
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+}
+
+void AMyPlayer::PickUpAmmo(int ammoAmount)
+{
+	if (EquippedCurrentAmmo < EquippedMaxAmmo)
+	{
+		EquippedCurrentAmmo += ammoAmount;
+	}
+	else
+	{
+		EquippedCurrentAmmo = EquippedMaxAmmo;
+	}
+
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+}
+
+void AMyPlayer::EquipAmmo(EAmmoType ammoType)
+{
+	EquippedAmmoIcon = AmmoIcons[ammoType];
+	EquippedMaxAmmo = MaxAmmos[ammoType];
+	EquippedCurrentAmmo = CurrentAmmos[ammoType];
+
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
