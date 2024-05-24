@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Tammy Boisvert edited by Jeff and Ken
+ * Name: Tammy Boisvert, Edited by Jeff Moreau, Elad Saretzky, Ken Ferris
  * Script: MyPlayer.cpp
  * Date: April 23. 2024
  * Description: This is the Player Base Class Script
@@ -9,7 +9,6 @@
  ****************************************************************************************/
 
 #include "MyPlayer.h"
-#include "GameFramework/CharacterMovementComponent.h"
 
 AMyPlayer::AMyPlayer()
 {
@@ -26,23 +25,21 @@ AMyPlayer::AMyPlayer()
 	PlayerCamera->bUsePawnControlRotation = false;
 	
 	// Bools
-	IsMoving = false;
-	DidDodge = false;
-	IsAimMode = false;
-	bIsGrapplingHookUnlocked = false;
+	bIsMoving = false;
+	bDidDodge = false;
+	bIsAimMode = false;
 
 	// Health Stuff
 	MaxHealth = 0;
 	CurrentHealth = 0;
 
 	// Collection Stuff
-	GrubsCollected = 0;
 	LeavesFound = 0;
 	
 	// Movement Stuff
+	WalkSpeed = 600;
 	SprintSpeed = 1200;
 	CrouchSpeed = 300;
-	WalkSpeed = 600;
 	DodgeDistance = -100;
 
 	// IMC Inputs
@@ -63,8 +60,8 @@ void AMyPlayer::BeginPlay()
 		CurrentAmmos[i] = MaxAmmos[i];
 	}
 
-	EquippedAmmoIcon = AmmoIcons[Pebble];
 	EquippedMaxAmmo = MaxAmmos[Pebble];
+	EquippedAmmoIcon = AmmoIcons[Pebble];
 	EquippedCurrentAmmo = CurrentAmmos[Pebble];
 
 	if (PlayerHUDClass)
@@ -109,6 +106,7 @@ void AMyPlayer::RemoveGrubs(int grubAmount)
 	{
 		GrubCount = 0;
 	}
+
 	PlayerHUD->GrubCountText(GrubCount);
 }
 
@@ -128,16 +126,9 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	{
 		EucalyptusCount = 0;
 	}
+
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
-
-void AMyPlayer::AddGrapplingHook()
-{
-	bIsGrapplingHookUnlocked = true;
-
-	UE_LOG(LogTemp, Warning, TEXT("Add Grappling Hook"));
-}
-
 
 void AMyPlayer::UseAmmo(int ammoAmount)
 {
@@ -228,15 +219,12 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
-
-		inputComponent->BindAction(PGrapplingHook, ETriggerEvent::Triggered, this, &AMyPlayer::GrapplingHook);
-		inputComponent->BindAction(PGrapplingHook, ETriggerEvent::Completed, this, &AMyPlayer::GrapplingHook);
 	}
 }
 
 void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		float const Amount = Value.Get<float>();
 		FRotator const Rotation = Controller->GetControlRotation();
@@ -267,7 +255,7 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		Jump();
 		// Add Animations here 
@@ -276,7 +264,7 @@ void AMyPlayer::JumpOne(const FInputActionValue& Value)
 
 void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 		// Reduce Stamina while Sprint held down
@@ -286,7 +274,7 @@ void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 
 void AMyPlayer::SprintStop(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 		// Change Animation  
@@ -295,7 +283,7 @@ void AMyPlayer::SprintStop(const FInputActionValue& Value)
 
 void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
@@ -305,7 +293,7 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 		// Change Animation
@@ -318,7 +306,7 @@ void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 		// Change Animation 
@@ -327,9 +315,9 @@ void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 
 void AMyPlayer::Dodge(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
-		if (DidDodge == false)
+		if (bDidDodge == false)
 		{
 			FVector const Forward = GetActorForwardVector();
 			//AddMovementInput(Forward, DodgeDistance);
@@ -337,14 +325,14 @@ void AMyPlayer::Dodge(const FInputActionValue& Value)
 			// Dodge Animation.
 		}
 
-		DidDodge = true;
+		bDidDodge = true;
 		// Reset with a timer to be able to activate again 
 	}
 }
 
 void AMyPlayer::Swim(const FInputActionValue& Value)
 {
-	if (!IsAimMode)
+	if (!bIsAimMode)
 	{
 		float const SwimDirection = Value.Get<float>();
 		FVector const SwimDirectionVector = FVector(0, 0, 1);
@@ -361,12 +349,12 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	//if statement to prevent offset to be applied with each tick
-	if (!IsAimMode) 
+	if (!bIsAimMode) 
 	{
 		FVector ZoomOffset = FVector(0, 10, 0);
 		CameraArm->TargetArmLength = 100;
 		CameraArm->AddLocalOffset(ZoomOffset);
-		IsAimMode = true;
+		bIsAimMode = true;
 	}
 }
 
@@ -375,16 +363,11 @@ void AMyPlayer::AimingStop(const FInputActionValue& Value)
 	FVector ZoomOutOffset = FVector(0, -10, 0);
 	CameraArm->AddLocalOffset(ZoomOutOffset);
 	CameraArm->TargetArmLength = 200;
-	IsAimMode = false;
+	bIsAimMode = false;
 }
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
 	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
-}
-
-void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
-{
-	
 }

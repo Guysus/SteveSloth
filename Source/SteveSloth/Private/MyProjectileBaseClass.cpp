@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Jeff Moreau, Elad Saretzky
+ * Name: Jeff Moreau, Edited by Elad Saretzky
  * Script: MyProjectileBaseClass.cpp
  * Date: May 15, 2024
  * Description: Where all Projectiles are made from and all functionality
@@ -17,6 +17,21 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
+	AreaOfEffectHitbox->SetActive(false);
+
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+}
+
+void AMyProjectileBaseClass::BeginPlay()
+{
+	Super::BeginPlay();
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+	if (IsValid(Player))
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
 
 	// Initialize Variables to the Projectile Data Table
 	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
@@ -39,28 +54,13 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
 	}
 
-	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-
-	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
-	AreaOfEffectHitbox->SetActive(false);
-
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->InitialSpeed = ProjectileSpeed;
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
 	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
 	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
-}
 
-void AMyProjectileBaseClass::BeginPlay()
-{
-	Super::BeginPlay();
-
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-
-	if (IsValid(Player))
-	{
-		Steve = Cast<AMyPlayer>(Player);
-	}
+	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 
 	StartingLocation = GetActorLocation();
 
