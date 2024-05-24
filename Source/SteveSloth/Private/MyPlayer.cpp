@@ -46,13 +46,17 @@ AMyPlayer::AMyPlayer()
 
 	// IMC Inputs
 	IMCInputs = Normal;
-
-	//for (int i = 0; i < )
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	for (int i = 0; i < AMOUNT_OF_AMMO_TYPES; i++)
+	{
+		CurrentAmmos.AddUninitialized();
+		CurrentAmmos[i] = MaxAmmos[i];
+	}
 
 	EquippedAmmoIcon = AmmoIcons[Pebble];
 	EquippedMaxAmmo = MaxAmmos[Pebble];
@@ -124,12 +128,32 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 
 void AMyPlayer::UseAmmo(int ammoAmount)
 {
+	if (EquippedCurrentAmmo > 0)
+	{
+		EquippedCurrentAmmo -= ammoAmount;
+	}
+	else
+	{
+		EquippedCurrentAmmo = 0;
+	}
 
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
 void AMyPlayer::PickUpAmmo(int ammoAmount)
 {
+	if (EquippedCurrentAmmo < EquippedMaxAmmo)
+	{
+		EquippedCurrentAmmo += ammoAmount;
+	}
+	else
+	{
+		EquippedCurrentAmmo = EquippedMaxAmmo;
+	}
 
+	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
 void AMyPlayer::EquipAmmo(EAmmoType ammoType)

@@ -45,7 +45,10 @@ UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
-	
+
+private: // CONST VARIABLES	
+	const int AMOUNT_OF_AMMO_TYPES = 6;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;

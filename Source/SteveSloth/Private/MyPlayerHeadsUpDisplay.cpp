@@ -40,10 +40,10 @@ void UMyPlayerHeadsUpDisplay::AmmoIcon(UTexture2D* iconTexture, int ammoAmount)
 
 	if (ammoAmount > 0)
 	{
-		AmmoIconImageBlock->SetOpacity(100.0f);
+		AmmoIconImageBlock->SetOpacity(1.0f);
 	}
 	else
 	{
-		AmmoIconImageBlock->SetOpacity(50.0f);
+		AmmoIconImageBlock->SetOpacity(0.3f);
 	}
 }
