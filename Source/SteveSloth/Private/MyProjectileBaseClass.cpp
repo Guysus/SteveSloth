@@ -17,11 +17,9 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
+	AreaOfEffectHitbox->SetActive(false);
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
-
-	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
-	AreaOfEffectHitbox->SetActive(false);
 }
 
 void AMyProjectileBaseClass::BeginPlay()
@@ -61,6 +59,8 @@ void AMyProjectileBaseClass::BeginPlay()
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
 	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
 	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
+
+	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 
 	StartingLocation = GetActorLocation();
 
