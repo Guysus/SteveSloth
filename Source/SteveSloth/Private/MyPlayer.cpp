@@ -29,7 +29,7 @@ AMyPlayer::AMyPlayer()
 	IsMoving = false;
 	DidDodge = false;
 	IsAimMode = false;
-	IsGrapplingHookUnlocked = false;
+	bIsGrapplingHookUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -133,7 +133,7 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 
 void AMyPlayer::AddGrapplingHook()
 {
-	IsGrapplingHookUnlocked = true;
+	bIsGrapplingHookUnlocked = true;
 }
 
 

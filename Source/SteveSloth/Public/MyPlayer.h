@@ -144,7 +144,7 @@ private: // PRIVATE VARIABLES
 	bool IsMoving;
 	bool DidDodge;
 	bool IsAimMode;
-	bool IsGrapplingHookUnlocked;
+	bool bIsGrapplingHookUnlocked;
 
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
