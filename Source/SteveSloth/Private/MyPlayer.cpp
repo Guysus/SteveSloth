@@ -134,6 +134,8 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 void AMyPlayer::AddGrapplingHook()
 {
 	bIsGrapplingHookUnlocked = true;
+
+	UE_LOG(LogTemp, Warning, TEXT("Add Grappling Hook"));
 }
 
 
@@ -384,8 +386,5 @@ void AMyPlayer::CamTurn(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 {
-	if (IsAimMode && IsGrapplingHookUnlocked)
-	{
-
-	}
+	
 }
