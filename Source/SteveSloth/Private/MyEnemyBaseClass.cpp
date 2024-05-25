@@ -18,15 +18,15 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
 	// Initialize Variables before use
-	CurrentHealth = MaxHealth;
-
 	bIsDead = false;
+	bIsConfused = false;
 	bIsIdle = false;
 	bIsFrozen = false;
 	bIsChasing = false;
 	bIsPatroling = false;
 	bIsAttackingMelee = false;
 	bIsCurrentlyFrozen = false;
+	bIsCurrentlyConfused = false;
 	bIsAttackingRanged = false;
 }
 
@@ -48,6 +48,7 @@ void AMyEnemyBaseClass::BeginPlay()
 		RangedAttackRange = enemyData->RangedAttackRange;
 		MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
 		RangedAttackSpeed = enemyData->RangedAttackSpeed;
+		MaxConfusionRange = enemyData->MaxConfusionRange;
 		IdleAnim = enemyData->IdleAnim;
 		MoveAnim = enemyData->MoveAnim;
 		AttackAnim = enemyData->MeleeAttackAnim;
@@ -55,8 +56,12 @@ void AMyEnemyBaseClass::BeginPlay()
 		HitAnim = enemyData->HitAnim;
 		DeathAnim = enemyData->DeathAnim;
 		FrozenAnim = enemyData->FrozenAnim;
+		ConfusionAnim = enemyData->ConfusionAnim;
 		AmmoType = enemyData->AmmoType;
 	}
+
+	// Initialize Variables before use
+	CurrentHealth = MaxHealth;
 
 	// Get a referance to the Main Player
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
@@ -101,6 +106,22 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 
 		GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
 	}
+	//Check if confused
+	else if (bIsConfused && !bIsCurrentlyConfused) 
+	{
+		StateMachine->ChangeState(StateMachine->GetState(Confused));
+
+		bIsConfused = true;
+		bIsCurrentlyConfused = true;
+		bIsIdle = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsAttackingRanged = true;
+
+		GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
+			&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
+	}
 }
 
 void AMyEnemyBaseClass::HitEnemy(float damageAmount)
@@ -110,16 +131,27 @@ void AMyEnemyBaseClass::HitEnemy(float damageAmount)
 
 void AMyEnemyBaseClass::Despawn()
 {
-	this->Destroy();
+	/*this->Destroy();*/
 }
 
 void AMyEnemyBaseClass::Thaw()
 {
-	bIsIdle = false;
 	bIsFrozen = false;
+	bIsCurrentlyFrozen = false;
+	bIsIdle = false;
 	bIsChasing = false;
 	bIsPatroling = false;
 	bIsAttackingMelee = false;
-	bIsCurrentlyFrozen = false;
+	bIsAttackingRanged = false;
+}
+
+void AMyEnemyBaseClass::SnapOutOfConfusion() 
+{
+	bIsConfused = false;
+	bIsCurrentlyConfused = false;
+	bIsIdle = false;
+	bIsChasing = false;
+	bIsPatroling = false;
+	bIsAttackingMelee = false;
 	bIsAttackingRanged = false;
 }
