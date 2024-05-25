@@ -28,6 +28,7 @@ enum EStates
 	Attack,
 	RangedAttack,
 	Frozen,
+	Confused,
 	Die
 };
 
