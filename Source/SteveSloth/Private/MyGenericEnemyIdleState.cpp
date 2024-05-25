@@ -12,13 +12,12 @@
 
 void UMyGenericEnemyIdleState::EnterState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Idle State Entered"))
 	IsAnimationRunning = false;
 }
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-	UE_LOG(LogTemp, Warning, TEXT("Idle State Exited"))
+
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
