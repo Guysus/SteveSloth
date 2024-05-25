@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Jeff Moreau
+ * Name: Jeff Moreau, Edited by Guy Lapensee
  * Script: MyItemData.h
  * Date: May 21, 2024
  * Description: data table that holds all the item variables
