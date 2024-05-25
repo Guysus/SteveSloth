@@ -86,6 +86,7 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 
 			case EItemType::GrapplingHook:
 				Steve->AddGrapplingHook();
+				UE_LOG(LogTemp, Warning, TEXT("Overlap Grappling Hook"));
 			break;
 
 		}

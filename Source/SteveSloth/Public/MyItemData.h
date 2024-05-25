@@ -38,7 +38,7 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 	FString Name;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UStaticMeshComponent* Mesh;
+	UStaticMesh* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TEnumAsByte<EItemType> ItemType;
