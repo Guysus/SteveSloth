@@ -36,7 +36,6 @@ void AItemBaseClass::BeginPlay()
 	if (itemData)
 	{
 		Name = itemData->Name;
-		Mesh = itemData->Mesh;
 		Health = itemData->Health;
 		ItemType = itemData->ItemType;
 		DropChance = itemData->DropChance;
@@ -45,6 +44,9 @@ void AItemBaseClass::BeginPlay()
 		AddHealthAmount = itemData->AddHealthAmount;
 		AddHealthPercentage = itemData->AddHealthPercentage;
 	}
+
+	ItemHitBox->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnHitboxOverlapBegin);
+	Mesh->SetStaticMesh(itemData->Mesh);
 }
 
 void AItemBaseClass::Tick(float DeltaTime)
