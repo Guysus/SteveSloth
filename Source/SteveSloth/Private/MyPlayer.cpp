@@ -139,6 +139,7 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 void AMyPlayer::AddGrapplingHook()
 {
 	bIsGrapplingHookUnlocked = true;
+	UE_LOG(LogTemp, Warning, TEXT("Overlap GrappleHook"));
 }
 
 void AMyPlayer::AddClimbingClaw()
@@ -309,8 +310,7 @@ void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 	{
 		if (bDidGrapple == false)
 		{
-			GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
-
+			UE_LOG(LogTemp, Warning, TEXT("Grappling Time!!"))
 		}
 
 		bDidGrapple = true;
