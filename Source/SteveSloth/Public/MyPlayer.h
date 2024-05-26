@@ -112,6 +112,21 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
 
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PGrappplingHook;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PClimbingClaw;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PShovel;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PPropeller;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PMagnetic;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
