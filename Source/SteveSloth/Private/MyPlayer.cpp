@@ -305,22 +305,17 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 {
-	//if (bIsAimMode && bIsGrapplingHookUnlocked)
-	//{
-	//	if (bDidGrapple == false)
-	//	{
-	//		float const Amount = Value.Get<float>();
-	//		FRotator const Rotation = Controller->GetControlRotation();
-	//		FRotator const YawRotation(0, Rotation.Yaw, 0);
-	//		FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	//		FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	//		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
+	if (bIsAimMode && bIsGrapplingHookUnlocked)
+	{
+		if (bDidGrapple == false)
+		{
+			GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 
-	//	}
+		}
 
-	//	bDidGrapple = true;
-	//	// USE TIMER TO RESET GRAPPLING HOOK
-	//}
+		bDidGrapple = true;
+		// USE TIMER TO RESET GRAPPLING HOOK
+	}
 }
 
 void AMyPlayer::ClimbingClaw(const FInputActionValue& Value)
