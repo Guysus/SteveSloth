@@ -286,8 +286,25 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	}
 }
 
+void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
+{
+	float const TurnAmount = Value.Get<float>();
+	FRotator const Rotation = Controller->GetControlRotation();
+	FRotator const YawRotation(0, Rotation.Yaw, 0);
+	FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	AddMovementInput(Sideways, TurnAmount);
+	//SetActorRotation(Sideways.Rotation());
+	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
+	//SetActorRotation(NewRotation);
+	// Add Animations here with changing of mesh direction
+}
+
 void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 {
+	if (Aiming && bIsGrapplingHookUnlocked)
+	{
+
+	}
 }
 
 void AMyPlayer::ClimbingClaw(const FInputActionValue& Value)
@@ -306,18 +323,6 @@ void AMyPlayer::Magnetic(const FInputActionValue& Value)
 {
 }
 
-void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
-{
-	float const TurnAmount = Value.Get<float>();
-	FRotator const Rotation = Controller->GetControlRotation();
-	FRotator const YawRotation(0, Rotation.Yaw, 0);
-	FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(Sideways, TurnAmount);
-	//SetActorRotation(Sideways.Rotation());
-	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
-	//SetActorRotation(NewRotation);
-	// Add Animations here with changing of mesh direction
-}
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
