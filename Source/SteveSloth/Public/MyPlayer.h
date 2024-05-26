@@ -127,6 +127,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PMagnetic;
 
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PCamPitch;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
@@ -208,6 +211,7 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Shovel(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
+	void CamPitch(const FInputActionValue& Value);
 	void Magnetic(const FInputActionValue& Value);
 	void Propeller(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
