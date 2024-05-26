@@ -17,6 +17,8 @@ AItemBaseClass::AItemBaseClass()
 	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SetRootComponent(Mesh);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AItemBaseClass::BeginPlay()
