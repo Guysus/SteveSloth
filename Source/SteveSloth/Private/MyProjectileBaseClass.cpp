@@ -18,6 +18,8 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SetRootComponent(Mesh);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AMyProjectileBaseClass::BeginPlay()

@@ -17,6 +17,8 @@ AItemBaseClass::AItemBaseClass()
 	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SetRootComponent(Mesh);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AItemBaseClass::BeginPlay()
@@ -36,7 +38,6 @@ void AItemBaseClass::BeginPlay()
 	if (itemData)
 	{
 		Name = itemData->Name;
-		Mesh = itemData->Mesh;
 		Health = itemData->Health;
 		ItemType = itemData->ItemType;
 		DropChance = itemData->DropChance;
@@ -45,6 +46,9 @@ void AItemBaseClass::BeginPlay()
 		AddHealthAmount = itemData->AddHealthAmount;
 		AddHealthPercentage = itemData->AddHealthPercentage;
 	}
+
+	ItemHitBox->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnHitboxOverlapBegin);
+	Mesh->SetStaticMesh(itemData->Mesh);
 }
 
 void AItemBaseClass::Tick(float DeltaTime)
@@ -83,6 +87,11 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			case EItemType::RedBud:
 				Steve->SetCurrentHealth(Steve->GetMaxHealth() * AddHealthPercentage);
 			break;
+
+			case EItemType::GrapplingHook:
+				Steve->AddGrapplingHook();
+			break;
+
 		}
 	}
 }
