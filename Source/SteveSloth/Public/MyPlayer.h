@@ -165,11 +165,12 @@ private: // PRIVATE VARIABLES
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
-	bool bIsGrapplingHookUnlocked;
-	bool bIsClimbingClawUnlocked;
+	bool bDidGrapple;
 	bool bIsShovelUnlocked;
-	bool bIsPropellerUnlocked;
 	bool bIsMagneticUnlocked;
+	bool bIsPropellerUnlocked;
+	bool bIsClimbingClawUnlocked;
+	bool bIsGrapplingHookUnlocked;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;

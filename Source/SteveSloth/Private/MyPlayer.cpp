@@ -28,11 +28,12 @@ AMyPlayer::AMyPlayer()
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
-	bIsGrapplingHookUnlocked = false;
-	bIsClimbingClawUnlocked = false;
+	bDidGrapple = false;
 	bIsShovelUnlocked = false;
-	bIsPropellerUnlocked = false;
 	bIsMagneticUnlocked = false;
+	bIsPropellerUnlocked = false;
+	bIsClimbingClawUnlocked = false;
+	bIsGrapplingHookUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -301,9 +302,12 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 {
-	if (Aiming && bIsGrapplingHookUnlocked)
+	if (bIsAimMode && bIsGrapplingHookUnlocked)
 	{
+		if (bDidGrapple == false)
+		{
 
+		}
 	}
 }
 
