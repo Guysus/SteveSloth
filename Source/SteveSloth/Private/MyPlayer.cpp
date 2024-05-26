@@ -29,6 +29,10 @@ AMyPlayer::AMyPlayer()
 	bDidDodge = false;
 	bIsAimMode = false;
 	bIsGrapplingHookUnlocked = false;
+	bIsClimbingClawUnlocked = false;
+	bIsShovelUnlocked = false;
+	bIsPropellerUnlocked = false;
+	bIsMagneticUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -134,6 +138,22 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 void AMyPlayer::AddGrapplingHook()
 {
 	bIsGrapplingHookUnlocked = true;
+}
+
+void AMyPlayer::AddClimbingClaw()
+{
+}
+
+void AMyPlayer::AddShovel()
+{
+}
+
+void AMyPlayer::AddPropeller()
+{
+}
+
+void AMyPlayer::AddMagnetic()
+{
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
