@@ -142,18 +142,22 @@ void AMyPlayer::AddGrapplingHook()
 
 void AMyPlayer::AddClimbingClaw()
 {
+	bIsClimbingClawUnlocked = true;
 }
 
 void AMyPlayer::AddShovel()
 {
+	bIsShovelUnlocked = true;
 }
 
 void AMyPlayer::AddPropeller()
 {
+	bIsPropellerUnlocked = true;
 }
 
 void AMyPlayer::AddMagnetic()
 {
+	bIsMagneticUnlocked = true;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -245,6 +249,22 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
+
+		inputComponent->BindAction(PGrappplingHook, ETriggerEvent::Triggered, this, &AMyPlayer::GrapplingHook);
+		inputComponent->BindAction(PGrappplingHook, ETriggerEvent::Completed, this, &AMyPlayer::GrapplingHook);
+
+		inputComponent->BindAction(PClimbingClaw, ETriggerEvent::Triggered, this, &AMyPlayer::ClimbingClaw);
+		inputComponent->BindAction(PClimbingClaw, ETriggerEvent::Completed, this, &AMyPlayer::ClimbingClaw);
+
+		inputComponent->BindAction(PShovel, ETriggerEvent::Triggered, this, &AMyPlayer::Shovel);
+		inputComponent->BindAction(PShovel, ETriggerEvent::Completed, this, &AMyPlayer::Shovel);
+
+		inputComponent->BindAction(PPropeller, ETriggerEvent::Triggered, this, &AMyPlayer::Propeller);
+		inputComponent->BindAction(PPropeller, ETriggerEvent::Completed, this, &AMyPlayer::Propeller);
+
+		inputComponent->BindAction(PMagnetic, ETriggerEvent::Triggered, this, &AMyPlayer::Magnetic);
+		inputComponent->BindAction(PMagnetic, ETriggerEvent::Completed, this, &AMyPlayer::Magnetic);
+
 	}
 }
 
@@ -264,6 +284,26 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 
 		// Add Animations here with changing of mesh direction 
 	}
+}
+
+void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::ClimbingClaw(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::Shovel(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::Propeller(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::Magnetic(const FInputActionValue& Value)
+{
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)

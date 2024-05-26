@@ -185,6 +185,11 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
+	void AddShovel();
+	void AddMagnetic();
+	void AddPropeller();
+	void AddClimbingClaw();
+	void AddGrapplingHook();
 	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
@@ -192,11 +197,6 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void HitPlayer(float damageAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
-	void AddGrapplingHook();
-	void AddClimbingClaw();
-	void AddShovel();
-	void AddPropeller();
-	void AddMagnetic();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
@@ -204,14 +204,19 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Dodge(const FInputActionValue& Value);
 	void LockOn(const FInputActionValue& Value);
 	void Aiming(const FInputActionValue& Value);
+	void Shovel(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
+	void Magnetic(const FInputActionValue& Value);
+	void Propeller(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
 	void AimingStop(const FInputActionValue& Value);
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
+	void ClimbingClaw(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
+	void GrapplingHook(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
 };
