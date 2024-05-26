@@ -306,8 +306,17 @@ void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 	{
 		if (bDidGrapple == false)
 		{
+			float const Amount = Value.Get<float>();
+			FRotator const Rotation = Controller->GetControlRotation();
+			FRotator const YawRotation(0, Rotation.Yaw, 0);
+			FVector const Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+			FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+			GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 
 		}
+
+		bDidGrapple = true;
+		// USE TIMER TO RESET GRAPPLING HOOK
 	}
 }
 
