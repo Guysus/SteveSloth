@@ -34,30 +34,33 @@ void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// Initialize Variables to the Enemy Data Table
-	const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
-
-	if (enemyData)
+	if (!EnemyDataTable.IsNull())
 	{
-		Damage = enemyData->MeleeDamage;
-		MovementSpeed = enemyData->MovementSpeed;
-		MaxHealth = enemyData->MaxHealth;
-		PatrolRange = enemyData->PatrolRange;
-		ChaseRange = enemyData->ChaseRange;
-		MeleeAttackRange = enemyData->MeleeAttackRange;
-		RangedAttackRange = enemyData->RangedAttackRange;
-		MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
-		RangedAttackSpeed = enemyData->RangedAttackSpeed;
-		MaxConfusionRange = enemyData->MaxConfusionRange;
-		IdleAnim = enemyData->IdleAnim;
-		MoveAnim = enemyData->MoveAnim;
-		AttackAnim = enemyData->MeleeAttackAnim;
-		RangedAttackAnim = enemyData->RangedAttackAnim;
-		HitAnim = enemyData->HitAnim;
-		DeathAnim = enemyData->DeathAnim;
-		FrozenAnim = enemyData->FrozenAnim;
-		ConfusionAnim = enemyData->ConfusionAnim;
-		AmmoType = enemyData->AmmoType;
+		// Initialize Variables to the Enemy Data Table
+		const auto enemyData = EnemyDataTable.GetRow<FMyEnemyData>("");
+
+		if (enemyData)
+		{
+			Damage = enemyData->MeleeDamage;
+			MovementSpeed = enemyData->MovementSpeed;
+			MaxHealth = enemyData->MaxHealth;
+			PatrolRange = enemyData->PatrolRange;
+			ChaseRange = enemyData->ChaseRange;
+			MeleeAttackRange = enemyData->MeleeAttackRange;
+			RangedAttackRange = enemyData->RangedAttackRange;
+			MeleeAttackSpeed = enemyData->MeleeAttackSpeed;
+			RangedAttackSpeed = enemyData->RangedAttackSpeed;
+			MaxConfusionRange = enemyData->MaxConfusionRange;
+			IdleAnim = enemyData->IdleAnim;
+			MoveAnim = enemyData->MoveAnim;
+			AttackAnim = enemyData->MeleeAttackAnim;
+			RangedAttackAnim = enemyData->RangedAttackAnim;
+			HitAnim = enemyData->HitAnim;
+			DeathAnim = enemyData->DeathAnim;
+			FrozenAnim = enemyData->FrozenAnim;
+			ConfusionAnim = enemyData->ConfusionAnim;
+			AmmoType = enemyData->AmmoType;
+		}
 	}
 
 	// Initialize Variables before use
