@@ -43,6 +43,15 @@ enum EAmmoType
 	BigRock
 };
 
+enum EAbilities
+{
+	GrapplingHook,
+	ClimbingClaw,
+	Shovel,
+	Propeller,
+	Magnetic
+};
+
 UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
@@ -113,19 +122,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PAiming;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PGrappplingHook;
-
-	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PClimbingClaw;
-
-	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PShovel;
-
-	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PPropeller;
-
-	UPROPERTY(EditAnywhere, Category = "Input|Actions")
-	UInputAction* PMagnetic;
+	UInputAction* PSwitchAbilities;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCamPitch;
@@ -156,6 +153,7 @@ private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
+	EAbilities Abilities;
 	
 	float CurrentHealth;
 	
@@ -189,9 +187,14 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
+	void Shovel();
+	void Magnetic();
+	void Propeller();
 	void AddShovel();
 	void AddMagnetic();
+	void ClimbingClaw();
 	void AddPropeller();
+	void GrapplingHook();
 	void AddClimbingClaw();
 	void AddGrapplingHook();
 	void UseAmmo(int ammoAmount);
@@ -208,20 +211,16 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Dodge(const FInputActionValue& Value);
 	void LockOn(const FInputActionValue& Value);
 	void Aiming(const FInputActionValue& Value);
-	void Shovel(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
 	void CamPitch(const FInputActionValue& Value);
-	void Magnetic(const FInputActionValue& Value);
-	void Propeller(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
 	void AimingStop(const FInputActionValue& Value);
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
-	void ClimbingClaw(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
-	void GrapplingHook(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
+	void SwitchAbilities(const FInputActionValue& Value);
 };

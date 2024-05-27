@@ -261,21 +261,8 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
 
-		inputComponent->BindAction(PGrappplingHook, ETriggerEvent::Triggered, this, &AMyPlayer::GrapplingHook);
-		inputComponent->BindAction(PGrappplingHook, ETriggerEvent::Completed, this, &AMyPlayer::GrapplingHook);
-
-		inputComponent->BindAction(PClimbingClaw, ETriggerEvent::Triggered, this, &AMyPlayer::ClimbingClaw);
-		inputComponent->BindAction(PClimbingClaw, ETriggerEvent::Completed, this, &AMyPlayer::ClimbingClaw);
-
-		inputComponent->BindAction(PShovel, ETriggerEvent::Triggered, this, &AMyPlayer::Shovel);
-		inputComponent->BindAction(PShovel, ETriggerEvent::Completed, this, &AMyPlayer::Shovel);
-
-		inputComponent->BindAction(PPropeller, ETriggerEvent::Triggered, this, &AMyPlayer::Propeller);
-		inputComponent->BindAction(PPropeller, ETriggerEvent::Completed, this, &AMyPlayer::Propeller);
-
-		inputComponent->BindAction(PMagnetic, ETriggerEvent::Triggered, this, &AMyPlayer::Magnetic);
-		inputComponent->BindAction(PMagnetic, ETriggerEvent::Completed, this, &AMyPlayer::Magnetic);
-
+		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Triggered, this, &AMyPlayer::SwitchAbilities);
+		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Completed, this, &AMyPlayer::SwitchAbilities);
 	}
 }
 
@@ -297,6 +284,7 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	}
 }
 
+
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
 	float const TurnAmount = Value.Get<float>();
@@ -310,7 +298,29 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 	// Add Animations here with changing of mesh direction
 }
 
-void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
+void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
+{
+	switch (Abilities)
+	{
+	case EAbilities::GrapplingHook:
+		GrapplingHook();
+		break;
+	case EAbilities::ClimbingClaw:
+		ClimbingClaw();
+		break;
+	case EAbilities::Shovel:
+		Shovel();
+		break;
+	case EAbilities::Propeller:
+		Propeller();
+		break;
+	case EAbilities::Magnetic:
+		Magnetic();
+		break;
+	}
+}
+
+void AMyPlayer::GrapplingHook()
 {
 	if (bIsAimMode && bIsGrapplingHookUnlocked)
 	{
@@ -324,19 +334,19 @@ void AMyPlayer::GrapplingHook(const FInputActionValue& Value)
 	}
 }
 
-void AMyPlayer::ClimbingClaw(const FInputActionValue& Value)
+void AMyPlayer::ClimbingClaw()
 {
 }
 
-void AMyPlayer::Shovel(const FInputActionValue& Value)
+void AMyPlayer::Shovel()
 {
 }
 
-void AMyPlayer::Propeller(const FInputActionValue& Value)
+void AMyPlayer::Propeller()
 {
 }
 
-void AMyPlayer::Magnetic(const FInputActionValue& Value)
+void AMyPlayer::Magnetic()
 {
 }
 
