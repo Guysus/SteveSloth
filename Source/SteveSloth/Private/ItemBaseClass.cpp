@@ -32,23 +32,27 @@ void AItemBaseClass::BeginPlay()
 		Steve = Cast<AMyPlayer>(Player);
 	}
 
-	// Initialize Variables to the Item Data Table
-	const auto itemData = ItemDataTable.GetRow<FUMyItemData>("");
-
-	if (itemData)
+	if (!ItemDataTable.IsNull())
 	{
-		Name = itemData->Name;
-		Health = itemData->Health;
-		ItemType = itemData->ItemType;
-		DropChance = itemData->DropChance;
-		StackAmount = itemData->StackAmount;
-		bIsCurrency = itemData->bIsCurrency;
-		AddHealthAmount = itemData->AddHealthAmount;
-		AddHealthPercentage = itemData->AddHealthPercentage;
+		// Initialize Variables to the Item Data Table
+		const auto itemData = ItemDataTable.GetRow<FUMyItemData>("");
+
+		if (itemData)
+		{
+			Name = itemData->Name;
+			Health = itemData->Health;
+			ItemType = itemData->ItemType;
+			DropChance = itemData->DropChance;
+			StackAmount = itemData->StackAmount;
+			bIsCurrency = itemData->bIsCurrency;
+			AddHealthAmount = itemData->AddHealthAmount;
+			AddHealthPercentage = itemData->AddHealthPercentage;
+		}
+
+		Mesh->SetStaticMesh(itemData->Mesh);
 	}
 
 	ItemHitBox->OnComponentBeginOverlap.AddDynamic(this, &AItemBaseClass::OnHitboxOverlapBegin);
-	Mesh->SetStaticMesh(itemData->Mesh);
 }
 
 void AItemBaseClass::Tick(float DeltaTime)
