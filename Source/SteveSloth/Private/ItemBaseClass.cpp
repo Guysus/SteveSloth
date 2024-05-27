@@ -93,19 +93,28 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			break;
 
 			case EItemType::GrapplingHook:
-				Steve->AddGrapplingHook();
+				bIsItemUnlocked = true;
+				Steve->AddUpgradeAbility();
 			break;
 
 			case EItemType::ClimbingClaw:
+				bIsItemUnlocked = true;
+				Steve->AddUpgradeAbility();
 			break;
 
 			case EItemType::Shovel:
+				bIsItemUnlocked = true;
+				Steve->AddUpgradeAbility();
 			break;
 
 			case EItemType::Propeller:
+				bIsItemUnlocked = true;
+				Steve->AddUpgradeAbility();
 			break;
 
 			case EItemType::Magnetic:
+				bIsItemUnlocked = true;
+				Steve->AddUpgradeAbility();
 			break;
 		}
 	}

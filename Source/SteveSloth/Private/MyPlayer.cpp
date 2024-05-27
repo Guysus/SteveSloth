@@ -29,11 +29,7 @@ AMyPlayer::AMyPlayer()
 	bDidDodge = false;
 	bIsAimMode = false;
 	bDidGrapple = false;
-	bIsShovelUnlocked = false;
-	bIsMagneticUnlocked = false;
-	bIsPropellerUnlocked = false;
-	bIsClimbingClawUnlocked = false;
-	bIsGrapplingHookUnlocked = false;
+	bIsUpgradeUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -143,29 +139,9 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
-void AMyPlayer::AddGrapplingHook()
+void AMyPlayer::AddUpgradeAbility()
 {
-	bIsGrapplingHookUnlocked = true;
-}
-
-void AMyPlayer::AddClimbingClaw()
-{
-	bIsClimbingClawUnlocked = true;
-}
-
-void AMyPlayer::AddShovel()
-{
-	bIsShovelUnlocked = true;
-}
-
-void AMyPlayer::AddPropeller()
-{
-	bIsPropellerUnlocked = true;
-}
-
-void AMyPlayer::AddMagnetic()
-{
-	bIsMagneticUnlocked = true;
+	bIsUpgradeUnlocked = true;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -322,15 +298,17 @@ void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook()
 {
-	if (bIsAimMode && bIsGrapplingHookUnlocked)
+	if (bIsAimMode && bIsUpgradeUnlocked)
 	{
 		if (bDidGrapple == false)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Grappling Time!!"))
+			GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 		}
 
 		bDidGrapple = true;
-		// USE TIMER TO RESET GRAPPLING HOOK
+		GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
+			&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
 	}
 }
 
@@ -346,10 +324,15 @@ void AMyPlayer::Propeller()
 {
 }
 
+
 void AMyPlayer::Magnetic()
 {
 }
 
+void AMyPlayer::GrappleOver()
+{
+	bDidGrapple = false;
+}
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {

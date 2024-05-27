@@ -57,6 +57,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
+private: //PRIVATE CONST VARIABLES
+	const float GRAPPLE_TIMER_AMOUNT = 1.f;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
@@ -130,6 +133,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
+protected: // PROTECTED INHERITABLE VARIABLES
+	FTimerHandle GrappleTimerHandle;
+
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
@@ -167,11 +173,7 @@ private: // PRIVATE VARIABLES
 	bool bDidDodge;
 	bool bIsAimMode;
 	bool bDidGrapple;
-	bool bIsShovelUnlocked;
-	bool bIsMagneticUnlocked;
-	bool bIsPropellerUnlocked;
-	bool bIsClimbingClawUnlocked;
-	bool bIsGrapplingHookUnlocked;
+	bool bIsUpgradeUnlocked;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
@@ -190,13 +192,10 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void Shovel();
 	void Magnetic();
 	void Propeller();
-	void AddShovel();
-	void AddMagnetic();
+	void GrappleOver();
 	void ClimbingClaw();
-	void AddPropeller();
 	void GrapplingHook();
-	void AddClimbingClaw();
-	void AddGrapplingHook();
+	void AddUpgradeAbility();
 	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
