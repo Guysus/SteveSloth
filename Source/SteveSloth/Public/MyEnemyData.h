@@ -53,6 +53,9 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 	float RangedAttackSpeed;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MaxConfusionRange;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UAnimationAsset* IdleAnim;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
@@ -72,6 +75,9 @@ struct STEVESLOTH_API FMyEnemyData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	UAnimationAsset* FrozenAnim;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	UAnimationAsset* ConfusionAnim;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	AActor* AmmoType;

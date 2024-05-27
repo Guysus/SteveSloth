@@ -28,6 +28,7 @@ AMyPlayer::AMyPlayer()
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
+	bIsGrapplingHookUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -49,20 +50,23 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-
-	AmmoDataTable.DataTable->GetAllRows("", Ammos);
-
-	for (int i = 0; i < Ammos.Num(); i++)
+	
+	if (!AmmoDataTable.IsNull())
 	{
-		CurrentAmmos.AddUninitialized();
-		AmmoIcons.Add(Ammos[i]->AmmoIcon);
-		MaxAmmos.Add(Ammos[i]->MaxAmmo);
-		CurrentAmmos[i] = MaxAmmos[i];
-	}
+		AmmoDataTable.DataTable->GetAllRows("", Ammos);
 
-	EquippedMaxAmmo = MaxAmmos[Pebble];
-	EquippedAmmoIcon = AmmoIcons[Pebble];
-	EquippedCurrentAmmo = CurrentAmmos[Pebble];
+		for (int i = 0; i < Ammos.Num(); i++)
+		{
+			CurrentAmmos.AddUninitialized();
+			AmmoIcons.Add(Ammos[i]->AmmoIcon);
+			MaxAmmos.Add(Ammos[i]->MaxAmmo);
+			CurrentAmmos[i] = MaxAmmos[i];
+
+			EquippedMaxAmmo = MaxAmmos[Pebble];
+			EquippedAmmoIcon = AmmoIcons[Pebble];
+			EquippedCurrentAmmo = CurrentAmmos[Pebble];
+		}
+	}
 
 	if (PlayerHUDClass)
 	{
@@ -74,8 +78,12 @@ void AMyPlayer::BeginPlay()
 
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
-			PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
-			PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+
+			if (!AmmoDataTable.IsNull())
+			{
+				PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
+				PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+			}
 		}
 	}
 }
@@ -128,6 +136,11 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	}
 
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+}
+
+void AMyPlayer::AddGrapplingHook()
+{
+	bIsGrapplingHookUnlocked = true;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)

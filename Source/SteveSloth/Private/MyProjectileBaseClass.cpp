@@ -17,9 +17,9 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
 	ProjectileHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hitbox"));
 	AreaOfEffectHitbox = CreateDefaultSubobject<USphereComponent>(TEXT("AOEHitbox"));
-	AreaOfEffectHitbox->SetActive(false);
-
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SetRootComponent(Mesh);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 }
 
 void AMyProjectileBaseClass::BeginPlay()
@@ -33,34 +33,41 @@ void AMyProjectileBaseClass::BeginPlay()
 		Steve = Cast<AMyPlayer>(Player);
 	}
 
-	// Initialize Variables to the Projectile Data Table
-	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
-
-	if (projectileData)
+	if (!ProjectileDataTable.IsNull())
 	{
-		Name = projectileData->Name;
-		Mesh = projectileData->Mesh;
-		Damage = projectileData->Damage;
-		ProjectileType = projectileData->ProjectileType;
-		DamageOverTime = projectileData->DamageOverTime;
-		ProjectileRange = projectileData->ProjectileRange;
-		ProjectileSpeed = projectileData->ProjectileSpeed;
-		ProjectileGravity = projectileData->ProjectileGravity;
-		InitialLaunchAngle = projectileData->InitialLaunchAngle;
-		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
-		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
-		DamageOverTimeRate = projectileData->DamageOverTimeRate;
-		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
-		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
+		// Initialize Variables to the Projectile Data Table
+		const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
+
+		if (projectileData)
+		{
+			ProjectileType = projectileData->ProjectileType;
+
+			Name = projectileData->Name;
+			Damage = projectileData->Damage;
+			ProjectileType = projectileData->ProjectileType;
+			DamageOverTime = projectileData->DamageOverTime;
+			ProjectileRange = projectileData->ProjectileRange;
+			ProjectileSpeed = projectileData->ProjectileSpeed;
+			ProjectileGravity = projectileData->ProjectileGravity;
+			InitialLaunchAngle = projectileData->InitialLaunchAngle;
+			AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
+			AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
+			DamageOverTimeRate = projectileData->DamageOverTimeRate;
+			ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
+			DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
+		}
+
+		Mesh->SetStaticMesh(projectileData->Mesh);
 	}
+
+	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
+	AreaOfEffectHitbox->SetActive(false);
 
 	ProjectileMovement->bRotationFollowsVelocity = true;
 	ProjectileMovement->InitialSpeed = ProjectileSpeed;
 	ProjectileMovement->MaxSpeed = ProjectileMaxSpeed;
 	ProjectileMovement->ProjectileGravityScale = ProjectileGravity;
 	ProjectileMovement->Velocity.Z = InitialLaunchAngle;
-
-	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 
 	StartingLocation = GetActorLocation();
 
@@ -101,7 +108,7 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 			break;
 
 		case EProjectileType::Water:
-			//add confusion here
+			Enemy->SetIsConfused(true);
 			this->Destroy();
 
 			break;

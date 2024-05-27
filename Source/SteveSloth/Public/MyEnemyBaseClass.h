@@ -28,6 +28,7 @@ class STEVESLOTH_API AMyEnemyBaseClass : public ACharacter
 	GENERATED_BODY()
 private: //PRIVATE CONST VARIABLES
 	const float THAW_TIMER_AMOUNT = 1.5f;
+	const float CONFUSION_TIMER_AMOUNT = 1.5f;
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
@@ -50,20 +51,24 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float MeleeAttackRange;
 	float RangedAttackSpeed;
 	float RangedAttackRange;
+	float MaxConfusionRange;
 
+	bool bIsFrozen;
+	bool bIsCurrentlyFrozen;
+	bool bIsConfused;
+	bool bIsCurrentlyConfused;
 	bool bIsDead;
 	bool bIsIdle;
-	bool bIsFrozen;
 	bool bIsChasing;
 	bool bIsPatroling;
 	bool bIsAttackingMelee;
-	bool bIsCurrentlyFrozen;
 	bool bIsAttackingRanged;
 
 	FTransform StartingLocation;
 
 	FTimerHandle DespawnTimerHandle;
 	FTimerHandle ThawTimerHandle;
+	FTimerHandle ConfusionTimerHandle;
 
 public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	AActor* AmmoType;
@@ -75,6 +80,7 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	UAnimationAsset* AttackAnim;
 	UAnimationAsset* RangedAttackAnim;
 	UAnimationAsset* FrozenAnim;
+	UAnimationAsset* ConfusionAnim;
 
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
@@ -83,10 +89,13 @@ public: // GETTERS/ACCESSORS
 	float GetAttackRange() const { return MeleeAttackRange; }
 	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
 	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
+	float GetMaxConfusionRange() const { return MaxConfusionRange; }
+	float GetMaxConfusionRangeInverse() const { return -MaxConfusionRange; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
 
-public: // SETTERS/MUTATORS
+public: // SETTER/MUTATOR
 	void SetIsFrozen(bool isFrozen) { bIsFrozen = isFrozen; }
+	void SetIsConfused(bool isConfused) { bIsConfused = isConfused; }
 
 public:	// CONSTRUCTOR HERE
 	AMyEnemyBaseClass();
@@ -103,4 +112,5 @@ public: // PUBLIC FUNCTIONS
 private: // PRIVATE INTERNAL FUNCTIONS
 	void Despawn();
 	void Thaw();
+	void SnapOutOfConfusion();
 };
