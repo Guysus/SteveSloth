@@ -96,6 +96,17 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 				Steve->AddGrapplingHook();
 			break;
 
+			case EItemType::ClimbingClaw:
+			break;
+
+			case EItemType::Shovel:
+			break;
+
+			case EItemType::Propeller:
+			break;
+
+			case EItemType::Magnetic:
+			break;
 		}
 	}
 }

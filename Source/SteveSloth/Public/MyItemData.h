@@ -22,15 +22,15 @@ enum class EItemType
 {
 	Leaf UMETA(DisplayName = "Leaf"),
 	Grub UMETA(DisplayName = "Grub"),
-	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
-	GreenBud UMETA(DisplayName = "GreenBud"),
-	BlueBud UMETA(DisplayName = "BlueBud"),
-	RedBud UMETA(DisplayName = "RedBud"),
-	GrapplingHook UMETA(DisplayName = "GrapplingHook"),
-	ClimbingClaw UMETA(DisplayName = "Climbing Claw"),
 	Shovel UMETA(DisplayName = "Shovel"),
+	RedBud UMETA(DisplayName = "RedBud"),
+	BlueBud UMETA(DisplayName = "BlueBud"),
+	GreenBud UMETA(DisplayName = "GreenBud"),
+	Magnetic UMETA(DisplayName = "Magnetic"),
 	Propeller UMETA(DisplayName = "Propeller"),
-	Magnetic UMETA(DisplayName = "Magnetic")
+	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
+	ClimbingClaw UMETA(DisplayName = "Climbing Claw"),
+	GrapplingHook UMETA(DisplayName = "GrapplingHook")
 };
 
 USTRUCT(BlueprintType)
