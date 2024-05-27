@@ -58,7 +58,7 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 private: //PRIVATE CONST VARIABLES
-	const float GRAPPLE_TIMER_AMOUNT = 1.f;
+	const float GRAPPLE_TIMER_AMOUNT = 1.0f;
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)

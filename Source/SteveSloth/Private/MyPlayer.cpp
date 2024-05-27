@@ -324,7 +324,6 @@ void AMyPlayer::Propeller()
 {
 }
 
-
 void AMyPlayer::Magnetic()
 {
 }
