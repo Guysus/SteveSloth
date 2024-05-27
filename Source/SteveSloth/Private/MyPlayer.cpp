@@ -146,7 +146,6 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 void AMyPlayer::AddGrapplingHook()
 {
 	bIsGrapplingHookUnlocked = true;
-	UE_LOG(LogTemp, Warning, TEXT("Overlap GrappleHook"));
 }
 
 void AMyPlayer::AddClimbingClaw()
