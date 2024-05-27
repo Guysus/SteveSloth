@@ -33,29 +33,33 @@ void AMyProjectileBaseClass::BeginPlay()
 		Steve = Cast<AMyPlayer>(Player);
 	}
 
-	// Initialize Variables to the Projectile Data Table
-	const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
-
-	if (projectileData)
+	if (!ProjectileDataTable.IsNull())
 	{
-		ProjectileType = projectileData->ProjectileType;
+		// Initialize Variables to the Projectile Data Table
+		const auto projectileData = ProjectileDataTable.GetRow<FMyProjectileData>("");
 
-		Name = projectileData->Name;
-		Damage = projectileData->Damage;
-		ProjectileType = projectileData->ProjectileType;
-		DamageOverTime = projectileData->DamageOverTime;
-		ProjectileRange = projectileData->ProjectileRange;
-		ProjectileSpeed = projectileData->ProjectileSpeed;
-		ProjectileGravity = projectileData->ProjectileGravity;
-		InitialLaunchAngle = projectileData->InitialLaunchAngle;
-		AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
-		AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
-		DamageOverTimeRate = projectileData->DamageOverTimeRate;
-		ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
-		DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
+		if (projectileData)
+		{
+			ProjectileType = projectileData->ProjectileType;
+
+			Name = projectileData->Name;
+			Damage = projectileData->Damage;
+			ProjectileType = projectileData->ProjectileType;
+			DamageOverTime = projectileData->DamageOverTime;
+			ProjectileRange = projectileData->ProjectileRange;
+			ProjectileSpeed = projectileData->ProjectileSpeed;
+			ProjectileGravity = projectileData->ProjectileGravity;
+			InitialLaunchAngle = projectileData->InitialLaunchAngle;
+			AreaOfEffectDamage = projectileData->AreaOfEffectDamage;
+			AreaOfEffectRadius = projectileData->AreaOfEffectRadius;
+			DamageOverTimeRate = projectileData->DamageOverTimeRate;
+			ProjectileMaxSpeed = projectileData->ProjectileMaxSpeed;
+			DamageOverTimeDuration = projectileData->DamageOverTimeDuration;
+		}
+
+		Mesh->SetStaticMesh(projectileData->Mesh);
 	}
 
-	Mesh->SetStaticMesh(projectileData->Mesh);
 
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
