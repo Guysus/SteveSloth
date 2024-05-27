@@ -60,7 +60,6 @@ void AMyProjectileBaseClass::BeginPlay()
 		Mesh->SetStaticMesh(projectileData->Mesh);
 	}
 
-
 	AreaOfEffectHitbox->SetSphereRadius(AreaOfEffectRadius);
 	AreaOfEffectHitbox->SetActive(false);
 
