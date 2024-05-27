@@ -150,6 +150,7 @@ private: // PRIVATE VARIABLES
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
+	bool bIsGrapplingHookUnlocked;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
@@ -172,6 +173,7 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void HitPlayer(float damageAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
+	void AddGrapplingHook();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);

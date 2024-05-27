@@ -1,6 +1,6 @@
 /****************************************************************************************
 * Copyright: SteveSloth
- * Name: Jeff Moreau
+ * Name: Jeff Moreau, Edited by Guy Lapensee
  * Script: MyItemData.h
  * Date: May 21, 2024
  * Description: data table that holds all the item variables
@@ -25,7 +25,8 @@ enum class EItemType
 	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
 	GreenBud UMETA(DisplayName = "GreenBud"),
 	BlueBud UMETA(DisplayName = "BlueBud"),
-	RedBud UMETA(DisplayName = "RedBud")
+	RedBud UMETA(DisplayName = "RedBud"),
+	GrapplingHook UMETA(DisplayName = "GrapplingHook")
 };
 
 USTRUCT(BlueprintType)
@@ -37,7 +38,7 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 	FString Name;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	UStaticMeshComponent* Mesh;
+	UStaticMesh* Mesh;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	TEnumAsByte<EItemType> ItemType;
