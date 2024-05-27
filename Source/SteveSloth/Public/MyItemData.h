@@ -26,7 +26,11 @@ enum class EItemType
 	GreenBud UMETA(DisplayName = "GreenBud"),
 	BlueBud UMETA(DisplayName = "BlueBud"),
 	RedBud UMETA(DisplayName = "RedBud"),
-	GrapplingHook UMETA(DisplayName = "GrapplingHook")
+	GrapplingHook UMETA(DisplayName = "GrapplingHook"),
+	ClimbingClaw UMETA(DisplayName = "Climbing Claw"),
+	Shovel UMETA(DisplayName = "Shovel"),
+	Propeller UMETA(DisplayName = "Propeller"),
+	Magnetic UMETA(DisplayName = "Magnetic")
 };
 
 USTRUCT(BlueprintType)
