@@ -29,7 +29,7 @@ AMyPlayer::AMyPlayer()
 	bDidDodge = false;
 	bIsAimMode = false;
 	bDidGrapple = false;
-	bIsUpgradeUnlocked = false;
+	bIsUpgradeUnlocked = true;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -279,18 +279,23 @@ void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 	switch (Abilities)
 	{
 	case EAbilities::GrapplingHook:
+		UE_LOG(LogTemp, Warning, TEXT("Grappling Hook"))
 		GrapplingHook();
 		break;
 	case EAbilities::ClimbingClaw:
+		UE_LOG(LogTemp, Warning, TEXT("Climbing Claw"))
 		ClimbingClaw();
 		break;
 	case EAbilities::Shovel:
+		UE_LOG(LogTemp, Warning, TEXT("Shovel"))
 		Shovel();
 		break;
 	case EAbilities::Propeller:
+		UE_LOG(LogTemp, Warning, TEXT("Propeller"))
 		Propeller();
 		break;
 	case EAbilities::Magnetic:
+		UE_LOG(LogTemp, Warning, TEXT("Magnetic"))
 		Magnetic();
 		break;
 	}

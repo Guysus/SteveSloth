@@ -43,6 +43,7 @@ enum EAmmoType
 	BigRock
 };
 
+UENUM(BlueprintType)
 enum EAbilities
 {
 	GrapplingHook,
@@ -152,6 +153,7 @@ public: // SETTERS/MUTATORS
 	
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
+	TArray<EAbilities*> AbilitiesArray;
 	UTexture2D* EquippedAmmoIcon;
 	TArray<UTexture2D*> AmmoIcons;
 	USpringArmComponent* CameraArm;
