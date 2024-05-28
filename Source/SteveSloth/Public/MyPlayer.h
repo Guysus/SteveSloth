@@ -44,7 +44,7 @@ enum EAmmoType
 };
 
 UENUM(BlueprintType)
-enum EAbilities
+enum EAbility
 {
 	GrapplingHook,
 	ClimbingClaw,
@@ -153,7 +153,7 @@ public: // SETTERS/MUTATORS
 	
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
-	TArray<EAbilities*> AbilitiesArray;
+	TArray<EAbility*> Abilities;
 	UTexture2D* EquippedAmmoIcon;
 	TArray<UTexture2D*> AmmoIcons;
 	USpringArmComponent* CameraArm;
@@ -161,7 +161,7 @@ private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
-	EAbilities Abilities;
+	EAbility Ability;
 	
 	float CurrentHealth;
 	

@@ -276,29 +276,29 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 {
-	/*for (int i = 0; i < AbilitiesArray.Num(); i++)
+	/*for (int i = 0; i < Abilities.Num(); i++)
 	{
 
 	}*/
-	switch (Abilities)
+	switch (Ability)
 	{
-	case EAbilities::GrapplingHook:
+	case EAbility::GrapplingHook:
 		UE_LOG(LogTemp, Warning, TEXT("Grappling Hook"))
 		GrapplingHook();
 		break;
-	case EAbilities::ClimbingClaw:
+	case EAbility::ClimbingClaw:
 		UE_LOG(LogTemp, Warning, TEXT("Climbing Claw"))
 		ClimbingClaw();
 		break;
-	case EAbilities::Shovel:
+	case EAbility::Shovel:
 		UE_LOG(LogTemp, Warning, TEXT("Shovel"))
 		Shovel();
 		break;
-	case EAbilities::Propeller:
+	case EAbility::Propeller:
 		UE_LOG(LogTemp, Warning, TEXT("Propeller"))
 		Propeller();
 		break;
-	case EAbilities::Magnetic:
+	case EAbility::Magnetic:
 		UE_LOG(LogTemp, Warning, TEXT("Magnetic"))
 		Magnetic();
 		break;
