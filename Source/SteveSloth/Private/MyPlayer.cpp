@@ -276,6 +276,10 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 {
+	/*for (int i = 0; i < AbilitiesArray.Num(); i++)
+	{
+
+	}*/
 	switch (Abilities)
 	{
 	case EAbilities::GrapplingHook:
