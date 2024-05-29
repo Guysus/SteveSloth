@@ -276,10 +276,6 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 {
-	/*for (int i = 0; i < Abilities.Num(); i++)
-	{
-
-	}*/
 	switch (Ability)
 	{
 	case EAbility::GrapplingHook:
@@ -318,6 +314,8 @@ void AMyPlayer::GrapplingHook()
 		bDidGrapple = true;
 		GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
 			&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
+
+		GrappleOver();
 	}
 }
 
