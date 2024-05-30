@@ -182,6 +182,7 @@ private: // PRIVATE VARIABLES
 	bool bIsAimMode;
 	bool bDidGrapple;
 	bool bIsUpgradeUnlocked;
+	bool bIsPlayerAtLocation;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;

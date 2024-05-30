@@ -93,10 +93,12 @@ void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//if (bDidGrapple)
-	//{
-	//	GrappleCoolDown
-	//}
+	FHitResult Hit;
+
+	if (bDidGrapple)
+	{
+		GrappleCoolDown(Hit, 0.1f);
+	}
 }
 
 void AMyPlayer::HitPlayer(float damageAmount)
@@ -324,10 +326,12 @@ void AMyPlayer::GrapplingHook()
 	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
 	bDidGrapple = true;
+	bIsPlayerAtLocation = false;
 
 	// If the trace hit something, bBlockingHit will be true,
 	// and its fields will be filled with detailed info about what was hit
-	GrappleCoolDown(Hit, 0.1f);
+	
+	//GrappleCoolDown(Hit, 0.1f);
 }
 
 void AMyPlayer::GrappleCoolDown(FHitResult& Hit, float Delta)
@@ -335,7 +339,7 @@ void AMyPlayer::GrappleCoolDown(FHitResult& Hit, float Delta)
 	if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && bDidGrapple)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
-		SetActorLocation(FMath::VInterpTo(GetActorLocation(), Hit.GetActor()->GetActorLocation(), Delta, 0.5f));
+		SetActorLocation(FMath::VInterpTo(GetActorLocation(), Hit.GetActor()->GetActorLocation(), Delta, 0.5f));			
 	}
 	else
 	{
