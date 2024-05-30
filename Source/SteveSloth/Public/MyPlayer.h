@@ -60,7 +60,7 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 private: //PRIVATE CONST VARIABLES
-	const float GRAPPLE_TIMER_AMOUNT = 1.0f;
+	const float GRAPPLE_TIMER_AMOUNT = 3.0f;
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -217,6 +217,7 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void HitPlayer(float damageAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
+	void GrappleCoolDown(FHitResult& Hit, float Delta);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
@@ -232,6 +233,7 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void AimingStop(const FInputActionValue& Value);
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
+	void InteractOver(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);

@@ -92,6 +92,11 @@ void AMyPlayer::BeginPlay()
 void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+	//if (bDidGrapple)
+	//{
+	//	GrappleCoolDown
+	//}
 }
 
 void AMyPlayer::HitPlayer(float damageAmount)
@@ -220,7 +225,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PSprint, ETriggerEvent::Completed, this, &AMyPlayer::SprintStop);
 
 		inputComponent->BindAction(PInteract, ETriggerEvent::Triggered, this, &AMyPlayer::InteractWith);
-		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractWith);
+		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractOver);
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
@@ -318,28 +323,24 @@ void AMyPlayer::GrapplingHook()
 	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
 	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
+	bDidGrapple = true;
+
 	// If the trace hit something, bBlockingHit will be true,
 	// and its fields will be filled with detailed info about what was hit
-	if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
+	GrappleCoolDown(Hit, 0.1f);
+}
+
+void AMyPlayer::GrappleCoolDown(FHitResult& Hit, float Delta)
+{
+	if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && bDidGrapple)
 	{
 		UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
-		//SetActorLocation(FMath::VInterpTo(GetActorLocation(), GetActor(), 0.1f, 0.5f));
+		SetActorLocation(FMath::VInterpTo(GetActorLocation(), Hit.GetActor()->GetActorLocation(), Delta, 0.5f));
 	}
-	else 
+	else
 	{
 		UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
 	}
-	/*if (bDidGrapple == false)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Grappling Time!!"))
-		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
-	}*/
-
-	bDidGrapple = true;
-	GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
-		&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
-
-	GrappleOver();
 }
 
 void AMyPlayer::ClimbingClaw()
@@ -413,6 +414,12 @@ void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 		CurrentIMC->ClearAllMappings();
 		CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 	}
+}
+
+void AMyPlayer::InteractOver(const FInputActionValue& Value)
+{
+	GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
+		&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
 }
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
