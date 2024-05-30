@@ -10,22 +10,23 @@
 
 #include "MyBaseDestructibleObject.h"
 
-// Sets default values
 AMyBaseDestructibleObject::AMyBaseDestructibleObject()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	ObjectHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+
+	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
+	SetRootComponent(Mesh);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 }
 
-// Called when the game starts or when spawned
 void AMyBaseDestructibleObject::BeginPlay()
 {
 	Super::BeginPlay();
 	
 }
 
-// Called every frame
 void AMyBaseDestructibleObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

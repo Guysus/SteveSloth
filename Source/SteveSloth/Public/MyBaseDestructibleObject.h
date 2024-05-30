@@ -14,6 +14,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Components/BoxComponent.h"
+
+// MAKE SURE THIS INCLUDE IS LAST
 #include "MyBaseDestructibleObject.generated.h"
 
 UCLASS()
@@ -21,16 +24,21 @@ class STEVESLOTH_API AMyBaseDestructibleObject : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	// Sets default values for this actor's properties
+protected: // PROTECTED DETAILS PANEL VARIABLES 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UStaticMeshComponent* Mesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* ObjectHitBox;
+
+
+public:	// CONSTRUCTOR HERE
 	AMyBaseDestructibleObject();
 
-protected:
-	// Called when the game starts or when spawned
+protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
+public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 };
