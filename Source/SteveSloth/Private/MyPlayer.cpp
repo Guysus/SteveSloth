@@ -39,9 +39,9 @@ AMyPlayer::AMyPlayer()
 	LeavesFound = 0;
 	
 	// Movement Stuff
-	WalkSpeed = 600;
-	SprintSpeed = 1200;
-	CrouchSpeed = 300;
+	WalkSpeed = 250;
+	SprintSpeed = 400;
+	CrouchSpeed = 250;
 	DodgeDistance = -100;
 
 	// IMC Inputs
