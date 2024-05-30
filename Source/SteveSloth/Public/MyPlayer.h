@@ -19,6 +19,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "EnhancedInputSubsystems.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -150,6 +151,11 @@ public: // SETTERS/MUTATORS
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
+
+	// You can expose some of your collision query data as properties to help customize and debug 
+	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 	
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
@@ -191,11 +197,17 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
+	UFUNCTION(BlueprintCallable)
 	void Shovel();
+	UFUNCTION(BlueprintCallable)
 	void Magnetic();
+	UFUNCTION(BlueprintCallable)
 	void Propeller();
+	UFUNCTION(BlueprintCallable)
 	void GrappleOver();
+	UFUNCTION(BlueprintCallable)
 	void ClimbingClaw();
+	UFUNCTION(BlueprintCallable)
 	void GrapplingHook();
 	void AddUpgradeAbility();
 	void UseAmmo(int ammoAmount);
