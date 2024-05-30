@@ -89,6 +89,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PTurning;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PPitch;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
@@ -183,6 +186,7 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void Aiming(const FInputActionValue& Value);
 	void CamTurn(const FInputActionValue& Value);
 	void JumpOne(const FInputActionValue& Value);
+	void CamPitch(const FInputActionValue& Value);
 	void SprintStop(const FInputActionValue& Value);
 	void CrouchStop(const FInputActionValue& Value);
 	void AimingStop(const FInputActionValue& Value);
