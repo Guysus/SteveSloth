@@ -323,6 +323,7 @@ void AMyPlayer::GrapplingHook()
 	if (Hit.bBlockingHit && IsValid(Hit.GetActor()))
 	{
 		UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
+		SetActorLocation(FMath::VInterpTo(GetActorLocation(), GetActor(), 0.1f, 0.5f));
 	}
 	else 
 	{
