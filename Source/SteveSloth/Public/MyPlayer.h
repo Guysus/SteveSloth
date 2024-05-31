@@ -103,6 +103,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PTurning;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PPitch;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PJumping;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
