@@ -29,7 +29,11 @@ AMyPlayer::AMyPlayer()
 	bDidDodge = false;
 	bIsAimMode = false;
 	bDidGrapple = false;
-	bIsUpgradeUnlocked = true;
+	bIsShovelUnlocked = false;
+	bIsMagneticUnlocked = false;
+	bIsGrapplingUnlocked = false;
+	bIsPropellerUnlocked = false;
+	bIsClimbingClawUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -301,35 +305,60 @@ void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook()
 {
-	// FHitResult will hold all data returned by our line collision query
-	FHitResult Hit;
-
-	// We set up a line trace from our current location to a point 1000cm ahead of us
-	FVector TraceStart = GetActorLocation();
-	FVector TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
-
-	// You can use FCollisionQueryParams to further configure the query
-	// Here we add ourselves to the ignored list so we won't block the trace
-	FCollisionQueryParams QueryParams;
-	QueryParams.AddIgnoredActor(this);
-
-	// To run the query, you need a pointer to the current level, which you can get from an Actor with GetWorld()
-	// UWorld()->LineTraceSingleByChannel runs a line trace and returns the first actor hit over the provided collision channel.
-	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
-
-	// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
-	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
-	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
-
-	bDidGrapple = Hit.bBlockingHit;
-	bIsPlayerAtLocation = false;
-	if (bDidGrapple)
+	if (bIsGrapplingUnlocked)
 	{
-		GrappleHitLocation = Hit.GetActor()->GetActorLocation();
-	}
+		// FHitResult will hold all data returned by our line collision query
+		FHitResult Hit;
 
-	// If the trace hit something, bBlockingHit will be true,
-	// and its fields will be filled with detailed info about what was hit
+		// We set up a line trace from our current location to a point 1000cm ahead of us
+		FVector TraceStart = GetActorLocation();
+		FVector TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
+
+		// You can use FCollisionQueryParams to further configure the query
+		// Here we add ourselves to the ignored list so we won't block the trace
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this);
+
+		// To run the query, you need a pointer to the current level, which you can get from an Actor with GetWorld()
+		// UWorld()->LineTraceSingleByChannel runs a line trace and returns the first actor hit over the provided collision channel.
+		GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+
+		// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
+		UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+
+		bDidGrapple = Hit.bBlockingHit;
+
+		if (bDidGrapple)
+		{
+			GrappleHitLocation = Hit.GetActor()->GetActorLocation();
+		}
+	}
+}
+
+void AMyPlayer::AddGrapplingHook()
+{
+	bIsGrapplingUnlocked = true;
+}
+
+void AMyPlayer::AddClimbingClaw()
+{
+	bIsClimbingClawUnlocked = true;
+}
+
+void AMyPlayer::AddShovel()
+{
+	bIsShovelUnlocked = true;
+}
+
+void AMyPlayer::AddPropeller()
+{
+	bIsPropellerUnlocked = true;
+}
+
+void AMyPlayer::AddMagnetic()
+{
+	bIsMagneticUnlocked = true;
 }
 
 void AMyPlayer::ClimbingClaw()

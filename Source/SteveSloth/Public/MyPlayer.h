@@ -190,8 +190,12 @@ private: // PRIVATE VARIABLES
 	bool bDidDodge;
 	bool bIsAimMode;
 	bool bDidGrapple;
-	bool bIsUpgradeUnlocked;
-	bool bIsPlayerAtLocation;
+	bool bIsShovelUnlocked;
+	bool bIsMagneticUnlocked;
+	bool bIsGrapplingUnlocked;
+	bool bIsPropellerUnlocked;
+	bool bIsClimbingClawUnlocked;
+	
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
@@ -219,6 +223,11 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void ClimbingClaw();
 	UFUNCTION(BlueprintCallable)
 	void GrapplingHook();
+	void AddShovel();
+	void AddMagnetic();
+	void AddPropeller();
+	void AddClimbingClaw();
+	void AddGrapplingHook();
 	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
