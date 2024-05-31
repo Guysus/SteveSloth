@@ -73,6 +73,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	float PitchSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float InterpSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int SprintSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
@@ -138,6 +141,11 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
+	// You can expose some of your collision query data as properties to help customize and debug 
+	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
 
@@ -155,11 +163,9 @@ public: // SETTERS/MUTATORS
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
 
-	// You can expose some of your collision query data as properties to help customize and debug 
-	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
-	UPROPERTY(EditAnywhere, Category = "Collision")
-	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 	
+	FVector GrappleHitLocation;
+
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
 	TArray<EAbility*> Abilities;
@@ -213,7 +219,6 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void ClimbingClaw();
 	UFUNCTION(BlueprintCallable)
 	void GrapplingHook();
-	void AddUpgradeAbility();
 	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
@@ -221,7 +226,6 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void HitPlayer(float damageAmount);
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
-	void GrappleCoolDown(FHitResult& Hit, float Delta);
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);

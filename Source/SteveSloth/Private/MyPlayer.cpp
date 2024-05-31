@@ -46,6 +46,8 @@ AMyPlayer::AMyPlayer()
 
 	// IMC Inputs
 	IMCInputs = Normal;
+
+	
 }
 
 void AMyPlayer::BeginPlay()
@@ -93,11 +95,10 @@ void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	FHitResult Hit;
-
 	if (bDidGrapple)
 	{
-		GrappleCoolDown(Hit, 0.1f);
+		UE_LOG(LogTemp, Display, TEXT("Tick"));
+		SetActorLocation(FMath::VInterpTo(GetActorLocation(), GrappleHitLocation, DeltaTime, InterpSpeed));
 	}
 }
 
@@ -144,11 +145,6 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	}
 
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
-}
-
-void AMyPlayer::AddUpgradeAbility()
-{
-	bIsUpgradeUnlocked = true;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -325,26 +321,15 @@ void AMyPlayer::GrapplingHook()
 	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
 	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
-	bDidGrapple = true;
+	bDidGrapple = Hit.bBlockingHit;
 	bIsPlayerAtLocation = false;
+	if (bDidGrapple)
+	{
+		GrappleHitLocation = Hit.GetActor()->GetActorLocation();
+	}
 
 	// If the trace hit something, bBlockingHit will be true,
 	// and its fields will be filled with detailed info about what was hit
-	
-	//GrappleCoolDown(Hit, 0.1f);
-}
-
-void AMyPlayer::GrappleCoolDown(FHitResult& Hit, float Delta)
-{
-	if (Hit.bBlockingHit && IsValid(Hit.GetActor()) && bDidGrapple)
-	{
-		UE_LOG(LogTemp, Log, TEXT("Trace hit actor: %s"), *Hit.GetActor()->GetName());
-		SetActorLocation(FMath::VInterpTo(GetActorLocation(), Hit.GetActor()->GetActorLocation(), Delta, 0.5f));			
-	}
-	else
-	{
-		UE_LOG(LogTemp, Log, TEXT("No Actors were hit"));
-	}
 }
 
 void AMyPlayer::ClimbingClaw()
