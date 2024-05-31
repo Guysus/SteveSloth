@@ -48,7 +48,6 @@ private: // PRIVATE INTERNAL VARIABLES
 	FString Name;
 
 	int StackAmount;
-	int AmountInCrate;
 
 	bool bIsCurrency;
 	bool bIsAmmo;

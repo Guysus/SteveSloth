@@ -23,15 +23,16 @@ enum class EItemType
 	Leaf UMETA(DisplayName = "Leaf"),
 	Grub UMETA(DisplayName = "Grub"),
 	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
-	GreenBud UMETA(DisplayName = "GreenBud"),
-	BlueBud UMETA(DisplayName = "BlueBud"),
-	RedBud UMETA(DisplayName = "RedBud"),
+	GreenBud UMETA(DisplayName = "Green Bud"),
+	BlueBud UMETA(DisplayName = "Blue Bud"),
+	RedBud UMETA(DisplayName = "Red Bud"),
+	PebbleAmmo UMETA(DisplayName = "Pebble Ammo"),
 	FirecrackerAmmo UMETA(DisplayName = "Firecracker Ammo"),
 	WaterBalloonAmmo UMETA(DisplayName = "Water Balloon Ammo"),
 	PoisonSacAmmo UMETA(DisplayName = "Poison Sac Ammo"),
 	ChristmasBeetleAmmo UMETA(DisplayName = "Christmas Beetle Ammo"),
 	BigRockAmmo UMETA(DisplayName = "Big Rock Ammo"),
-	GrapplingHook UMETA(DisplayName = "GrapplingHook")
+	GrapplingHook UMETA(DisplayName = "Grappling Hook")
 };
 
 USTRUCT(BlueprintType)
@@ -53,9 +54,6 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	int StackAmount;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
-	int AmountInCrate;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float DropChance;

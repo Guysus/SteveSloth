@@ -44,7 +44,6 @@ void AItemBaseClass::BeginPlay()
 			ItemType = itemData->ItemType;
 			DropChance = itemData->DropChance;
 			StackAmount = itemData->StackAmount;
-			AmountInCrate = itemData->AmountInCrate;
 			bIsCurrency = itemData->bIsCurrency;
 			bIsAmmo = itemData->bIsAmmo;
 			AddHealthAmount = itemData->AddHealthAmount;
