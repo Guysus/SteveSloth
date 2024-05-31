@@ -14,7 +14,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MyPlayer.h"
+#include "MyProjectileBaseClass.h"
 #include "Components/BoxComponent.h"
+#include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
 #include "NiagaraComponent.h"
 
@@ -35,6 +38,15 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
 	UNiagaraSystem* DestroyedVFX;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX")
+	TArray<USoundBase*> BreakingSFXs;
+
+private: // PRIVATE INTERNAL VARIABLES
+	AMyPlayer* Steve;
+	ACharacter* Player;
+
+	AMyProjectileBaseClass* Projectile;
 
 public:	// CONSTRUCTOR HERE
 	AMyBaseDestructibleObject();
