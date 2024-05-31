@@ -15,6 +15,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "NiagaraFunctionLibrary.h"
+#include "NiagaraComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyBaseDestructibleObject.generated.h"
@@ -31,6 +33,8 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* ObjectHitBox;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
+	UNiagaraSystem* DestroyedVFX;
 
 public:	// CONSTRUCTOR HERE
 	AMyBaseDestructibleObject();
