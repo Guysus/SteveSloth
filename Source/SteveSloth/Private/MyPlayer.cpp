@@ -106,7 +106,7 @@ void AMyPlayer::Tick(float DeltaTime)
 		if (GrappleStartLocation == GrappleHitLocation)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Grapple Over"));
-			InteractOver(bDidGrapple);
+			InteractOver(GrappleHitLocation);
 		}
 	}
 }
@@ -272,7 +272,6 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 	}
 }
 
-
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
 	float const TurnAmount = Value.Get<float>();
@@ -379,7 +378,6 @@ void AMyPlayer::JumpOne(const FInputActionValue& Value)
 	}
 }
 
-
 void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
@@ -427,7 +425,6 @@ void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 		CurrentIMC->AddMappingContext(PWaterInputMapping, 0);
 	}
 }
-
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {
