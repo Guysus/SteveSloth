@@ -209,6 +209,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PTurning, ETriggerEvent::Triggered, this, &AMyPlayer::CamTurn);
 		inputComponent->BindAction(PTurning, ETriggerEvent::Completed, this, &AMyPlayer::CamTurn);
 		
+		inputComponent->BindAction(PPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
+		inputComponent->BindAction(PPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
+
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 
@@ -383,4 +386,10 @@ void AMyPlayer::CamTurn(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
 	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
+}
+
+void AMyPlayer::CamPitch(const FInputActionValue& Value)
+{
+	float const TurnSpeed = Value.Get<float>();
+	AddControllerPitchInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
 }
