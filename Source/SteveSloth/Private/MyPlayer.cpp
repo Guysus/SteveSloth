@@ -31,7 +31,7 @@ AMyPlayer::AMyPlayer()
 	bDidGrapple = false;
 	bIsShovelUnlocked = false;
 	bIsMagneticUnlocked = false;
-	bIsGrapplingUnlocked = false;
+	bIsGrapplingUnlocked = true;
 	bIsPropellerUnlocked = false;
 	bIsClimbingClawUnlocked = false;
 
@@ -283,24 +283,6 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 
 void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 {
-	/*switch (Ability)
-	{
-	case EAbility::GrapplingHook:
-		GrapplingHook();
-		break;
-	case EAbility::ClimbingClaw:
-		ClimbingClaw();
-		break;
-	case EAbility::Shovel:
-		Shovel();
-		break;
-	case EAbility::Propeller:
-		Propeller();
-		break;
-	case EAbility::Magnetic:
-		Magnetic();
-		break;
-	}*/
 }
 
 void AMyPlayer::GrapplingHook()
