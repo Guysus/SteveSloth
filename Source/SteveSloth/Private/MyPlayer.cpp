@@ -101,8 +101,13 @@ void AMyPlayer::Tick(float DeltaTime)
 
 	if (bDidGrapple)
 	{
-		UE_LOG(LogTemp, Display, TEXT("Tick"));
 		SetActorLocation(FMath::VInterpTo(GetActorLocation(), GrappleHitLocation, DeltaTime, InterpSpeed));
+
+		if (GrappleStartLocation == GrappleHitLocation)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("Grapple Over"));
+			InteractOver(bDidGrapple);
+		}
 	}
 }
 
@@ -293,8 +298,8 @@ void AMyPlayer::GrapplingHook()
 		FHitResult Hit;
 
 		// We set up a line trace from our current location to a point 1000cm ahead of us
-		FVector TraceStart = GetActorLocation();
-		FVector TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
+		TraceStart = GetActorLocation();
+		TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
 
 		// You can use FCollisionQueryParams to further configure the query
 		// Here we add ourselves to the ignored list so we won't block the trace
@@ -313,6 +318,7 @@ void AMyPlayer::GrapplingHook()
 
 		if (bDidGrapple)
 		{
+			GrappleStartLocation = TraceStart;
 			GrappleHitLocation = Hit.GetActor()->GetActorLocation();
 		}
 	}
@@ -403,6 +409,12 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 	}
 }
 
+void AMyPlayer::InteractOver(const FInputActionValue& Value)
+{
+	GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
+		&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
+}
+
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
@@ -416,11 +428,6 @@ void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 	}
 }
 
-void AMyPlayer::InteractOver(const FInputActionValue& Value)
-{
-	GetWorldTimerManager().SetTimer(GrappleTimerHandle, this,
-		&AMyPlayer::GrappleOver, GRAPPLE_TIMER_AMOUNT, false);
-}
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {

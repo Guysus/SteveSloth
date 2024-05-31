@@ -138,6 +138,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCamPitch;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animations")
+	UAnimSequence* GrapplingHookSequence;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
@@ -145,6 +148,11 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
+	FVector TraceEnd;
+	FVector TraceStart;
+	FVector GrappleHitLocation;
+	FVector GrappleStartLocation;
 
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
@@ -162,9 +170,6 @@ public: // SETTERS/MUTATORS
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
-
-	
-	FVector GrappleHitLocation;
 
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
