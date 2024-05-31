@@ -10,12 +10,13 @@
 
 #pragma once
 
-// INCLUDES HERE
+ // INCLUDES HERE
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "MyPlayer.h"
 #include "MyProjectileBaseClass.h"
+#include "ItemBaseClass.h"
 #include "Components/BoxComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "NiagaraFunctionLibrary.h"
@@ -28,7 +29,7 @@ UCLASS()
 class STEVESLOTH_API AMyBaseDestructibleObject : public AActor
 {
 	GENERATED_BODY()
-	
+
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
@@ -41,6 +42,9 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX")
 	TArray<USoundBase*> BreakingSFXs;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Loot")
+	TArray<AItemBaseClass*> Loots;
 
 private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
@@ -57,4 +61,6 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
+	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 };
