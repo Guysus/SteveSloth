@@ -18,7 +18,7 @@ AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 void AMyKoalaEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 }
 
 void AMyKoalaEnemyClass::Tick(float DeltaTime)
