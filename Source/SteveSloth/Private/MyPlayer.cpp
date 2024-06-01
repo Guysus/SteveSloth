@@ -31,9 +31,9 @@ AMyPlayer::AMyPlayer()
 	bDidGrapple = false;
 	bIsShovelUnlocked = false;
 	bIsMagneticUnlocked = false;
-	bIsGrapplingUnlocked = true;
+	bIsGrapplingUnlocked = false;
 	bIsPropellerUnlocked = false;
-	bIsClimbingClawUnlocked = false;
+	bIsClimbingClawUnlocked = true;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -106,7 +106,7 @@ void AMyPlayer::Tick(float DeltaTime)
 		if (GrappleStartLocation == GrappleHitLocation)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Grapple Over"));
-			InteractOver(GrappleHitLocation);
+			//InteractOver();
 		}
 	}
 }
@@ -350,6 +350,10 @@ void AMyPlayer::AddMagnetic()
 
 void AMyPlayer::ClimbingClaw()
 {
+	if (bIsClimbingClawUnlocked)
+	{
+
+	}
 }
 
 void AMyPlayer::Shovel()

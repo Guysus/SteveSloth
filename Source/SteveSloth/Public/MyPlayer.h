@@ -195,6 +195,7 @@ private: // PRIVATE VARIABLES
 	bool bDidDodge;
 	bool bIsAimMode;
 	bool bDidGrapple;
+	bool bIsClimbing;
 	bool bIsShovelUnlocked;
 	bool bIsMagneticUnlocked;
 	bool bIsGrapplingUnlocked;
