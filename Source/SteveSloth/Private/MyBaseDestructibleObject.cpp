@@ -14,19 +14,21 @@ AMyBaseDestructibleObject::AMyBaseDestructibleObject()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	ObjectHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
-
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
 	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+	ObjectHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	ObjectHitBox->SetupAttachment(Mesh);
 }
 
 void AMyBaseDestructibleObject::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	ObjectHitBox->OnComponentBeginOverlap.AddDynamic(this, &AMyBaseDestructibleObject::OnHitboxOverlapBegin);
 
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 	if (IsValid(Player))
 	{
 		Steve = Cast<AMyPlayer>(Player);
@@ -36,7 +38,6 @@ void AMyBaseDestructibleObject::BeginPlay()
 void AMyBaseDestructibleObject::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
