@@ -13,6 +13,7 @@
 // INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
+#include "MyLevelManager.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
