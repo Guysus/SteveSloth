@@ -43,8 +43,17 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SFX")
 	TArray<USoundBase*> BreakingSFXs;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Loot")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Loot (Ammo crate must be in the same order as EAmmoType in MyPlayer)")
 	TArray<AItemBaseClass*> Loots;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo Crate")
+	bool bIsAmmoCrate;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drops")
+	int MinAmountDropped;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Drops")
+	int MaxAmountDropped;
 
 private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;

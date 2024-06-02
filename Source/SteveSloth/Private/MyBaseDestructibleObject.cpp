@@ -24,7 +24,7 @@ AMyBaseDestructibleObject::AMyBaseDestructibleObject()
 void AMyBaseDestructibleObject::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 
 	if (IsValid(Player))
@@ -43,7 +43,13 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 {
 	if (OtherActor == Player)
 	{
+		int randomSFX = FMath::RandRange(0, BreakingSFXs.Num());
 
+		Mesh->SetVisibility(false);
+		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyedVFX, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
+		UGameplayStatics::PlaySoundAtLocation(this, BreakingSFXs[randomSFX], GetActorLocation());
+		
 	}
 }
 
