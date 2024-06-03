@@ -50,7 +50,12 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyedVFX, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
 		UGameplayStatics::PlaySoundAtLocation(this, BreakingSFXs[randomSFX], GetActorLocation());
-		
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyBaseDestructibleObject::DespawnObject, BreakingSFXs[randomSFX]->Duration, false);
 	}
+}
+
+void AMyBaseDestructibleObject::DespawnObject()
+{
+	this->Destroy();
 }
 

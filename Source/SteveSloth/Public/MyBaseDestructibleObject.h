@@ -62,6 +62,8 @@ private: // PRIVATE INTERNAL VARIABLES
 
 	AMyProjectileBaseClass* Projectile;
 
+	FTimerHandle DespawnTimerHandle;
+
 public:	// CONSTRUCTOR HERE
 	AMyBaseDestructibleObject();
 
@@ -71,7 +73,10 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
-UFUNCTION()
+	UFUNCTION()
 	void OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp,
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+
+private: // PRIVATE INTERNAL FUNCTIONS
+	void DespawnObject();
 };
