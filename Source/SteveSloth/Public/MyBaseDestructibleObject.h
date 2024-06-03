@@ -85,6 +85,7 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 private: // PRIVATE INTERNAL FUNCTIONS
+	void SpawnLoot();
 	void StopVFX();
 	void DespawnObject();
 };

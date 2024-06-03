@@ -63,6 +63,11 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 	}
 }
 
+void AMyBaseDestructibleObject::SpawnLoot()
+{
+
+}
+
 void AMyBaseDestructibleObject::StopVFX()
 {
 	VFXComponent->Deactivate();
