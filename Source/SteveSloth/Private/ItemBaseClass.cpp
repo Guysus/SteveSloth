@@ -23,7 +23,7 @@ AItemBaseClass::AItemBaseClass()
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
-	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
 	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
 	ItemHitBox->SetupAttachment(Mesh);
@@ -67,7 +67,8 @@ void AItemBaseClass::BeginPlay()
 			ProjectileMovement->bShouldBounce = true;
 			ProjectileMovement->InitialSpeed = randomSpeed;
 			ProjectileMovement->MaxSpeed = randomSpeed;
-			ProjectileMovement->ProjectileGravityScale = 1;
+			ProjectileMovement->Velocity.Z = 1;
+			ProjectileMovement->ProjectileGravityScale = 0.2;
 		}
 
 		Mesh->SetStaticMesh(itemData->Mesh);
