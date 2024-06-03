@@ -31,12 +31,18 @@ class STEVESLOTH_API AMyBaseDestructibleObject : public AActor
 {
 	GENERATED_BODY()
 
+private: //PRIVATE CONST VARIABLES
+	const float VFX_TIMER_AMOUNT = 0.3f;
+
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UStaticMeshComponent* Mesh;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* ObjectHitBox;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
+	UNiagaraComponent* VFXComponent;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "VFX")
 	UNiagaraSystem* DestroyedVFX;
@@ -63,6 +69,7 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyProjectileBaseClass* Projectile;
 
 	FTimerHandle DespawnTimerHandle;
+	FTimerHandle VFXStopTimerHandle;
 
 public:	// CONSTRUCTOR HERE
 	AMyBaseDestructibleObject();
@@ -78,5 +85,6 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 		int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
 
 private: // PRIVATE INTERNAL FUNCTIONS
+	void StopVFX();
 	void DespawnObject();
 };

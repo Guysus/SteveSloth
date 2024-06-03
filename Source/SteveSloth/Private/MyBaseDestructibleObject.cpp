@@ -20,6 +20,10 @@ AMyBaseDestructibleObject::AMyBaseDestructibleObject()
 
 	ObjectHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
 	ObjectHitBox->SetupAttachment(Mesh);
+
+	VFXComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("VFX"));
+	VFXComponent->SetupAttachment(Mesh);
+	VFXComponent->Deactivate();
 }
 
 void AMyBaseDestructibleObject::BeginPlay()
@@ -29,6 +33,7 @@ void AMyBaseDestructibleObject::BeginPlay()
 	ObjectHitBox->OnComponentBeginOverlap.AddDynamic(this, &AMyBaseDestructibleObject::OnHitboxOverlapBegin);
 
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+	
 	if (IsValid(Player))
 	{
 		Steve = Cast<AMyPlayer>(Player);
@@ -48,10 +53,19 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 
 		Mesh->SetVisibility(false);
 		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-		UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyedVFX, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
+
+		VFXComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyedVFX, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
+		VFXComponent->Activate();
+		GetWorldTimerManager().SetTimer(VFXStopTimerHandle, this, &AMyBaseDestructibleObject::StopVFX, VFX_TIMER_AMOUNT, false);
+
 		UGameplayStatics::PlaySoundAtLocation(this, BreakingSFXs[randomSFX], GetActorLocation());
 		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyBaseDestructibleObject::DespawnObject, BreakingSFXs[randomSFX]->Duration, false);
 	}
+}
+
+void AMyBaseDestructibleObject::StopVFX()
+{
+	VFXComponent->Deactivate();
 }
 
 void AMyBaseDestructibleObject::DespawnObject()
