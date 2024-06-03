@@ -58,7 +58,7 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	bool isValveOneOperated;
 	
 	UPROPERTY(BlueprintReadWrite)
-	bool isVavleTwoOpen;
+	bool isValveTwoOpen;
 
 	UPROPERTY(BlueprintReadWrite)
 	bool isInValveTwoArea;
@@ -85,6 +85,15 @@ public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }
 
 	UFUNCTION(BlueprintCallable)
+	int GetValeOneOpen() const { return isValveOneOpen; }
+
+	UFUNCTION(BlueprintCallable)
+	int GetValeTwoOpen() const { return isValveTwoOpen; }
+
+	UFUNCTION(BlueprintCallable)
+	int GetValeThreeOpen() const { return isValveThreeOpen; }
+
+	UFUNCTION(BlueprintCallable)
 	bool GetValveAreaOne() { return isInValveOneArea; }
 
 	UFUNCTION(BlueprintCallable)
@@ -97,6 +106,12 @@ public: // GETTERS/ACCESSORS
 	bool GetValveOneOperated() { return isValveOneOperated; }
 
 	UFUNCTION(BlueprintCallable)
+	bool GetValveTwoOperated() { return isValveTwoOperated; }
+
+	UFUNCTION(BlueprintCallable)
+	bool GetValveThreeOperated() { return isValveThreeOperated; }
+
+	UFUNCTION(BlueprintCallable)
 	FString GetCurrentLevelName() { return CurrentLevelName; }
 
 public: // SETTERS/MUTATORS
@@ -104,7 +119,28 @@ public: // SETTERS/MUTATORS
 	void SetValveOneOperated(bool yesno) { isValveOneOperated = yesno; }
 
 	UFUNCTION(BlueprintCallable)
+	void SetValveTwoOperated(bool yesno) { isValveTwoOperated = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveThreeOperated(bool yesno) { isValveThreeOperated = yesno; }
+
+	UFUNCTION(BlueprintCallable)
 	void SetValveAreaOne(bool yesno) { isInValveOneArea = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveAreaTwo(bool yesno) { isInValveTwoArea = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveAreaThree(bool yesno) { isInValveThreeArea = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveOneOpen(bool yesno) { isValveOneOpen = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveTwoOpen(bool yesno) { isValveTwoOpen = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveThreeOpen(bool yesno) { isValveThreeOpen = yesno; }
 
 public:	// CONSTRUCTOR HERE
 	AMyLevelManager();

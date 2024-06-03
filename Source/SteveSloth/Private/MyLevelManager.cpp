@@ -38,7 +38,7 @@ AMyLevelManager::AMyLevelManager()
 	isValveOneOpen = false;
 	isInValveOneArea = false;
 	isValveOneOperated = false;
-	isVavleTwoOpen = false;
+	isValveTwoOpen = false;
 	isInValveTwoArea = false;
 	isValveTwoOperated = false;
 	isValveThreeOpen = false;

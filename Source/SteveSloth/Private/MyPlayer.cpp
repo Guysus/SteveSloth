@@ -307,6 +307,14 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 		{
 			LevelManager->SetValveOneOperated(true);
 		}
+		else if (LevelManager->GetValveAreaTwo())
+		{
+			LevelManager->SetValveTwoOperated(true);
+		}
+		else if (LevelManager->GetValveAreaThree())
+		{
+			LevelManager->SetValveThreeOperated(true);
+		}
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
