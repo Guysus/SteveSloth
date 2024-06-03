@@ -18,14 +18,14 @@ AMyPlayer::AMyPlayer()
 
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
-	
+
 	CameraArm->SetupAttachment((RootComponent));
 	CameraArm->bUsePawnControlRotation = true;
 	CameraArm->TargetArmLength = 200;
 
 	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
 	PlayerCamera->bUsePawnControlRotation = false;
-	
+
 	// Bools
 	bIsMoving = false;
 	bDidDodge = false;
@@ -38,7 +38,7 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	LeavesFound = 0;
-	
+
 	// Movement Stuff
 	WalkSpeed = 250;
 	SprintSpeed = 400;
@@ -52,7 +52,7 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	if (!AmmoDataTable.IsNull())
 	{
 		AmmoDataTable.DataTable->GetAllRows("", Ammos);
@@ -67,6 +67,7 @@ void AMyPlayer::BeginPlay()
 			EquippedMaxAmmo = MaxAmmos[Pebble];
 			EquippedAmmoIcon = AmmoIcons[Pebble];
 			EquippedCurrentAmmo = CurrentAmmos[Pebble];
+			EquippedAmmoIndex = Pebble;
 		}
 	}
 
@@ -180,6 +181,7 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	EquippedAmmoIcon = AmmoIcons[ammoType];
 	EquippedMaxAmmo = MaxAmmos[ammoType];
 	EquippedCurrentAmmo = CurrentAmmos[ammoType];
+	EquippedAmmoIndex = ammoType;
 
 	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
 	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
@@ -210,7 +212,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PTurning, ETriggerEvent::Triggered, this, &AMyPlayer::CamTurn);
 		inputComponent->BindAction(PTurning, ETriggerEvent::Completed, this, &AMyPlayer::CamTurn);
-		
+
 		inputComponent->BindAction(PPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
 		inputComponent->BindAction(PPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
 
@@ -225,7 +227,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
-		
+
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
 
@@ -379,7 +381,7 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	//if statement to prevent offset to be applied with each tick
-	if (!bIsAimMode) 
+	if (!bIsAimMode)
 	{
 		FVector ZoomOffset = FVector(0, 10, 0);
 		CameraArm->TargetArmLength = 100;

@@ -14,11 +14,24 @@ AItemBaseClass::AItemBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+	ProjectileMovement->bAutoActivate = false;
+
+	ProjectileMovement->bShouldBounce = true;
+	ProjectileMovement->Friction = ProjectileMovement->Friction * FRICTION_MODIFIER;
+	ProjectileMovement->InitialSpeed = VELOCITY;
+	ProjectileMovement->MaxSpeed = VELOCITY;
+	ProjectileMovement->Velocity.Z = 1;
+	ProjectileMovement->ProjectileGravityScale = 0.2;
+
+	ProjectileMovement->Deactivate();
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
-	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	Mesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+
+	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	ItemHitBox->SetupAttachment(Mesh);
 }
 
 void AItemBaseClass::BeginPlay()
@@ -45,8 +58,14 @@ void AItemBaseClass::BeginPlay()
 			DropChance = itemData->DropChance;
 			StackAmount = itemData->StackAmount;
 			bIsCurrency = itemData->bIsCurrency;
+			bIsAmmo = itemData->bIsAmmo;
 			AddHealthAmount = itemData->AddHealthAmount;
 			AddHealthPercentage = itemData->AddHealthPercentage;
+		}
+
+		if (bIsAmmo || bIsCurrency)
+		{
+			ProjectileMovement->Activate();
 		}
 
 		Mesh->SetStaticMesh(itemData->Mesh);
