@@ -32,6 +32,18 @@ AMyLevelManager* AMyLevelManager::GetInstance()
 AMyLevelManager::AMyLevelManager()
 {
 	PrimaryActorTick.bCanEverTick = true;
+
+	Instance();
+
+	isValveOneOpen = false;
+	isInValveOneArea = false;
+	isValveOneOperated = false;
+	isVavleTwoOpen = false;
+	isInValveTwoArea = false;
+	isValveTwoOperated = false;
+	isValveThreeOpen = false;
+	isInValveThreeArea = false;
+	isValveThreeOperated = false;
 }
 
 void AMyLevelManager::BeginPlay()

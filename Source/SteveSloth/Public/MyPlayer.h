@@ -142,7 +142,7 @@ private: // PRIVATE VARIABLES
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
-	
+	AMyLevelManager* LevelManager;
 	float CurrentHealth;
 	
 	int GrubCount;

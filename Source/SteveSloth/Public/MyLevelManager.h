@@ -81,14 +81,30 @@ private: // PRIVATE INTERNAL VARIABLES
 	FString CurrentLevelName;
 	
 public: // GETTERS/ACCESSORS
+	UFUNCTION(BlueprintCallable)
 	int GetTotalLevels() const { return TotalLevels; }
+
+	UFUNCTION(BlueprintCallable)
 	bool GetValveAreaOne() { return isInValveOneArea; }
+
+	UFUNCTION(BlueprintCallable)
 	bool GetValveAreaTwo() { return isInValveTwoArea; }
+
+	UFUNCTION(BlueprintCallable)
 	bool GetValveAreaThree() { return isInValveThreeArea; }
+
+	UFUNCTION(BlueprintCallable)
+	bool GetValveOneOperated() { return isValveOneOperated; }
+
+	UFUNCTION(BlueprintCallable)
 	FString GetCurrentLevelName() { return CurrentLevelName; }
 
 public: // SETTERS/MUTATORS
+	UFUNCTION(BlueprintCallable)
 	void SetValveOneOperated(bool yesno) { isValveOneOperated = yesno; }
+
+	UFUNCTION(BlueprintCallable)
+	void SetValveAreaOne(bool yesno) { isInValveOneArea = yesno; }
 
 public:	// CONSTRUCTOR HERE
 	AMyLevelManager();

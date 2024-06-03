@@ -14,6 +14,8 @@ AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	LevelManager = AMyLevelManager::GetInstance();
+
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 	
@@ -301,9 +303,9 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
 	{
-		if (AMyLevelManager::GetInstance()->GetValveAreaOne())
+		if (LevelManager->GetValveAreaOne())
 		{
-			AMyLevelManager::GetInstance()->SetValveOneOperated(true);
+			LevelManager->SetValveOneOperated(true);
 		}
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
