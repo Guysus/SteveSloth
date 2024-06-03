@@ -85,13 +85,13 @@ public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }
 
 	UFUNCTION(BlueprintCallable)
-	int GetValeOneOpen() const { return isValveOneOpen; }
+	bool GetValeOneOpen() const { return isValveOneOpen; }
 
 	UFUNCTION(BlueprintCallable)
-	int GetValeTwoOpen() const { return isValveTwoOpen; }
+	bool GetValeTwoOpen() const { return isValveTwoOpen; }
 
 	UFUNCTION(BlueprintCallable)
-	int GetValeThreeOpen() const { return isValveThreeOpen; }
+	bool GetValeThreeOpen() const { return isValveThreeOpen; }
 
 	UFUNCTION(BlueprintCallable)
 	bool GetValveAreaOne() { return isInValveOneArea; }
