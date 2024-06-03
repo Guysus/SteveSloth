@@ -10,7 +10,7 @@
 
 #pragma once
 
-// INCLUDES HERE
+ // INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
 #include "EnhancedInputComponent.h"
@@ -49,9 +49,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
 
@@ -102,7 +102,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 
@@ -118,20 +118,12 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
-public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
-
-public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
-	
+
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
 	UTexture2D* EquippedAmmoIcon;
@@ -139,17 +131,18 @@ private: // PRIVATE VARIABLES
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
-	
+
 	EMappingInputs IMCInputs;
-	
+
 	float CurrentHealth;
-	
+
 	int GrubCount;
 	int LeavesFound;
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	
+	int EquippedAmmoIndex;
+
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -157,7 +150,17 @@ private: // PRIVATE VARIABLES
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
-	
+
+public: // GETTERS/ACCESSORS
+	float GetMaxHealth() { return MaxHealth; }
+	float GetCurrentHealth() { return CurrentHealth; }
+
+	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
+
+public: // SETTERS/MUTATORS
+	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
+	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
