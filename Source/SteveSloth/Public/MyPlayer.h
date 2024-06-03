@@ -151,6 +151,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	FVector TraceEnd;
 	FVector TraceStart;
+	FVector WallHitLocation;
 	FVector GrappleHitLocation;
 	FVector GrappleStartLocation;
 

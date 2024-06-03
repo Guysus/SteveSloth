@@ -109,6 +109,11 @@ void AMyPlayer::Tick(float DeltaTime)
 			//InteractOver();
 		}
 	}
+
+	if (bIsClimbing)
+	{
+		
+	}
 }
 
 void AMyPlayer::HitPlayer(float damageAmount)
@@ -352,7 +357,25 @@ void AMyPlayer::ClimbingClaw()
 {
 	if (bIsClimbingClawUnlocked)
 	{
+		FHitResult WallHit;
 
+		TraceStart = GetActorLocation();
+		TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
+
+		FCollisionQueryParams QueryParams;
+		QueryParams.AddIgnoredActor(this);
+
+		GetWorld()->LineTraceSingleByChannel(WallHit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+
+		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, WallHit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
+		UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+
+		bIsClimbing = WallHit.bBlockingHit;
+
+		if (bIsClimbing)
+		{
+			WallHitLocation = WallHit.GetActor()->GetActorLocation();
+		}
 	}
 }
 
