@@ -44,7 +44,7 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 {
 	if (OtherActor == Player)
 	{
-		int randomSFX = FMath::RandRange(0, BreakingSFXs.Num());
+		int randomSFX = FMath::RandRange(0, BreakingSFXs.Num() - 1);
 
 		Mesh->SetVisibility(false);
 		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
