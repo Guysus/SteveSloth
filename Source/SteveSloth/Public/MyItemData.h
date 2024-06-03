@@ -69,4 +69,10 @@ struct STEVESLOTH_API FUMyItemData : public FTableRowBase
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
 	float AddHealthPercentage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MinSpeed;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	float MaxSpeed;
 };

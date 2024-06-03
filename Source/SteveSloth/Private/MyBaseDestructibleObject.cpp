@@ -53,6 +53,8 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 
 		Mesh->SetVisibility(false);
 		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		
+		SpawnLoot();
 
 		VFXComponent = UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), DestroyedVFX, Mesh->GetComponentLocation(), Mesh->GetComponentRotation());
 		VFXComponent->Activate();
@@ -65,7 +67,19 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 
 void AMyBaseDestructibleObject::SpawnLoot()
 {
+	int randomLootAmount = FMath::RandRange(MinAmountDropped, MaxAmountDropped);
+	TSubclassOf<AActor> itemToSpawn = (bIsAmmoCrate) ? Loots[Steve->GetEquippedAmmoIndex()] : Loots[0];
 
+	if (itemToSpawn)
+	{
+		for (int i = 0; i < randomLootAmount; i++)
+		{
+			float randomDirection = FMath::RandRange(0.0f, 360.0f);
+			FTransform spawnTransform = FTransform(FRotator(0, randomDirection, 0), GetActorLocation());
+
+			GetWorld()->SpawnActor(itemToSpawn, &spawnTransform);
+		}
+	}
 }
 
 void AMyBaseDestructibleObject::StopVFX()

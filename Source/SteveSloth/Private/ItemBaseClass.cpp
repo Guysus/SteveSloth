@@ -14,11 +14,19 @@ AItemBaseClass::AItemBaseClass()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
-	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+
+	ProjectileMovement->bRotationFollowsVelocity = false;
+	ProjectileMovement->InitialSpeed = 0;
+	ProjectileMovement->MaxSpeed = 0;
+	ProjectileMovement->ProjectileGravityScale = 0;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
 	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	ItemHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	ItemHitBox->SetupAttachment(Mesh);
 }
 
 void AItemBaseClass::BeginPlay()
@@ -48,6 +56,18 @@ void AItemBaseClass::BeginPlay()
 			bIsAmmo = itemData->bIsAmmo;
 			AddHealthAmount = itemData->AddHealthAmount;
 			AddHealthPercentage = itemData->AddHealthPercentage;
+			MinSpeed = itemData->MinSpeed;
+			MaxSpeed = itemData->MaxSpeed;
+		}
+
+		if (bIsAmmo || bIsCurrency)
+		{
+			float randomSpeed = FMath::RandRange(MinSpeed, MaxSpeed);
+
+			ProjectileMovement->bShouldBounce = true;
+			ProjectileMovement->InitialSpeed = randomSpeed;
+			ProjectileMovement->MaxSpeed = randomSpeed;
+			ProjectileMovement->ProjectileGravityScale = 1;
 		}
 
 		Mesh->SetStaticMesh(itemData->Mesh);

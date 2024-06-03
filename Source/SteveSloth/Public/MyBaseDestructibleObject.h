@@ -51,7 +51,7 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	TArray<USoundBase*> BreakingSFXs;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Loot (Ammo crate must be in the same order as EAmmoType in MyPlayer)")
-	TArray<AItemBaseClass*> Loots;
+	TArray<TSubclassOf<AActor>> Loots;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Ammo Crate")
 	bool bIsAmmoCrate;

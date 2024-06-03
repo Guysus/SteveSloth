@@ -18,6 +18,7 @@
 #include "MyEnemyBaseClass.h"
 #include "GameFramework/Actor.h"
 #include "Components/BoxComponent.h"
+#include "GameFramework/ProjectileMovementComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "ItemBaseClass.generated.h"
@@ -37,6 +38,9 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	UBoxComponent* ItemHitBox;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UProjectileMovementComponent* ProjectileMovement;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Attributes")
 	bool bIsItemUnlocked;
 
@@ -56,6 +60,8 @@ private: // PRIVATE INTERNAL VARIABLES
 	float DropChance;
 	float AddHealthAmount;
 	float AddHealthPercentage;
+	float MinSpeed;
+	float MaxSpeed;
 
 	TEnumAsByte<EItemType> ItemType;
 
