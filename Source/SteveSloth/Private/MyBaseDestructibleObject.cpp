@@ -23,6 +23,7 @@ AMyBaseDestructibleObject::AMyBaseDestructibleObject()
 
 	VFXComponent = CreateDefaultSubobject<UNiagaraComponent>(TEXT("VFX"));
 	VFXComponent->SetupAttachment(Mesh);
+	VFXComponent->bAutoActivate = false;
 	VFXComponent->Deactivate();
 }
 

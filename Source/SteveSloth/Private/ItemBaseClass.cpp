@@ -15,11 +15,16 @@ AItemBaseClass::AItemBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	ProjectileMovement = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement Component"));
+	ProjectileMovement->bAutoActivate = false;
 
-	ProjectileMovement->bRotationFollowsVelocity = false;
-	ProjectileMovement->InitialSpeed = 0;
-	ProjectileMovement->MaxSpeed = 0;
-	ProjectileMovement->ProjectileGravityScale = 0;
+	ProjectileMovement->bShouldBounce = true;
+	ProjectileMovement->Friction = ProjectileMovement->Friction * FRICTION_MODIFIER;
+	ProjectileMovement->InitialSpeed = VELOCITY;
+	ProjectileMovement->MaxSpeed = VELOCITY;
+	ProjectileMovement->Velocity.Z = 1;
+	ProjectileMovement->ProjectileGravityScale = 0.2;
+
+	ProjectileMovement->Deactivate();
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
@@ -56,19 +61,11 @@ void AItemBaseClass::BeginPlay()
 			bIsAmmo = itemData->bIsAmmo;
 			AddHealthAmount = itemData->AddHealthAmount;
 			AddHealthPercentage = itemData->AddHealthPercentage;
-			MinSpeed = itemData->MinSpeed;
-			MaxSpeed = itemData->MaxSpeed;
 		}
 
 		if (bIsAmmo || bIsCurrency)
 		{
-			float randomSpeed = FMath::RandRange(MinSpeed, MaxSpeed);
-
-			ProjectileMovement->bShouldBounce = true;
-			ProjectileMovement->InitialSpeed = randomSpeed;
-			ProjectileMovement->MaxSpeed = randomSpeed;
-			ProjectileMovement->Velocity.Z = 1;
-			ProjectileMovement->ProjectileGravityScale = 0.2;
+			ProjectileMovement->Activate();
 		}
 
 		Mesh->SetStaticMesh(itemData->Mesh);

@@ -27,6 +27,10 @@ UCLASS()
 class STEVESLOTH_API AItemBaseClass : public AActor
 {
 	GENERATED_BODY()
+
+private: //PRIVATE CONST VARIABLES
+	const float VELOCITY = 100;
+	const float FRICTION_MODIFIER = 2;
 	
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "UMyItemData"), Category = "Data")
@@ -60,8 +64,6 @@ private: // PRIVATE INTERNAL VARIABLES
 	float DropChance;
 	float AddHealthAmount;
 	float AddHealthPercentage;
-	float MinSpeed;
-	float MaxSpeed;
 
 	TEnumAsByte<EItemType> ItemType;
 
