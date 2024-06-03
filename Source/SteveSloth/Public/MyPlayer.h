@@ -122,6 +122,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
+	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
 
 public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
@@ -150,7 +151,8 @@ private: // PRIVATE VARIABLES
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	
+	int EquippedAmmoIndex;
+
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
