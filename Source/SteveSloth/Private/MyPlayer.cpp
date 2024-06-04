@@ -271,14 +271,14 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 		// Add Animations here with changing of mesh direction 
 	}
 
-	if (bIsClimbing)
+	/*if (bIsClimbing)
 	{
 		float const Amount = Value.Get<float>();
 		FRotator const Rotation = Controller->GetControlRotation();
 		FRotator const YawRotation(0, Rotation.Yaw, 0);
 		FVector const UpDirection = GetActorUpVector();
 		AddMovementInput(UpDirection, Amount);
-	}
+	}*/
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
