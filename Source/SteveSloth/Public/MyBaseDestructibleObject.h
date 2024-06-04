@@ -32,7 +32,7 @@ class STEVESLOTH_API AMyBaseDestructibleObject : public AActor
 	GENERATED_BODY()
 
 private: //PRIVATE CONST VARIABLES
-	const float VFX_TIMER_AMOUNT = 0.3f;
+	const float VFX_TIMER_AMOUNT = 0.1f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)

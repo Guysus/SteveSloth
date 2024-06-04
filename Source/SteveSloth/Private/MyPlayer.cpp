@@ -67,7 +67,6 @@ void AMyPlayer::BeginPlay()
 			EquippedMaxAmmo = MaxAmmos[Pebble];
 			EquippedAmmoIcon = AmmoIcons[Pebble];
 			EquippedCurrentAmmo = CurrentAmmos[Pebble];
-			EquippedAmmoIndex = Pebble;
 		}
 	}
 
@@ -181,10 +180,29 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	EquippedAmmoIcon = AmmoIcons[ammoType];
 	EquippedMaxAmmo = MaxAmmos[ammoType];
 	EquippedCurrentAmmo = CurrentAmmos[ammoType];
-	EquippedAmmoIndex = ammoType;
 
 	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
 	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+}
+
+int AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i]/MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
