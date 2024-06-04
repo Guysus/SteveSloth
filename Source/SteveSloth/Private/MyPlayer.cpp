@@ -46,6 +46,7 @@ AMyPlayer::AMyPlayer()
 	WalkSpeed = 250;
 	SprintSpeed = 400;
 	CrouchSpeed = 250;
+	InterpSpeed = 1.6f;
 	DodgeDistance = -100;
 
 	// IMC Inputs
@@ -106,7 +107,7 @@ void AMyPlayer::Tick(float DeltaTime)
 		if (GrappleStartLocation == GrappleHitLocation)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("Grapple Over"));
-			//InteractOver();
+			GrappleOver();
 		}
 	}
 }
@@ -317,7 +318,7 @@ void AMyPlayer::GrapplingHook()
 
 		if (bDidGrapple)
 		{
-			GrappleStartLocation = TraceStart * 25.0f;
+			GrappleStartLocation = TraceStart + 100.0f;
 			GrappleHitLocation = Hit.GetActor()->GetActorLocation();
 		}
 	}
