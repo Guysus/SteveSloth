@@ -22,14 +22,15 @@ class STEVESLOTH_API AMyKoalaEnemyClass : public AMyEnemyBaseClass
 {
 	GENERATED_BODY()
 
-private: //PRIVATE CONST VARIABLES
-	const float IDLE_TIMER_AMOUNT = 1.0f;
+protected: //PRIVATE CONST VARIABLES
+	const float IDLE_TIMER_AMOUNT = 3.0f;
 	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
-	const float IDLE_RESET_TIMER_AMOUNT = 1.0f;
+	const float IDLE_RESET_TIMER_AMOUNT = 5.0f;
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
-private: // PRIVATE VARIABLES 
+protected: // PRIVATE VARIABLES 
 	FTimerHandle StartFleeTimerHandle;
+	FTimerHandle StartPatrolTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
@@ -42,8 +43,9 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
-private: // PRIVATE INTERNAL FUNCTIONS
-	void StartFleeState();
+protected: // PRIVATE INTERNAL FUNCTIONS
 	void IdleReset();
+	void StartPatrol();
+	void StartFleeState();
 	void RangedAttackOver();
 };

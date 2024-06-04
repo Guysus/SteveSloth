@@ -41,7 +41,7 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
 	TArray<TSubclassOf<UMyEnemyBaseState>> States;
 
-private: // PRIVATE INTERNAL VARIABLES
+protected: // PRIVATE INTERNAL VARIABLES
 	TSubclassOf<UMyEnemyBaseState> CurrentState;
 
 public: // GETTERS/ACCESSORS

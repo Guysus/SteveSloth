@@ -16,7 +16,7 @@ void UMyGenericEnemyRangeAttackState::EnterState()
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 
-	GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyRangeAttackState::LaunchProjectile, Myself->GetRangedAttackSpeed(), true);
+	//GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyRangeAttackState::LaunchProjectile, Myself->GetRangedAttackSpeed(), true);
 }
 
 void UMyGenericEnemyRangeAttackState::ExitState()
@@ -30,6 +30,7 @@ void UMyGenericEnemyRangeAttackState::UpdateState(float deltaTime)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->RangedAttackAnim, true);
 		IsAnimationRunning = true;
+		LaunchProjectile();
 	}
 }
 
@@ -45,5 +46,11 @@ void UMyGenericEnemyRangeAttackState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 
 void UMyGenericEnemyRangeAttackState::LaunchProjectile()
 {
-	// Instantiate certain projectile here just need actor and location
+	FTransform myTransform = FTransform(Myself->GetActorRotation(), Myself->GetActorLocation());
+	UE_LOG(LogTemp, Warning, TEXT("Throw"));
+
+	//if (Myself->GetProjectile() != NULL)
+	//{
+	//	GetWorld()->SpawnActor(Myself->GetProjectile(), &myTransform);
+	//}
 }

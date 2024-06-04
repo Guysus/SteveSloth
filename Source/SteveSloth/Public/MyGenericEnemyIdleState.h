@@ -23,7 +23,7 @@ class STEVESLOTH_API UMyGenericEnemyIdleState : public UMyEnemyBaseState
 {
 	GENERATED_BODY()
 
-private: // PRIVATE INTERNAL VARIABLES
+protected: // PRIVATE INTERNAL VARIABLES
 	AMyEnemyBaseClass* Myself;
 	USkeletalMeshComponent* MyMesh;
 
