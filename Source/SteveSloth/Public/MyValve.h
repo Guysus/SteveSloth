@@ -38,8 +38,6 @@ private: // PRIVATE INTERNAL VARIABLES
 	AMyPlayer* Steve;
 	ACharacter* Player;
 
-	bool isInArea;
-
 public:	// CONSTRUCTOR HERE
 	AMyValve();
 

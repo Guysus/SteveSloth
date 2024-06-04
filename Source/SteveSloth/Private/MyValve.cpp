@@ -17,8 +17,6 @@ AMyValve::AMyValve()
 	BaseMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Base"));
 	ValveMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Valve"));
 	PlayerHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Player Area"));
-
-	isInArea = false;
 }
 
 void AMyValve::BeginPlay()
@@ -36,9 +34,4 @@ void AMyValve::BeginPlay()
 void AMyValve::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-	
-	if (isInArea)
-	{
-		UE_LOG(LogTemp, Warning, TEXT("Player in Area"));
-	}
 }
