@@ -49,31 +49,31 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	TArray<FString> GameLevels;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveOneOpen;
+	bool bIsValveOneOpen;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isInValveOneArea;
+	bool bIsInValveOneArea;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveOneOperated;
+	bool bIsValveOneOperated;
 	
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveTwoOpen;
+	bool bIsValveTwoOpen;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isInValveTwoArea;
+	bool bIsInValveTwoArea;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveTwoOperated;
+	bool bIsValveTwoOperated;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveThreeOpen;
+	bool bIsValveThreeOpen;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isInValveThreeArea;
+	bool bIsInValveThreeArea;
 
 	UPROPERTY(BlueprintReadWrite)
-	bool isValveThreeOperated;
+	bool bIsValveThreeOperated;
 
 private: // PRIVATE INTERNAL VARIABLES
 	int TotalLevels;
@@ -85,62 +85,62 @@ public: // GETTERS/ACCESSORS
 	int GetTotalLevels() const { return TotalLevels; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValeOneOpen() const { return isValveOneOpen; }
+	bool GetValeOneOpen() const { return bIsValveOneOpen; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValeTwoOpen() const { return isValveTwoOpen; }
+	bool GetValeTwoOpen() const { return bIsValveTwoOpen; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValeThreeOpen() const { return isValveThreeOpen; }
+	bool GetValeThreeOpen() const { return bIsValveThreeOpen; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveAreaOne() { return isInValveOneArea; }
+	bool GetValveAreaOne() { return bIsInValveOneArea; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveAreaTwo() { return isInValveTwoArea; }
+	bool GetValveAreaTwo() { return bIsInValveTwoArea; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveAreaThree() { return isInValveThreeArea; }
+	bool GetValveAreaThree() { return bIsInValveThreeArea; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveOneOperated() { return isValveOneOperated; }
+	bool GetValveOneOperated() { return bIsValveOneOperated; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveTwoOperated() { return isValveTwoOperated; }
+	bool GetValveTwoOperated() { return bIsValveTwoOperated; }
 
 	UFUNCTION(BlueprintCallable)
-	bool GetValveThreeOperated() { return isValveThreeOperated; }
+	bool GetValveThreeOperated() { return bIsValveThreeOperated; }
 
 	UFUNCTION(BlueprintCallable)
 	FString GetCurrentLevelName() { return CurrentLevelName; }
 
 public: // SETTERS/MUTATORS
 	UFUNCTION(BlueprintCallable)
-	void SetValveOneOperated(bool yesno) { isValveOneOperated = yesno; }
+	void SetValveOneOperated(bool yesno) { bIsValveOneOperated = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveTwoOperated(bool yesno) { isValveTwoOperated = yesno; }
+	void SetValveTwoOperated(bool yesno) { bIsValveTwoOperated = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveThreeOperated(bool yesno) { isValveThreeOperated = yesno; }
+	void SetValveThreeOperated(bool yesno) { bIsValveThreeOperated = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveAreaOne(bool yesno) { isInValveOneArea = yesno; }
+	void SetValveAreaOne(bool yesno) { bIsInValveOneArea = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveAreaTwo(bool yesno) { isInValveTwoArea = yesno; }
+	void SetValveAreaTwo(bool yesno) { bIsInValveTwoArea = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveAreaThree(bool yesno) { isInValveThreeArea = yesno; }
+	void SetValveAreaThree(bool yesno) { bIsInValveThreeArea = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveOneOpen(bool yesno) { isValveOneOpen = yesno; }
+	void SetValveOneOpen(bool yesno) { bIsValveOneOpen = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveTwoOpen(bool yesno) { isValveTwoOpen = yesno; }
+	void SetValveTwoOpen(bool yesno) { bIsValveTwoOpen = yesno; }
 
 	UFUNCTION(BlueprintCallable)
-	void SetValveThreeOpen(bool yesno) { isValveThreeOpen = yesno; }
+	void SetValveThreeOpen(bool yesno) { bIsValveThreeOpen = yesno; }
 
 public:	// CONSTRUCTOR HERE
 	AMyLevelManager();
