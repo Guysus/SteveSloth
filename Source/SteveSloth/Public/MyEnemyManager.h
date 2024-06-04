@@ -12,7 +12,7 @@
 
 // INCLUDES HERE
 #include "CoreMinimal.h"
-#include "GameFramework/Actor.h"
+#include "Engine/World.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
 #include "MyEnemyManager.generated.h"
@@ -22,6 +22,10 @@ class STEVESLOTH_API AMyEnemyManager : public AActor
 {
 	GENERATED_BODY()
 	
+protected:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "SpawnPoints")
+	TArray<AActor*> SpawnPoints;
+
 public:	// CONSTRUCTOR HERE
 	AMyEnemyManager();
 

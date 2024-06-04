@@ -10,9 +10,10 @@
 
 #pragma once
 
- // INCLUDES HERE
+// INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
+#include "MyLevelManager.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
@@ -49,9 +50,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-
+	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
 
@@ -102,7 +103,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
-
+	
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 
@@ -123,7 +124,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
-
+	
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
 	UTexture2D* EquippedAmmoIcon;
@@ -131,11 +132,11 @@ private: // PRIVATE VARIABLES
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
-
+	
 	EMappingInputs IMCInputs;
-
+	AMyLevelManager* LevelManager;
 	float CurrentHealth;
-
+	
 	int GrubCount;
 	int LeavesFound;
 	int EucalyptusCount;
@@ -150,11 +151,10 @@ private: // PRIVATE VARIABLES
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
-
+	
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
-
 	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
 
 public: // SETTERS/MUTATORS
