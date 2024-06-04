@@ -317,7 +317,7 @@ void AMyPlayer::GrapplingHook()
 
 		if (bDidGrapple)
 		{
-			GrappleStartLocation = TraceStart;
+			GrappleStartLocation = TraceStart * 16;
 			GrappleHitLocation = Hit.GetActor()->GetActorLocation();
 		}
 	}
