@@ -14,6 +14,8 @@ AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	LevelManager = AMyLevelManager::GetInstance();
+
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 
@@ -65,7 +67,6 @@ void AMyPlayer::BeginPlay()
 			EquippedMaxAmmo = MaxAmmos[Pebble];
 			EquippedAmmoIcon = AmmoIcons[Pebble];
 			EquippedCurrentAmmo = CurrentAmmos[Pebble];
-			EquippedAmmoIndex = Pebble;
 		}
 	}
 
@@ -179,10 +180,29 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	EquippedAmmoIcon = AmmoIcons[ammoType];
 	EquippedMaxAmmo = MaxAmmos[ammoType];
 	EquippedCurrentAmmo = CurrentAmmos[ammoType];
-	EquippedAmmoIndex = ammoType;
 
 	PlayerHUD->AmmoCountText(EquippedCurrentAmmo);
 	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
+}
+
+int AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i]/MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
 }
 
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -303,6 +323,18 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
 	{
+		if (LevelManager->GetValveAreaOne())
+		{
+			LevelManager->SetValveOneOperated(true);
+		}
+		else if (LevelManager->GetValveAreaTwo())
+		{
+			LevelManager->SetValveTwoOperated(true);
+		}
+		else if (LevelManager->GetValveAreaThree())
+		{
+			LevelManager->SetValveThreeOperated(true);
+		}
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
