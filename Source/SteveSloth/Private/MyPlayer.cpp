@@ -31,7 +31,7 @@ AMyPlayer::AMyPlayer()
 	bDidGrapple = false;
 	bIsShovelUnlocked = false;
 	bIsMagneticUnlocked = false;
-	bIsGrapplingUnlocked = false;
+	bIsGrapplingUnlocked = true;
 	bIsPropellerUnlocked = false;
 	bIsClimbingClawUnlocked = true;
 
@@ -270,15 +270,6 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 
 		// Add Animations here with changing of mesh direction 
 	}
-
-	/*if (bIsClimbing)
-	{
-		float const Amount = Value.Get<float>();
-		FRotator const Rotation = Controller->GetControlRotation();
-		FRotator const YawRotation(0, Rotation.Yaw, 0);
-		FVector const UpDirection = GetActorUpVector();
-		AddMovementInput(UpDirection, Amount);
-	}*/
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
@@ -359,31 +350,7 @@ void AMyPlayer::AddMagnetic()
 
 void AMyPlayer::ClimbingClaw(float Value)
 {
-	/*if (bIsClimbingClawUnlocked)
-	{
-		float const Amount = Value;
-		FHitResult WallHit;
-
-		TraceStart = GetActorLocation();
-		UpDirection = GetActorUpVector();
-		AddMovementInput(UpDirection, Amount);
-		TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
-
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(this);
-
-		GetWorld()->LineTraceSingleByChannel(WallHit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
-
-		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, WallHit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
-		UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
-
-		bIsClimbing = WallHit.bBlockingHit;
-
-		if (bIsClimbing)
-		{
-			WallHitLocation = WallHit.GetActor()->GetActorLocation();
-		}
-	}*/
+	
 }
 
 void AMyPlayer::Shovel()
