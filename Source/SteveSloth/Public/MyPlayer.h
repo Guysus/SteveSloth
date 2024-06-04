@@ -163,6 +163,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
+	float GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
