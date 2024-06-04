@@ -77,7 +77,8 @@ void AMyBaseDestructibleObject::SpawnLoot()
 		for (int i = 0; i < randomLootAmount; i++)
 		{
 			float randomDirection = FMath::RandRange(0.0f, 360.0f);
-			FTransform spawnTransform = FTransform(FRotator(0, randomDirection, 0), GetActorLocation());
+			FVector spawnLocation = FVector(GetActorLocation().X, GetActorLocation().Y, GetActorLocation().Z + 50.0f);
+			FTransform spawnTransform = FTransform(FRotator(0, randomDirection, 0), spawnLocation);
 
 			GetWorld()->SpawnActor(itemToSpawn, &spawnTransform);
 		}

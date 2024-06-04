@@ -22,6 +22,7 @@ AItemBaseClass::AItemBaseClass()
 	ProjectileMovement->InitialSpeed = VELOCITY;
 	ProjectileMovement->MaxSpeed = VELOCITY;
 	ProjectileMovement->Velocity.Z = 1;
+	ProjectileMovement->Velocity.X = 1;
 	ProjectileMovement->ProjectileGravityScale = 0.2;
 
 	ProjectileMovement->Deactivate();
