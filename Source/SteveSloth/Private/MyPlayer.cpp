@@ -100,7 +100,7 @@ void AMyPlayer::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	if (bDidGrapple)
+	/*if (bDidGrapple)
 	{
 		SetActorLocation(FMath::VInterpTo(GetActorLocation(), GrappleHitLocation, DeltaTime, InterpSpeed));
 
@@ -109,7 +109,7 @@ void AMyPlayer::Tick(float DeltaTime)
 			UE_LOG(LogTemp, Warning, TEXT("Grapple Over"));
 			GrappleOver();
 		}
-	}
+	}*/
 }
 
 void AMyPlayer::HitPlayer(float damageAmount)
@@ -292,36 +292,36 @@ void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
 
 void AMyPlayer::GrapplingHook()
 {
-	if (bIsGrapplingUnlocked)
-	{
-		// FHitResult will hold all data returned by our line collision query
-		FHitResult Hit;
+	//if (bIsGrapplingUnlocked)
+	//{
+	//	// FHitResult will hold all data returned by our line collision query
+	//	FHitResult Hit;
 
-		// We set up a line trace from our current location to a point 1000cm ahead of us
-		TraceStart = GetActorLocation();
-		TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
+	//	// We set up a line trace from our current location to a point 1000cm ahead of us
+	//	TraceStart = GetActorLocation();
+	//	TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
 
-		// You can use FCollisionQueryParams to further configure the query
-		// Here we add ourselves to the ignored list so we won't block the trace
-		FCollisionQueryParams QueryParams;
-		QueryParams.AddIgnoredActor(this);
+	//	// You can use FCollisionQueryParams to further configure the query
+	//	// Here we add ourselves to the ignored list so we won't block the trace
+	//	FCollisionQueryParams QueryParams;
+	//	QueryParams.AddIgnoredActor(this);
 
-		// To run the query, you need a pointer to the current level, which you can get from an Actor with GetWorld()
-		// UWorld()->LineTraceSingleByChannel runs a line trace and returns the first actor hit over the provided collision channel.
-		GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
+	//	// To run the query, you need a pointer to the current level, which you can get from an Actor with GetWorld()
+	//	// UWorld()->LineTraceSingleByChannel runs a line trace and returns the first actor hit over the provided collision channel.
+	//	GetWorld()->LineTraceSingleByChannel(Hit, TraceStart, TraceEnd, TraceChannelProperty, QueryParams);
 
-		// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
-		DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
-		UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
+	//	// You can use DrawDebug helpers and the log to help visualize and debug your trace queries.
+	//	DrawDebugLine(GetWorld(), TraceStart, TraceEnd, Hit.bBlockingHit ? FColor::Blue : FColor::Red, false, 5.0f, 0, 10.0f);
+	//	UE_LOG(LogTemp, Log, TEXT("Tracing line: %s to %s"), *TraceStart.ToCompactString(), *TraceEnd.ToCompactString());
 
-		bDidGrapple = Hit.bBlockingHit;
+	//	bDidGrapple = Hit.bBlockingHit;
 
-		if (bDidGrapple)
-		{
-			GrappleStartLocation = TraceStart + 100.0f;
-			GrappleHitLocation = Hit.GetActor()->GetActorLocation();
-		}
-	}
+	//	if (bDidGrapple)
+	//	{
+	//		GrappleStartLocation = TraceStart + 100.0f;
+	//		GrappleHitLocation = Hit.GetActor()->GetActorLocation();
+	//	}
+	//}
 }
 
 void AMyPlayer::AddGrapplingHook()
