@@ -119,15 +119,6 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
-public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
-	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
-
-public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
@@ -161,6 +152,15 @@ private: // PRIVATE VARIABLES
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
 	
+public: // GETTERS/ACCESSORS
+	float GetMaxHealth() { return MaxHealth; }
+	float GetCurrentHealth() { return CurrentHealth; }
+	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
+
+public: // SETTERS/MUTATORS
+	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
+	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 

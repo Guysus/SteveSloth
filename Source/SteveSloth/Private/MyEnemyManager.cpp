@@ -33,7 +33,8 @@ void AMyEnemyManager::BeginPlay()
 			FVector SpawnLocation = SpawnPoints[i]->GetTransform().GetLocation();
 			FRotator SpawnRotation = SpawnPoints[i]->GetTransform().GetRotation().Rotator();
 
-			AActor* tryThis = GetWorld()->SpawnActor<AActor>(theKoala, SpawnLocation, SpawnRotation, spawnParams);
+			// Leaving for reference
+			//AActor* tryThis = GetWorld()->SpawnActor<AActor>(theKoala, SpawnLocation, SpawnRotation, spawnParams);
 		}
 	}
 }
