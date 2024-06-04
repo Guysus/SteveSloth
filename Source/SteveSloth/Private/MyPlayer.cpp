@@ -109,11 +109,6 @@ void AMyPlayer::Tick(float DeltaTime)
 			//InteractOver();
 		}
 	}
-
-	if (bIsClimbing)
-	{
-		
-	}
 }
 
 void AMyPlayer::HitPlayer(float damageAmount)
@@ -275,6 +270,15 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 
 		// Add Animations here with changing of mesh direction 
 	}
+
+	if (bIsClimbing)
+	{
+		float const Amount = Value.Get<float>();
+		FRotator const Rotation = Controller->GetControlRotation();
+		FRotator const YawRotation(0, Rotation.Yaw, 0);
+		FVector const UpDirection = GetActorUpVector();
+		AddMovementInput(UpDirection, Amount);
+	}
 }
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
@@ -353,13 +357,16 @@ void AMyPlayer::AddMagnetic()
 	bIsMagneticUnlocked = true;
 }
 
-void AMyPlayer::ClimbingClaw()
+void AMyPlayer::ClimbingClaw(float Value)
 {
-	if (bIsClimbingClawUnlocked)
+	/*if (bIsClimbingClawUnlocked)
 	{
+		float const Amount = Value;
 		FHitResult WallHit;
 
 		TraceStart = GetActorLocation();
+		UpDirection = GetActorUpVector();
+		AddMovementInput(UpDirection, Amount);
 		TraceEnd = GetActorLocation() + GetActorForwardVector() * 1000.0f;
 
 		FCollisionQueryParams QueryParams;
@@ -376,7 +383,7 @@ void AMyPlayer::ClimbingClaw()
 		{
 			WallHitLocation = WallHit.GetActor()->GetActorLocation();
 		}
-	}
+	}*/
 }
 
 void AMyPlayer::Shovel()

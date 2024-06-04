@@ -149,8 +149,10 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Collision")
 	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 
+
 	FVector TraceEnd;
 	FVector TraceStart;
+	//FVector UpDirection;
 	FVector WallHitLocation;
 	FVector GrappleHitLocation;
 	FVector GrappleStartLocation;
@@ -227,7 +229,7 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	UFUNCTION(BlueprintCallable)
 	void GrappleOver();
 	UFUNCTION(BlueprintCallable)
-	void ClimbingClaw();
+	void ClimbingClaw(float Value);
 	UFUNCTION(BlueprintCallable)
 	void GrapplingHook();
 	void AddShovel();
