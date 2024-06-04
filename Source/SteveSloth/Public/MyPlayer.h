@@ -142,7 +142,6 @@ private: // PRIVATE VARIABLES
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	int EquippedAmmoIndex;
 
 	bool bIsMoving;
 	bool bDidDodge;
@@ -155,7 +154,7 @@ private: // PRIVATE VARIABLES
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
-	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
+	int GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
