@@ -70,7 +70,7 @@ void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* Overla
 void AMyBaseDestructibleObject::SpawnLoot()
 {
 	int randomLootAmount = FMath::RandRange(MinAmountDropped, MaxAmountDropped);
-	TSubclassOf<AActor> itemToSpawn = (bIsAmmoCrate) ? Loots[Steve->GetEquippedAmmoIndex()] : Loots[0];
+	TSubclassOf<AActor> itemToSpawn = (bIsAmmoCrate) ? Loots[Steve->GetNeededAmmoIndex()] : Loots[0];
 
 	if (itemToSpawn)
 	{
