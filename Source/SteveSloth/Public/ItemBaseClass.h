@@ -29,7 +29,7 @@ class STEVESLOTH_API AItemBaseClass : public AActor
 	GENERATED_BODY()
 
 private: //PRIVATE CONST VARIABLES
-	const float VELOCITY = 100;
+	const float VELOCITY = 175;
 	const float FRICTION_MODIFIER = 2;
 	
 protected: // PROTECTED DETAILS PANEL VARIABLES 
