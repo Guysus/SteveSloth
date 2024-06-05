@@ -30,16 +30,24 @@ void UMyGenericEnemyChaseState::UpdateState(float deltaTime)
 	FVector myLocation = Myself->GetActorLocation();
 	FVector steveLocation = Player->GetActorLocation();
 	FVector directionToTravel = (steveLocation - myLocation).GetSafeNormal();
-	FVector newDirection = myLocation + directionToTravel * Myself->GetMovementSpeed() * deltaTime;
+	directionToTravel.Normalize();
+	UCharacterMovementComponent* MovementComponent = Myself->GetCharacterMovement();
+	MovementComponent->Velocity = directionToTravel * Myself->GetMovementSpeed();
 
-	// Move Enemy in that direction
-	Myself->SetActorLocation(newDirection);
+	FRotator myRotation = directionToTravel.Rotation();
+	myRotation.Pitch = 0.0f;
+	Myself->SetActorRotation(myRotation);
 
 	// Play the Animation for Walking
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->MoveAnim, true);
 		IsAnimationRunning = true;
+	}
+
+	if (FVector::Dist(Myself->GetActorLocation(), Player->GetActorLocation()) > Myself->GetChaseRange())
+	{
+		MovementComponent->Velocity = FVector(0, 0, 0);
 	}
 }
 
