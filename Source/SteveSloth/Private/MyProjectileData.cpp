@@ -1,7 +1,7 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyProjectileData.h
+ * Script: MyProjectileData.cpp
  * Date: May 16, 2024
  * Description: data table that holds all the projectile variables
  * TODO:
