@@ -14,16 +14,18 @@ AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	LevelManager = AMyLevelManager::GetInstance();
+
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
-	
+
 	CameraArm->SetupAttachment((RootComponent));
 	CameraArm->bUsePawnControlRotation = true;
 	CameraArm->TargetArmLength = 200;
 
 	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
 	PlayerCamera->bUsePawnControlRotation = false;
-	
+
 	// Bools
 	bIsMoving = false;
 	bDidDodge = false;
@@ -36,7 +38,7 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	LeavesFound = 0;
-	
+
 	// Movement Stuff
 	WalkSpeed = 250;
 	SprintSpeed = 400;
@@ -50,7 +52,7 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	if (!AmmoDataTable.IsNull())
 	{
 		AmmoDataTable.DataTable->GetAllRows("", Ammos);
@@ -183,6 +185,26 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
+int AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i]/MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
+}
+
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -208,7 +230,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PTurning, ETriggerEvent::Triggered, this, &AMyPlayer::CamTurn);
 		inputComponent->BindAction(PTurning, ETriggerEvent::Completed, this, &AMyPlayer::CamTurn);
-		
+
 		inputComponent->BindAction(PPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
 		inputComponent->BindAction(PPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
 
@@ -223,7 +245,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
-		
+
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
 
@@ -301,6 +323,18 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
 	{
+		if (LevelManager->GetValveAreaOne())
+		{
+			LevelManager->SetValveOneOperated(true);
+		}
+		else if (LevelManager->GetValveAreaTwo())
+		{
+			LevelManager->SetValveTwoOperated(true);
+		}
+		else if (LevelManager->GetValveAreaThree())
+		{
+			LevelManager->SetValveThreeOperated(true);
+		}
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
@@ -365,7 +399,7 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	//if statement to prevent offset to be applied with each tick
-	if (!bIsAimMode) 
+	if (!bIsAimMode)
 	{
 		FVector ZoomOffset = FVector(0, 10, 0);
 		CameraArm->TargetArmLength = 100;
