@@ -139,8 +139,6 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Patrol));
 
-		UE_LOG(LogTemp, Warning, TEXT("In Patrol State"));
-
 		bIsPatroling = true;
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
@@ -158,7 +156,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 void AMyKoalaEnemyClass::StartFleeState()
 {
 	StateMachine->ChangeState(StateMachine->GetState(Flee));
-	UE_LOG(LogTemp, Warning, TEXT("In Flee State"));
+
 	GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyKoalaEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
 }
 
@@ -177,8 +175,6 @@ void AMyKoalaEnemyClass::RangedAttackOver()
 void AMyKoalaEnemyClass::StartPatrol()
 {
 	StateMachine->ChangeState(StateMachine->GetState(Patrol));
-
-	UE_LOG(LogTemp, Warning, TEXT("In Patrol State"));
 
 	bIsPatroling = true;
 	//reset other state bools & clear start flee timer

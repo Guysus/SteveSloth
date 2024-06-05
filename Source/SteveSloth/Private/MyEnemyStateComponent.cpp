@@ -9,7 +9,6 @@
  ****************************************************************************************/
 
 #include "MyEnemyStateComponent.h"
-#include "MyEnemyBaseClass.h"
 
 UMyEnemyStateComponent::UMyEnemyStateComponent()
 {
@@ -19,7 +18,6 @@ UMyEnemyStateComponent::UMyEnemyStateComponent()
 void UMyEnemyStateComponent::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)

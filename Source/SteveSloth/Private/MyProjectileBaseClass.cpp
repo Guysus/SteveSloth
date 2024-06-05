@@ -30,7 +30,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 void AMyProjectileBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
-	UE_LOG(LogTemp, Warning, TEXT("Projectile Here"));
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 
 	if (IsValid(Player))
