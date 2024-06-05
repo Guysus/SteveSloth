@@ -73,6 +73,8 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle ThawTimerHandle;
 	FTimerHandle ConfusionTimerHandle;
 
+	UWorld* MyWorld;
+
 public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	AActor* AmmoType;
 
@@ -87,6 +89,7 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
+	UWorld* GetMyWorld() { return MyWorld; }
 	float GetChaseRange() const { return ChaseRange; }
 	float GetPatrolRange() const { return PatrolRange; }
 	float GetMovementSpeed() const { return MovementSpeed; }

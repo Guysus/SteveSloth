@@ -13,7 +13,10 @@
 void UMyGenericEnemyPatrolState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
+	if (Player)
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
 
 	// Get Enemy Starting Location
 	StartingSpot = Myself->GetStartingLocation().GetLocation();

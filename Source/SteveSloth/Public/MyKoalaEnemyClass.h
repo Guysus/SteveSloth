@@ -34,6 +34,17 @@ protected: // PRIVATE VARIABLES
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
 
+	bool bIsFrozen;
+	bool bIsCurrentlyFrozen;
+	bool bIsConfused;
+	bool bIsCurrentlyConfused;
+	bool bIsDead;
+	bool bIsIdle;
+	bool bIsChasing;
+	bool bIsPatroling;
+	bool bIsAttackingMelee;
+	bool bIsAttackingRanged;
+
 public:	// CONSTRUCTOR HERE
 	AMyKoalaEnemyClass();
 

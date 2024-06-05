@@ -16,6 +16,7 @@ void UMyGenericEnemyRangeAttackState::EnterState()
 	Steve = Cast<AMyPlayer>(Player);
 	IsAnimationRunning = false;
 
+	LaunchProjectile();
 	//GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyRangeAttackState::LaunchProjectile, Myself->GetRangedAttackSpeed(), true);
 }
 
@@ -30,7 +31,6 @@ void UMyGenericEnemyRangeAttackState::UpdateState(float deltaTime)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->RangedAttackAnim, true);
 		IsAnimationRunning = true;
-		LaunchProjectile();
 	}
 }
 
@@ -46,11 +46,15 @@ void UMyGenericEnemyRangeAttackState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 
 void UMyGenericEnemyRangeAttackState::LaunchProjectile()
 {
-	FTransform myTransform = FTransform(Myself->GetActorRotation(), Myself->GetActorLocation());
-	UE_LOG(LogTemp, Warning, TEXT("Throw"));
+	UWorld* myWorld = Myself->GetMyWorld();
+	FTransform myTransform = FTransform(Myself->GetActorTransform());
+	TSubclassOf<AActor> projectileSpawn = Myself->GetProjectile();
 
-	//if (Myself->GetProjectile() != NULL)
-	//{
-	//	GetWorld()->SpawnActor(Myself->GetProjectile(), &myTransform);
-	//}
+	UE_LOG(LogTemp, Warning, TEXT("Throw"));
+	
+	if (myWorld && projectileSpawn)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("Not Null"));
+		myWorld->SpawnActor(projectileSpawn, &myTransform);
+	}
 }
