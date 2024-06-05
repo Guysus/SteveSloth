@@ -24,19 +24,18 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
-	// Update the Currently Selected State
 	if (CurrentState != nullptr)
 	{
-		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->UpdateState(DeltaTime);
+		CurrentState->UpdateState(DeltaTime);
 	}
 }
 
-void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState)
+void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
 {
 	// Exit the Previously Selected State
 	if (CurrentState != nullptr) 
 	{
-		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->ExitState();
+		CurrentState->ExitState();
 	}
 	
 	// Change previous state to new State
@@ -45,6 +44,6 @@ void UMyEnemyStateComponent::ChangeState(TSubclassOf<UMyEnemyBaseState> newState
 	// Enter New State
 	if (CurrentState != nullptr)
 	{
-		CurrentState->GetDefaultObject<UMyEnemyBaseState>()->EnterState();
+		CurrentState->EnterState();
 	}
 }
