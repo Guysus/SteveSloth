@@ -19,23 +19,23 @@ void UMyGenericEnemyAttackState::EnterState()
 	IsAnimationRunning = false;
 
 	// Interval for attack the Main Player
-	GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyAttackState::PerformAttack, Myself->GetMeleeAttackSpeed(), true);
+	/*GetWorld()->GetTimerManager().SetTimer(AttackSpeed, this, &UMyGenericEnemyAttackState::PerformAttack, Myself->GetMeleeAttackSpeed(), true);*/
 }
 
 void UMyGenericEnemyAttackState::ExitState()
 {
 	// Clear the attack timer on exit from State
-	GetWorld()->GetTimerManager().ClearTimer(AttackSpeed);
+	/*GetWorld()->GetTimerManager().ClearTimer(AttackSpeed);*/
 }
 
 void UMyGenericEnemyAttackState::UpdateState(float deltaTime)
 {
 	// Play the Animation for the Attack
-	if (Myself != nullptr && !IsAnimationRunning && IsAttacking)
+	if (Myself != nullptr && !IsAnimationRunning)
 	{
 		Myself->GetMesh()->PlayAnimation(Myself->AttackAnim, true);
 		IsAnimationRunning = true;
-		IsAttacking = false;
+		PerformAttack();
 	}
 }
 
@@ -51,7 +51,6 @@ void UMyGenericEnemyAttackState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 
 void UMyGenericEnemyAttackState::PerformAttack()
 {
-	IsAttacking = true;
 	// Hit the Main Player for X Damage
 	Steve->HitPlayer(Myself->GetDamage());
 }

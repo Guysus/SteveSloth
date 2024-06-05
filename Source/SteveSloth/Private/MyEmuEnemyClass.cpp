@@ -26,7 +26,8 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 
 	//Switching States:
 	//if the enemy is in melee distance
-	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && !bIsAttackingMelee)
+	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= MeleeAttackRange && 
+		!bIsAttackingMelee)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Attack));
 		bIsAttackingMelee = true;
@@ -38,7 +39,8 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		bIsChasing = false;
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && 
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange && !bIsChasing)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
@@ -50,7 +52,9 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		bIsAttackingMelee = false;
 	}
 	//if the enemy is still, do idle for a bit
-	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyEmuEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange &&
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
+		!bIsIdle)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Idle));
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyEmuEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);

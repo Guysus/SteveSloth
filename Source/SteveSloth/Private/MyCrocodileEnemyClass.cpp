@@ -34,11 +34,13 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		bIsIdle = false;
-		bIsPatroling = false;
+		bIsAttackingRanged = false;
 		bIsChasing = false;
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && 
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
+		!bIsChasing)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
@@ -46,11 +48,13 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 		//reset other state bools & clear start flee timer
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		bIsIdle = false;
-		bIsPatroling = false;
+		bIsAttackingRanged = false;
 		bIsAttackingMelee = false;
 	}
 	//if the enemy is still, do idle for a bit
-	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyCrocodileEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange && 
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
+		 !bIsIdle)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Idle));
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyCrocodileEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
@@ -58,18 +62,7 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 
 		//reset other state bools
 		bIsChasing = false;
-		bIsPatroling = false;
-		bIsAttackingMelee = false;
-	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
-	{
-		StateMachine->ChangeState(StateMachine->GetState(Patrol));
-		bIsPatroling = true;
-
-		//reset other state bools & clear start flee timer
-		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		bIsIdle = false;
-		bIsChasing = false;
+		bIsAttackingRanged = false;
 		bIsAttackingMelee = false;
 	}
 

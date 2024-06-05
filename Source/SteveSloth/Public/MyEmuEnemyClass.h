@@ -23,7 +23,7 @@ class STEVESLOTH_API AMyEmuEnemyClass : public AMyEnemyBaseClass
 	GENERATED_BODY()
 
 private: //PRIVATE CONST VARIABLES
-	const float IDLE_TIMER_AMOUNT = 1.0f;
+	const float IDLE_TIMER_AMOUNT = 10.0f;
 	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
 	const float IDLE_RESET_TIMER_AMOUNT = 1.0f;
 
