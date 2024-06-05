@@ -37,17 +37,18 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-protected: // PROTECTED DETAILS PANEL VARIABLES 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "States")
-	TArray<TSubclassOf<UMyEnemyBaseState>> States;
+public: // PROTECTED DETAILS PANEL VARIABLES 
+	TArray<UMyEnemyBaseState*> States;
 
-private: // PRIVATE INTERNAL VARIABLES
-	TSubclassOf<UMyEnemyBaseState> CurrentState;
+protected: // PRIVATE INTERNAL VARIABLES
+	UMyEnemyBaseState* CurrentState;
 
 public: // GETTERS/ACCESSORS
-	TArray<TSubclassOf<UMyEnemyBaseState>> GetStateList() const {return States; }
-	TSubclassOf<UMyEnemyBaseState> GetCurrentState() const { return CurrentState; }
-	TSubclassOf<UMyEnemyBaseState> GetState(EStates wantedState) const { return States[wantedState]; }
+	TArray<UMyEnemyBaseState*> GetStateList() {return States; }
+	UMyEnemyBaseState* GetCurrentState() const { return CurrentState; }
+	UMyEnemyBaseState* GetState(EStates wantedState) const { return States[wantedState]; }
+	void SetStateList(UMyEnemyBaseState* newState) { States.Add(newState); }
+	void ClearStateList() { States.Empty(); }
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
@@ -57,5 +58,5 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void ChangeState(TSubclassOf<UMyEnemyBaseState> newState);
+	void ChangeState(UMyEnemyBaseState* newState);
 };
