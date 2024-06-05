@@ -102,7 +102,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
 		bIsAttackingRanged = true;
-		UE_LOG(LogTemp, Warning, TEXT("In Ranged Attack State"));
+
 		bIsIdle = true; //remains true to stay in ranged state until timer is done
 		bIsChasing = true; //remains true to stay in ranged state until timer is done
 		bIsPatroling = true;
