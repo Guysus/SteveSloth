@@ -242,7 +242,10 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
 	void RemoveGrubs(int grubAmount);
+
+	UFUNCTION(BlueprintCallable)
 	void HitPlayer(float damageAmount);
+
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 
