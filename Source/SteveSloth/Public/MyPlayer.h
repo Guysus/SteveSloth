@@ -142,7 +142,6 @@ private: // PRIVATE VARIABLES
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	int EquippedAmmoIndex;
 
 	bool bIsMoving;
 	bool bDidDodge;
@@ -155,7 +154,7 @@ private: // PRIVATE VARIABLES
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
-	int GetEquippedAmmoIndex() { return EquippedAmmoIndex; }
+	int GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
@@ -176,7 +175,10 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
 	void RemoveGrubs(int grubAmount);
+
+	UFUNCTION(BlueprintCallable)
 	void HitPlayer(float damageAmount);
+
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 	void AddGrapplingHook();
