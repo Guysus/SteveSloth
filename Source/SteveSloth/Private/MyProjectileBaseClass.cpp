@@ -30,7 +30,6 @@ AMyProjectileBaseClass::AMyProjectileBaseClass()
 void AMyProjectileBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
-
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 
 	if (IsValid(Player))
@@ -92,7 +91,7 @@ void AMyProjectileBaseClass::Tick(float DeltaTime)
 
 void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor == Enemy)
+	/*if (OtherActor == Enemy)
 	{
 		Enemy = Cast<AMyEnemyBaseClass>(OtherActor);
 
@@ -134,7 +133,7 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 			break;
 		}
 	}
-	else if (OtherActor == Steve)
+	else */if (OtherActor == Steve)
 	{
 		Steve->HitPlayer(Damage);
 
@@ -191,14 +190,14 @@ void AMyProjectileBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* Overlappe
 
 void AMyProjectileBaseClass::OnAOEHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	if (OtherActor == Enemy)
+	/*if (OtherActor == Enemy)
 	{
 		Enemy = Cast<AMyEnemyBaseClass>(OtherActor);
 
 		Enemy->HitEnemy(AreaOfEffectDamage);
 		this->Destroy();
 	}
-	else if (OtherActor == Steve)
+	else */if (OtherActor == Steve)
 	{
 		Steve->HitPlayer(AreaOfEffectDamage);
 		this->Destroy();

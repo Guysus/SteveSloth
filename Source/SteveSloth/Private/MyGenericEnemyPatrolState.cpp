@@ -13,7 +13,10 @@
 void UMyGenericEnemyPatrolState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
-	Steve = Cast<AMyPlayer>(Player);
+	if (Player)
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
 
 	// Get Enemy Starting Location
 	StartingSpot = Myself->GetStartingLocation().GetLocation();
@@ -29,10 +32,15 @@ void UMyGenericEnemyPatrolState::ExitState()
 
 void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
 {
-	FVector currentSpot = Myself->GetStartingLocation().GetLocation();
-	FVector locationToGo = FMath::VInterpConstantTo(currentSpot, PatrolSpot, deltaTime, Myself->GetMovementSpeed());
+	FVector currentSpot = Myself->GetActorLocation();
+	FVector directionToTravel = (PatrolSpot - currentSpot).GetSafeNormal();
+	directionToTravel.Normalize();
+	UCharacterMovementComponent* MovementComponent = Myself->GetCharacterMovement();
+	MovementComponent->Velocity = directionToTravel * Myself->GetMovementSpeed();
 
-	Myself->SetActorLocation(locationToGo);
+	FRotator myRotation = directionToTravel.Rotation();
+	myRotation.Pitch = 0.0f;
+	Myself->SetActorRotation(myRotation);
 
 	// Play the Animation for Walking
 	if (Myself != nullptr && !IsAnimationRunning)
