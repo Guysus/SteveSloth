@@ -37,7 +37,7 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-protected: // PROTECTED DETAILS PANEL VARIABLES 
+public: // PROTECTED DETAILS PANEL VARIABLES 
 	TArray<UMyEnemyBaseState*> States;
 
 protected: // PRIVATE INTERNAL VARIABLES
@@ -47,11 +47,11 @@ public: // GETTERS/ACCESSORS
 	TArray<UMyEnemyBaseState*> GetStateList() {return States; }
 	UMyEnemyBaseState* GetCurrentState() const { return CurrentState; }
 	UMyEnemyBaseState* GetState(EStates wantedState) const { return States[wantedState]; }
+	void SetStateList(UMyEnemyBaseState* newState) { States.Add(newState); }
+	void ClearStateList() { States.Empty(); }
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
-
-	void SetBaseClass(AMyEnemyBaseClass* myEnemy);
 
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;

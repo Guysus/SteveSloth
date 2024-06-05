@@ -18,7 +18,7 @@ void UMyGenericEnemyIdleState::EnterState()
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Exit Idle %s"), *Myself->GetName());
+
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
@@ -36,12 +36,10 @@ void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
 
 void UMyGenericEnemyIdleState::SetEnemyBaseClass(AMyEnemyBaseClass* myEnemy)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Set Base Class %s"), *Myself->GetName());
 	Myself = myEnemy;
 }
 
 void UMyGenericEnemyIdleState::SetEnemyMesh(USkeletalMeshComponent* mesh)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("Set Mesh %s"), *Myself->GetName());
 	MyMesh = mesh;
 }

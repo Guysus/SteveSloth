@@ -68,19 +68,11 @@ void AMyEnemyBaseClass::BeginPlay()
 	// Initialize Variables before use
 	CurrentHealth = MaxHealth;
 
-	//// Set this Enemy to all the available States for the Enemy so they have access to it
-	//for (int i = 0; i < StateMachine->GetStateList().Num(); i++)
-	//{
-	//	StateMachine->GetStateList()[i]->GetDefaultObject<UMyEnemyBaseState>()->SetEnemyBaseClass(this);
-	//}
 	// Get a referance to the Main Player
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
 
 	// Get the starting location of the Enemy
 	StartingLocation = GetActorTransform();
-
-	// Set initial State as Idle
-	//StateMachine->ChangeState(StateMachine->GetState(Idle));
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)

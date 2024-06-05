@@ -10,6 +10,14 @@
 
 #include "MyKoalaEnemyClass.h"
 #include "MyGenericEnemyIdleState.h"
+#include "MyGenericEnemyPatrolState.h"
+#include "MyGenericEnemyChaseState.h"
+#include "MyGenericEnemyFleeState.h"
+#include "MyGenericEnemyAttackState.h"
+#include "MyGenericEnemyRangeAttackState.h"
+#include "MyGenericEnemyFrozenState.h"
+#include "MyGenericEnemyConfusionState.h"
+#include "MyGenericEnemyDieState.h"
 
 AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 {
@@ -29,21 +37,47 @@ void AMyKoalaEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
 
-	UMyEnemyBaseState* test = NewObject<UMyGenericEnemyIdleState>();
+	StateMachine->ClearStateList();
 
-	if (test)
+	if (StateMachine)
 	{
-		test->SetEnemyBaseClass(this);
-		//StateMachine->GetStateList().Add(test);
-		StateMachine->ChangeState(test);
+		IdleState = NewObject<UMyGenericEnemyIdleState>();
+		PatrolState = NewObject<UMyGenericEnemyPatrolState>();
+		ChaseState = NewObject<UMyGenericEnemyChaseState>();
+		FleeState = NewObject<UMyGenericEnemyFleeState>();
+		AttackState = NewObject<UMyGenericEnemyAttackState>();
+		RangedAttackState = NewObject<UMyGenericEnemyRangeAttackState>();
+		FrozenState = NewObject<UMyGenericEnemyFrozenState>();
+		ConfusedState = NewObject<UMyGenericEnemyConfusionState>();
+		DieState = NewObject<UMyGenericEnemyDieState>();
+
+		if (IdleState)
+		{
+			IdleState->SetEnemyBaseClass(this);
+			PatrolState->SetEnemyBaseClass(this);
+			ChaseState->SetEnemyBaseClass(this);
+			FleeState->SetEnemyBaseClass(this);
+			AttackState->SetEnemyBaseClass(this);
+			RangedAttackState->SetEnemyBaseClass(this);
+			FrozenState->SetEnemyBaseClass(this);
+			ConfusedState->SetEnemyBaseClass(this);
+			DieState->SetEnemyBaseClass(this);
+
+			StateMachine->SetStateList(IdleState);
+			StateMachine->SetStateList(PatrolState);
+			StateMachine->SetStateList(ChaseState);
+			StateMachine->SetStateList(FleeState);
+			StateMachine->SetStateList(AttackState);
+			StateMachine->SetStateList(RangedAttackState);
+			StateMachine->SetStateList(FrozenState);
+			StateMachine->SetStateList(ConfusedState);
+			StateMachine->SetStateList(DieState);
+		}
 	}
-
-	//StateMachine->ChangeState(StateMachine->GetState(Idle));
-	// Set this Enemy to all the available States for the Enemy so they have access to it
-	/*for (int i = 0; i < StateMachine->GetStateList().Num(); i++)
+	if (StateMachine && StateMachine->GetStateList().Num() > 0)
 	{
-		StateMachine->GetStateList()[i]->GetDefaultObject<UMyEnemyBaseState>()->SetEnemyBaseClass(this);
-	}*/
+		StateMachine->ChangeState(StateMachine->GetState(Idle));
+	}
 }
 
 void AMyKoalaEnemyClass::Tick(float DeltaTime)
@@ -63,7 +97,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 
 	//Switching States:
 	//if the enemy is in ranged distance
-	if (/*isHit && outHit.bBlockingHit && */outHit.GetActor() == Player && !bIsAttackingRanged)
+	//if (/*isHit && outHit.bBlockingHit && */outHit.GetActor() == Player && !bIsAttackingRanged)
 	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= RangedAttackRange && FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange && !bIsAttackingRanged)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
