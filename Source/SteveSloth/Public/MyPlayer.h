@@ -102,6 +102,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PInteract;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PMeleeAttack;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
 	
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
@@ -201,6 +204,8 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
+	void MeleeAttack(const FInputActionValue& Value);
+	void MeleeAttackStop(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
 };

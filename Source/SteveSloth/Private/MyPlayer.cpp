@@ -267,6 +267,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
+	
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Triggered, this, &AMyPlayer::MeleeAttack);
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Completed, this, &AMyPlayer::MeleeAttackStop);
 	}
 }
 
@@ -349,6 +352,16 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
 	}
+}
+
+void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
+{
+
+}
+
+void AMyPlayer::MeleeAttackStop(const FInputActionValue& Value)
+{
+
 }
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
