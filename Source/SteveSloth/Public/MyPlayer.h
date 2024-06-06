@@ -59,9 +59,6 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
-private: //PRIVATE CONST VARIABLES
-	const float GRAPPLE_TIMER_AMOUNT = 3.0f;
-
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
@@ -71,9 +68,6 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float PitchSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float InterpSpeed;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	int SprintSpeed;
@@ -152,10 +146,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	FVector TraceEnd;
 	FVector TraceStart;
-	//FVector UpDirection;
 	FVector WallHitLocation;
-	FVector GrappleHitLocation;
-	FVector GrappleStartLocation;
 
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
@@ -221,18 +212,6 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
-	UFUNCTION(BlueprintCallable)
-	void Shovel();
-	UFUNCTION(BlueprintCallable)
-	void Magnetic();
-	UFUNCTION(BlueprintCallable)
-	void Propeller();
-	UFUNCTION(BlueprintCallable)
-	void GrappleOver();
-	UFUNCTION(BlueprintCallable)
-	void ClimbingClaw(float Value);
-	UFUNCTION(BlueprintCallable)
-	void GrapplingHook();
 	void AddShovel();
 	void AddMagnetic();
 	void AddPropeller();
