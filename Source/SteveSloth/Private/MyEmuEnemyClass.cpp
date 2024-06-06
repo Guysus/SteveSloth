@@ -22,6 +22,8 @@ void AMyEmuEnemyClass::BeginPlay()
 
 void AMyEmuEnemyClass::Tick(float DeltaTime)
 {
+	int rand = FMath::RandRange(MIN_RANDOM_RANGE, MAX_RANDOM_RANGE);
+
 	Super::Tick(DeltaTime);
 
 	//Switching States:
@@ -40,8 +42,10 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 	}
 	//if the enemy is within the chasing distance
 	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && 
-		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange && !bIsChasing)
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange && 
+		!bIsChasing)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("CHASING"));
 		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
 
@@ -51,11 +55,12 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		bIsPatroling = false;
 		bIsAttackingMelee = false;
 	}
-	//if the enemy is still, do idle for a bit
+	//trigger idle state
 	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange &&
 		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
-		!bIsIdle)
+		rand == IDLE_TRIGGER && !bIsIdle)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("IDLE"));
 		StateMachine->ChangeState(StateMachine->GetState(Idle));
 		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyEmuEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
 		bIsIdle = true;
@@ -65,8 +70,11 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		bIsPatroling = false;
 		bIsAttackingMelee = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
+	//trigger patrol state
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) >= PatrolRange && 
+		rand == PATROL_TRIGGER && !bIsPatroling)
 	{
+		UE_LOG(LogTemp, Warning, TEXT("PATROLING"));
 		StateMachine->ChangeState(StateMachine->GetState(Patrol));
 		bIsPatroling = true;
 
@@ -75,6 +83,8 @@ void AMyEmuEnemyClass::Tick(float DeltaTime)
 		bIsIdle = false;
 		bIsChasing = false;
 		bIsAttackingMelee = false;
+
+		rand = FMath::RandRange(MIN_RANDOM_RANGE, MAX_RANDOM_RANGE);
 	}
 
 	if (CurrentHealth <= 0)

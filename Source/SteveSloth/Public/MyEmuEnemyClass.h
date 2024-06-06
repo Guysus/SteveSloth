@@ -26,6 +26,10 @@ private: //PRIVATE CONST VARIABLES
 	const float IDLE_TIMER_AMOUNT = 10.0f;
 	const float IDLE_VELOCITY_TOLERANCE = 0.001f;
 	const float IDLE_RESET_TIMER_AMOUNT = 1.0f;
+	const int MIN_RANDOM_RANGE = 0;
+	const int MAX_RANDOM_RANGE = 50;
+	const int IDLE_TRIGGER = 1;
+	const int PATROL_TRIGGER = 42;
 
 private: // PRIVATE VARIABLES 
 	FTimerHandle StartFleeTimerHandle;
