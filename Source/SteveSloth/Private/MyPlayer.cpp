@@ -63,7 +63,9 @@ void AMyPlayer::BeginPlay()
 	Super::BeginPlay();
 
 	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+	WrenchMesh->AttachToComponent(GetMesh(), attachmentRules, "WrenchSocket");
 	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
+	WrenchMesh->SetVisibility(true);
 
 	if (!AmmoDataTable.IsNull())
 	{
