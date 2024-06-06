@@ -75,6 +75,22 @@ void AMyEnemyBaseClass::BeginPlay()
 	StartingLocation = GetActorTransform();
 }
 
+void AMyEnemyBaseClass::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Player = nullptr;
+	MyWorld = nullptr;
+	HitAnim = nullptr;
+	AmmoType = nullptr;
+	IdleAnim = nullptr;
+	MoveAnim = nullptr;
+	DeathAnim = nullptr;
+	AttackAnim = nullptr;
+	FrozenAnim = nullptr;
+	StateMachine = nullptr;
+	ConfusionAnim = nullptr;
+	RangedAttackAnim = nullptr;
+}
+
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

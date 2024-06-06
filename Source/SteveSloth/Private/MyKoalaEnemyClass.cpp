@@ -101,6 +101,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= RangedAttackRange && FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange && !bIsAttackingRanged)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
+		
 		bIsAttackingRanged = true;
 
 		bIsIdle = true; //remains true to stay in ranged state until timer is done
@@ -112,7 +113,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyKoalaEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing && !bIsIdle)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
@@ -135,7 +136,7 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		bIsPatroling = false;
 		bIsAttackingRanged = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling && !bIsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Patrol));
 
@@ -170,6 +171,19 @@ void AMyKoalaEnemyClass::RangedAttackOver()
 	bIsIdle = false;
 	bIsChasing = false;
 	bIsPatroling = false;
+}
+
+void AMyKoalaEnemyClass::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	IdleState = nullptr;
+	PatrolState = nullptr;
+	ChaseState = nullptr;
+	FleeState = nullptr;
+	AttackState = nullptr;
+	RangedAttackState = nullptr;
+	FrozenState = nullptr;
+	ConfusedState = nullptr;
+	DieState = nullptr;
 }
 
 void AMyKoalaEnemyClass::StartPatrol()

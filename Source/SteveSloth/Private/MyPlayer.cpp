@@ -260,6 +260,25 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	}
 }
 
+void AMyPlayer::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		Ammos[i] = nullptr;
+	}
+
+	for (int i = 0; i < AmmoIcons.Num(); i++)
+	{
+		AmmoIcons[i] = nullptr;
+	}
+
+	EquippedAmmoIcon = nullptr;
+	CameraArm = nullptr;
+	PlayerCamera = nullptr;
+	CurrentIMC = nullptr;
+	LevelManager = nullptr;
+}
+
 void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)

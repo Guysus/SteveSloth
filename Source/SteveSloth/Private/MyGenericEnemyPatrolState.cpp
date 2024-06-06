@@ -33,8 +33,10 @@ void UMyGenericEnemyPatrolState::ExitState()
 void UMyGenericEnemyPatrolState::UpdateState(float deltaTime)
 {
 	FVector currentSpot = Myself->GetActorLocation();
+	
 	FVector directionToTravel = (PatrolSpot - currentSpot).GetSafeNormal();
 	directionToTravel.Normalize();
+
 	UCharacterMovementComponent* MovementComponent = Myself->GetCharacterMovement();
 	MovementComponent->Velocity = directionToTravel * Myself->GetMovementSpeed();
 

@@ -132,9 +132,9 @@ private: // PRIVATE VARIABLES
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
+	AMyLevelManager* LevelManager;
 	
 	EMappingInputs IMCInputs;
-	AMyLevelManager* LevelManager;
 	float CurrentHealth;
 	
 	int GrubCount;
@@ -166,6 +166,7 @@ public:	// CONSTRUCTOR HERE
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;

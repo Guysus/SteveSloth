@@ -17,7 +17,7 @@ void UMyGenericEnemyDieState::EnterState()
 
 void UMyGenericEnemyDieState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyDieState::UpdateState(float deltaTime)

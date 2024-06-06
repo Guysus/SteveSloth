@@ -20,6 +20,16 @@ void UMyEnemyStateComponent::BeginPlay()
 	Super::BeginPlay();
 }
 
+void UMyEnemyStateComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	for (int i = 0; i < States.Num(); i++)
+	{
+		States[i] = nullptr;
+	}
+
+	CurrentState = nullptr;
+}
+
 void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
