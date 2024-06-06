@@ -20,7 +20,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "EnhancedInputSubsystems.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -102,6 +104,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PInteract;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PMeleeAttack;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
 	
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
@@ -115,6 +120,15 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
+	UAnimationAsset* MeleeAttackAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* WrenchMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* WrenchHitbox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
@@ -143,6 +157,7 @@ private: // PRIVATE VARIABLES
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
 
+	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -184,6 +199,9 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void RemoveEucalyptus(int eucalyptusAmount);
 	void AddGrapplingHook();
 
+	void StartMeleeAttack();
+	void EndMeleeAttack();
+
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
 	void Swim(const FInputActionValue& Value);
@@ -199,6 +217,8 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
+	void MeleeAttack(const FInputActionValue& Value);
+	void MeleeAttackStop(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
 };

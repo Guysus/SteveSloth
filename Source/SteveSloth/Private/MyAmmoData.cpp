@@ -1,7 +1,7 @@
 /****************************************************************************************
 * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyAmmoData.h
+ * Script: MyAmmoData.cpp
  * Date: May 24, 2024
  * Description: data table that holds all the Ammo variables
  * TODO:
