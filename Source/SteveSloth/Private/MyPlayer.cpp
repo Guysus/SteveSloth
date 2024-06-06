@@ -35,6 +35,7 @@ AMyPlayer::AMyPlayer()
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Bools
+	bIsMeleeAnimationPlaying = false;
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
@@ -158,12 +159,13 @@ void AMyPlayer::AddGrapplingHook()
 
 void AMyPlayer::StartMeleeAttack()
 {
-
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
 void AMyPlayer::EndMeleeAttack()
 {
-
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	bIsMeleeAnimationPlaying = false;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -367,7 +369,11 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 
 void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
 {
-
+	if (!bIsMeleeAnimationPlaying)
+	{
+		bIsMeleeAnimationPlaying = true;
+		GetMesh()->PlayAnimation(MeleeAttackAnim, false);
+	}
 }
 
 void AMyPlayer::MeleeAttackStop(const FInputActionValue& Value)

@@ -121,6 +121,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
+	UAnimationAsset* MeleeAttackAnim;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* WrenchMesh;
 
@@ -154,6 +157,7 @@ private: // PRIVATE VARIABLES
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
 
+	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
