@@ -26,6 +26,12 @@ AMyPlayer::AMyPlayer()
 	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
 	PlayerCamera->bUsePawnControlRotation = false;
 
+	WrenchMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wrench Mesh"));
+	WrenchMesh->SetupAttachment(RootComponent);
+
+	WrenchHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Wrench Hitbox"));
+	WrenchHitbox->SetupAttachment(RootComponent);
+
 	// Bools
 	bIsMoving = false;
 	bDidDodge = false;
