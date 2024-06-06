@@ -138,6 +138,12 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Camera")
+	USpringArmComponent* CameraArm;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Camera")
+	UCameraComponent* PlayerCamera;
+
 	// You can expose some of your collision query data as properties to help customize and debug 
 	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
 	UPROPERTY(EditAnywhere, Category = "Collision")
@@ -171,8 +177,8 @@ private: // PRIVATE VARIABLES
 	TArray<EAbility*> Abilities;
 	UTexture2D* EquippedAmmoIcon;
 	TArray<UTexture2D*> AmmoIcons;
-	USpringArmComponent* CameraArm;
-	UCameraComponent* PlayerCamera;
+	//USpringArmComponent* CameraArm;
+	//UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 	
 	EMappingInputs IMCInputs;
