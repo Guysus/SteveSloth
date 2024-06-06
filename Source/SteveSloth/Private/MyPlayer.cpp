@@ -23,8 +23,17 @@ AMyPlayer::AMyPlayer()
 
 	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
 	PlayerCamera->bUsePawnControlRotation = false;
-	
+
+	WrenchMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wrench Mesh"));
+	WrenchMesh->SetupAttachment(RootComponent);
+	WrenchMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	WrenchHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Wrench Hitbox"));
+	WrenchHitbox->SetupAttachment(RootComponent);
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
 	// Bools
+	bIsMeleeAnimationPlaying = false;
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
@@ -58,6 +67,11 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+	WrenchMesh->AttachToComponent(GetMesh(), attachmentRules, "WrenchSocket");
+	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
+	WrenchMesh->SetVisibility(true);
+
 	if (!AmmoDataTable.IsNull())
 	{
 		AmmoDataTable.DataTable->GetAllRows("", Ammos);
@@ -143,6 +157,22 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	}
 
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+}
+
+void AMyPlayer::AddGrapplingHook()
+{
+	bIsGrapplingHookUnlocked = true;
+}
+
+void AMyPlayer::StartMeleeAttack()
+{
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AMyPlayer::EndMeleeAttack()
+{
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	bIsMeleeAnimationPlaying = false;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -240,6 +270,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Triggered, this, &AMyPlayer::SwitchAbilities);
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Completed, this, &AMyPlayer::SwitchAbilities);
+	
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Triggered, this, &AMyPlayer::MeleeAttack);
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Completed, this, &AMyPlayer::MeleeAttackStop);
 	}
 }
 
@@ -341,8 +374,24 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 	}
 }
 
+
 void AMyPlayer::InteractOver(const FInputActionValue& Value)
 {
+	
+}
+
+void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
+{
+	if (!bIsMeleeAnimationPlaying)
+	{
+		bIsMeleeAnimationPlaying = true;
+		GetMesh()->PlayAnimation(MeleeAttackAnim, false);
+	}
+}
+
+void AMyPlayer::MeleeAttackStop(const FInputActionValue& Value)
+{
+
 }
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
