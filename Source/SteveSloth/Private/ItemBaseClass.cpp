@@ -117,8 +117,8 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 			break;
 
 		}
-	}
 
-	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	this->Destroy();
+		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		this->Destroy();
+	}
 }
