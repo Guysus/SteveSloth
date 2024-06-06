@@ -49,7 +49,7 @@ void AMyBaseDestructibleObject::Tick(float DeltaTime)
 void AMyBaseDestructibleObject::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	//needs to put the weapon/projectile hitbox here instead of just player
-	if (OtherActor == Player) 
+	if (OtherComp == Steve->WrenchHitbox) 
 	{
 		int randomSFX = FMath::RandRange(0, BreakingSFXs.Num() - 1);
 
