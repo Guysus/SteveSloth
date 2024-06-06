@@ -159,11 +159,6 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
-void AMyPlayer::AddGrapplingHook()
-{
-	bIsGrapplingHookUnlocked = true;
-}
-
 void AMyPlayer::StartMeleeAttack()
 {
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -479,4 +474,24 @@ void AMyPlayer::CamPitch(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
 	AddControllerPitchInput(TurnSpeed * PitchSpeed * GetWorld()->GetDeltaSeconds());
+}
+
+float AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i] / MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
 }
