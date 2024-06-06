@@ -34,6 +34,8 @@ void AMyEnemyBaseClass::BeginPlay()
 {
 	Super::BeginPlay();
 
+	MyWorld = GetWorld();
+
 	if (!EnemyDataTable.IsNull())
 	{
 		// Initialize Variables to the Enemy Data Table
@@ -71,15 +73,6 @@ void AMyEnemyBaseClass::BeginPlay()
 
 	// Get the starting location of the Enemy
 	StartingLocation = GetActorTransform();
-
-	// Set this Enemy to all the available States for the Enemy so they have access to it
-	for (int i = 0; i < StateMachine->GetStateList().Num(); i++)
-	{
-		StateMachine->GetStateList()[i]->GetDefaultObject<UMyEnemyBaseState>()->SetEnemyBaseClass(this);
-	}
-
-	// Set initial State as Idle
-	StateMachine->ChangeState(StateMachine->GetState(Idle));
 }
 
 void AMyEnemyBaseClass::Tick(float DeltaTime)

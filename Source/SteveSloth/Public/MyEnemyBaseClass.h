@@ -38,6 +38,9 @@ protected: // PROTECTED DETAILS PANEL VARIABLES
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Projectile")
+	TSubclassOf<AActor> Projectile;
+
 protected: // PROTECTED INHERITABLE VARIABLES
 	ACharacter* Player;
 
@@ -70,6 +73,8 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle ThawTimerHandle;
 	FTimerHandle ConfusionTimerHandle;
 
+	UWorld* MyWorld;
+
 public: // PUBLIC ACCESS ANYWHERE VARIABLES
 	AActor* AmmoType;
 
@@ -84,14 +89,17 @@ public: // PUBLIC ACCESS ANYWHERE VARIABLES
 
 public: // GETTERS/ACCESSORS
 	float GetDamage() const { return Damage; }
+	UWorld* GetMyWorld() { return MyWorld; }
+	float GetChaseRange() const { return ChaseRange; }
 	float GetPatrolRange() const { return PatrolRange; }
 	float GetMovementSpeed() const { return MovementSpeed; }
 	float GetAttackRange() const { return MeleeAttackRange; }
 	float GetMeleeAttackSpeed() const { return MeleeAttackSpeed; }
 	float GetRangedAttackSpeed() const { return RangedAttackSpeed; }
 	float GetMaxConfusionRange() const { return MaxConfusionRange; }
-	float GetMaxConfusionRangeInverse() const { return -MaxConfusionRange; }
+	TSubclassOf<AActor> GetProjectile() const { return Projectile; }
 	FTransform GetStartingLocation() const { return StartingLocation; }
+	float GetMaxConfusionRangeInverse() const { return -MaxConfusionRange; }
 
 public: // SETTER/MUTATOR
 	void SetIsFrozen(bool isFrozen) { bIsFrozen = isFrozen; }
@@ -109,7 +117,7 @@ public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 public: // PUBLIC FUNCTIONS
 	void HitEnemy(float damageAmount);
 
-private: // PRIVATE INTERNAL FUNCTIONS
+protected: // PRIVATE INTERNAL FUNCTIONS
 	void Despawn();
 	void Thaw();
 	void SnapOutOfConfusion();
