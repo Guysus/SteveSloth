@@ -1,7 +1,7 @@
 /****************************************************************************************
  * Copyright: SteveSloth
  * Name: Elad Saretzky
- * Script: MyEmuEnemyClass.cpp
+ * Script: MyEmuEnemyClass.h
  * Date: May 10, 2024
  * Description: Does all of the specific to emu things
  * TODO:
