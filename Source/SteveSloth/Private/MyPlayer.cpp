@@ -145,6 +145,16 @@ void AMyPlayer::AddGrapplingHook()
 	bIsGrapplingHookUnlocked = true;
 }
 
+void AMyPlayer::StartMeleeAttack()
+{
+
+}
+
+void AMyPlayer::EndMeleeAttack()
+{
+
+}
+
 void AMyPlayer::UseAmmo(int ammoAmount)
 {
 	if (EquippedCurrentAmmo > 0)

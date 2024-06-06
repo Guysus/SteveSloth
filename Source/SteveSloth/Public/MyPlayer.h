@@ -183,6 +183,9 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void RemoveEucalyptus(int eucalyptusAmount);
 	void AddGrapplingHook();
 
+	void StartMeleeAttack();
+	void EndMeleeAttack();
+
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
 	void Swim(const FInputActionValue& Value);
