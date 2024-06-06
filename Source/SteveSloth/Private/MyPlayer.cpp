@@ -28,9 +28,11 @@ AMyPlayer::AMyPlayer()
 
 	WrenchMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wrench Mesh"));
 	WrenchMesh->SetupAttachment(RootComponent);
+	WrenchMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	WrenchHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Wrench Hitbox"));
 	WrenchHitbox->SetupAttachment(RootComponent);
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Bools
 	bIsMoving = false;
@@ -58,6 +60,9 @@ AMyPlayer::AMyPlayer()
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
 
 	if (!AmmoDataTable.IsNull())
 	{
