@@ -14,6 +14,8 @@ AMyPlayer::AMyPlayer()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	LevelManager = AMyLevelManager::GetInstance();
+
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
 	
@@ -23,8 +25,17 @@ AMyPlayer::AMyPlayer()
 
 	PlayerCamera->SetupAttachment(CameraArm, USpringArmComponent::SocketName);
 	PlayerCamera->bUsePawnControlRotation = false;
-	
+
+	WrenchMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("Wrench Mesh"));
+	WrenchMesh->SetupAttachment(RootComponent);
+	WrenchMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
+	WrenchHitbox = CreateDefaultSubobject<UBoxComponent>(TEXT("Wrench Hitbox"));
+	WrenchHitbox->SetupAttachment(RootComponent);
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+
 	// Bools
+	bIsMeleeAnimationPlaying = false;
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
@@ -58,6 +69,11 @@ void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
 	
+	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
+	WrenchMesh->AttachToComponent(GetMesh(), attachmentRules, "WrenchSocket");
+	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
+	WrenchMesh->SetVisibility(true);
+
 	if (!AmmoDataTable.IsNull())
 	{
 		AmmoDataTable.DataTable->GetAllRows("", Ammos);
@@ -143,6 +159,17 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	}
 
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
+}
+
+void AMyPlayer::StartMeleeAttack()
+{
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+}
+
+void AMyPlayer::EndMeleeAttack()
+{
+	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	bIsMeleeAnimationPlaying = false;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -240,6 +267,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Triggered, this, &AMyPlayer::SwitchAbilities);
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Completed, this, &AMyPlayer::SwitchAbilities);
+	
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Triggered, this, &AMyPlayer::MeleeAttack);
+		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Completed, this, &AMyPlayer::MeleeAttackStop);
 	}
 }
 
@@ -335,14 +365,42 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
 	if (!bIsAimMode)
 	{
+		if (LevelManager->GetValveAreaOne())
+		{
+			LevelManager->SetValveOneOperated(true);
+		}
+		else if (LevelManager->GetValveAreaTwo())
+		{
+			LevelManager->SetValveTwoOperated(true);
+		}
+		else if (LevelManager->GetValveAreaThree())
+		{
+			LevelManager->SetValveThreeOperated(true);
+		}
 		// Play Interact Animation.
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
 	}
 }
 
+
 void AMyPlayer::InteractOver(const FInputActionValue& Value)
 {
+	
+}
+
+void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
+{
+	if (!bIsMeleeAnimationPlaying)
+	{
+		bIsMeleeAnimationPlaying = true;
+		GetMesh()->PlayAnimation(MeleeAttackAnim, false);
+	}
+}
+
+void AMyPlayer::MeleeAttackStop(const FInputActionValue& Value)
+{
+
 }
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
@@ -430,4 +488,24 @@ void AMyPlayer::CamPitch(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
 	AddControllerPitchInput(TurnSpeed * PitchSpeed * GetWorld()->GetDeltaSeconds());
+}
+
+float AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i] / MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
 }

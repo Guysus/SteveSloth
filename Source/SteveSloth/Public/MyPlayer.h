@@ -10,9 +10,10 @@
 
 #pragma once
 
-// INCLUDES HERE
+ // INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
+#include "MyLevelManager.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
@@ -20,7 +21,9 @@
 #include "GameFramework/Character.h"
 #include "EnhancedInputSubsystems.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Components/BoxComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
 // MAKE SURE THIS INCLUDE IS LAST
@@ -60,9 +63,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
 
@@ -112,8 +115,11 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UInputAction* PInteract;
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PMeleeAttack;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 
@@ -134,6 +140,15 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animations")
 	UAnimSequence* GrapplingHookSequence;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
+	UAnimationAsset* MeleeAttackAnim;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	USkeletalMeshComponent* WrenchMesh;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UBoxComponent* WrenchHitbox;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
@@ -157,15 +172,6 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
 
-public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
-	float GetNeededAmmoIndex();
-
-public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
@@ -180,18 +186,21 @@ private: // PRIVATE VARIABLES
 	//USpringArmComponent* CameraArm;
 	//UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
-	
+
+	AMyLevelManager* LevelManager;
+
 	EMappingInputs IMCInputs;
 	EAbility Ability;
-	
+
 	float CurrentHealth;
-	
+
 	int GrubCount;
 	int LeavesFound;
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	
+
+	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -202,11 +211,19 @@ private: // PRIVATE VARIABLES
 	bool bIsGrapplingUnlocked;
 	bool bIsPropellerUnlocked;
 	bool bIsClimbingClawUnlocked;
-	
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
-	
+
+public: // GETTERS/ACCESSORS
+	float GetMaxHealth() { return MaxHealth; }
+	float GetCurrentHealth() { return CurrentHealth; }
+	float GetNeededAmmoIndex();
+
+public: // SETTERS/MUTATORS
+	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
+	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
@@ -234,6 +251,9 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
 
+	void StartMeleeAttack();
+	void EndMeleeAttack();
+
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
 	void Swim(const FInputActionValue& Value);
@@ -250,6 +270,8 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void IsCrouching(const FInputActionValue& Value);
 	void InteractOver(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
+	void MeleeAttack(const FInputActionValue& Value);
+	void MeleeAttackStop(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
 	void SwitchAbilities(const FInputActionValue& Value);
