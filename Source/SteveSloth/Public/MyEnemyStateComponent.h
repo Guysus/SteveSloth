@@ -29,7 +29,8 @@ enum EStates
 	RangedAttack,
 	Frozen,
 	Confused,
-	Die
+	Die,
+	Test
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -38,15 +39,14 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 	GENERATED_BODY()
 
 public: // PROTECTED DETAILS PANEL VARIABLES 
-	TArray<UMyEnemyBaseState*> States;
+	TArray<TWeakObjectPtr<UMyEnemyBaseState>> States;
 
-protected: // PRIVATE INTERNAL VARIABLES
-	UMyEnemyBaseState* CurrentState;
-
+public: // PRIVATE INTERNAL VARIABLES
+	TWeakObjectPtr<UMyEnemyBaseState> CurrentState;
+	
 public: // GETTERS/ACCESSORS
-	TArray<UMyEnemyBaseState*> GetStateList() {return States; }
-	UMyEnemyBaseState* GetState(EStates wantedState) { return States[wantedState]; }
-	void ClearStateList() { States.Empty(); }
+	TArray<TWeakObjectPtr<UMyEnemyBaseState>> GetStateList() {return States; }
+	TWeakObjectPtr<UMyEnemyBaseState> GetState(EStates wantedState) { return States[wantedState]; }
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
@@ -57,5 +57,5 @@ protected: // INITIALIZE INHERITABLE FUNCTIONS
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void ChangeState(UMyEnemyBaseState* newState);
+	void ChangeState(TWeakObjectPtr<UMyEnemyBaseState> newState);
 };

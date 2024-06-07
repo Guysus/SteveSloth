@@ -95,45 +95,45 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Check if Enemy is Dead
-	//if (CurrentHealth <= 0 && !bIsDead)
-	//{
-	//	StateMachine->ChangeState(StateMachine->GetState(Die));
-	//	GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
-	//	bIsDead = true;
-	//}
-	////Check if frozen
-	//else if (bIsFrozen && !bIsCurrentlyFrozen)
-	//{
-	//	//set state to idle to frozen
-	//	StateMachine->ChangeState(StateMachine->GetState(Frozen));
+	//Check if Enemy is Dead
+	if (CurrentHealth <= 0 && !bIsDead)
+	{
+		//StateMachine->ChangeState(StateMachine->GetState(Die));
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
+		bIsDead = true;
+	}
+	//Check if frozen
+	else if (bIsFrozen && !bIsCurrentlyFrozen)
+	{
+		//set state to idle to frozen
+		//StateMachine->ChangeState(StateMachine->GetState(Frozen));
 
-	//	bIsIdle = true;
-	//	bIsFrozen = true;
-	//	bIsChasing = true;
-	//	bIsPatroling = true;
-	//	bIsAttackingMelee = true;
-	//	bIsCurrentlyFrozen = true;
-	//	bIsAttackingRanged = true;
+		bIsIdle = true;
+		bIsFrozen = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsCurrentlyFrozen = true;
+		bIsAttackingRanged = true;
 
-	//	GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
-	//}
-	////Check if confused
-	//else if (bIsConfused && !bIsCurrentlyConfused) 
-	//{
-	//	StateMachine->ChangeState(StateMachine->GetState(Confused));
+		GetWorldTimerManager().SetTimer(ThawTimerHandle, this, &AMyEnemyBaseClass::Thaw, THAW_TIMER_AMOUNT, false);
+	}
+	//Check if confused
+	else if (bIsConfused && !bIsCurrentlyConfused) 
+	{
+		//StateMachine->ChangeState(StateMachine->GetState(Confused));
 
-	//	bIsConfused = true;
-	//	bIsCurrentlyConfused = true;
-	//	bIsIdle = true;
-	//	bIsChasing = true;
-	//	bIsPatroling = true;
-	//	bIsAttackingMelee = true;
-	//	bIsAttackingRanged = true;
+		bIsConfused = true;
+		bIsCurrentlyConfused = true;
+		bIsIdle = true;
+		bIsChasing = true;
+		bIsPatroling = true;
+		bIsAttackingMelee = true;
+		bIsAttackingRanged = true;
 
-	//	GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
-	//		&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
-	//}
+		GetWorldTimerManager().SetTimer(ConfusionTimerHandle, this,
+			&AMyEnemyBaseClass::SnapOutOfConfusion, CONFUSION_TIMER_AMOUNT, false);
+	}
 }
 
 void AMyEnemyBaseClass::HitEnemy(float damageAmount)

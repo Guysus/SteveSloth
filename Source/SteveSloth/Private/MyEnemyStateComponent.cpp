@@ -10,7 +10,7 @@
 
 #include "MyEnemyStateComponent.h"
 
-UMyEnemyStateComponent::UMyEnemyStateComponent()
+UMyEnemyStateComponent::UMyEnemyStateComponent() : CurrentState(nullptr)
 {
 	PrimaryComponentTick.bCanEverTick = true;
 }
@@ -40,7 +40,7 @@ void UMyEnemyStateComponent::TickComponent(float DeltaTime, ELevelTick TickType,
 	}
 }
 
-void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
+void UMyEnemyStateComponent::ChangeState(TWeakObjectPtr<UMyEnemyBaseState> newState)
 {
 	// Exit the Previously Selected State
 	if (CurrentState != nullptr) 
@@ -49,7 +49,10 @@ void UMyEnemyStateComponent::ChangeState(UMyEnemyBaseState* newState)
 	}
 	
 	// Change previous state to new State
-	CurrentState = newState;
+	if (newState != nullptr)
+	{
+		CurrentState = newState;
+	}
 
 	// Enter New State
 	if (CurrentState != nullptr)

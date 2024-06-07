@@ -22,10 +22,11 @@
 AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 {
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	StateMachine->States.Empty();
 
 	bIsDead = false;
 	bIsConfused = false;
-	bIsIdle = true;
+	bIsIdle = false;
 	bIsFrozen = false;
 	bIsChasing = false;
 	bIsPatroling = false;
@@ -38,9 +39,6 @@ AMyKoalaEnemyClass::AMyKoalaEnemyClass()
 void AMyKoalaEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
-
-	//StateMachine->ClearStateList();
-	StateMachine->States.Empty();
 
 	IdleState = NewObject<UMyGenericEnemyIdleState>();
 	PatrolState = NewObject<UMyGenericEnemyPatrolState>();
@@ -73,12 +71,7 @@ void AMyKoalaEnemyClass::BeginPlay()
 		StateMachine->States.Add(FrozenState);
 		StateMachine->States.Add(ConfusedState);
 		StateMachine->States.Add(DieState);
-
-	}
-
-	if (StateMachine && StateMachine->GetStateList().Num() > 0)
-	{
-		StateMachine->ChangeState(StateMachine->GetState(Idle));
+		StateMachine->States.Add(IdleState);
 	}
 }
 
@@ -86,34 +79,34 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	//if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= RangedAttackRange && FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange && !bIsAttackingRanged)
-	//{
-	//	StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
-	//	
-	//	bIsAttackingRanged = true;
+	if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= RangedAttackRange && FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange && !bIsAttackingRanged)
+	{
+		StateMachine->ChangeState(StateMachine->GetState(RangedAttack));
+		
+		bIsAttackingRanged = true;
 
-	//	bIsIdle = true; //remains true to stay in ranged state until timer is done
-	//	bIsChasing = true; //remains true to stay in ranged state until timer is done
-	//	bIsPatroling = true;
+		bIsIdle = true; //remains true to stay in ranged state until timer is done
+		bIsChasing = true; //remains true to stay in ranged state until timer is done
+		bIsPatroling = true;
 
-	//	//reset other state bools & clear start flee timer
-	//	GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-	//	GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyKoalaEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
-	//}
-	////if the enemy is within the chasing distance
-	//else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing && !bIsIdle)
-	//{
-	//	StateMachine->ChangeState(StateMachine->GetState(Chase));
-	//	bIsChasing = true;
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
+		GetWorldTimerManager().SetTimer(RangedResetTimerHandle, this, &AMyKoalaEnemyClass::RangedAttackOver, RANGED_RESET_TIMER_AMOUNT, false);
+	}
+	//if the enemy is within the chasing distance
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing && !bIsIdle)
+	{
+		StateMachine->ChangeState(StateMachine->GetState(Chase));
+		bIsChasing = true;
 
-	//	//reset other state bools & clear start flee timer
-	//	GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-	//	bIsIdle = false;
-	//	bIsPatroling = false;
-	//	bIsAttackingRanged = false;
-	//}
-	////if the enemy is still, do idle for a bit
-	//else 
+		//reset other state bools & clear start flee timer
+		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
+		bIsIdle = false;
+		bIsPatroling = false;
+		bIsAttackingRanged = false;
+	}
+	//if the enemy is still, do idle for a bit
+	else 
 	if (UKismetMathLibrary::Vector_IsNearlyZero(AMyKoalaEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Idle));
@@ -135,33 +128,19 @@ void AMyKoalaEnemyClass::Tick(float DeltaTime)
 		bIsAttackingRanged = false;
 	}
 
-	/*if (CurrentHealth <= 0)
+	if (CurrentHealth <= 0)
 	{
 		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-	}*/
+	}
 }
 
 void AMyKoalaEnemyClass::StartFleeState()
 {
-	//StateMachine->ChangeState(StateMachine->GetState(Patrol));
-
-	//GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyKoalaEnemyClass::StartPatrol, IDLE_RESET_TIMER_AMOUNT, false);
-
-	for (int i = 0; i < StateMachine->States.Num(); i++)
-	{
-		UE_LOG(LogTemp, Log, TEXT("Current State: %s"), *StateMachine->States[i]->GetName());
-	}
-
 	bIsPatroling = false;
 }
 
 void AMyKoalaEnemyClass::IdleReset()
 {
-	for (int i = 0; i < StateMachine->States.Num(); i++)
-	{
-		UE_LOG(LogTemp, Log, TEXT("Current State: %s"), *StateMachine->States[i]->GetName());
-	}
-
 	bIsIdle = false;
 }
 
