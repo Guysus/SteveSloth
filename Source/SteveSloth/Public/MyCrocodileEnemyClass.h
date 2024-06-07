@@ -31,6 +31,7 @@ private: //PRIVATE CONST VARIABLES
 private: // PRIVATE INTERNAL VARIABLES
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
+	UMyEnemyStateComponent* StateMachine;
 
 public:	// CONSTRUCTOR HERE
 	AMyCrocodileEnemyClass();

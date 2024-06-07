@@ -12,7 +12,7 @@
 
 AMyPossumEnemyClass::AMyPossumEnemyClass()
 {
-
+	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 }
 
 void AMyPossumEnemyClass::BeginPlay()

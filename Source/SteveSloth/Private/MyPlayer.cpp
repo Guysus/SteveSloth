@@ -18,7 +18,7 @@ AMyPlayer::AMyPlayer()
 
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
-	
+
 	CameraArm->SetupAttachment((RootComponent));
 	CameraArm->bUsePawnControlRotation = true;
 	CameraArm->TargetArmLength = 200;
@@ -35,7 +35,7 @@ AMyPlayer::AMyPlayer()
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
 	// Bools
-	bIsMeleeAnimationPlaying = false;
+	bIsDead = false;
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
@@ -45,14 +45,15 @@ AMyPlayer::AMyPlayer()
 	bIsGrapplingUnlocked = false;
 	bIsPropellerUnlocked = false;
 	bIsClimbingClawUnlocked = false;
+	bIsMeleeAnimationPlaying = false;
 
 	// Health Stuff
-	MaxHealth = 0;
-	CurrentHealth = 0;
+	MaxHealth = 100;
+	CurrentHealth = MaxHealth;
 
 	// Collection Stuff
 	LeavesFound = 0;
-	
+
 	// Movement Stuff
 	WalkSpeed = 250;
 	SprintSpeed = 400;
@@ -62,13 +63,13 @@ AMyPlayer::AMyPlayer()
 	// IMC Inputs
 	IMCInputs = Normal;
 
-	
+
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 	WrenchMesh->AttachToComponent(GetMesh(), attachmentRules, "WrenchSocket");
 	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
@@ -101,6 +102,7 @@ void AMyPlayer::BeginPlay()
 
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
+			PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
 
 			if (!AmmoDataTable.IsNull())
 			{
@@ -109,6 +111,8 @@ void AMyPlayer::BeginPlay()
 			}
 		}
 	}
+
+	RespawnPoint = GetActorLocation();
 }
 
 void AMyPlayer::Tick(float DeltaTime)
@@ -119,6 +123,24 @@ void AMyPlayer::Tick(float DeltaTime)
 void AMyPlayer::HitPlayer(float damageAmount)
 {
 	CurrentHealth = CurrentHealth - damageAmount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+
+	if (CurrentHealth <= 0)
+	{
+		Death();
+	}
+}
+
+void AMyPlayer::SetMaxHealth(float amount)
+{
+	MaxHealth = MaxHealth + amount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+}
+
+void AMyPlayer::SetCurrentHealth(float amount)
+{
+	CurrentHealth = CurrentHealth + amount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
 }
 
 void AMyPlayer::AddGrubs(int grubAmount)
@@ -170,6 +192,21 @@ void AMyPlayer::EndMeleeAttack()
 {
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	bIsMeleeAnimationPlaying = false;
+}
+
+void AMyPlayer::Death()
+{
+	bIsDead = true;
+	GetMesh()->PlayAnimation(DeathAnim, false);
+	GetWorldTimerManager().SetTimer(DeathTimerHandle, this, &AMyPlayer::Respawn, RESPAWN_TIMER, false);
+}
+
+void AMyPlayer::Respawn()
+{
+	CurrentHealth = MaxHealth;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+	SetActorLocation(RespawnPoint);
+	bIsDead = false;
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
@@ -240,7 +277,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PCamPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
 		inputComponent->BindAction(PCamPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
-		
+
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 
@@ -252,7 +289,7 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
-		
+
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
 
@@ -267,15 +304,34 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Triggered, this, &AMyPlayer::SwitchAbilities);
 		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Completed, this, &AMyPlayer::SwitchAbilities);
-	
+
 		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Triggered, this, &AMyPlayer::MeleeAttack);
 		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Completed, this, &AMyPlayer::MeleeAttackStop);
 	}
 }
 
+void AMyPlayer::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		Ammos[i] = nullptr;
+	}
+
+	for (int i = 0; i < AmmoIcons.Num(); i++)
+	{
+		AmmoIcons[i] = nullptr;
+	}
+
+	EquippedAmmoIcon = nullptr;
+	CameraArm = nullptr;
+	PlayerCamera = nullptr;
+	CurrentIMC = nullptr;
+	LevelManager = nullptr;
+}
+
 void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		float const Amount = Value.Get<float>();
 		FRotator const Rotation = Controller->GetControlRotation();
@@ -293,15 +349,18 @@ void AMyPlayer::MoveForwardBack(const FInputActionValue& Value)
 
 void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 {
-	float const TurnAmount = Value.Get<float>();
-	FRotator const Rotation = Controller->GetControlRotation();
-	FRotator const YawRotation(0, Rotation.Yaw, 0);
-	FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(Sideways, TurnAmount);
-	//SetActorRotation(Sideways.Rotation());
-	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
-	//SetActorRotation(NewRotation);
-	// Add Animations here with changing of mesh direction
+	if (!bIsDead)
+	{
+		float const TurnAmount = Value.Get<float>();
+		FRotator const Rotation = Controller->GetControlRotation();
+		FRotator const YawRotation(0, Rotation.Yaw, 0);
+		FVector const Sideways = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+		AddMovementInput(Sideways, TurnAmount);
+		//SetActorRotation(Sideways.Rotation());
+		//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
+		//SetActorRotation(NewRotation);
+		// Add Animations here with changing of mesh direction
+	}
 }
 
 void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
@@ -335,7 +394,7 @@ void AMyPlayer::AddMagnetic()
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		Jump();
 		// Add Animations here 
@@ -344,7 +403,7 @@ void AMyPlayer::JumpOne(const FInputActionValue& Value)
 
 void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = SprintSpeed;
 		// Reduce Stamina while Sprint held down
@@ -354,7 +413,7 @@ void AMyPlayer::IsSprinting(const FInputActionValue& Value)
 
 void AMyPlayer::SprintStop(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 		// Change Animation  
@@ -363,7 +422,7 @@ void AMyPlayer::SprintStop(const FInputActionValue& Value)
 
 void AMyPlayer::InteractWith(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		if (LevelManager->GetValveAreaOne())
 		{
@@ -386,12 +445,12 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 
 void AMyPlayer::InteractOver(const FInputActionValue& Value)
 {
-	
+
 }
 
 void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
 {
-	if (!bIsMeleeAnimationPlaying)
+	if (!bIsMeleeAnimationPlaying && !bIsDead)
 	{
 		bIsMeleeAnimationPlaying = true;
 		GetMesh()->PlayAnimation(MeleeAttackAnim, false);
@@ -405,7 +464,7 @@ void AMyPlayer::MeleeAttackStop(const FInputActionValue& Value)
 
 void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = CrouchSpeed;
 		// Change Animation
@@ -418,7 +477,7 @@ void AMyPlayer::IsCrouching(const FInputActionValue& Value)
 
 void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
 		// Change Animation 
@@ -427,7 +486,7 @@ void AMyPlayer::CrouchStop(const FInputActionValue& Value)
 
 void AMyPlayer::Dodge(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		if (bDidDodge == false)
 		{
@@ -444,7 +503,7 @@ void AMyPlayer::Dodge(const FInputActionValue& Value)
 
 void AMyPlayer::Swim(const FInputActionValue& Value)
 {
-	if (!bIsAimMode)
+	if (!bIsAimMode && !bIsDead)
 	{
 		float const SwimDirection = Value.Get<float>();
 		FVector const SwimDirectionVector = FVector(0, 0, 1);
@@ -461,7 +520,7 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	//if statement to prevent offset to be applied with each tick
-	if (!bIsAimMode) 
+	if (!bIsAimMode && !bIsDead)
 	{
 		FVector ZoomOffset = FVector(0, 10, 0);
 		CameraArm->TargetArmLength = 100;
@@ -480,14 +539,20 @@ void AMyPlayer::AimingStop(const FInputActionValue& Value)
 
 void AMyPlayer::CamTurn(const FInputActionValue& Value)
 {
-	float const TurnSpeed = Value.Get<float>();
-	AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
+	if (!bIsDead)
+	{
+		float const TurnSpeed = Value.Get<float>();
+		AddControllerYawInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 void AMyPlayer::CamPitch(const FInputActionValue& Value)
 {
-	float const TurnSpeed = Value.Get<float>();
-	AddControllerPitchInput(TurnSpeed * PitchSpeed * GetWorld()->GetDeltaSeconds());
+	if (!bIsDead)
+	{
+		float const TurnSpeed = Value.Get<float>();
+		AddControllerPitchInput(TurnSpeed * PitchSpeed * GetWorld()->GetDeltaSeconds());
+	}
 }
 
 float AMyPlayer::GetNeededAmmoIndex()

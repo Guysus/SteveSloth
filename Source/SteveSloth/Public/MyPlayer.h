@@ -62,6 +62,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
+private: //PRIVATE CONST VARIABLES
+	const float RESPAWN_TIMER = 5.0f;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
@@ -144,6 +147,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
 	UAnimationAsset* MeleeAttackAnim;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
+	UAnimationAsset* DeathAnim;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* WrenchMesh;
 
@@ -153,26 +159,36 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Camera")
-	USpringArmComponent* CameraArm;
+	// You can expose some of your collision query data as properties to help customize and debug 
+	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
 
-	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Camera")
-	UCameraComponent* PlayerCamera;
+
+	FVector TraceEnd;
+	FVector TraceStart;
+	FVector WallHitLocation;
 
 protected: // PROTECTED INHERITABLE VARIABLES
+	FTimerHandle GrappleTimerHandle;
+	FTimerHandle DeathTimerHandle;
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bIsDead;
+
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
 	TArray<EAbility*> Abilities;
 	UTexture2D* EquippedAmmoIcon;
 	TArray<UTexture2D*> AmmoIcons;
-	//USpringArmComponent* CameraArm;
-	//UCameraComponent* PlayerCamera;
+	USpringArmComponent* CameraArm;
+	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
 
 	AMyLevelManager* LevelManager;
@@ -203,14 +219,18 @@ private: // PRIVATE VARIABLES
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
 
+	FVector RespawnPoint;
+
 public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
+	FVector GetRespawnPoint() const { return RespawnPoint; };
+	float GetMaxHealth() const { return MaxHealth; }
+	float GetCurrentHealth() const { return CurrentHealth; }
 	float GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+	void SetRespawnPoint(FVector respawnPoint) { RespawnPoint = respawnPoint; }
+	void SetMaxHealth(float amount);
+	void SetCurrentHealth(float amount);
 
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
@@ -218,6 +238,7 @@ public:	// CONSTRUCTOR HERE
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
@@ -241,6 +262,9 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 
 	void StartMeleeAttack();
 	void EndMeleeAttack();
+
+	void Death();
+	void Respawn();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);

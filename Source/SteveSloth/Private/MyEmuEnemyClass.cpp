@@ -12,7 +12,7 @@
 
 AMyEmuEnemyClass::AMyEmuEnemyClass()
 {
-
+	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 }
 
 void AMyEmuEnemyClass::BeginPlay()
