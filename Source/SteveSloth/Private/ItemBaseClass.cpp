@@ -137,8 +137,8 @@ void AItemBaseClass::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, A
 				Steve->AddMagnetic();
 			break;
 		}
-	}
 
-	Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-	this->Destroy();
+		Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+		this->Destroy();
+	}
 }
