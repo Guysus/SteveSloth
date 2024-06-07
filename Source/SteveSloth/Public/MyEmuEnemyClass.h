@@ -35,6 +35,27 @@ private: // PRIVATE VARIABLES
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 
+	bool bIsFrozen;
+	bool bIsCurrentlyFrozen;
+	bool bIsConfused;
+	bool bIsCurrentlyConfused;
+	bool bIsDead;
+	bool bIsIdle;
+	bool bIsChasing;
+	bool bIsPatroling;
+	bool bIsAttackingMelee;
+	bool bIsAttackingRanged;
+
+	UMyEnemyBaseState* IdleState;
+	UMyEnemyBaseState* PatrolState;
+	UMyEnemyBaseState* ChaseState;
+	UMyEnemyBaseState* FleeState;
+	UMyEnemyBaseState* AttackState;
+	UMyEnemyBaseState* RangedAttackState;
+	UMyEnemyBaseState* FrozenState;
+	UMyEnemyBaseState* ConfusedState;
+	UMyEnemyBaseState* DieState;
+
 public:	// CONSTRUCTOR HERE
 	AMyEmuEnemyClass();
 
