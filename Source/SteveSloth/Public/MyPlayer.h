@@ -171,12 +171,16 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
+	FTimerHandle DeathTimerHandle;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
+
+	UPROPERTY(BlueprintReadOnly)
+	bool bIsDead;
 
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
@@ -200,7 +204,6 @@ private: // PRIVATE VARIABLES
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
 
-	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -211,6 +214,7 @@ private: // PRIVATE VARIABLES
 	bool bIsGrapplingUnlocked;
 	bool bIsPropellerUnlocked;
 	bool bIsClimbingClawUnlocked;
+	bool bIsMeleeAnimationPlaying;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
@@ -259,6 +263,7 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 	void EndMeleeAttack();
 
 	void Death();
+	void Respawn();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
