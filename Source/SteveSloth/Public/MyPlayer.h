@@ -215,8 +215,8 @@ public: // GETTERS/ACCESSORS
 	float GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+	void SetMaxHealth(float amount);
+	void SetCurrentHealth(float amount);
 
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();

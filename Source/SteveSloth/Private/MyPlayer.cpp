@@ -47,8 +47,8 @@ AMyPlayer::AMyPlayer()
 	bIsClimbingClawUnlocked = false;
 
 	// Health Stuff
-	MaxHealth = 0;
-	CurrentHealth = 0;
+	MaxHealth = 100;
+	CurrentHealth = MaxHealth;
 
 	// Collection Stuff
 	LeavesFound = 0;
@@ -101,6 +101,7 @@ void AMyPlayer::BeginPlay()
 
 			PlayerHUD->GrubCountText(GrubCount);
 			PlayerHUD->EucalyptusCountText(EucalyptusCount);
+			PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
 
 			if (!AmmoDataTable.IsNull())
 			{
@@ -119,6 +120,19 @@ void AMyPlayer::Tick(float DeltaTime)
 void AMyPlayer::HitPlayer(float damageAmount)
 {
 	CurrentHealth = CurrentHealth - damageAmount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+}
+
+void AMyPlayer::SetMaxHealth(float amount)
+{
+	MaxHealth = MaxHealth + amount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+}
+
+void AMyPlayer::SetCurrentHealth(float amount)
+{
+	CurrentHealth = CurrentHealth + amount;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
 }
 
 void AMyPlayer::AddGrubs(int grubAmount)
