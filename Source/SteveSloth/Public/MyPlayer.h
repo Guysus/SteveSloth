@@ -159,19 +159,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Camera")
 	UCameraComponent* PlayerCamera;
 
-	// You can expose some of your collision query data as properties to help customize and debug 
-	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
-	UPROPERTY(EditAnywhere, Category = "Collision")
-	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
-
-
-	FVector TraceEnd;
-	FVector TraceStart;
-	FVector WallHitLocation;
-
 protected: // PROTECTED INHERITABLE VARIABLES
-	FTimerHandle GrappleTimerHandle;
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
@@ -200,7 +188,6 @@ private: // PRIVATE VARIABLES
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
 
-	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -211,6 +198,7 @@ private: // PRIVATE VARIABLES
 	bool bIsGrapplingUnlocked;
 	bool bIsPropellerUnlocked;
 	bool bIsClimbingClawUnlocked;
+	bool bIsMeleeAnimationPlaying;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
