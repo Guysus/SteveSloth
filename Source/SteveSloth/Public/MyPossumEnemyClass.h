@@ -32,7 +32,7 @@ private: // PRIVATE INTERNAL VARIABLES
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
 	FTimerHandle RangedResetTimerHandle;
-
+	UMyEnemyStateComponent* StateMachine;
 public:	// CONSTRUCTOR HERE
 	AMyPossumEnemyClass();
 

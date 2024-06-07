@@ -17,7 +17,7 @@ void UMyGenericEnemyFrozenState::EnterState()
 
 void UMyGenericEnemyFrozenState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyFrozenState::UpdateState(float deltaTime)

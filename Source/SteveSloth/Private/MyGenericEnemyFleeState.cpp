@@ -19,7 +19,7 @@ void UMyGenericEnemyFleeState::EnterState()
 
 void UMyGenericEnemyFleeState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyFleeState::UpdateState(float deltaTime)
