@@ -47,8 +47,8 @@ AMyPlayer::AMyPlayer()
 	bIsClimbingClawUnlocked = false;
 
 	// Health Stuff
-	MaxHealth = 0;
-	CurrentHealth = 0;
+	MaxHealth = 100;
+	CurrentHealth = MaxHealth;
 
 	// Collection Stuff
 	LeavesFound = 0;

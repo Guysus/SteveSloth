@@ -52,11 +52,11 @@ void UMyPlayerHeadsUpDisplay::HealthBarAmount(float currentHealth, float maxHeal
 {
 	HealthBar->SetPercent(currentHealth / maxHealth);
 
-	if (HealthBar->GetPercent() > (2 / 3))
+	if (HealthBar->GetPercent() > 0.66f)
 	{
 		HealthBar->SetFillColorAndOpacity(FLinearColor(0, 1, 0, 1));
 	}
-	else if (HealthBar->GetPercent() > (1 / 4))
+	else if (HealthBar->GetPercent() > 0.25f)
 	{
 		HealthBar->SetFillColorAndOpacity(FLinearColor(1, 1, 0, 1));
 	}
