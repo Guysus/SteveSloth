@@ -62,6 +62,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
+private: //PRIVATE CONST VARIABLES
+	const float RESPAWN_TIMER = 5.0f;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
@@ -144,6 +147,9 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
 	UAnimationAsset* MeleeAttackAnim;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
+	UAnimationAsset* DeathAnim;
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	USkeletalMeshComponent* WrenchMesh;
 
@@ -165,12 +171,16 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
+	FTimerHandle DeathTimerHandle;
 
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	bool bIsDead;
 
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
@@ -194,7 +204,6 @@ private: // PRIVATE VARIABLES
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
 
-	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
@@ -205,16 +214,21 @@ private: // PRIVATE VARIABLES
 	bool bIsGrapplingUnlocked;
 	bool bIsPropellerUnlocked;
 	bool bIsClimbingClawUnlocked;
+	bool bIsMeleeAnimationPlaying;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
 
+	FVector RespawnPoint;
+
 public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
+	FVector GetRespawnPoint() const { return RespawnPoint; };
+	float GetMaxHealth() const { return MaxHealth; }
+	float GetCurrentHealth() const { return CurrentHealth; }
 	float GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
+	void SetRespawnPoint(FVector respawnPoint) { RespawnPoint = respawnPoint; }
 	void SetMaxHealth(float amount);
 	void SetCurrentHealth(float amount);
 
@@ -248,6 +262,9 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 
 	void StartMeleeAttack();
 	void EndMeleeAttack();
+
+	void Death();
+	void Respawn();
 
 private: // PRIVATE INTERNAL FUNCTIONS
 	void EquipAmmo(EAmmoType ammoType);
