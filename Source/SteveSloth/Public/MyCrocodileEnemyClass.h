@@ -30,6 +30,7 @@ private: //PRIVATE CONST VARIABLES
 private: // PRIVATE INTERNAL VARIABLES
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
+	UMyEnemyStateComponent* StateMachine;
 
 	bool bIsFrozen;
 	bool bIsCurrentlyFrozen;

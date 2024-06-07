@@ -17,7 +17,7 @@ void UMyGenericEnemyIdleState::EnterState()
 
 void UMyGenericEnemyIdleState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyIdleState::UpdateState(float deltaTime)
