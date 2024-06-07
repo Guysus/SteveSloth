@@ -29,6 +29,8 @@ protected: //PRIVATE CONST VARIABLES
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
 protected: // PRIVATE VARIABLES 
+	UMyEnemyStateComponent* StateMachine;
+
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle StartPatrolTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
@@ -60,6 +62,7 @@ public:	// CONSTRUCTOR HERE
 
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;

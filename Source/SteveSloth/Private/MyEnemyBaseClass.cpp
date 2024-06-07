@@ -15,7 +15,7 @@ AMyEnemyBaseClass::AMyEnemyBaseClass()
 	PrimaryActorTick.bCanEverTick = true;
 
 	// Create the StateMachine Component on the Enemy Base Class
-	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	//StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 
 	// Initialize Variables before use
 	bIsDead = false;
@@ -75,14 +75,30 @@ void AMyEnemyBaseClass::BeginPlay()
 	StartingLocation = GetActorTransform();
 }
 
+void AMyEnemyBaseClass::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+	Player = nullptr;
+	MyWorld = nullptr;
+	HitAnim = nullptr;
+	AmmoType = nullptr;
+	IdleAnim = nullptr;
+	MoveAnim = nullptr;
+	DeathAnim = nullptr;
+	AttackAnim = nullptr;
+	FrozenAnim = nullptr;
+	//StateMachine = nullptr;
+	ConfusionAnim = nullptr;
+	RangedAttackAnim = nullptr;
+}
+
 void AMyEnemyBaseClass::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-	// Check if Enemy is Dead
+	//Check if Enemy is Dead
 	if (CurrentHealth <= 0 && !bIsDead)
 	{
-		StateMachine->ChangeState(StateMachine->GetState(Die));
+		//StateMachine->ChangeState(StateMachine->GetState(Die));
 		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyEnemyBaseClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
 		bIsDead = true;
 	}
@@ -90,7 +106,7 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 	else if (bIsFrozen && !bIsCurrentlyFrozen)
 	{
 		//set state to idle to frozen
-		StateMachine->ChangeState(StateMachine->GetState(Frozen));
+		//StateMachine->ChangeState(StateMachine->GetState(Frozen));
 
 		bIsIdle = true;
 		bIsFrozen = true;
@@ -105,7 +121,7 @@ void AMyEnemyBaseClass::Tick(float DeltaTime)
 	//Check if confused
 	else if (bIsConfused && !bIsCurrentlyConfused) 
 	{
-		StateMachine->ChangeState(StateMachine->GetState(Confused));
+		//StateMachine->ChangeState(StateMachine->GetState(Confused));
 
 		bIsConfused = true;
 		bIsCurrentlyConfused = true;
