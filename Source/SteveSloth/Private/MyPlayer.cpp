@@ -18,7 +18,7 @@ AMyPlayer::AMyPlayer()
 
 	CameraArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Camera Arm"));
 	PlayerCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("Player Camera"));
-
+	
 	CameraArm->SetupAttachment((RootComponent));
 	CameraArm->bUsePawnControlRotation = true;
 	CameraArm->TargetArmLength = 200;
@@ -39,7 +39,12 @@ AMyPlayer::AMyPlayer()
 	bIsMoving = false;
 	bDidDodge = false;
 	bIsAimMode = false;
-	bIsGrapplingHookUnlocked = false;
+	bDidGrapple = false;
+	bIsShovelUnlocked = false;
+	bIsMagneticUnlocked = false;
+	bIsGrapplingUnlocked = false;
+	bIsPropellerUnlocked = false;
+	bIsClimbingClawUnlocked = false;
 
 	// Health Stuff
 	MaxHealth = 0;
@@ -47,7 +52,7 @@ AMyPlayer::AMyPlayer()
 
 	// Collection Stuff
 	LeavesFound = 0;
-
+	
 	// Movement Stuff
 	WalkSpeed = 250;
 	SprintSpeed = 400;
@@ -56,12 +61,14 @@ AMyPlayer::AMyPlayer()
 
 	// IMC Inputs
 	IMCInputs = Normal;
+
+	
 }
 
 void AMyPlayer::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 	const FAttachmentTransformRules attachmentRules(EAttachmentRule::SnapToTarget, EAttachmentRule::SnapToTarget, EAttachmentRule::KeepWorld, false);
 	WrenchMesh->AttachToComponent(GetMesh(), attachmentRules, "WrenchSocket");
 	WrenchHitbox->AttachToComponent(WrenchMesh, attachmentRules, "WrenchEnd");
@@ -154,11 +161,6 @@ void AMyPlayer::RemoveEucalyptus(int eucalyptusAmount)
 	PlayerHUD->EucalyptusCountText(EucalyptusCount);
 }
 
-void AMyPlayer::AddGrapplingHook()
-{
-	bIsGrapplingHookUnlocked = true;
-}
-
 void AMyPlayer::StartMeleeAttack()
 {
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
@@ -210,26 +212,6 @@ void AMyPlayer::EquipAmmo(EAmmoType ammoType)
 	PlayerHUD->AmmoIcon(EquippedAmmoIcon, EquippedCurrentAmmo);
 }
 
-int AMyPlayer::GetNeededAmmoIndex()
-{
-	int neededAmmoIndex = 0;
-	float ammoRatio = 1.0f;
-
-	for (int i = 0; i < Ammos.Num(); i++)
-	{
-		if (CurrentAmmos[i]/MaxAmmos[i] < ammoRatio)
-		{
-			neededAmmoIndex = i;
-		}
-		else
-		{
-			continue;
-		}
-	}
-
-	return neededAmmoIndex;
-}
-
 void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
@@ -256,9 +238,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PTurning, ETriggerEvent::Triggered, this, &AMyPlayer::CamTurn);
 		inputComponent->BindAction(PTurning, ETriggerEvent::Completed, this, &AMyPlayer::CamTurn);
 
-		inputComponent->BindAction(PPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
-		inputComponent->BindAction(PPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
-
+		inputComponent->BindAction(PCamPitch, ETriggerEvent::Triggered, this, &AMyPlayer::CamPitch);
+		inputComponent->BindAction(PCamPitch, ETriggerEvent::Completed, this, &AMyPlayer::CamPitch);
+		
 		inputComponent->BindAction(PJumping, ETriggerEvent::Triggered, this, &AMyPlayer::JumpOne);
 		inputComponent->BindAction(PJumping, ETriggerEvent::Completed, this, &AMyPlayer::JumpOne);
 
@@ -266,11 +248,11 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 		inputComponent->BindAction(PSprint, ETriggerEvent::Completed, this, &AMyPlayer::SprintStop);
 
 		inputComponent->BindAction(PInteract, ETriggerEvent::Triggered, this, &AMyPlayer::InteractWith);
-		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractWith);
+		inputComponent->BindAction(PInteract, ETriggerEvent::Completed, this, &AMyPlayer::InteractOver);
 
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Triggered, this, &AMyPlayer::IsCrouching);
 		inputComponent->BindAction(PCrouch, ETriggerEvent::Completed, this, &AMyPlayer::CrouchStop);
-
+		
 		inputComponent->BindAction(PDodge, ETriggerEvent::Triggered, this, &AMyPlayer::Dodge);
 		inputComponent->BindAction(PDodge, ETriggerEvent::Completed, this, &AMyPlayer::Dodge);
 
@@ -282,6 +264,9 @@ void AMyPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 		inputComponent->BindAction(PAiming, ETriggerEvent::Triggered, this, &AMyPlayer::Aiming);
 		inputComponent->BindAction(PAiming, ETriggerEvent::Completed, this, &AMyPlayer::AimingStop);
+
+		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Triggered, this, &AMyPlayer::SwitchAbilities);
+		inputComponent->BindAction(PSwitchAbilities, ETriggerEvent::Completed, this, &AMyPlayer::SwitchAbilities);
 	
 		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Triggered, this, &AMyPlayer::MeleeAttack);
 		inputComponent->BindAction(PMeleeAttack, ETriggerEvent::Completed, this, &AMyPlayer::MeleeAttackStop);
@@ -317,6 +302,35 @@ void AMyPlayer::MoveLeftRight(const FInputActionValue& Value)
 	//const FRotator NewRotation = FRotationMatrix::MakeFromX(Sideways).Rotator();
 	//SetActorRotation(NewRotation);
 	// Add Animations here with changing of mesh direction
+}
+
+void AMyPlayer::SwitchAbilities(const FInputActionValue& Value)
+{
+}
+
+void AMyPlayer::AddGrapplingHook()
+{
+	bIsGrapplingUnlocked = true;
+}
+
+void AMyPlayer::AddClimbingClaw()
+{
+	bIsClimbingClawUnlocked = true;
+}
+
+void AMyPlayer::AddShovel()
+{
+	bIsShovelUnlocked = true;
+}
+
+void AMyPlayer::AddPropeller()
+{
+	bIsPropellerUnlocked = true;
+}
+
+void AMyPlayer::AddMagnetic()
+{
+	bIsMagneticUnlocked = true;
 }
 
 void AMyPlayer::JumpOne(const FInputActionValue& Value)
@@ -367,6 +381,12 @@ void AMyPlayer::InteractWith(const FInputActionValue& Value)
 		// Should use Interfaces or Delegates here
 		// Check whether the object we are trying to interact with can be interacted with 
 	}
+}
+
+
+void AMyPlayer::InteractOver(const FInputActionValue& Value)
+{
+	
 }
 
 void AMyPlayer::MeleeAttack(const FInputActionValue& Value)
@@ -441,7 +461,7 @@ void AMyPlayer::LockOn(const FInputActionValue& Value)
 void AMyPlayer::Aiming(const FInputActionValue& Value)
 {
 	//if statement to prevent offset to be applied with each tick
-	if (!bIsAimMode)
+	if (!bIsAimMode) 
 	{
 		FVector ZoomOffset = FVector(0, 10, 0);
 		CameraArm->TargetArmLength = 100;
@@ -467,5 +487,25 @@ void AMyPlayer::CamTurn(const FInputActionValue& Value)
 void AMyPlayer::CamPitch(const FInputActionValue& Value)
 {
 	float const TurnSpeed = Value.Get<float>();
-	AddControllerPitchInput(TurnSpeed * RotationSpeed * GetWorld()->GetDeltaSeconds());
+	AddControllerPitchInput(TurnSpeed * PitchSpeed * GetWorld()->GetDeltaSeconds());
+}
+
+float AMyPlayer::GetNeededAmmoIndex()
+{
+	int neededAmmoIndex = 0;
+	float ammoRatio = 1.0f;
+
+	for (int i = 0; i < Ammos.Num(); i++)
+	{
+		if (CurrentAmmos[i] / MaxAmmos[i] < ammoRatio)
+		{
+			neededAmmoIndex = i;
+		}
+		else
+		{
+			continue;
+		}
+	}
+
+	return neededAmmoIndex;
 }
