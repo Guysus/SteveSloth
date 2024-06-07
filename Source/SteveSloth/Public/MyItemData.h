@@ -23,14 +23,20 @@ enum class EItemType
 	Leaf UMETA(DisplayName = "Leaf"),
 	Grub UMETA(DisplayName = "Grub"),
 	Shovel UMETA(DisplayName = "Shovel"),
-	RedBud UMETA(DisplayName = "RedBud"),
-	BlueBud UMETA(DisplayName = "BlueBud"),
-	GreenBud UMETA(DisplayName = "GreenBud"),
 	Magnetic UMETA(DisplayName = "Magnetic"),
 	Propeller UMETA(DisplayName = "Propeller"),
 	Eucalyptus UMETA(DisplayName = "Eucalyptus"),
+	GreenBud UMETA(DisplayName = "Green Bud"),
+	BlueBud UMETA(DisplayName = "Blue Bud"),
+	RedBud UMETA(DisplayName = "Red Bud"),
+	PebbleAmmo UMETA(DisplayName = "Pebble Ammo"),
+	FirecrackerAmmo UMETA(DisplayName = "Firecracker Ammo"),
+	WaterBalloonAmmo UMETA(DisplayName = "Water Balloon Ammo"),
+	PoisonSacAmmo UMETA(DisplayName = "Poison Sac Ammo"),
+	ChristmasBeetleAmmo UMETA(DisplayName = "Christmas Beetle Ammo"),
+	BigRockAmmo UMETA(DisplayName = "Big Rock Ammo"),
+	GrapplingHook UMETA(DisplayName = "Grappling Hook"),
 	ClimbingClaw UMETA(DisplayName = "Climbing Claw"),
-	GrapplingHook UMETA(DisplayName = "GrapplingHook")
 };
 
 USTRUCT(BlueprintType)
