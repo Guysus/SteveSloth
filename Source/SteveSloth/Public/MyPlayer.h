@@ -10,9 +10,10 @@
 
 #pragma once
 
-// INCLUDES HERE
+ // INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
+#include "MyLevelManager.h"
 #include "EnhancedInputComponent.h"
 #include "Camera/CameraComponent.h"
 #include "MyPlayerHeadsUpDisplay.h"
@@ -62,9 +63,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
 
@@ -118,7 +119,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 
@@ -165,15 +166,6 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 protected: // PROTECTED INHERITABLE VARIABLES
 	FTimerHandle GrappleTimerHandle;
 
-public: // GETTERS/ACCESSORS
-	float GetMaxHealth() { return MaxHealth; }
-	float GetCurrentHealth() { return CurrentHealth; }
-	float GetNeededAmmoIndex();
-
-public: // SETTERS/MUTATORS
-	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
-	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
-
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
@@ -188,18 +180,20 @@ private: // PRIVATE VARIABLES
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
-	
+
+	AMyLevelManager* LevelManager;
+
 	EMappingInputs IMCInputs;
 	EAbility Ability;
-	
+
 	float CurrentHealth;
-	
+
 	int GrubCount;
 	int LeavesFound;
 	int EucalyptusCount;
 	int EquippedMaxAmmo;
 	int EquippedCurrentAmmo;
-	
+
 	bool bIsMeleeAnimationPlaying;
 	bool bIsMoving;
 	bool bDidDodge;
@@ -211,11 +205,19 @@ private: // PRIVATE VARIABLES
 	bool bIsGrapplingUnlocked;
 	bool bIsPropellerUnlocked;
 	bool bIsClimbingClawUnlocked;
-	
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
-	
+
+public: // GETTERS/ACCESSORS
+	float GetMaxHealth() { return MaxHealth; }
+	float GetCurrentHealth() { return CurrentHealth; }
+	float GetNeededAmmoIndex();
+
+public: // SETTERS/MUTATORS
+	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
+	void SetCurrentHealth(float amount) { CurrentHealth = CurrentHealth + amount; }
+
 public:	// CONSTRUCTOR HERE
 	AMyPlayer();
 
