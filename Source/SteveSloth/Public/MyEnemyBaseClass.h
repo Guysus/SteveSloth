@@ -56,16 +56,16 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	float RangedAttackRange;
 	float MaxConfusionRange;
 
-	bool bIsFrozen;
-	bool bIsCurrentlyFrozen;
-	bool bIsConfused;
-	bool bIsCurrentlyConfused;
 	bool bIsDead;
 	bool bIsIdle;
+	bool bIsFrozen;
 	bool bIsChasing;
+	bool bIsConfused;
 	bool bIsPatroling;
 	bool bIsAttackingMelee;
+	bool bIsCurrentlyFrozen;
 	bool bIsAttackingRanged;
+	bool bIsCurrentlyConfused;
 
 	FTransform StartingLocation;
 
