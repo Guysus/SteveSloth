@@ -10,7 +10,7 @@
 
 #pragma once
 
-// INCLUDES HERE
+ // INCLUDES HERE
 #include "MyAmmoData.h"
 #include "CoreMinimal.h"
 #include "MyLevelManager.h"
@@ -20,6 +20,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/Character.h"
 #include "EnhancedInputSubsystems.h"
+#include "Kismet/KismetMathLibrary.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -46,15 +47,25 @@ enum EAmmoType
 	BigRock
 };
 
+UENUM(BlueprintType)
+enum EAbility
+{
+	GrapplingHook,
+	ClimbingClaw,
+	Shovel,
+	Propeller,
+	Magnetic
+};
+
 UCLASS()
 class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;
-	
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float RotationSpeed;
 
@@ -108,7 +119,7 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PCrouch;
-	
+
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PDodge;
 
@@ -120,6 +131,15 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 
 	UPROPERTY(EditAnywhere, Category = "Input|Actions")
 	UInputAction* PAiming;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PSwitchAbilities;
+
+	UPROPERTY(EditAnywhere, Category = "Input|Actions")
+	UInputAction* PCamPitch;
+
+	UPROPERTY(BlueprintReadOnly, EditAnywhere, Category = "Animations")
+	UAnimSequence* GrapplingHookSequence;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Animation")
 	UAnimationAsset* MeleeAttackAnim;
@@ -133,24 +153,41 @@ public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyAmmoData"), Category = "Data")
 	FDataTableRowHandle AmmoDataTable;
 
+	// You can expose some of your collision query data as properties to help customize and debug 
+	// Here we expose the collision channel we want to run the query on, and set it to only hit Pawns.
+	UPROPERTY(EditAnywhere, Category = "Collision")
+	TEnumAsByte<ECollisionChannel> TraceChannelProperty = ECC_Pawn;
+
+
+	FVector TraceEnd;
+	FVector TraceStart;
+	FVector WallHitLocation;
+
+protected: // PROTECTED INHERITABLE VARIABLES
+	FTimerHandle GrappleTimerHandle;
+
 	UPROPERTY(EditAnywhere)
 	TSubclassOf<UMyPlayerHeadsUpDisplay> PlayerHUDClass;
 
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
-	
+
 private: // PRIVATE VARIABLES
 	TArray<FMyAmmoData*> Ammos;
+	TArray<EAbility*> Abilities;
 	UTexture2D* EquippedAmmoIcon;
 	TArray<UTexture2D*> AmmoIcons;
 	USpringArmComponent* CameraArm;
 	UCameraComponent* PlayerCamera;
 	UEnhancedInputLocalPlayerSubsystem* CurrentIMC;
+
 	AMyLevelManager* LevelManager;
-	
+
 	EMappingInputs IMCInputs;
+	EAbility Ability;
+
 	float CurrentHealth;
-	
+
 	int GrubCount;
 	int LeavesFound;
 	int EucalyptusCount;
@@ -161,15 +198,21 @@ private: // PRIVATE VARIABLES
 	bool bIsMoving;
 	bool bDidDodge;
 	bool bIsAimMode;
-	bool bIsGrapplingHookUnlocked;
+	bool bDidGrapple;
+	bool bIsClimbing;
+	bool bIsShovelUnlocked;
+	bool bIsMagneticUnlocked;
+	bool bIsGrapplingUnlocked;
+	bool bIsPropellerUnlocked;
+	bool bIsClimbingClawUnlocked;
 
 	TArray<int> MaxAmmos;
 	TArray<int> CurrentAmmos;
-	
+
 public: // GETTERS/ACCESSORS
 	float GetMaxHealth() { return MaxHealth; }
 	float GetCurrentHealth() { return CurrentHealth; }
-	int GetNeededAmmoIndex();
+	float GetNeededAmmoIndex();
 
 public: // SETTERS/MUTATORS
 	void SetMaxHealth(float amount) { MaxHealth = MaxHealth + amount; }
@@ -181,12 +224,16 @@ public:	// CONSTRUCTOR HERE
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
-	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
 
 public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
+	void AddShovel();
+	void AddMagnetic();
+	void AddPropeller();
+	void AddClimbingClaw();
+	void AddGrapplingHook();
 	void UseAmmo(int ammoAmount);
 	void AddGrubs(int grubAmount);
 	void PickUpAmmo(int ammoAmount);
@@ -197,7 +244,6 @@ public:	// PUBLIC ACCESS ANYWHERE FUNCTIONS
 
 	void AddEucalyptus(int eucalyptusAmount);
 	void RemoveEucalyptus(int eucalyptusAmount);
-	void AddGrapplingHook();
 
 	void StartMeleeAttack();
 	void EndMeleeAttack();
@@ -216,9 +262,11 @@ private: // PRIVATE INTERNAL FUNCTIONS
 	void AimingStop(const FInputActionValue& Value);
 	void IsSprinting(const FInputActionValue& Value);
 	void IsCrouching(const FInputActionValue& Value);
+	void InteractOver(const FInputActionValue& Value);
 	void InteractWith(const FInputActionValue& Value);
 	void MeleeAttack(const FInputActionValue& Value);
 	void MeleeAttackStop(const FInputActionValue& Value);
 	void MoveLeftRight(const FInputActionValue& Value);
 	void MoveForwardBack(const FInputActionValue& Value);
+	void SwitchAbilities(const FInputActionValue& Value);
 };
