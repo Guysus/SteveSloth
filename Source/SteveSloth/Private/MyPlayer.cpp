@@ -110,6 +110,8 @@ void AMyPlayer::BeginPlay()
 			}
 		}
 	}
+
+	RespawnPoint = GetActorLocation();
 }
 
 void AMyPlayer::Tick(float DeltaTime)

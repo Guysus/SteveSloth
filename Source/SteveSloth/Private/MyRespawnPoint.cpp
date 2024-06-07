@@ -20,7 +20,14 @@ AMyRespawnPoint::AMyRespawnPoint()
 void AMyRespawnPoint::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
+	if (Player)
+	{
+		Steve = Cast<AMyPlayer>(Player);
+	}
+
 }
 
 void AMyRespawnPoint::Tick(float DeltaTime)
@@ -31,6 +38,9 @@ void AMyRespawnPoint::Tick(float DeltaTime)
 
 void AMyRespawnPoint::OnHitboxOverlapBegin(UPrimitiveComponent* OverlappedComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-
+	if (OtherActor == Player)
+	{
+		Steve->SetRespawnPoint(Steve->GetActorLocation());
+	}
 }
 
