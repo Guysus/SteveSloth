@@ -30,7 +30,7 @@ void UMyPlayerHeadsUpDisplay::AmmoCountText(int ammoAmount)
 	}
 	else
 	{
-		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 0, 0, 1))); 
+		AmmoCountTextBlock->SetColorAndOpacity(FSlateColor(FLinearColor(1, 0, 0, 1)));
 	}
 }
 
@@ -45,5 +45,23 @@ void UMyPlayerHeadsUpDisplay::AmmoIcon(UTexture2D* iconTexture, int ammoAmount)
 	else
 	{
 		AmmoIconImageBlock->SetOpacity(0.3f);
+	}
+}
+
+void UMyPlayerHeadsUpDisplay::HealthBarAmount(float currentHealth, float maxHealth)
+{
+	HealthBar->SetPercent(currentHealth / maxHealth);
+
+	if (HealthBar->GetPercent() > 0.66f)
+	{
+		HealthBar->SetFillColorAndOpacity(FLinearColor(0, 1, 0, 1));
+	}
+	else if (HealthBar->GetPercent() > 0.25f)
+	{
+		HealthBar->SetFillColorAndOpacity(FLinearColor(1, 1, 0, 1));
+	}
+	else
+	{
+		HealthBar->SetFillColorAndOpacity(FLinearColor(1, 0, 0, 1));
 	}
 }
