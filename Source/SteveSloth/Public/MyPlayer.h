@@ -62,6 +62,9 @@ class STEVESLOTH_API AMyPlayer : public ACharacter
 {
 	GENERATED_BODY()
 
+private: //PRIVATE CONST VARIABLES
+	const float RESPAWN_TIMER = 5.0f;
+
 public: // DETAILS PANEL VARIABLES (UPROPERTY) NEED TO BE PUBLIC
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	float MaxHealth;

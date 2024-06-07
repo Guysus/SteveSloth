@@ -15,6 +15,9 @@ AMyRespawnPoint::AMyRespawnPoint()
 {
 	PrimaryActorTick.bCanEverTick = true;
 
+	RespawnHitBox = CreateDefaultSubobject<UBoxComponent>(TEXT("Hit Box"));
+	SetRootComponent(RespawnHitBox);
+	RespawnHitBox->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
 }
 
 void AMyRespawnPoint::BeginPlay()
@@ -28,6 +31,7 @@ void AMyRespawnPoint::BeginPlay()
 		Steve = Cast<AMyPlayer>(Player);
 	}
 
+	RespawnHitBox->OnComponentBeginOverlap.AddDynamic(this, &AMyRespawnPoint::OnHitboxOverlapBegin);
 }
 
 void AMyRespawnPoint::Tick(float DeltaTime)

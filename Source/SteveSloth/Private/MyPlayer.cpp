@@ -123,6 +123,11 @@ void AMyPlayer::HitPlayer(float damageAmount)
 {
 	CurrentHealth = CurrentHealth - damageAmount;
 	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
+
+	if (CurrentHealth <= 0)
+	{
+		Death();
+	}
 }
 
 void AMyPlayer::SetMaxHealth(float amount)
@@ -186,6 +191,11 @@ void AMyPlayer::EndMeleeAttack()
 {
 	WrenchHitbox->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	bIsMeleeAnimationPlaying = false;
+}
+
+void AMyPlayer::Death()
+{
+
 }
 
 void AMyPlayer::UseAmmo(int ammoAmount)
