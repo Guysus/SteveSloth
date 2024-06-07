@@ -13,6 +13,7 @@
 void UMyGenericEnemyPatrolState::EnterState()
 {
 	Player = USteveSingleton::GetSteve()->GetPlayerCharacter();
+
 	if (Player)
 	{
 		Steve = Cast<AMyPlayer>(Player);

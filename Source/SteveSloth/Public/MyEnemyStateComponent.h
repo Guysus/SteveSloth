@@ -45,9 +45,7 @@ protected: // PRIVATE INTERNAL VARIABLES
 
 public: // GETTERS/ACCESSORS
 	TArray<UMyEnemyBaseState*> GetStateList() {return States; }
-	UMyEnemyBaseState* GetCurrentState() const { return CurrentState; }
-	UMyEnemyBaseState* GetState(EStates wantedState) const { return States[wantedState]; }
-	void SetStateList(UMyEnemyBaseState* newState) { States.Add(newState); }
+	UMyEnemyBaseState* GetState(EStates wantedState) { return States[wantedState]; }
 	void ClearStateList() { States.Empty(); }
 
 public:	// CONSTRUCTOR HERE

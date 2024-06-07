@@ -12,7 +12,7 @@
 
 AMyCrocodileEnemyClass::AMyCrocodileEnemyClass()
 {
-
+	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
 }
 
 void AMyCrocodileEnemyClass::BeginPlay()

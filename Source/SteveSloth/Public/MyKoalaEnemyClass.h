@@ -29,6 +29,8 @@ protected: //PRIVATE CONST VARIABLES
 	const float RANGED_RESET_TIMER_AMOUNT = 1.0f;
 
 protected: // PRIVATE VARIABLES 
+	UMyEnemyStateComponent* StateMachine;
+
 	FTimerHandle StartFleeTimerHandle;
 	FTimerHandle StartPatrolTimerHandle;
 	FTimerHandle IdleResetTimerHandle;
