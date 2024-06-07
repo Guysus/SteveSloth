@@ -19,7 +19,7 @@ void UMyGenericEnemyConfusionState::EnterState()
 
 void UMyGenericEnemyConfusionState::ExitState() 
 {
-
+	
 }
 
 void UMyGenericEnemyConfusionState::UpdateState(float deltaTime) 

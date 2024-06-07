@@ -38,25 +38,23 @@ class STEVESLOTH_API UMyEnemyStateComponent : public UActorComponent
 	GENERATED_BODY()
 
 public: // PROTECTED DETAILS PANEL VARIABLES 
-	TArray<UMyEnemyBaseState*> States;
+	TArray<TWeakObjectPtr<UMyEnemyBaseState>> States;
 
-protected: // PRIVATE INTERNAL VARIABLES
-	UMyEnemyBaseState* CurrentState;
-
+public: // PRIVATE INTERNAL VARIABLES
+	TWeakObjectPtr<UMyEnemyBaseState> CurrentState;
+	
 public: // GETTERS/ACCESSORS
-	TArray<UMyEnemyBaseState*> GetStateList() {return States; }
-	UMyEnemyBaseState* GetCurrentState() const { return CurrentState; }
-	UMyEnemyBaseState* GetState(EStates wantedState) const { return States[wantedState]; }
-	void SetStateList(UMyEnemyBaseState* newState) { States.Add(newState); }
-	void ClearStateList() { States.Empty(); }
+	TArray<TWeakObjectPtr<UMyEnemyBaseState>> GetStateList() {return States; }
+	TWeakObjectPtr<UMyEnemyBaseState> GetState(EStates wantedState) { return States[wantedState]; }
 
 public:	// CONSTRUCTOR HERE
 	UMyEnemyStateComponent();
 
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-	void ChangeState(UMyEnemyBaseState* newState);
+	void ChangeState(TWeakObjectPtr<UMyEnemyBaseState> newState);
 };

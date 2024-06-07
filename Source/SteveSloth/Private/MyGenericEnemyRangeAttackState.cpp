@@ -21,7 +21,7 @@ void UMyGenericEnemyRangeAttackState::EnterState()
 
 void UMyGenericEnemyRangeAttackState::ExitState()
 {
-
+	
 }
 
 void UMyGenericEnemyRangeAttackState::UpdateState(float deltaTime)

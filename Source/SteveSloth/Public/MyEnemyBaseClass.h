@@ -32,8 +32,8 @@ private: //PRIVATE CONST VARIABLES
 	const float DESPAWN_TIMER_AMOUNT = 2.0f;
 
 protected: // PROTECTED DETAILS PANEL VARIABLES 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	UMyEnemyStateComponent* StateMachine;
+	//UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	//UMyEnemyStateComponent* StateMachine;
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (RowType = "MyEnemyData"), Category = "Data")
 	FDataTableRowHandle EnemyDataTable;
@@ -110,6 +110,7 @@ public:	// CONSTRUCTOR HERE
 
 protected: // INITIALIZE INHERITABLE FUNCTIONS
 	virtual void BeginPlay() override;
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
 
 public:	// UPDATE ACCESS ANYWHERE FUNCTIONS
 	virtual void Tick(float DeltaTime) override;
