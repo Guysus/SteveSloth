@@ -179,7 +179,7 @@ protected: // PROTECTED INHERITABLE VARIABLES
 	UPROPERTY()
 	UMyPlayerHeadsUpDisplay* PlayerHUD;
 
-	UPROPERTY(BlueprintReadOnly)
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	bool bIsDead;
 
 private: // PRIVATE VARIABLES

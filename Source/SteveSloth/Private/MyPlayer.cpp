@@ -203,6 +203,8 @@ void AMyPlayer::Death()
 
 void AMyPlayer::Respawn()
 {
+	CurrentHealth = MaxHealth;
+	PlayerHUD->HealthBarAmount(CurrentHealth, MaxHealth);
 	SetActorLocation(RespawnPoint);
 	bIsDead = false;
 }
