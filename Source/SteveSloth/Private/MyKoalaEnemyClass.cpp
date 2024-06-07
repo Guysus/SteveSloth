@@ -71,7 +71,6 @@ void AMyKoalaEnemyClass::BeginPlay()
 		StateMachine->States.Add(FrozenState);
 		StateMachine->States.Add(ConfusedState);
 		StateMachine->States.Add(DieState);
-		StateMachine->States.Add(IdleState);
 	}
 }
 

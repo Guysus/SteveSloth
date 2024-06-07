@@ -29,8 +29,7 @@ enum EStates
 	RangedAttack,
 	Frozen,
 	Confused,
-	Die,
-	Test
+	Die
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
