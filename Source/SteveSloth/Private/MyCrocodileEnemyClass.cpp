@@ -1,6 +1,6 @@
 /****************************************************************************************
  * Copyright: SteveSloth
- * Name: Elad Saretzky
+ * Name: Elad Saretzky, Brandon Thomas
  * Script: MyCrocodileEnemyClass.cpp
  * Date: May 10, 2024
  * Description: Does all of the specific to Crocodile things
@@ -9,15 +9,70 @@
  ****************************************************************************************/
 
 #include "MyCrocodileEnemyClass.h"
+#include "MyCrocodileEnemyClass.h"
+#include "MyGenericEnemyIdleState.h"
+#include "MyGenericEnemyPatrolState.h"
+#include "MyGenericEnemyChaseState.h"
+#include "MyGenericEnemyFleeState.h"
+#include "MyGenericEnemyAttackState.h"
+#include "MyGenericEnemyRangeAttackState.h"
+#include "MyGenericEnemyFrozenState.h"
+#include "MyGenericEnemyConfusionState.h"
+#include "MyGenericEnemyDieState.h"
 
 AMyCrocodileEnemyClass::AMyCrocodileEnemyClass()
 {
 	StateMachine = CreateDefaultSubobject<UMyEnemyStateComponent>(TEXT("State Machine"));
+	StateMachine->States.Empty();
+
+	bIsDead = false;
+	bIsConfused = false;
+	bIsIdle = false;
+	bIsFrozen = false;
+	bIsChasing = false;
+	bIsPatroling = false;
+	bIsAttackingMelee = false;
+	bIsCurrentlyFrozen = false;
+	bIsCurrentlyConfused = false;
+	bIsAttackingRanged = false;
 }
 
 void AMyCrocodileEnemyClass::BeginPlay()
 {
 	Super::BeginPlay();
+
+	IdleState = NewObject<UMyGenericEnemyIdleState>();
+	PatrolState = NewObject<UMyGenericEnemyPatrolState>();
+	ChaseState = NewObject<UMyGenericEnemyChaseState>();
+	FleeState = NewObject<UMyGenericEnemyFleeState>();
+	AttackState = NewObject<UMyGenericEnemyAttackState>();
+	RangedAttackState = NewObject<UMyGenericEnemyRangeAttackState>();
+	FrozenState = NewObject<UMyGenericEnemyFrozenState>();
+	ConfusedState = NewObject<UMyGenericEnemyConfusionState>();
+	DieState = NewObject<UMyGenericEnemyDieState>();
+
+	IdleState->SetEnemyBaseClass(this);
+	PatrolState->SetEnemyBaseClass(this);
+	ChaseState->SetEnemyBaseClass(this);
+	FleeState->SetEnemyBaseClass(this);
+	AttackState->SetEnemyBaseClass(this);
+	RangedAttackState->SetEnemyBaseClass(this);
+	FrozenState->SetEnemyBaseClass(this);
+	ConfusedState->SetEnemyBaseClass(this);
+	DieState->SetEnemyBaseClass(this);
+
+	if (StateMachine)
+	{
+		StateMachine->States.Add(IdleState);
+		StateMachine->States.Add(PatrolState);
+		StateMachine->States.Add(ChaseState);
+		StateMachine->States.Add(FleeState);
+		StateMachine->States.Add(AttackState);
+		StateMachine->States.Add(RangedAttackState);
+		StateMachine->States.Add(FrozenState);
+		StateMachine->States.Add(ConfusedState);
+		StateMachine->States.Add(DieState);
+	}
 }
 
 void AMyCrocodileEnemyClass::Tick(float DeltaTime)
@@ -32,28 +87,29 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 		bIsAttackingMelee = true;
 
 		//reset other state bools & clear start flee timer
-		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		bIsIdle = false;
 		bIsPatroling = false;
 		bIsChasing = false;
 	}
 	//if the enemy is within the chasing distance
-	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange && !bIsChasing)
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) <= ChaseRange &&
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
+		!bIsChasing)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Chase));
 		bIsChasing = true;
 
 		//reset other state bools & clear start flee timer
-		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
 		bIsIdle = false;
 		bIsPatroling = false;
 		bIsAttackingMelee = false;
 	}
-	//if the enemy is still, do idle for a bit
-	else if (UKismetMathLibrary::Vector_IsNearlyZero(AMyCrocodileEnemyClass::GetVelocity(), IDLE_VELOCITY_TOLERANCE) && !bIsIdle)
+	//trigger idle state
+	else if (FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > ChaseRange &&
+		FVector::Dist(this->GetActorLocation(), Player->GetActorLocation()) > MeleeAttackRange &&
+		!bIsIdle)
 	{
 		StateMachine->ChangeState(StateMachine->GetState(Idle));
-		GetWorldTimerManager().SetTimer(StartFleeTimerHandle, this, &AMyCrocodileEnemyClass::StartFleeState, IDLE_TIMER_AMOUNT, false);
 		bIsIdle = true;
 
 		//reset other state bools
@@ -61,31 +117,34 @@ void AMyCrocodileEnemyClass::Tick(float DeltaTime)
 		bIsPatroling = false;
 		bIsAttackingMelee = false;
 	}
-	else if (FVector::Dist(this->GetActorLocation(), StartingLocation.GetLocation()) <= PatrolRange && !bIsPatroling)
+
+	if (CurrentHealth <= 0 && !bIsDead)
 	{
-		StateMachine->ChangeState(StateMachine->GetState(Patrol));
+		bIsDead = true;
+		bIsIdle = true;
+		bIsChasing = true;
+		bIsAttackingMelee = true;
 		bIsPatroling = true;
 
-		//reset other state bools & clear start flee timer
-		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
-		bIsIdle = false;
-		bIsChasing = false;
-		bIsAttackingMelee = false;
-	}
-
-	if (CurrentHealth <= 0)
-	{
-		GetWorldTimerManager().ClearTimer(StartFleeTimerHandle);
+		GetWorldTimerManager().SetTimer(DespawnTimerHandle, this, &AMyCrocodileEnemyClass::Despawn, DESPAWN_TIMER_AMOUNT, false);
 	}
 }
 
-void AMyCrocodileEnemyClass::StartFleeState()
+void AMyCrocodileEnemyClass::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
-	// ---- change to flee state here ----
-	GetWorldTimerManager().SetTimer(IdleResetTimerHandle, this, &AMyCrocodileEnemyClass::IdleReset, IDLE_RESET_TIMER_AMOUNT, false);
+	IdleState = nullptr;
+	PatrolState = nullptr;
+	ChaseState = nullptr;
+	FleeState = nullptr;
+	AttackState = nullptr;
+	RangedAttackState = nullptr;
+	FrozenState = nullptr;
+	ConfusedState = nullptr;
+	DieState = nullptr;
 }
 
-void AMyCrocodileEnemyClass::IdleReset()
+void AMyCrocodileEnemyClass::Despawn() 
 {
-	bIsIdle = false;
+	//to use on destoryed event in blueprints to call crocodile end cutscene
+	this->Destroy();
 }

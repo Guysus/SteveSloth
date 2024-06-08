@@ -25,7 +25,7 @@ void UMyGenericEnemyDieState::UpdateState(float deltaTime)
 	// Play the Animation for Dieing
 	if (Myself != nullptr && !IsAnimationRunning)
 	{
-		Myself->GetMesh()->PlayAnimation(Myself->DeathAnim, true);
+		Myself->GetMesh()->PlayAnimation(Myself->DeathAnim, false);
 		IsAnimationRunning = true;
 	}
 }
